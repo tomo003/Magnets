@@ -18,14 +18,22 @@ namespace basecross{
 		auto texturePath = mediaPath + L"Texture/";//「Textures」フォルダのパスを連結する
 
 		wstring strTexture = texturePath + L"pcube01.png";
-		app->RegisterTexture(L"Player_TX", strTexture);
+		app->RegisterTexture(L"Player01_TX", strTexture);
+		strTexture = texturePath + L"pcube02.png";
+		app->RegisterTexture(L"Player02_TX", strTexture);
+		strTexture = texturePath + L"pcube03.png";
+		app->RegisterTexture(L"Player03_TX", strTexture);
 
 
 		//モデルが入っているフォルダのパスを文字列として取得する
 		auto modelPath = mediaPath + L"Model/";//「Model」フォルダのパスを連結する
 
-		auto staticPlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"01.bmf");
-		App::GetApp()->RegisterResource(L"Player_MESH", staticPlayerMesh);
+		auto staticNormalPlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"01.bmf");
+		App::GetApp()->RegisterResource(L"Player01_MESH", staticNormalPlayerMesh);
+		auto staticRedPlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"02.bmf");
+		App::GetApp()->RegisterResource(L"Player02_MESH", staticRedPlayerMesh);
+		auto staticBluePlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"03.bmf");
+		App::GetApp()->RegisterResource(L"Player03_MESH", staticBluePlayerMesh);
 	}
 
 	//--------------------------------------------------------------------------------------

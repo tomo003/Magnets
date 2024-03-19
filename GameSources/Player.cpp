@@ -20,7 +20,7 @@ namespace basecross {
 		);
 
 		auto ptrDraw = AddComponent<BcPNTStaticModelDraw>();
-		ptrDraw->SetMeshResource(L"Player_MESH");
+		ptrDraw->SetMeshResource(L"Player01_MESH");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
 	}
 }
