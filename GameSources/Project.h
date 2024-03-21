@@ -13,6 +13,7 @@
 #include "Character.h"
 #include "Player.h"
 #include "Ground.h"
+#include "TestStage.h"
 
 #include "PlayerMagTestStage.h"
 
