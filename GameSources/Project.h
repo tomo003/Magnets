@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Ground.h"
 #include "TestStage.h"
+#include "GameObjectSample.h"
 
 #include "PlayerMagTestStage.h"
 
