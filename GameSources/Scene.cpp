@@ -64,6 +64,10 @@ namespace basecross{
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
 		}
+		if (event->m_MsgStr == L"ToMagTestStage") {
+			//最初のアクティブステージの設定
+			ResetActiveStage<PlayerMagTestStage>();
+		}
 	}
 
 }
