@@ -9,16 +9,9 @@
 namespace basecross {
 	class Ground : public GameObject
 	{
-		Vec3 m_Scale;
-		Vec3 m_Position;
 	public:
-		Ground(const std::shared_ptr<Stage>& stage,
-			const Vec3& Scale,
-			const Vec3& Position
-			) :
-			GameObject(stage),
-			m_Scale(Scale),
-			m_Position(Position)
+		Ground(const std::shared_ptr<Stage>& stage) :
+			GameObject(stage)
 		{
 		}
 

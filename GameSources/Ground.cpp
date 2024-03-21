@@ -17,10 +17,8 @@ namespace basecross {
 		ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
-		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale);
-		//transComp->SetPosition(0.0f, -1.5f, 0.0f);
-		//transComp->SetScale(5.0f, 1.0f, 1.0f);
+		transComp->SetPosition(0.0f, -1.5f, 0.0f);
+		transComp->SetScale(5.0f, 1.0f, 1.0f);
 
 
 	}

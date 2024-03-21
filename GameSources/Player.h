@@ -12,19 +12,16 @@ namespace basecross {
 		//InputHandler<Player> m_InputHandler;
 
 		Vec3 speed;
-		float jumpCount;
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
-			speed(5),
-			jumpCount(2)
+			speed(5)
 		{}
 
 		void OnCreate();
 		void OnUpdate();
 
 		void MovePlayer();
-		void JumpPlayer();
 	};
 
 }
