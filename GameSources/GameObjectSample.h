@@ -14,6 +14,7 @@ namespace basecross {
 		GameObjectSample(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Position
 		);
+		virtual ~GameObjectSample();
 		virtual void OnCreate() override;
 	};
 
@@ -23,6 +24,7 @@ namespace basecross {
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Position
 		);
+		virtual ~MagnetN();
 		virtual void OnCreate() override;
 	};
 
@@ -32,6 +34,7 @@ namespace basecross {
 		MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Position
 		);
+		virtual ~MagnetS();
 		virtual void OnCreate() override;
 	};
 
@@ -41,6 +44,7 @@ namespace basecross {
 		Metal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Position
 		);
+		virtual ~Metal();
 		virtual void OnCreate() override;
 	};
 
