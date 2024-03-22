@@ -4,10 +4,10 @@
 namespace basecross {
 	void Player::OnCreate()
 	{
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(1.0f, 1.0f, 1.0f);
-		ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
-		ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
+		m_ptrTrans = GetComponent<Transform>();
+		m_ptrTrans->SetScale(1.0f, 1.0f, 1.0f);
+		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
+		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 
@@ -19,21 +19,22 @@ namespace basecross {
 			Vec3(0.0f, 0.0f, 0.0f)
 		);
 
-		auto ptrDraw = AddComponent<BcPNTStaticModelDraw>();
-		ptrDraw->SetMeshResource(L"Player01_MESH");
-		ptrDraw->SetMeshToTransformMatrix(spanMat);
+		// BcPNTStaticModelDraw
+		m_ptrDraw = AddComponent<BcPNTStaticModelDraw>();
+		m_ptrDraw->SetMeshResource(L"Player01_MESH");
+		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
+
+		//auto gravityComp = AddComponent<Gravity>();
 	}
 
 	void Player::OnUpdate(){
 		MovePlayer();
-
 	}
 
 	void Player::MovePlayer() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
-		auto ptrTrans = GetComponent<Transform>();
-		Vec3 pos = ptrTrans->GetPosition();//プレイヤー座標の取得
+		Vec3 pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
 		auto pad = device.GetControlerVec()[0];
@@ -54,10 +55,16 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			pos = pos + padLStick * delta * speed;
 		}
-		ptrTrans->SetPosition(Vec3(pos));
-
-
+		m_ptrTrans->SetPosition(Vec3(pos));
 	}
+
+	// プレイやーに引力を適用
+	//void applyAttraction() {
+	//	Vec2 direction = other.position - position;
+	//	float distance = std::max(std::sqrt(direction.x * direction.x + direction.y * direction.y), 1.0f);
+	//	sf::Vector2f force = (direction / distance) * GRAVITY_CONSTANT * mass * other.mass / (distance * distance);
+	//	velocity += force;
+	//}
 }
 //end basecross
 

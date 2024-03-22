@@ -15,4 +15,4 @@
 #include "Ground.h"
 
 #include "PlayerMagTestStage.h"
-
+#include "MagnetsObject.h"
