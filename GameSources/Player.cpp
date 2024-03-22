@@ -10,6 +10,7 @@ namespace basecross {
 		ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
+		auto ptrGra = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
@@ -56,8 +57,23 @@ namespace basecross {
 		}
 		ptrTrans->SetPosition(Vec3(pos));
 
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
+			if (jumpCount > 0) {
+				JumpPlayer();
+				jumpCount--;
+			}
+		}
+		else if (pos.y <= -0.4f) {
+			jumpCount = 1;
+		}
 
 	}
+
+	void Player::JumpPlayer() {
+		auto gravity = GetComponent<Gravity>();
+		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+	}
+
 }
 //end basecross
 
