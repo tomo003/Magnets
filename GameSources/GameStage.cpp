@@ -55,7 +55,7 @@ namespace basecross {
 	}
 
 	void GameStage::CreateCsvObjects() {
-		float size = 5;
+		float size = 3;
 		Vec3 objScale = Vec3(1.0f) / size;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();

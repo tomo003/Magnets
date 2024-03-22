@@ -19,16 +19,18 @@ namespace basecross {
 		Vec2 Velocity;
 
 		float jumpCount;
+		int count;
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
-		std::shared_ptr<BcPNTStaticModelDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
 			speed(5),
-			jumpCount(2)
+			jumpCount(2),
+			count(0)
 		{}
 
 		void OnCreate();
