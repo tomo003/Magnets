@@ -66,15 +66,19 @@ namespace basecross {
 				float posX = (float)((int)j ) / size;
 				float posY = (float)((int)i) / size;
 
+				//í èÌínñ 
 				if (Tokens[j] == L"0") {
 					AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
+				//ã‡ëÆ
 				if (Tokens[j] == L"1") {
 					AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
+				//é•êŒNã…
 				if (Tokens[j] == L"2") {
 					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
+				//é•êŒSã…
 				if (Tokens[j] == L"3") {
 					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
