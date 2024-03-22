@@ -35,9 +35,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
@@ -66,8 +63,5 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

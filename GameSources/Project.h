@@ -17,4 +17,4 @@
 #include "GameObjectSample.h"
 
 #include "PlayerMagTestStage.h"
-
+#include "MagnetsObject.h"
