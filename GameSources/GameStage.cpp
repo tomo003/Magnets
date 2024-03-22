@@ -37,7 +37,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap1.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap.csv");
 			m_GameStageCsv.ReadCsv();
 
 			CreateCsvObjects();
@@ -55,7 +55,7 @@ namespace basecross {
 	}
 
 	void GameStage::CreateCsvObjects() {
-		float size = 5;
+		float size = 3;
 		Vec3 objScale = Vec3(1.0f) / size;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
@@ -63,13 +63,20 @@ namespace basecross {
 			vector<wstring> Tokens;
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
-				float posX = (float)((int)j - 20) / size;
+				float posX = (float)((int)j ) / size;
 				float posY = (float)((int)i) / size;
 
 				if (Tokens[j] == L"0") {
-					AddGameObject<Ground>(Vec3(1.0f) / size, Vec3(posX, -posY - 3.0f, 0));
+					AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
 				if (Tokens[j] == L"1") {
+					AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+				}
+				if (Tokens[j] == L"2") {
+					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+				}
+				if (Tokens[j] == L"3") {
+					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 				}
 			}
 		}
