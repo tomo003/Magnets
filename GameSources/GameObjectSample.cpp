@@ -10,9 +10,11 @@ namespace basecross {
 
 	//ステージの通常ブロックの仮設置
 	GameObjectSample::GameObjectSample(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
+		m_Scale(Scale),
 		m_Position(Position)
 	{
 	}
@@ -29,14 +31,16 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(1.0f, 1.0f, 1.0f);
+		transComp->SetScale(m_Scale);
 	}
 
 	//ステージのN極マグネットプロックの仮設置
 	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
+		m_Scale(Scale),
 		m_Position(Position)
 	{
 	}
@@ -53,14 +57,16 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(1.0f, 1.0f, 1.0f);
+		transComp->SetScale(m_Scale);
 	}
 
 	//ステージのS極マグネットプロックの仮設置
 	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
+		m_Scale(Scale),
 		m_Position(Position)
 	{
 	}
@@ -77,14 +83,16 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(1.0f, 1.0f, 1.0f);
+		transComp->SetScale(m_Scale);
 	}
 
 	//ステージの鉄ブロックの仮設置
 	Metal::Metal(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
 		const Vec3& Position
 	) :
 		GameObject(StagePtr),
+		m_Scale(Scale),
 		m_Position(Position)
 	{
 	}
@@ -101,7 +109,7 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(1.0f, 1.0f, 1.0f);
+		transComp->SetScale(m_Scale);
 	}
 
 }

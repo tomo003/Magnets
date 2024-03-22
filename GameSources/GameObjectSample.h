@@ -9,9 +9,11 @@
 namespace basecross {
 
 	class GameObjectSample : public GameObject{
+		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
 		GameObjectSample(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~GameObjectSample();
@@ -19,9 +21,11 @@ namespace basecross {
 	};
 
 	class MagnetN : public GameObject {
+		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~MagnetN();
@@ -29,9 +33,11 @@ namespace basecross {
 	};
 
 	class MagnetS : public GameObject {
+		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
 		MagnetS(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~MagnetS();
@@ -39,9 +45,11 @@ namespace basecross {
 	};
 
 	class Metal : public GameObject {
+		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
 		Metal(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~Metal();
