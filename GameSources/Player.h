@@ -25,6 +25,24 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 
+		enum eMotion {
+			RIGHT,
+			LEFT,
+			FRONT,
+			BACK,
+		};
+		vector<wstring> m_motionKey = {
+			L"RIGHT",
+			L"LEFT",
+			L"FRONT",
+			L"BACK",
+		};
+		// 現在のフレームのモーションを保持
+		eMotion m_currentMotion;
+		// 前フレームのモーションを保持
+		eMotion m_pastMotion;
+
+
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
@@ -39,7 +57,9 @@ namespace basecross {
 		void MovePlayer();
 		void JumpPlayer();
 
-		void ApplyAttraction();
+		void AnimationPlayer(eMotion Motion);
+
+		//void ApplyAttraction();
 	};
 
 }

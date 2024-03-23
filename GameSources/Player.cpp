@@ -31,16 +31,15 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"LEFT", 30, 60, true, 30);
 		m_ptrDraw->AddAnimation(L"FRONT", 60, 90, true, 30);
 		m_ptrDraw->AddAnimation(L"BACK", 90, 120, true, 30);
-		m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
+		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 	}
 
+	//更新処理
 	void Player::OnUpdate(){
 		MovePlayer();
-		float delat = App::GetApp()->GetElapsedTime();
-		m_ptrDraw->UpdateAnimation(delat);
-		m_ptrDraw->GetCurrentAnimation();
 	}
 
+	//プレイヤーの動き
 	void Player::MovePlayer() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
@@ -49,6 +48,12 @@ namespace basecross {
 		auto device = app->GetInputDevice();//コントローラー座標の取得
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
+
+		if (padLStick.length() > 0.0f) {
+			pos = pos + padLStick * delta * speed;
+		}
+		m_ptrTrans->SetPosition(Vec3(pos));
+
 
 		//auto KeyState = app->GetInputDevice().GetKeyState();
 		//if (KeyState.m_bPushKeyTbl['A']) {
@@ -61,12 +66,17 @@ namespace basecross {
 		//	padLStick.x = 0;
 		//}
 
-
-		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * speed;
+		if (padLStick.x > 0.0f) {
+			AnimationPlayer(RIGHT);
 		}
-		m_ptrTrans->SetPosition(Vec3(pos));
+		else if (padLStick.x < 0.0f) {
+			AnimationPlayer(LEFT);
+		}
+		else {
+			AnimationPlayer(FRONT);
+		}
 
+		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
 				JumpPlayer();
@@ -77,6 +87,7 @@ namespace basecross {
 			jumpCount = 1;
 		}
 
+		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			count++;
 			count = count % 3;
@@ -96,9 +107,38 @@ namespace basecross {
 
 	}
 
+	//ジャンプ関数
 	void Player::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+	}
+
+	//アニメーション関数
+	void Player::AnimationPlayer(eMotion Motion) {
+
+		//アニメーション変更
+		m_currentMotion = Motion;
+
+		// モーションのタイプが変わっていたら
+		if (m_currentMotion != m_pastMotion || m_ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_currentMotion))
+		{
+			// タイプに応じてモーションを変更する
+			m_ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_currentMotion));
+			m_pastMotion = m_currentMotion;
+		}
+		float delat = App::GetApp()->GetElapsedTime();
+
+		switch (m_currentMotion){
+		case RIGHT:
+			m_ptrDraw->UpdateAnimation(delat * 1.0f);
+			break;
+		case LEFT:
+			m_ptrDraw->UpdateAnimation(delat * 1.0f);
+			break;
+		default:
+			m_ptrDraw->UpdateAnimation(delat * 0.0f);
+			break;
+		}
 	}
 
 	// プレイやーに引力を適用
