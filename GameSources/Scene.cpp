@@ -77,6 +77,7 @@ namespace basecross{
 		RoadTexture(L"Player02_TX", L"pcube02.png");
 		RoadTexture(L"Player03_TX", L"pcube03.png");
 
+		RoadTexture(L"BPUSH", L"BPush.png");
 
 		RoadStaticModelMesh(L"01", L"Player01_MESH");
 		RoadStaticModelMesh(L"02", L"Player02_MESH");
@@ -98,7 +99,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;
@@ -112,6 +113,9 @@ namespace basecross{
 		if (event->m_MsgStr == L"ToGameStage") {
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
+		}
+		else if (event->m_MsgStr == L"ToTitleStage") {
+			ResetActiveStage<TitleStage>();
 		}
 		if (event->m_MsgStr == L"ToMagTestStage") {
 			//最初のアクティブステージの設定

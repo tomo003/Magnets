@@ -18,3 +18,8 @@
 
 #include "PlayerMagTestStage.h"
 #include "MagnetsObject.h"
+
+#include "Sprites.h"
+#include "ButtonUI.h"
+#include "TitleStage.h"
+#include "TitleSprite.h"
