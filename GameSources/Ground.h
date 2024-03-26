@@ -12,6 +12,8 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
+		bool m_isSetUp;
+
 	public:
 		Ground(const std::shared_ptr<Stage>& stage,
 			const Vec3& Scale,
@@ -20,11 +22,13 @@ namespace basecross {
 			GameObject(stage),
 			m_Scale(Scale),
 			m_Position(Position)
-
 		{
+			m_isSetUp = false;
 		}
 
-		void OnCreate();
+		void OnCreate() override;
+
+		void OnUpdate() override;
 	};
 }
 //end basecross

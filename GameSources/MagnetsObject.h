@@ -1,6 +1,6 @@
 /*!
 @file MagnetsObject.h
-@brief プレイヤーなど
+@brief 磁石オブジェクト
 */
 
 #pragma once
@@ -11,9 +11,9 @@ namespace basecross {
 	{
 	public:
 		enum class EState {
-			eFalse, // 無
-			eN, // Ｎ極
-			eS // Ｓ極
+			eFalse = -1, // 無
+			eN = 1, // Ｎ極
+			eS = 2 // Ｓ極
 		};
 
 	private:
@@ -23,13 +23,36 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
  
+		float m_ObjMass = 1.0f;
+
+		Vec3 m_position;
+
+		float m_MagAreaRadius = 2.75f;
+
 	public:
-		MagnetsObject(const std::shared_ptr<Stage>& stage) :
-			GameObject(stage)
+		MagnetsObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
+			GameObject(stage),
+			m_position(position)
 		{}
 
 		void OnCreate();
 		void OnUpdate();
+
+		int GetState() {
+			return static_cast<int>(m_eMagPole);
+		}
+		float GetMass() {
+			return m_ObjMass;
+		}
+		float GetAreaRadius() {
+			return m_MagAreaRadius;
+		}
+		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
+			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
+			return VV;
+		}
+
+		void ApplyForcePlayer();
 	};
 
 }

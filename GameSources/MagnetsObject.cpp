@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Project.h"
-#include "MagnetsObject.h"
 
 #define COL_RED   Col4(1.0f, 0.0f, 0.0f, true)
 #define COL_BLUE  Col4(0.0f, 0.0f, 1.0f, true)
@@ -17,10 +16,12 @@ namespace basecross {
 		ptrColl->SetFixed(true);
 
 		m_ptrTrans = GetComponent<Transform>();
-		m_ptrTrans->SetPosition(3.5f, 0.0f, 0.0f);
+		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(Vec3(0.75f));
 
 		m_eMagPole = EState::eN;
+
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
 	}
 
 	void MagnetsObject::OnUpdate(){
@@ -49,9 +50,30 @@ namespace basecross {
 			m_ptrDraw->SetEmissive(COL_PURPLE);
 		}
 
-
+		ApplyForcePlayer();
 	}
 
+	void MagnetsObject::ApplyForcePlayer() {
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+		int objMagPole = static_cast<int>(m_eMagPole);
+
+		auto direction = ABSV(playerPos, m_position);
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+		if (distance < m_MagAreaRadius) {
+			if (playerMagPole * objMagPole < 0) {
+				return;
+			}
+			if(playerMagPole == objMagPole){
+				ptrPlayer->ApplyRepulsion();
+			}
+			else if (playerMagPole != objMagPole) {
+				ptrPlayer->ApplyAttraction();
+			}
+		}
+	}
 }
 //end basecross
 
