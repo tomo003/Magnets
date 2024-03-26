@@ -7,43 +7,6 @@
 #include "Project.h"
 
 namespace basecross{
-<<<<<<< HEAD
-
-	void Scene::CreateResourses() {
-		//アプリケーションオブジェクトへの参照を取得する
-		auto& app = App::GetApp();
-
-		//テクスチャが入っているフォルダのパスを文字列として取得する
-		auto mediaPath = app->GetDataDirWString();//「media」パスを文字列として取得する
-		auto texturePath = mediaPath + L"Texture/";//「Textures」フォルダのパスを連結する
-
-		wstring strTexture = texturePath + L"pcube01.png";
-		app->RegisterTexture(L"Player01_TX", strTexture);
-		strTexture = texturePath + L"pcube02.png";
-		app->RegisterTexture(L"Player02_TX", strTexture);
-		strTexture = texturePath + L"pcube03.png";
-		app->RegisterTexture(L"Player03_TX", strTexture);
-		strTexture = texturePath + L"MagnetAreaTypeN.png";
-		app->RegisterTexture(L"N_AREA_TX", strTexture);
-		strTexture = texturePath + L"MagnetAreaTypeS.png";
-		app->RegisterTexture(L"S_AREA_TX", strTexture);
-		strTexture = texturePath + L"MagnetAreaTypeAll.png";
-		app->RegisterTexture(L"TYPEALL_TX", strTexture);
-
-
-		//モデルが入っているフォルダのパスを文字列として取得する
-		auto modelPath = mediaPath + L"Model/";//「Model」フォルダのパスを連結する
-
-		auto staticNormalPlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"01.bmf");
-		App::GetApp()->RegisterResource(L"Player01_MESH", staticNormalPlayerMesh);
-		auto staticRedPlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"02.bmf");
-		App::GetApp()->RegisterResource(L"Player02_MESH", staticRedPlayerMesh);
-		auto staticBluePlayerMesh = MeshResource::CreateStaticModelMesh(modelPath, L"03.bmf");
-		App::GetApp()->RegisterResource(L"Player03_MESH", staticBluePlayerMesh);
-	}
-
-=======
->>>>>>> TitleStage
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
@@ -112,6 +75,10 @@ namespace basecross{
 		RoadTexture(L"Player01_TX", L"pcube01.png");
 		RoadTexture(L"Player02_TX", L"pcube02.png");
 		RoadTexture(L"Player03_TX", L"pcube03.png");
+		RoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
+		RoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
+		RoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
+
 
 		RoadTexture(L"BPUSH", L"BPush.png");
 

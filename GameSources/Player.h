@@ -58,7 +58,7 @@ namespace basecross {
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
-			speed(5),
+			m_speed(5),
 			jumpCount(2),
 			count(0)
 		{}
@@ -72,7 +72,6 @@ namespace basecross {
 
 		void AnimationPlayer(eMotion Motion);
 
-		//void ApplyAttraction();
 		void ApplyAttraction();
 		void ApplyRepulsion();
 
