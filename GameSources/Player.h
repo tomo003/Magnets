@@ -9,14 +9,26 @@
 namespace basecross {
 	class Player : public GameObject
 	{
-		const float ATTRACTION_CONSTANT = 100.0f; // ˆø—Í‚Ì’è”
-		const float REPEL_CONSTANT = 200.0f;   // ”½”­‚Ì’è”
-		const float MAX_SPEED = 40.0f;         // Å‘å‘¬“x
+		const float ATTRACTION_CONSTANT = 10.0f; // ˆø—Í‚Ì’è”
+		const float REPEL_CONSTANT = 20.0f;   // ”½”­‚Ì’è”
+		const float MAX_SPEED = 4.0f;         // Å‘å‘¬“x
 
 		//InputHandler<Player> m_InputHandler;
 
-		float speed;
-		Vec2 Velocity;
+		enum class EState {
+			eFalse = -1, // –³
+			eN = 1, // ‚m‹É
+			eS = 2 // ‚r‹É
+		};
+
+	private:
+		enum EState m_eMagPole = EState::eN;
+
+		float m_speed;
+		Vec3 m_Velocity;
+		float m_Acceleration; // ‰Á‘¬“x(¥Î‚Í‹ß‚¢‚Ù‚Ç¥—Í‚ª‹­‚¢‚½‚ß)
+
+		float m_playerMass = 1.0f;
 
 		float jumpCount;
 
@@ -27,17 +39,25 @@ namespace basecross {
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
-			speed(5),
+			m_speed(5),
 			jumpCount(2)
 		{}
 
 		void OnCreate();
 		void OnUpdate();
+		//void OnUpdate2();
 
 		void MovePlayer();
 		void JumpPlayer();
 
 		void ApplyAttraction();
+		void ApplyRepulsion();
+
+		void limitSpeed();
+
+		EState GetPlayerMagPole() {
+			return m_eMagPole;
+		}
 	};
 
 }

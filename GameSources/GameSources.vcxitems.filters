@@ -33,8 +33,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
@@ -61,7 +69,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

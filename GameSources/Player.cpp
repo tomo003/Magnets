@@ -14,7 +14,7 @@ namespace basecross {
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(0.6f, 0.6f, 0.6f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f)
@@ -54,8 +54,14 @@ namespace basecross {
 
 
 		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * speed;
+			pos = pos + padLStick * delta * m_speed;
 		}
+
+		limitSpeed();
+		pos += m_Velocity * delta;
+		m_Velocity.setAll(0);
+
+
 		m_ptrTrans->SetPosition(Vec3(pos));
 
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
@@ -76,11 +82,52 @@ namespace basecross {
 	}
 
 	// プレイやーに引力を適用
-	//void applyAttraction() {
-	//	Vec2 direction = other.position - position;
-	//	float distance = std::max(std::sqrt(direction.x * direction.x + direction.y * direction.y), 1.0f);
-	//	sf::Vector2f force = (direction / distance) * GRAVITY_CONSTANT * mass * other.mass / (distance * distance);
-	//	velocity += force;
+	void Player::ApplyAttraction() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = ptrMagObj->GetMass();
+		float objAreaRadius = ptrMagObj->GetAreaRadius();
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force;
+	}
+
+	// プレイやーに斥力を適用
+	void Player::ApplyRepulsion() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = ptrMagObj->GetMass();
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
+		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force * -1;
+	}
+
+
+	// 速度を制限
+	void Player::limitSpeed() {
+		float speed = std::sqrt(m_Velocity.x * m_Velocity.x + m_Velocity.y * m_Velocity.y);
+		if (speed > MAX_SPEED) {
+			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
+		}
+	}
+
+
+	//void Player::OnUpdate2() {
+	//	auto fps = App::GetApp()->GetStepTimer().GetFramesPerSecond();
+	//	wstring fpsStr(L"FPS: ");
+	//	fpsStr += Util::UintToWStr(fps);
+	//	auto ptrString = GetComponent<StringSprite>();
+	//	ptrString->SetText(fpsStr);
 	//}
 }
 //end basecross

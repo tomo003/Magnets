@@ -55,6 +55,9 @@ namespace basecross {
 	}
 
 	void GameStage::CreateCsvObjects() {
+
+		const auto& groundGroup = CreateSharedObjectGroup(L"Ground");
+
 		float size = 5;
 		Vec3 objScale = Vec3(1.0f) / size;
 
@@ -67,14 +70,13 @@ namespace basecross {
 				float posY = (float)((int)i) / size;
 
 				if (Tokens[j] == L"0") {
-					AddGameObject<Ground>(Vec3(1.0f) / size, Vec3(posX, -posY - 3.0f, 0));
+					//groundGroup->IntoGroup(AddGameObject<Ground>(Vec3(1.0f) / size, Vec3(posX, -posY - 3.0f, 0)));
 				}
 				if (Tokens[j] == L"1") {
 				}
 			}
 		}
 	}
-
 
 }
 //end basecross

@@ -18,3 +18,4 @@
 
 #include "PlayerMagTestStage.h"
 #include "MagnetsObject.h"
+#include "MagnetArea.h"

@@ -1,4 +1,3 @@
-
 /*!
 @file Scene.cpp
 @brief シーン実体
@@ -23,6 +22,12 @@ namespace basecross{
 		app->RegisterTexture(L"Player02_TX", strTexture);
 		strTexture = texturePath + L"pcube03.png";
 		app->RegisterTexture(L"Player03_TX", strTexture);
+		strTexture = texturePath + L"MagnetAreaTypeN.png";
+		app->RegisterTexture(L"N_AREA_TX", strTexture);
+		strTexture = texturePath + L"MagnetAreaTypeS.png";
+		app->RegisterTexture(L"S_AREA_TX", strTexture);
+		strTexture = texturePath + L"MagnetAreaTypeAll.png";
+		app->RegisterTexture(L"TYPEALL_TX", strTexture);
 
 
 		//モデルが入っているフォルダのパスを文字列として取得する

@@ -24,5 +24,16 @@ namespace basecross {
 
 
 	}
+
+	void Ground::OnUpdate()
+	{
+		//const auto& groundVec = GetStage()->GetSharedObjectGroup(L"Ground")->GetGroupVector();
+		//auto ptrColl = GetComponent<CollisionObb>();
+
+		//for (const auto& ground : groundVec)
+		//{
+		//	ptrColl->AddExcludeCollisionGameObject(ground.lock());
+		//}
+	}
 }
 //end basecross
