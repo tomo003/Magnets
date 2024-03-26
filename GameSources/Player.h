@@ -31,16 +31,36 @@ namespace basecross {
 		float m_playerMass = 1.0f;
 
 		float jumpCount;
+		int count;
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
-		std::shared_ptr<BcPNTStaticModelDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
+
+		enum eMotion {
+			RIGHT,
+			LEFT,
+			FRONT,
+			BACK,
+		};
+		vector<wstring> m_motionKey = {
+			L"RIGHT",
+			L"LEFT",
+			L"FRONT",
+			L"BACK",
+		};
+		// 現在のフレームのモーションを保持
+		eMotion m_currentMotion;
+		// 前フレームのモーションを保持
+		eMotion m_pastMotion;
+
 
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
-			m_speed(5),
-			jumpCount(2)
+			speed(5),
+			jumpCount(2),
+			count(0)
 		{}
 
 		void OnCreate();
@@ -50,6 +70,9 @@ namespace basecross {
 		void MovePlayer();
 		void JumpPlayer();
 
+		void AnimationPlayer(eMotion Motion);
+
+		//void ApplyAttraction();
 		void ApplyAttraction();
 		void ApplyRepulsion();
 

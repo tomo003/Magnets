@@ -7,6 +7,18 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{96692d2a-8790-41a9-bfac-6c5662d4ad61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{02d26aa6-74ef-45dd-bf37-93f5ed8713d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Sprites">
+      <UniqueIdentifier>{815d9287-26a5-40ed-a0b2-c0d2e58cd342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Title">
+      <UniqueIdentifier>{58267126-5c96-48ab-9e41-2a70c951626b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Button">
+      <UniqueIdentifier>{6943addd-ff9b-4f9f-ad6c-b6bd77da38d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -42,6 +54,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h">
       <Filter>Headers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h">
+      <Filter>Stage\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h">
+      <Filter>Stage\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
+      <Filter>Stage\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
+      <Filter>Stage\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +101,17 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp">
       <Filter>Sources</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp">
+      <Filter>Stage\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp">
+      <Filter>Stage\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
+      <Filter>Stage\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp">
+      <Filter>Stage\Button</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
