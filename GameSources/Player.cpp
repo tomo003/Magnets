@@ -50,7 +50,7 @@ namespace basecross {
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * speed;
+			pos = pos + padLStick * delta * m_speed;
 		}
 		m_ptrTrans->SetPosition(Vec3(pos));
 
@@ -69,14 +69,15 @@ namespace basecross {
 
 		if (padLStick.length() > 0.0f) {
 			pos = pos + padLStick * delta * m_speed;
-		if (padLStick.x > 0.0f) {
-			AnimationPlayer(RIGHT);
-		}
-		else if (padLStick.x < 0.0f) {
-			AnimationPlayer(LEFT);
-		}
-		else {
-			AnimationPlayer(FRONT);
+			if (padLStick.x > 0.0f) {
+				AnimationPlayer(RIGHT);
+			}
+			else if (padLStick.x < 0.0f) {
+				AnimationPlayer(LEFT);
+			}
+			else {
+				AnimationPlayer(FRONT);
+			}
 		}
 
 		limitSpeed();
