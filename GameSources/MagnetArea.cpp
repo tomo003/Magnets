@@ -11,10 +11,10 @@ namespace basecross {
 		// 頂点データの設定(VertexPositionColorTexture)
 		m_vertices = {
 			//  Position,			   Texture(UV座標)
-			{Vec3(-2.0f, +2.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
-			{Vec3(+2.0f, +2.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
-			{Vec3(-2.0f, -2.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
-			{Vec3(+2.0f, -2.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
+			{Vec3(-1.0f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
+			{Vec3(+1.0f, +1.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
+			{Vec3(-1.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
+			{Vec3(+1.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
 		};
 
 		// 頂点インデックス
@@ -32,7 +32,7 @@ namespace basecross {
 
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetPosition(m_pos);
-		m_ptrTrans->SetScale(Vec3(1.25f));
+		m_ptrTrans->SetScale(Vec3(m_radius));
 	}
 	
 	void MagnetArea::OnUpdate() {

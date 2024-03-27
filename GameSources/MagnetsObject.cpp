@@ -66,12 +66,13 @@ namespace basecross {
 			if (playerMagPole * objMagPole < 0) {
 				return;
 			}
-			if(playerMagPole == objMagPole){
+			else if(playerMagPole == objMagPole){
 				ptrPlayer->ApplyRepulsion();
 			}
 			else if (playerMagPole != objMagPole) {
 				ptrPlayer->ApplyAttraction();
-			}
+			}// ptrPlayer->ApplyAttraction();
+
 		}
 	}
 }

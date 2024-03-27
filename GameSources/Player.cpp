@@ -5,7 +5,7 @@ namespace basecross {
 	void Player::OnCreate()
 	{
 		m_ptrTrans = GetComponent<Transform>();
-		m_ptrTrans->SetScale(Vec3(0.3f));
+		m_ptrTrans->SetScale(Vec3(1.0f));
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -14,10 +14,10 @@ namespace basecross {
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.6f, 0.6f, 0.6f),
+			Vec3(0.2f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.4f, 0.0f)
+			Vec3(0.0f, 0.0f, 0.0f)
 		);
 
 		// BcPNTStaticModelDraw
@@ -99,17 +99,18 @@ namespace basecross {
 
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			count++;
-			count = count % 3;
-			switch (count){
-			case 0:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");
+			switch (m_eMagPole){
+			case EState::eFalse:
+				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
+				m_eMagPole = EState::eN;
 				break;
-			case 1:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");
+			case EState::eN:
+				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
+				m_eMagPole = EState::eS;
 				break;
-			default:
-				m_ptrDraw->SetMeshResource(L"PlayerMotionfbx_MESH");
+			case EState::eS:
+				m_ptrDraw->SetMeshResource(L"PlayerMotionfbx_MESH");//無極
+				m_eMagPole = EState::eFalse;
 				break;
 			}
 			

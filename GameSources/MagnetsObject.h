@@ -27,7 +27,7 @@ namespace basecross {
 
 		Vec3 m_position;
 
-		float m_MagAreaRadius = 2.75f;
+		float m_MagAreaRadius = 3.0f;
 
 	public:
 		MagnetsObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
