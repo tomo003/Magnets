@@ -37,7 +37,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap1.csv");
 			m_GameStageCsv.ReadCsv();
 
 			CreateCsvObjects();
@@ -56,7 +56,7 @@ namespace basecross {
 
 	void GameStage::CreateCsvObjects() {
 
-		const auto& groundGroup = CreateSharedObjectGroup(L"Ground");
+		//const auto& groundGroup = CreateSharedObjectGroup(L"Ground");
 
 		float size = 5;
 		Vec3 objScale = Vec3(1.0f) / size;
@@ -66,12 +66,12 @@ namespace basecross {
 			vector<wstring> Tokens;
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
-				float posX = (float)((int)j ) / size;
+				float posX = (float)((int)j -10) / size;
 				float posY = (float)((int)i) / size;
 
 				//’Êí’n–Ê
 				if (Tokens[j] == L"0") {
-					//groundGroup->IntoGroup(AddGameObject<Ground>(Vec3(1.0f) / size, Vec3(posX, -posY - 3.0f, 0)));
+					AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY - 3.0f, 0));
 				}
 				//‹à‘®
 				if (Tokens[j] == L"1") {

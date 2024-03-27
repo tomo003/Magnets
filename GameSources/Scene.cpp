@@ -85,8 +85,8 @@ namespace basecross{
 		RoadStaticModelMesh(L"02", L"Player02_MESH");
 		RoadStaticModelMesh(L"03", L"Player03_MESH");
 
-		RoadBoneModel(L"Motionfbx", L"PlayerMotionfbx_MESH", L"PlayerMotionfbx_MESH_TAN");
-		RoadBoneModel(L"Blue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");
+		RoadBoneModel(L"Brack", L"PlayerMotionfbx_MESH", L"PlayerMotionfbx_MESH_TAN");
+		RoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");
 		RoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");
 
 	}
@@ -97,7 +97,7 @@ namespace basecross{
 
 			//クリアする色を設定
 			Col4 Col;
-			Col.set(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+			Col.set(6.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる

@@ -5,7 +5,7 @@ namespace basecross {
 	void Player::OnCreate()
 	{
 		m_ptrTrans = GetComponent<Transform>();
-		m_ptrTrans->SetScale(Vec3(0.3f));
+		m_ptrTrans->SetScale(Vec3(1.0f));
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -14,10 +14,10 @@ namespace basecross {
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.6f, 0.6f, 0.6f),
+			Vec3(1.0f, 1.0f, 1.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.4f, 0.0f)
+			Vec3(0.0f, 0.0f, 0.0f)
 		);
 
 		// BcPNTStaticModelDraw
@@ -68,16 +68,15 @@ namespace basecross {
 
 
 		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * m_speed;
 			if (padLStick.x > 0.0f) {
 				AnimationPlayer(RIGHT);
 			}
 			else if (padLStick.x < 0.0f) {
 				AnimationPlayer(LEFT);
 			}
-			else {
-				AnimationPlayer(FRONT);
-			}
+		}
+		else {
+			AnimationPlayer(FRONT);
 		}
 
 		limitSpeed();
