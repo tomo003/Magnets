@@ -10,8 +10,8 @@ namespace basecross {
 	class Player : public GameObject
 	{
 		const float ATTRACTION_CONSTANT = 10.0f; // ˆø—Í‚Ì’è”
-		const float REPEL_CONSTANT = 20.0f;   // ”½”­‚Ì’è”
-		const float MAX_SPEED = 4.0f;         // Å‘å‘¬“x
+		const float REPEL_CONSTANT = 100.0f;   // ”½”­‚Ì’è”
+		const float MAX_SPEED = 10.0f;         // Å‘å‘¬“x
 
 		//InputHandler<Player> m_InputHandler;
 
@@ -22,7 +22,7 @@ namespace basecross {
 		};
 
 	private:
-		enum EState m_eMagPole = EState::eN;
+		enum EState m_eMagPole = EState::eFalse;
 
 		float m_speed;
 		Vec3 m_Velocity;

@@ -34,7 +34,7 @@ namespace basecross {
 			CreateViewLight();
 
 			// 地面のオブジェクトを追加
-			AddGameObject<Ground>(Vec3(5.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
+			AddGameObject<Ground>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
 
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();

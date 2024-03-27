@@ -5,6 +5,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
@@ -13,7 +14,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
+=======
+>>>>>>> Tomoya
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
@@ -23,6 +27,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
@@ -31,7 +36,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
+=======
+>>>>>>> Tomoya
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />

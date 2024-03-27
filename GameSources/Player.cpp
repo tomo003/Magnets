@@ -99,17 +99,18 @@ namespace basecross {
 
 		//‘®«Ø‚è‘Ö‚¦
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			count++;
-			count = count % 3;
-			switch (count){
-			case 0:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");
+			switch (m_eMagPole){
+			case EState::eFalse:
+				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N‹É
+				m_eMagPole = EState::eN;
 				break;
-			case 1:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");
+			case EState::eN:
+				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S‹É
+				m_eMagPole = EState::eS;
 				break;
-			default:
-				m_ptrDraw->SetMeshResource(L"PlayerMotionfbx_MESH");
+			case EState::eS:
+				m_ptrDraw->SetMeshResource(L"PlayerMotionfbx_MESH");//–³‹É
+				m_eMagPole = EState::eFalse;
 				break;
 			}
 			
