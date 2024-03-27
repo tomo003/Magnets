@@ -22,6 +22,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />

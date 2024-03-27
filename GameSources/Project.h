@@ -12,6 +12,7 @@
 #include "GameStage.h"
 #include "Character.h"
 #include "Player.h"
+#include "Player2.h"
 #include "Ground.h"
 #include "TestStage.h"
 #include "GameObjectSample.h"

@@ -2,12 +2,12 @@
 #include "Project.h"
 
 namespace basecross {
-	void Player::OnCreate()
+	void Player2::OnCreate()
 	{
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetScale(Vec3(1.0f));
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
-		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
+		m_ptrTrans->SetPosition(0.0f, 5.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		auto ptrGra = AddComponent<Gravity>();
@@ -24,7 +24,7 @@ namespace basecross {
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
 		//m_ptrDraw = AddComponent<BcPNTStaticModelDraw>();
 		//m_ptrDraw->SetMeshResource(L"Player01_MESH");
-		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");
+		m_ptrDraw->SetMeshResource(L"Player2Brack_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
@@ -33,22 +33,22 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 120, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		AddTag(L"Player1");
+		AddTag(L"Player2");
 	}
 
 	//更新処理
-	void Player::OnUpdate(){
+	void Player2::OnUpdate() {
 		MovePlayer();
 	}
 
 	//プレイヤーの動き
-	void Player::MovePlayer() {
+	void Player2::MovePlayer() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
 		Vec3 pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[0];
+		auto pad = device.GetControlerVec()[1];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
@@ -101,33 +101,33 @@ namespace basecross {
 
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			switch (m_eMagPole){
+			switch (m_eMagPole) {
 			case EState::eFalse:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
+				m_ptrDraw->SetMeshResource(L"Player2Red_MESH");//N極
 				m_eMagPole = EState::eN;
 				break;
 			case EState::eN:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
+				m_ptrDraw->SetMeshResource(L"Player2Blue_MESH");//S極
 				m_eMagPole = EState::eS;
 				break;
 			case EState::eS:
-				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+				m_ptrDraw->SetMeshResource(L"Player2Brack_MESH");//無極
 				m_eMagPole = EState::eFalse;
 				break;
 			}
-			
+
 		}
 
 	}
 
 	//ジャンプ関数
-	void Player::JumpPlayer() {
+	void Player2::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
 	}
 
 	//アニメーション関数
-	void Player::AnimationPlayer(eMotion Motion) {
+	void Player2::AnimationPlayer(eMotion Motion) {
 
 		//アニメーション変更
 		m_currentMotion = Motion;
@@ -141,7 +141,7 @@ namespace basecross {
 		}
 		float delat = App::GetApp()->GetElapsedTime();
 
-		switch (m_currentMotion){
+		switch (m_currentMotion) {
 		case RIGHT:
 			m_ptrDraw->UpdateAnimation(delat * 1.0f);
 			break;
@@ -155,7 +155,7 @@ namespace basecross {
 	}
 
 	// プレイやーに引力を適用
-	void Player::ApplyAttraction() {
+	void Player2::ApplyAttraction() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetPosition();
@@ -171,7 +171,7 @@ namespace basecross {
 	}
 
 	// プレイやーに斥力を適用
-	void Player::ApplyRepulsion() {
+	void Player2::ApplyRepulsion() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetPosition();
@@ -185,8 +185,9 @@ namespace basecross {
 		m_Velocity += force * -1;
 	}
 
+
 	// 速度を制限
-	void Player::limitSpeed() {
+	void Player2::limitSpeed() {
 		float speed = std::sqrt(m_Velocity.x * m_Velocity.x + m_Velocity.y * m_Velocity.y);
 		if (speed > MAX_SPEED) {
 			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
@@ -194,7 +195,7 @@ namespace basecross {
 	}
 
 
-	//void Player::OnUpdate2() {
+	//void Player2::OnUpdate2() {
 	//	auto fps = App::GetApp()->GetStepTimer().GetFramesPerSecond();
 	//	wstring fpsStr(L"FPS: ");
 	//	fpsStr += Util::UintToWStr(fps);
@@ -203,4 +204,3 @@ namespace basecross {
 	//}
 }
 //end basecross
-

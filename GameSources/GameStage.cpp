@@ -47,6 +47,7 @@ namespace basecross {
 
 			//プレイヤーオブジェクトを追加
 			AddGameObject<Player>();
+			AddGameObject<Player2>();
 
 		}
 		catch (...) {

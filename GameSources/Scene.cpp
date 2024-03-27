@@ -85,9 +85,14 @@ namespace basecross{
 		RoadStaticModelMesh(L"02", L"Player02_MESH");
 		RoadStaticModelMesh(L"03", L"Player03_MESH");
 
-		RoadBoneModel(L"Brack", L"PlayerMotionfbx_MESH", L"PlayerMotionfbx_MESH_TAN");
-		RoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");
-		RoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");
+		//Player1
+		RoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
+		RoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
+		RoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
+		//Player2
+		RoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
+		RoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
+		RoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
 
 	}
 
@@ -101,7 +106,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;
