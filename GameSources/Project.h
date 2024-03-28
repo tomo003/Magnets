@@ -24,3 +24,5 @@
 #include "ButtonUI.h"
 #include "TitleStage.h"
 #include "TitleSprite.h"
+
+#include "MyCamera.h"
