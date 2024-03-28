@@ -14,7 +14,7 @@ namespace basecross {
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(1.25f, 1.25f, 1.25f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f)
@@ -33,12 +33,13 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 120, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		AddTag(L"Player1");
+		AddTag(L"Player");
 	}
 
 	//更新処理
 	void Player::OnUpdate(){
 		MovePlayer();
+		ApplyForcePlayer();
 	}
 
 	//プレイヤーの動き
@@ -169,6 +170,20 @@ namespace basecross {
 		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
 		m_Velocity += force;
 	}
+	void Player::PlayerApplyAttraction() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = 1.0f;
+		float objAreaRadius = 3.0f;
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force;
+	}
 
 	// プレイやーに斥力を適用
 	void Player::ApplyRepulsion() {
@@ -183,6 +198,42 @@ namespace basecross {
 		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
 		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
 		m_Velocity += force * -1;
+	}
+	void Player::PlayerApplyRepulsion() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = 1.0f;
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
+		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force * -1;
+	}
+
+	void Player::ApplyForcePlayer() {
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+		int objMagPole = static_cast<int>(m_eMagPole);
+
+		auto direction = ABSV(playerPos, m_ptrTrans->GetPosition());
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+		if (distance < 3.0f) {
+			if (playerMagPole <  0 || objMagPole < 0) {
+				return;
+			}
+			else if (playerMagPole == objMagPole) {
+				ptrPlayer->PlayerApplyRepulsion();
+			}
+			else if (playerMagPole != objMagPole) {
+				ptrPlayer->PlayerApplyAttraction();
+			}// ptrPlayer->ApplyAttraction();
+
+		}
 	}
 
 	// 速度を制限

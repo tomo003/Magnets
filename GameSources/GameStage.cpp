@@ -46,8 +46,15 @@ namespace basecross {
 			//AddGameObject<Ground>(Vec3(1),Vec3(0));
 
 			//プレイヤーオブジェクトを追加
-			AddGameObject<Player>();
-			AddGameObject<Player2>();
+			auto ptrPlayer = AddGameObject<Player>();
+			SetSharedGameObject(L"Player", ptrPlayer);
+			auto ptrPlayer2 = AddGameObject<Player2>();
+			SetSharedGameObject(L"Player2", ptrPlayer2);
+
+			// 磁石オブジェクトを追加
+			auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
+			SetSharedGameObject(L"MagnetsObject", ptrMagObj);
+
 
 		}
 		catch (...) {

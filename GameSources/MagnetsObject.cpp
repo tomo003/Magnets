@@ -51,10 +51,33 @@ namespace basecross {
 		}
 
 		ApplyForcePlayer();
+		ApplyForceSecondPlayer();
 	}
 
 	void MagnetsObject::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+		int objMagPole = static_cast<int>(m_eMagPole);
+
+		auto direction = ABSV(playerPos, m_position);
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+		if (distance < m_MagAreaRadius) {
+			if (playerMagPole * objMagPole < 0) {
+				return;
+			}
+			else if(playerMagPole == objMagPole){
+				ptrPlayer->ApplyRepulsion();
+			}
+			else if (playerMagPole != objMagPole) {
+				ptrPlayer->ApplyAttraction();
+			}// ptrPlayer->ApplyAttraction();
+
+		}
+	}
+	void MagnetsObject::ApplyForceSecondPlayer() {
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);

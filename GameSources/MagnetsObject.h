@@ -53,6 +53,7 @@ namespace basecross {
 		}
 
 		void ApplyForcePlayer();
+		void ApplyForceSecondPlayer();
 	};
 
 }

@@ -10,7 +10,7 @@ namespace basecross {
 	class Player2 : public GameObject
 	{
 		const float ATTRACTION_CONSTANT = 10.0f; // ˆø—Í‚Ì’è”
-		const float REPEL_CONSTANT = 100.0f;   // ”½”­‚Ì’è”
+		const float REPEL_CONSTANT = 20.0f;   // ”½”­‚Ì’è”
 		const float MAX_SPEED = 10.0f;         // Å‘å‘¬“x
 
 		//InputHandler<Player> m_InputHandler;
@@ -73,11 +73,22 @@ namespace basecross {
 		void ApplyAttraction();
 		void ApplyRepulsion();
 
+		void PlayerApplyAttraction();
+		void PlayerApplyRepulsion();
+
+		void ApplyForcePlayer();
+
+
 		void limitSpeed();
 
 		EState GetPlayerMagPole() {
 			return m_eMagPole;
 		}
+		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
+			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
+			return VV;
+		}
+
 	};
 
 }

@@ -14,7 +14,7 @@ namespace basecross {
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(1.25f, 1.25f, 1.25f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f)
@@ -22,8 +22,6 @@ namespace basecross {
 
 		// BcPNTStaticModelDraw
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
-		//m_ptrDraw = AddComponent<BcPNTStaticModelDraw>();
-		//m_ptrDraw->SetMeshResource(L"Player01_MESH");
 		m_ptrDraw->SetMeshResource(L"Player2Brack_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
@@ -39,6 +37,7 @@ namespace basecross {
 	//更新処理
 	void Player2::OnUpdate() {
 		MovePlayer();
+		ApplyForcePlayer();
 	}
 
 	//プレイヤーの動き
@@ -55,19 +54,6 @@ namespace basecross {
 			pos = pos + padLStick * delta * m_speed;
 		}
 		m_ptrTrans->SetPosition(Vec3(pos));
-
-
-		//auto KeyState = app->GetInputDevice().GetKeyState();
-		//if (KeyState.m_bPushKeyTbl['A']) {
-		//	padLStick.x = -1.0f;
-		//}
-		//else if (KeyState.m_bPushKeyTbl['D']) {
-		//	padLStick.x = 1.0f;
-		//}
-		//else {
-		//	padLStick.x = 0;
-		//}
-
 
 		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
@@ -170,6 +156,21 @@ namespace basecross {
 		m_Velocity += force;
 	}
 
+	void Player2::PlayerApplyAttraction() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<Player>(L"Player");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = 1.0f;
+		float objAreaRadius = 3.0f;
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force;
+	}
+
 	// プレイやーに斥力を適用
 	void Player2::ApplyRepulsion() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
@@ -184,6 +185,42 @@ namespace basecross {
 		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
 		m_Velocity += force * -1;
 	}
+	void Player2::PlayerApplyRepulsion() {
+		auto ptrMagObj = GetStage()->GetSharedGameObject<Player>(L"Player");
+		auto objTrans = ptrMagObj->GetComponent<Transform>();
+		Vec3 objPos = objTrans->GetPosition();
+		float objMass = 1.0f;
+
+		auto playerPos = m_ptrTrans->GetPosition();
+
+		Vec3 direction = objPos - playerPos;
+		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
+		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_Velocity += force * -1;
+	}
+
+	void Player2::ApplyForcePlayer() {
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+		int objMagPole = static_cast<int>(m_eMagPole);
+
+		auto direction = ABSV(playerPos, m_ptrTrans->GetPosition());
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+		if (distance < 3.0f) {
+			if (playerMagPole < 0 || objMagPole < 0) {
+				return;
+			}
+			else if (playerMagPole == objMagPole) {
+				ptrPlayer->PlayerApplyRepulsion();
+			}
+			else if (playerMagPole != objMagPole) {
+				ptrPlayer->PlayerApplyAttraction();
+			}// ptrPlayer->ApplyAttraction();
+
+		}
+	}
 
 
 	// 速度を制限
@@ -195,12 +232,5 @@ namespace basecross {
 	}
 
 
-	//void Player2::OnUpdate2() {
-	//	auto fps = App::GetApp()->GetStepTimer().GetFramesPerSecond();
-	//	wstring fpsStr(L"FPS: ");
-	//	fpsStr += Util::UintToWStr(fps);
-	//	auto ptrString = GetComponent<StringSprite>();
-	//	ptrString->SetText(fpsStr);
-	//}
 }
 //end basecross
