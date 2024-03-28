@@ -38,6 +38,11 @@ namespace basecross {
 	void Player2::OnUpdate() {
 		MovePlayer();
 		ApplyForcePlayer();
+
+		Vec3 pos = m_ptrTrans->GetPosition();
+		if (pos.y < -5.0f) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+		}
 	}
 
 	//プレイヤーの動き
@@ -85,6 +90,11 @@ namespace basecross {
 			jumpCount = 1;
 		}
 
+		if (pos.y < -5.0f) {
+			DeathPlayer();
+		}
+
+
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			switch (m_eMagPole) {
@@ -111,6 +121,13 @@ namespace basecross {
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
 	}
+
+	//死亡関数
+	void Player2::DeathPlayer() {
+		PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+
+	}
+
 
 	//アニメーション関数
 	void Player2::AnimationPlayer(eMotion Motion) {

@@ -28,9 +28,9 @@ namespace basecross {
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
-		m_ptrDraw->AddAnimation(L"LEFT", 30, 60, true, 30);
-		m_ptrDraw->AddAnimation(L"FRONT", 60, 90, true, 30);
-		m_ptrDraw->AddAnimation(L"BACK", 90, 120, true, 30);
+		m_ptrDraw->AddAnimation(L"LEFT", 30, 30, true, 30);
+		m_ptrDraw->AddAnimation(L"FRONT", 60, 30, true, 30);
+		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -102,8 +102,12 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (pos.y <= -0.4f) {
+		else if (pos.y <= 5.0f) {
 			jumpCount = 1;
+		}
+
+		if (pos.y < -5.0f) {
+			DeathPlayer();
 		}
 
 		//属性切り替え
@@ -130,7 +134,13 @@ namespace basecross {
 	//ジャンプ関数
 	void Player::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
-		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+		gravity->StartJump(Vec3(0.0f, 11.0f, 0.0f));
+	}
+
+	//死亡関数
+	void Player::DeathPlayer() {
+		PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+	
 	}
 
 	//アニメーション関数

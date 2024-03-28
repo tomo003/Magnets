@@ -67,6 +67,7 @@ namespace basecross {
 
 		void MovePlayer();
 		void JumpPlayer();
+		void DeathPlayer();
 
 		void AnimationPlayer(eMotion Motion);
 

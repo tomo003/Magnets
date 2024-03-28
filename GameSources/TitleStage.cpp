@@ -49,10 +49,11 @@ namespace basecross {
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();
 		auto& pad = device.GetControlerVec()[0];
+		auto& pad2 = device.GetControlerVec()[1];
 
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_B|| pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			if (!stage) {
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMagTestStage");
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				//XAPtr->Start(L"SELECT_SE", 0, 0.5f);
 				stage = true;
