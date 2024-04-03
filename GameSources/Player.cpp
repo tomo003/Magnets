@@ -40,6 +40,13 @@ namespace basecross {
 		}
 
 		AddTag(L"Player");
+
+		//エフェクトの初期化
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto EfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_EffectStr = DataDir + L"Effects\\" + L"damage.efk";
+		m_Effect = ObjectFactory::Create<EfkEffect>(EfkInterface, m_EffectStr);
 	}
 
 	//更新処理
@@ -135,6 +142,8 @@ namespace basecross {
 	void Player::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 11.0f, 0.0f));
+		auto pos = GetComponent<Transform>()->GetPosition();
+		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, pos, Vec3(1.0f));
 	}
 
 	//死亡関数

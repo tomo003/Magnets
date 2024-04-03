@@ -9,6 +9,10 @@
 namespace basecross {
 	class Player : public GameObject
 	{
+		shared_ptr<EfkEffect> m_Effect;
+		shared_ptr<EfkPlay> m_EfkPlay;
+		wstring m_EffectStr;
+
 		const float ATTRACTION_CONSTANT = 10.0f; // ˆø—Í‚Ì’è”
 		const float REPEL_CONSTANT = 20.0f;   // ”½”­‚Ì’è”
 		const float MAX_SPEED = 10.0f;         // Å‘å‘¬“x
