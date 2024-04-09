@@ -32,6 +32,7 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			AddGameObject<BackGroundSprite>();
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Ground>(Vec3(20.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
