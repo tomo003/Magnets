@@ -1,16 +1,18 @@
-ï»¿/*!
-@file BeltConveyorSide.cpp
-@brief ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ãƒ¼ã®ç«¯
+/*!
+@file BeltConveyor.cpp
+@brief ƒxƒ‹ƒgƒRƒ“ƒxƒA[
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-	//--------------------------------------------------------------
-	//å·¦æ–¹å‘ã®ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢
-	//---------------------------------------------------------------
-	BeltConveyorSideLeft::BeltConveyorSideLeft(const shared_ptr<Stage>& StagePtr,
+
+	//--------------------------------------------------------------------------------------
+	//	¶•ûŒü‚Ìƒxƒ‹ƒgƒRƒ“ƒxƒA
+	//--------------------------------------------------------------------------------------
+
+	BeltConveyorLeft::BeltConveyorLeft(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
 	) :
@@ -19,9 +21,9 @@ namespace basecross {
 		m_Position(Position)
 	{
 	}
-	BeltConveyorSideLeft::~BeltConveyorSideLeft() {}
+	BeltConveyorLeft::~BeltConveyorLeft() {}
 
-	void BeltConveyorSideLeft::OnCreate() {
+	void BeltConveyorLeft::OnCreate() {
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_Scale);
 		ptrTransform->SetPosition(m_Position);
@@ -29,10 +31,8 @@ namespace basecross {
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		AddTag(L"BeltConveyorSideLeft");
 
-
-		Mat4x4 spanMat; 
+		Mat4x4 spanMat;
 		spanMat.affineTransformation(
 			Vec3(1.5f, 1.0f, 1.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
@@ -41,25 +41,24 @@ namespace basecross {
 		);
 
 		auto ptrDraw = AddComponent<PNTBoneModelDraw>();
-		ptrDraw->SetMultiMeshResource(L"SIDE_CONVEYOR");
+		ptrDraw->SetMultiMeshResource(L"CONVEYOR");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->AddAnimation(L"reverse", 0, 60, true, 30.0f);
-		ptrDraw->ChangeCurrentAnimation(L"reverse");
+		ptrDraw->AddAnimation(L"normal", 0, 60, true, 30.0f);
+		ptrDraw->ChangeCurrentAnimation(L"normal");
 
-
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideLeft");
+		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyor");
 		//group->IntoGroup(GetThis<GameObject>());
 	}
 
-	void BeltConveyorSideLeft::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+	void BeltConveyorLeft::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 
 	}
 
-	void BeltConveyorSideLeft::OnUpdate()
+	void BeltConveyorLeft::OnUpdate()
 	{
-		float delta = App::GetApp()->GetElapsedTime();
+		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<PNTBoneModelDraw>();
-		ptrDraw->UpdateAnimation(delta);
+		ptrDraw->UpdateAnimation(elapsedTime);
 		auto anime = ptrDraw->GetCurrentAnimation();
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
@@ -68,16 +67,17 @@ namespace basecross {
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
-		if (length(playerPos - pos) > 10.0f&& length(playerPos2 - pos) > 10.0f){
+		if (length(playerPos - pos) > 5.0f && length(playerPos2 - pos) > 5.0f) {
 			SetUpdateActive(false);
 			SetDrawActive(false);
 		}
 
 	}
-	//--------------------------------------------------------------
-	//å³æ–¹å‘ã®ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢
-	//---------------------------------------------------------------
-	BeltConveyorSideRight::BeltConveyorSideRight(const shared_ptr<Stage>& StagePtr,
+	//--------------------------------------------------------------------------------------
+	//	‰E•ûŒü‚Ìƒxƒ‹ƒgƒRƒ“ƒxƒA
+	//--------------------------------------------------------------------------------------
+
+	BeltConveyorRight::BeltConveyorRight(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
 	) :
@@ -86,9 +86,9 @@ namespace basecross {
 		m_Position(Position)
 	{
 	}
-	BeltConveyorSideRight::~BeltConveyorSideRight() {}
+	BeltConveyorRight::~BeltConveyorRight() {}
 
-	void BeltConveyorSideRight::OnCreate() {
+	void BeltConveyorRight::OnCreate() {
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_Scale);
 		ptrTransform->SetPosition(m_Position);
@@ -96,10 +96,8 @@ namespace basecross {
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		AddTag(L"BeltConveyorSideRight");
 
-
-		Mat4x4 spanMat; 
+		Mat4x4 spanMat;
 		spanMat.affineTransformation(
 			Vec3(1.5f, 1.0f, 1.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
@@ -108,25 +106,24 @@ namespace basecross {
 		);
 
 		auto ptrDraw = AddComponent<PNTBoneModelDraw>();
-		ptrDraw->SetMultiMeshResource(L"SIDE_CONVEYOR");
+		ptrDraw->SetMultiMeshResource(L"CONVEYOR");
 		ptrDraw->SetMeshToTransformMatrix(spanMat);
-		ptrDraw->AddAnimation(L"reverse", 70, 60, true, 30.0f);
-		ptrDraw->ChangeCurrentAnimation(L"reverse");
+		ptrDraw->AddAnimation(L"normal", 70, 60, true, 30.0f);
+		ptrDraw->ChangeCurrentAnimation(L"normal");
 
-
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideRight");
+		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyor");
 		//group->IntoGroup(GetThis<GameObject>());
 	}
 
-	void BeltConveyorSideRight::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+	void BeltConveyorRight::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 
 	}
 
-	void BeltConveyorSideRight::OnUpdate()
+	void BeltConveyorRight::OnUpdate()
 	{
-		float delta = App::GetApp()->GetElapsedTime();
+		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto ptrDraw = GetComponent<PNTBoneModelDraw>();
-		ptrDraw->UpdateAnimation(delta);
+		ptrDraw->UpdateAnimation(elapsedTime);
 		auto anime = ptrDraw->GetCurrentAnimation();
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
@@ -135,11 +132,12 @@ namespace basecross {
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
-		if (length(playerPos - pos) > 10.0f && length(playerPos2 - pos) > 10.0f){
+		if (length(playerPos - pos) > 10.0f && length(playerPos2 - pos) > 10.0f) {
 			SetUpdateActive(false);
 			SetDrawActive(false);
 		}
 
 	}
+
 }
 //end basecross

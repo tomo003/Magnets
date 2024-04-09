@@ -22,6 +22,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorSide.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
@@ -45,5 +46,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorSide.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyor.h" />
   </ItemGroup>
 </Project>
