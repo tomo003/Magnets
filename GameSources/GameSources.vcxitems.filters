@@ -21,6 +21,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorSide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
@@ -43,5 +44,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorSide.h" />
   </ItemGroup>
 </Project>

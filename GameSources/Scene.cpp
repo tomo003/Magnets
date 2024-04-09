@@ -95,6 +95,14 @@ namespace basecross{
 		RoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
 		RoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
 
+		//ベルトコンベア
+		wstring dataDir = App::GetApp()->GetDataDirWString();
+		auto multiModelMesh = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"m_Convayor.bmf");
+		App::GetApp()->RegisterResource(L"CONVEYOR", multiModelMesh);
+		auto multiModelMesh2 = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"s_Convayor.bmf");
+		App::GetApp()->RegisterResource(L"SIDE_CONVEYOR", multiModelMesh2);
+
+
 	}
 
 	void Scene::OnCreate(){

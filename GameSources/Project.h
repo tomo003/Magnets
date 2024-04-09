@@ -19,6 +19,7 @@
 #include "Ground.h"
 #include "TestStage.h"
 #include "GameObjectSample.h"
+#include "BeltConveyorSide.h"
 
 #include "PlayerMagTestStage.h"
 #include "MagnetsObject.h"
