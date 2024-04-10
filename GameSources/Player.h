@@ -62,7 +62,7 @@ namespace basecross {
 	public:
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
-			m_speed(5),
+			m_speed(5.0f),
 			jumpCount(2),
 			count(0)
 		{}
@@ -70,6 +70,7 @@ namespace basecross {
 		void OnCreate();
 		void OnUpdate();
 		//void OnUpdate2();
+		void OnCollisionEnter(shared_ptr<GameObject>& Other);
 
 		void MovePlayer();
 		void JumpPlayer();

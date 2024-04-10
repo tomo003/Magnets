@@ -26,21 +26,28 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-
+	void PlayerMagTestStage::CreateObjGroup(){
+		CreateSharedObjectGroup(L"BeltConveyorLeft");
+		CreateSharedObjectGroup(L"BeltConveyorRight");
+		CreateSharedObjectGroup(L"BeltConveyorSideLeft");
+		CreateSharedObjectGroup(L"BeltConveyorSideRight");
+	}
 
 	void PlayerMagTestStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			CreateObjGroup();
+
 			AddGameObject<BackGroundSprite>();
 
 			AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
 			AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));
 			AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(3.0f, 4.0f, 0.0f));
 
-			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 2.0f, 0.0f));
-			AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 2.0f, 0.0f));
-			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(3.0f, 2.0f, 0.0f));
+			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-3.0f, 2.0f, 0.0f));
+			AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-2.0f, 2.0f, 0.0f));
+			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Ground>(Vec3(20.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));

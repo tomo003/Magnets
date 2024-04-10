@@ -34,7 +34,7 @@ namespace basecross {
 
 		Mat4x4 spanMat; 
 		spanMat.affineTransformation(
-			Vec3(1.5f, 1.0f, 1.0f),
+			Vec3(2.0f, 1.0f, 1.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, -0.3f, 0.0f)
@@ -47,8 +47,8 @@ namespace basecross {
 		ptrDraw->ChangeCurrentAnimation(L"reverse");
 
 
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideLeft");
-		//group->IntoGroup(GetThis<GameObject>());
+		auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideLeft");
+		group->IntoGroup(GetThis<GameObject>());
 	}
 
 	void BeltConveyorSideLeft::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -69,8 +69,8 @@ namespace basecross {
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
 		if (length(playerPos - pos) > 10.0f&& length(playerPos2 - pos) > 10.0f){
-			SetUpdateActive(false);
-			SetDrawActive(false);
+			//SetUpdateActive(false);
+			//SetDrawActive(false);
 		}
 
 	}
@@ -95,7 +95,7 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
-		//ptrColl->SetDrawActive(true);
+		ptrColl->SetDrawActive(true);
 		AddTag(L"BeltConveyorSideRight");
 
 
@@ -114,8 +114,8 @@ namespace basecross {
 		ptrDraw->ChangeCurrentAnimation(L"reverse");
 
 
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideRight");
-		//group->IntoGroup(GetThis<GameObject>());
+		auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorSideRight");
+		group->IntoGroup(GetThis<GameObject>());
 	}
 
 	void BeltConveyorSideRight::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -136,8 +136,8 @@ namespace basecross {
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
 		if (length(playerPos - pos) > 10.0f && length(playerPos2 - pos) > 10.0f){
-			SetUpdateActive(false);
-			SetDrawActive(false);
+			//SetUpdateActive(false);
+			//SetDrawActive(false);
 		}
 
 	}

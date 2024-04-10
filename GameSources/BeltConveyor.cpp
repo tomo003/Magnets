@@ -32,6 +32,8 @@ namespace basecross {
 		ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
 
+		AddTag(L"BeltConveyorLeft");
+
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
 			Vec3(1.5f, 1.0f, 1.0f),
@@ -46,8 +48,8 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"normal", 0, 60, true, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"normal");
 
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyor");
-		//group->IntoGroup(GetThis<GameObject>());
+		auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorLeft");
+		group->IntoGroup(GetThis<GameObject>());
 	}
 
 	void BeltConveyorLeft::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -68,8 +70,8 @@ namespace basecross {
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
 		if (length(playerPos - pos) > 5.0f && length(playerPos2 - pos) > 5.0f) {
-			SetUpdateActive(false);
-			SetDrawActive(false);
+			//SetUpdateActive(false);
+			//SetDrawActive(false);
 		}
 
 	}
@@ -95,7 +97,9 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
-		//ptrColl->SetDrawActive(true);
+		ptrColl->SetDrawActive(true);
+
+		AddTag(L"BeltConveyorRight");
 
 		Mat4x4 spanMat;
 		spanMat.affineTransformation(
@@ -111,8 +115,8 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"normal", 70, 60, true, 30.0f);
 		ptrDraw->ChangeCurrentAnimation(L"normal");
 
-		//auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyor");
-		//group->IntoGroup(GetThis<GameObject>());
+		auto group = GetStage()->GetSharedObjectGroup(L"BeltConveyorRight");
+		group->IntoGroup(GetThis<GameObject>());
 	}
 
 	void BeltConveyorRight::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -133,8 +137,8 @@ namespace basecross {
 		auto playerPos2 = ptrPlayer2->GetComponent<Transform>()->GetPosition();
 
 		if (length(playerPos - pos) > 10.0f && length(playerPos2 - pos) > 10.0f) {
-			SetUpdateActive(false);
-			SetDrawActive(false);
+			//SetUpdateActive(false);
+			//SetDrawActive(false);
 		}
 
 	}

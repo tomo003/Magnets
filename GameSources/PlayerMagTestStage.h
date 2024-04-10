@@ -20,6 +20,8 @@ namespace basecross {
 		virtual ~PlayerMagTestStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+
+		void CreateObjGroup();
 	};
 
 
