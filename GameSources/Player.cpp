@@ -34,10 +34,15 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		//if (ptrCamera) {
+		//	//カメラが追いかけるターゲット(プレイヤー)の設定
+		//	ptrCamera->SetPlayerObj(GetThis<GameObject>());
+		//}
+		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
 			//カメラが追いかけるターゲット(プレイヤー)の設定
-			ptrCamera->SetTargetObj(GetThis<GameObject>());
+			ptrCamera->SetPlayerObj(GetThis<GameObject>());
 		}
 
 		AddTag(L"Player");
@@ -53,7 +58,7 @@ namespace basecross {
 	//更新処理
 	void Player::OnUpdate(){
 		MovePlayer();
-		ApplyForcePlayer();
+		//ApplyForcePlayer();
 	}
 
 	//プレイヤーの動き
@@ -183,18 +188,24 @@ namespace basecross {
 
 	// プレイやーに引力を適用
 	void Player::ApplyAttraction() {
-		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
-		auto objTrans = ptrMagObj->GetComponent<Transform>();
-		Vec3 objPos = objTrans->GetPosition();
-		float objMass = ptrMagObj->GetMass();
-		float objAreaRadius = ptrMagObj->GetAreaRadius();
+		auto group = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
+		auto groupVec = group->GetGroupVector();
+		for (const auto& v : groupVec) {
+			auto ptrMagObj = v.lock();
+			auto objTrans = ptrMagObj->GetComponent<Transform>();
+			Vec3 objPos = objTrans->GetPosition();
+			//float objAreaRadius = ptrMagObj->GetAreaRadius();
 
-		auto playerPos = m_ptrTrans->GetPosition();
+			auto playerPos = m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
-		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
-		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
-		m_Velocity += force;
+			m_direction = objPos - playerPos;
+			m_distanceTemp = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+			if (m_distanceTemp < m_distance) {
+				m_distance = m_distanceTemp;
+			}
+		}
+		m_force = (m_direction / m_distance) * ATTRACTION_CONSTANT * m_playerMass / (m_distance * m_distance);
+		m_Velocity += m_force;
 	}
 	void Player::PlayerApplyAttraction() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -205,25 +216,32 @@ namespace basecross {
 
 		auto playerPos = m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
-		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
-		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_direction = objPos - playerPos;
+		m_distance = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+		Vec3 force = (m_direction / m_distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (m_distance * m_distance);
 		m_Velocity += force;
 	}
 
 	// プレイやーに斥力を適用
 	void Player::ApplyRepulsion() {
-		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
-		auto objTrans = ptrMagObj->GetComponent<Transform>();
-		Vec3 objPos = objTrans->GetPosition();
-		float objMass = ptrMagObj->GetMass();
+		auto group = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
+		auto groupVec = group->GetGroupVector();
+		for (const auto& v : groupVec) {
+			auto ptrMagObj = v.lock();
+			auto objTrans = ptrMagObj->GetComponent<Transform>();
+			Vec3 objPos = objTrans->GetPosition();
+			//float objAreaRadius = ptrMagObj->GetAreaRadius();
 
-		auto playerPos = m_ptrTrans->GetPosition();
+			auto playerPos = m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
-		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
-		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
-		m_Velocity += force * -1;
+			m_direction = objPos - playerPos;
+			m_distanceTemp = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+			if (m_distanceTemp < m_distance) {
+				m_distance = m_distanceTemp;
+			}
+		}
+		m_force = (m_direction / m_distance) * REPEL_CONSTANT * m_playerMass / (m_distance * m_distance);
+		m_Velocity += m_force * -1;
 	}
 	void Player::PlayerApplyRepulsion() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -233,9 +251,9 @@ namespace basecross {
 
 		auto playerPos = m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
-		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
-		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
+		m_direction = objPos - playerPos;
+		m_distance = max(sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y), 1.0f);
+		Vec3 force = (m_direction / m_distance) * REPEL_CONSTANT * m_playerMass * objMass / (m_distance * m_distance);
 		m_Velocity += force * -1;
 	}
 

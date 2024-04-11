@@ -84,6 +84,14 @@ namespace basecross{
 
 		RoadTexture(L"TITLE", L"title.tga");
 
+		RoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
+		RoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
+		RoadTexture(L"BROCK_TX", L"Tile_Normal.png");
+		RoadTexture(L"METAL_TX", L"Tile_Metal.png");
+		RoadTexture(L"START_TX", L"Tile_Start.png");
+		RoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
+		RoadTexture(L"GOAL_TX", L"Tile_Goal.png");
+
 		RoadStaticModelMesh(L"01", L"Player01_MESH");
 		RoadStaticModelMesh(L"02", L"Player02_MESH");
 		RoadStaticModelMesh(L"03", L"Player03_MESH");
@@ -119,7 +127,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

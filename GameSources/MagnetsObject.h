@@ -13,7 +13,8 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // –³
 			eN = 1, // ‚m‹É
-			eS = 2 // ‚r‹É
+			eS = 2, // ‚r‹É
+			eMetal = 3 // ‹à‘®
 		};
 
 	private:

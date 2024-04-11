@@ -16,7 +16,7 @@ namespace basecross {
 		const Vec3 at(0.0f,4.0f,0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<MyCamera>();
+		auto PtrCamera = ObjectFactory::Create<DuoCamera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -50,7 +50,7 @@ namespace basecross {
 			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
 
 			// 地面のオブジェクトを追加
-			AddGameObject<Ground>(Vec3(20.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
+			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
 
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();
@@ -58,9 +58,15 @@ namespace basecross {
 			auto ptrPlayer2 = AddGameObject<Player2>();
 			SetSharedGameObject(L"Player2", ptrPlayer2);
 
+			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
+
 			// 磁石オブジェクトを追加
-			auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
-			SetSharedGameObject(L"MagnetsObject", ptrMagObj);
+			auto ptrMagObj = AddGameObject<MagnetN>(Vec3(1.0f), Vec3(3.5f, -0.5f, 0.0f));
+			//ptrMagObj = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(10.0f, -0.5f, 0.0f));
+
+			magnetsGroup->IntoGroup(ptrMagObj);
+
+			//SetSharedGameObject(L"MagnetsObject", ptrMagObj);
 
 		}
 		catch (...) {
