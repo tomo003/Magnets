@@ -74,6 +74,9 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			pos = pos + padLStick * delta * m_speed;
 		}
+		if (m_speed != 5.0f){
+			pos = pos + delta * Vec3(m_speed,0,0) * m_attribute;
+		}
 		m_ptrTrans->SetPosition(Vec3(pos));
 
 
@@ -303,19 +306,30 @@ namespace basecross {
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
 
-		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
-
-		Vec3 playerPos = m_ptrTrans->GetPosition();
-
 		if (ptrBeltConLeft || ptrBeltConSideLeft) {
-			playerPos = playerPos + Vec3(-0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
+			m_speed = 6.0f;
+			m_attribute = -1;
 		}
-		if (ptrBeltConRight || ptrBeltConSideRight) {
-			playerPos = playerPos + Vec3(0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
+		else if (ptrBeltConRight || ptrBeltConSideRight) {
+			m_speed = 6.0f;
+		}
+		else {
+			m_speed = 5.0f;
+			m_attribute = 1;
 		}
 	}
+	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
+		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
+		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
+		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
+		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
+
+		if (ptrBeltConLeft || ptrBeltConSideLeft|| ptrBeltConRight || ptrBeltConSideRight) {
+			//m_speed = 5.0f;
+			//m_attribute = 1;
+		}
+	}
+
 }
 //end basecross
 

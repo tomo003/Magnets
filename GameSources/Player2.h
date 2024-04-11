@@ -25,6 +25,7 @@ namespace basecross {
 		enum EState m_eMagPole = EState::eFalse;
 
 		float m_speed;
+		int m_attribute;
 		Vec3 m_Velocity;
 		float m_Acceleration; // ‰Á‘¬“x(¥Î‚Í‹ß‚¢‚Ù‚Ç¥—Í‚ª‹­‚¢‚½‚ß)
 
@@ -58,6 +59,7 @@ namespace basecross {
 		Player2(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
 			m_speed(5),
+			m_attribute(1),
 			jumpCount(2)
 		{}
 
