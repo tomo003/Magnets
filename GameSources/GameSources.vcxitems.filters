@@ -10,6 +10,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
@@ -18,15 +19,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorSide.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyor.cpp" />
-=======
-    <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
->>>>>>> Canera
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
@@ -38,6 +30,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
@@ -46,14 +39,5 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
-<<<<<<< HEAD
-    <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorSide.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyor.h" />
-=======
-    <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
->>>>>>> Canera
   </ItemGroup>
 </Project>

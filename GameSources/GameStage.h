@@ -29,6 +29,8 @@ namespace basecross {
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+
+		void CreateObjGroup();
 	};
 
 
