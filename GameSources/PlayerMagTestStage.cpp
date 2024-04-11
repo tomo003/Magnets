@@ -55,8 +55,8 @@ namespace basecross {
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();
 			SetSharedGameObject(L"Player", ptrPlayer);
-			//auto ptrPlayer2 = AddGameObject<Player2>();
-			//SetSharedGameObject(L"Player2", ptrPlayer2);
+			auto ptrPlayer2 = AddGameObject<Player2>();
+			SetSharedGameObject(L"Player2", ptrPlayer2);
 
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
