@@ -85,6 +85,9 @@ namespace basecross{
 		RoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		RoadTexture(L"BROCK_TX", L"Tile_Normal.png");
 		RoadTexture(L"METAL_TX", L"Tile_Metal.png");
+		RoadTexture(L"START_TX", L"Tile_Start.png");
+		RoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
+		RoadTexture(L"GOAL_TX", L"Tile_Goal.png");
 
 		RoadStaticModelMesh(L"01", L"Player01_MESH");
 		RoadStaticModelMesh(L"02", L"Player02_MESH");

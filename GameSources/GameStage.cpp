@@ -37,7 +37,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap4.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap6.csv");
 			m_GameStageCsv.ReadCsv();
 
 			CreateCsvObjects();
@@ -73,6 +73,10 @@ namespace basecross {
 		float size = 1;
 		Vec3 objScale = Vec3(1.0f) / size;
 
+		std::shared_ptr<GameObject> ptrGround;
+		std::shared_ptr<GameObject> ptrMag;
+
+
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
 			vector<wstring> Tokens;
@@ -82,40 +86,67 @@ namespace basecross {
 				float posY = (float)((int)i) / size;
 				int TokensNum = stoi(Tokens[j]);
 
-				std::shared_ptr<GameObject> ptrGround;
-				std::shared_ptr<GameObject> ptrMag;
 
 				switch (TokensNum) {
 				case 0: //通常地面
 					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY+5 , 0));
+					//groundGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
 					ptrMag = AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//magnetsGroup->IntoGroup(ptrMag);
 					break;
 
 				case 2: //磁石S極
 					ptrMag = AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//magnetsGroup->IntoGroup(ptrMag);
 					break;
 
 				case 3: //金属
 					ptrMag = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//magnetsGroup->IntoGroup(ptrMag);
+					break;
+
+				case 11: //スタート
+					ptrGround = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//groundGroup->IntoGroup(ptrGround);
+					isCreateMaagnets = false;
+					break;
+
+				case 12: //セーブポイント
+					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//groundGroup->IntoGroup(ptrGround);
+					isCreateMaagnets = false;
+					break;
+
+				case 13: //ゴール
+					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					//groundGroup->IntoGroup(ptrGround);
+					isCreateMaagnets = false;
 					break;
 
 				default:
 					break;
 				}
 
-				if (isCreateMaagnets) {
-					magnetsGroup->IntoGroup(ptrMag);
-				}
-				else {
-					groundGroup->IntoGroup(ptrGround);
-					isCreateMaagnets = true;
-				}
+				//if (isCreateMaagnets) {
+				//	magnetsGroup->IntoGroup(ptrMag);
+				//}
+				//else {
+				//	groundGroup->IntoGroup(ptrGround);
+				//	isCreateMaagnets = true;
+				//}
+				//magnetsGroup->IntoGroup(ptrMag);
+				//groundGroup->IntoGroup(ptrGround);
+
+
 			}
 		}
+		magnetsGroup->IntoGroup(ptrMag);
+		groundGroup->IntoGroup(ptrGround);
+
 	}
 
 }

@@ -50,7 +50,7 @@ namespace basecross {
 	//更新処理
 	void Player::OnUpdate(){
 		MovePlayer();
-		ApplyForcePlayer();
+		//ApplyForcePlayer();
 	}
 
 	//プレイヤーの動き
