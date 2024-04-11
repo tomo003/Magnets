@@ -56,7 +56,7 @@ namespace basecross {
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
-		ptrColl->SetDrawActive(true);
+		//ptrColl->SetDrawActive(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);

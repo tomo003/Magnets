@@ -97,7 +97,7 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
-		ptrColl->SetDrawActive(true);
+		//ptrColl->SetDrawActive(true);
 
 		AddTag(L"BeltConveyorRight");
 
