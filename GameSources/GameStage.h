@@ -16,6 +16,8 @@ namespace basecross {
 	private:
 		CsvFile m_GameStageCsv;
 
+		bool isCreateMaagnets = true;
+
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 

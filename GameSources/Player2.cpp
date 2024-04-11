@@ -31,6 +31,12 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 120, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
+		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		if (ptrCamera) {
+			//カメラが追いかけるターゲット(プレイヤー)の設定
+			ptrCamera->SetSecondPlayerObj(GetThis<GameObject>());
+		}
+
 		AddTag(L"Player2");
 	}
 

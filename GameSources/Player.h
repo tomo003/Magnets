@@ -28,6 +28,11 @@ namespace basecross {
 		Vec3 m_Velocity;
 		float m_Acceleration; // ‰Á‘¬“x(¥Î‚Í‹ß‚¢‚Ù‚Ç¥—Í‚ª‹­‚¢‚½‚ß)
 
+		Vec3 m_direction;
+		float m_distance = 1000.0f;
+		float m_distanceTemp;
+		Vec3 m_force;
+
 		float m_playerMass = 1.0f;
 
 		float jumpCount;

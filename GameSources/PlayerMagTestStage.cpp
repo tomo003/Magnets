@@ -16,7 +16,7 @@ namespace basecross {
 		const Vec3 at(0.0f,4.0f,0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<MyCamera>();
+		auto PtrCamera = ObjectFactory::Create<DuoCamera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -34,7 +34,7 @@ namespace basecross {
 			CreateViewLight();
 
 			// 地面のオブジェクトを追加
-			AddGameObject<Ground>(Vec3(20.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
+			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
 
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();
@@ -44,7 +44,7 @@ namespace basecross {
 
 			// 磁石オブジェクトを追加
 			auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
-			SetSharedGameObject(L"MagnetsObject", ptrMagObj);
+			//SetSharedGameObject(L"MagnetsObject", ptrMagObj);
 
 		}
 		catch (...) {
