@@ -82,6 +82,8 @@ namespace basecross{
 		RoadTexture(L"BPUSH", L"BPush.png");
 		RoadTexture(L"BACKGROUND", L"Back.png");
 
+		RoadTexture(L"TITLE", L"title.tga");
+
 		RoadStaticModelMesh(L"01", L"Player01_MESH");
 		RoadStaticModelMesh(L"02", L"Player02_MESH");
 		RoadStaticModelMesh(L"03", L"Player03_MESH");
