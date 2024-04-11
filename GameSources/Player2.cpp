@@ -248,6 +248,25 @@ namespace basecross {
 		}
 	}
 
+	void Player2::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
+		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
+		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
+		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
+
+		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
+
+		Vec3 playerPos = m_ptrTrans->GetPosition();
+
+		if (ptrBeltConLeft || ptrBeltConSideLeft) {
+			playerPos = playerPos + Vec3(-0.5f, 0, 0) * delta * m_speed;
+			m_ptrTrans->SetPosition(playerPos);
+		}
+		if (ptrBeltConRight || ptrBeltConSideRight) {
+			playerPos = playerPos + Vec3(0.5f, 0, 0) * delta * m_speed;
+			m_ptrTrans->SetPosition(playerPos);
+		}
+	}
 
 }
 //end basecross
