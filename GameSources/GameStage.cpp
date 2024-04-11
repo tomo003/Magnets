@@ -16,7 +16,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
-		auto PtrCamera = ObjectFactory::Create<DuoCamera>();
+		auto PtrCamera = ObjectFactory::Create<MyCamera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
