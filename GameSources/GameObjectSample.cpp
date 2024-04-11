@@ -25,7 +25,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		drawComp->SetTextureResource(L"BROCK_TX");
+		drawComp->SetTextureResource(L"CONCRETE_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);

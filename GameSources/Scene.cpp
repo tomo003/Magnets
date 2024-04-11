@@ -87,6 +87,7 @@ namespace basecross{
 		RoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		RoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		RoadTexture(L"BROCK_TX", L"Tile_Normal.png");
+		RoadTexture(L"CONCRETE_TX", L"Tile_Concrete.png");
 		RoadTexture(L"METAL_TX", L"Tile_Metal.png");
 		RoadTexture(L"START_TX", L"Tile_Start.png");
 		RoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
