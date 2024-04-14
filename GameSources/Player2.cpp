@@ -130,6 +130,8 @@ namespace basecross {
 	void Player2::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+		m_speed = 5.0f;
+		m_attribute = 1;
 	}
 
 	//éÄñSä÷êî
@@ -263,6 +265,11 @@ namespace basecross {
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
+
+		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
+			m_speed = 5.0f;
+			m_attribute = 1;
+		}
 
 		if (ptrBeltConLeft || ptrBeltConSideLeft) {
 			m_speed = 6.0f;

@@ -78,7 +78,6 @@ namespace basecross {
 		void OnUpdate();
 		//void OnUpdate2();
 		void OnCollisionEnter(shared_ptr<GameObject>& Other);
-		void OnCollisionExit(shared_ptr<GameObject>& Other);
 
 		void MovePlayer();
 		void JumpPlayer();
