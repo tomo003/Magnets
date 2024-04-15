@@ -152,7 +152,7 @@ namespace basecross {
 
 	// プレイやーに引力を適用
 	void Player::ApplyAttraction() {
-		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
+		auto ptrMagObj = GetStage()->GetSharedGameObject<MoveMagnetsObject>(L"MagnetsObject");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetPosition();
 		float objMass = ptrMagObj->GetMass();
@@ -168,7 +168,7 @@ namespace basecross {
 
 	// プレイやーに斥力を適用
 	void Player::ApplyRepulsion() {
-		auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
+		auto ptrMagObj = GetStage()->GetSharedGameObject<MoveMagnetsObject>(L"MagnetsObject");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetPosition();
 		float objMass = ptrMagObj->GetMass();
@@ -183,13 +183,23 @@ namespace basecross {
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 		auto ptrMagnets = dynamic_pointer_cast<MoveMagnetsObject>(Other); // オブジェクト取得
-		auto magDir = GetMsgnetsDirection().second;
-		if (ptrMagnets) // チェック
+		//auto magDir = GetMsgnetsDirection().second;
+		if (ptrMagnets && (m_eMagPole != EState::eFalse)) // チェック
 		{
 			m_gravityTemp = m_gravityComp->GetGravity();
 			m_gravityComp->SetGravityZero();
 
 			m_ptrTrans->SetParent(ptrMagnets);
+		}
+	}
+
+	void Player::OnCollisionExcute(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMagnetsObject>(Other); // オブジェクト取得
+		if (ptrMagnets && (m_eMagPole == EState::eFalse)) // チェック
+		{
+			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
 		}
 	}
 

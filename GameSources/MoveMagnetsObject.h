@@ -13,11 +13,12 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // 無
 			eN = 1, // Ｎ極
-			eS = 2 // Ｓ極
+			eS = 2, // Ｓ極
+			eMetal = 3
 		};
 
 	private:
-		enum EState m_eMagPole;	// 磁極の状態
+		enum EState m_eMagPole = EState::eMetal;	// 磁極の状態
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
@@ -36,7 +37,7 @@ namespace basecross {
 		MoveMagnetsObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
 			m_position(position),
-			m_eMagPole(EState::eN),
+			m_eMagPole(EState::eMetal),
 			m_speed(1.0f)
 		{}
 

@@ -10,7 +10,7 @@ namespace basecross {
 	{
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		m_ptrDraw->SetEmissive(COL_RED);
+		m_ptrDraw->SetTextureResource(L"GRAY_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -63,15 +63,12 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-			if (playerMagPole * objMagPole < 0) {
+			if (playerMagPole == -1) {
 				return;
 			}
-			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
-			}
-			else if (playerMagPole != objMagPole) {
+			else {
 				ptrPlayer->ApplyAttraction();
-			}// ptrPlayer->ApplyAttraction();
+			}
 
 		}
 	}

@@ -81,6 +81,7 @@ namespace basecross {
 		void JumpPlayer();
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
+		void OnCollisionExcute(shared_ptr<GameObject>& Other) override;
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 
 		void AnimationPlayer(eMotion Motion);
