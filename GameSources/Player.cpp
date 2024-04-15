@@ -43,16 +43,16 @@ namespace basecross {
 	void Player::MovePlayer() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
-		Vec3 pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
+		m_pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * m_speed;
+			m_pos = m_pos + padLStick * delta * m_speed;
 		}
-		m_ptrTrans->SetPosition(Vec3(pos));
+		m_ptrTrans->SetPosition(Vec3(m_pos));
 
 
 		//auto KeyState = app->GetInputDevice().GetKeyState();
@@ -79,13 +79,6 @@ namespace basecross {
 			AnimationPlayer(FRONT);
 		}
 
-		limitSpeed();
-		pos += m_Velocity * delta;
-		m_Velocity.setAll(0);
-
-
-		m_ptrTrans->SetPosition(Vec3(pos));
-
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
@@ -93,7 +86,7 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (pos.y <= -0.4f) {
+		else if (m_pos.y <= -0.4f) {
 			jumpCount = 1;
 		}
 
@@ -116,12 +109,17 @@ namespace basecross {
 			
 		}
 
+		limitSpeed();
+		m_pos += m_Velocity * delta;
+		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_Velocity.setAll(0);
+
 	}
 
 	//ジャンプ関数
 	void Player::JumpPlayer() {
-		auto gravity = GetComponent<Gravity>();
-		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+		m_gravityComp = GetComponent<Gravity>();
+		m_gravityComp->StartJump(Vec3(0.0f, 5.0f, 0.0f));
 	}
 
 	//アニメーション関数
@@ -160,9 +158,9 @@ namespace basecross {
 		float objMass = ptrMagObj->GetMass();
 		float objAreaRadius = ptrMagObj->GetAreaRadius();
 
-		auto playerPos = m_ptrTrans->GetPosition();
+		m_pos= m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
+		Vec3 direction = objPos - m_pos;
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 		Vec3 force = (direction / distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (distance * distance);
 		m_Velocity += force;
@@ -175,14 +173,36 @@ namespace basecross {
 		Vec3 objPos = objTrans->GetPosition();
 		float objMass = ptrMagObj->GetMass();
 
-		auto playerPos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetPosition();
 
-		Vec3 direction = objPos - playerPos;
+		Vec3 direction = objPos - m_pos;
 		float distance = max(sqrtf(direction.x * direction.x + direction.y * direction.y), 1.0f);
 		Vec3 force = (direction / distance) * REPEL_CONSTANT * m_playerMass * objMass / (distance * distance);
 		m_Velocity += force * -1;
 	}
 
+	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMagnetsObject>(Other); // オブジェクト取得
+		auto magDir = GetMsgnetsDirection().second;
+		if (ptrMagnets) // チェック
+		{
+			m_gravityTemp = m_gravityComp->GetGravity();
+			m_gravityComp->SetGravityZero();
+
+			m_ptrTrans->SetParent(ptrMagnets);
+		}
+	}
+
+	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMagnetsObject>(Other); // オブジェクト取得
+		if (ptrMagnets) // チェック
+		{
+			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+
+	}
 
 	// 速度を制限
 	void Player::limitSpeed() {

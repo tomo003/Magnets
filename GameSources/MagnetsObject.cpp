@@ -53,6 +53,7 @@ namespace basecross {
 		ApplyForcePlayer();
 	}
 
+	// プレイヤーに磁力による力を適用
 	void MagnetsObject::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
