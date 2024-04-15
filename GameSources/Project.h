@@ -19,8 +19,10 @@
 #include "PlayerMagTestStage.h"
 #include "MagnetsObject.h"
 #include "MagnetArea.h"
-
+#include "MoveMagnetsObject.h"
 #include "Sprites.h"
 #include "ButtonUI.h"
 #include "TitleStage.h"
 #include "TitleSprite.h"
+#include "Utility.h"
+#include "RingObject.h"
