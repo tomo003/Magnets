@@ -20,10 +20,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorSide.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MoveMagnetsObjct.cpp" />
+=======
+    <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
+>>>>>>> yuu
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
@@ -45,9 +50,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorSide.h" />
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MoveMagnetsObject.h" />
+=======
+    <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
+>>>>>>> yuu
   </ItemGroup>
 </Project>

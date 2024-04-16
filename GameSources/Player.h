@@ -33,6 +33,7 @@ namespace basecross {
 
 		Vec3 m_pos;
 		float m_speed;
+		int m_attribute;
 		Vec3 m_Velocity;
 		float m_Acceleration; // ‰Á‘¬“x(¥Î‚Í‹ß‚¢‚Ù‚Ç¥—Í‚ª‹­‚¢‚½‚ß)
 
@@ -79,6 +80,7 @@ namespace basecross {
 		Player(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
 			m_speed(5.0f),
+			m_attribute(1),
 			jumpCount(2),
 			count(0)
 		{}

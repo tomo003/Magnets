@@ -74,6 +74,9 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
+		if (m_speed != 5.0f){
+			m_pos = m_pos + delta * Vec3(m_speed,0,0) * m_attribute;
+		}
 		m_ptrTrans->SetPosition(Vec3(m_pos));
 
 
@@ -148,6 +151,8 @@ namespace basecross {
 		m_gravityComp->StartJump(m_gravityVelocity);
 		m_pos = GetComponent<Transform>()->GetPosition();
 		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, Vec3(1.0f));
+		m_speed = 5.0f;
+		m_attribute = 1;
 	}
 
 	//死亡関数
@@ -297,17 +302,21 @@ namespace basecross {
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
 
-		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
-
-		Vec3 playerPos = m_ptrTrans->GetPosition();
+		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
+			m_speed = 5.0f;
+			m_attribute = 1;
+		}
 
 		if (ptrBeltConLeft || ptrBeltConSideLeft) {
-			playerPos = playerPos + Vec3(-0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
+			m_speed = 6.0f;
+			m_attribute = -1;
 		}
-		if (ptrBeltConRight || ptrBeltConSideRight) {
-			playerPos = playerPos + Vec3(0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
+		else if (ptrBeltConRight || ptrBeltConSideRight) {
+			m_speed = 6.0f;
+		}
+		else {
+			m_speed = 5.0f;
+			m_attribute = 1;
 		}
 	}
 

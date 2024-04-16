@@ -29,12 +29,12 @@ namespace basecross {
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		AddTag(L"BeltConveyorSideLeft");
 
+		AddTag(L"BeltConveyorSideLeft");
 
 		Mat4x4 spanMat; 
 		spanMat.affineTransformation(
-			Vec3(2.0f, 1.0f, 1.0f),
+			Vec3(1.5f, 1.0f, 1.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, -0.3f, 0.0f)
@@ -96,8 +96,8 @@ namespace basecross {
 		ptrColl->SetUpdateActive(true);
 		ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		AddTag(L"BeltConveyorSideRight");
 
+		AddTag(L"BeltConveyorSideRight");
 
 		Mat4x4 spanMat; 
 		spanMat.affineTransformation(
