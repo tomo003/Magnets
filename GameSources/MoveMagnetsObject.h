@@ -80,6 +80,7 @@ namespace basecross {
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<MagnetArea> m_ptrArea;
 
 		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 3.0f;
@@ -87,7 +88,12 @@ namespace basecross {
 		Vec3 m_position;
 		float m_speed;
 
-		std::vector<Vec3> m_points; // 巡回ポイント
+		const std::vector<Vec3> m_points = {
+			Vec3(m_position.x +3.5f, m_position.y, 0.0f), // 左
+			Vec3(m_position .x -3.5f, m_position.y, 0.0f) // 右
+		};
+
+		// 巡回ポイント
 		int m_currentPointIndex; // 現在の移動ライン番号
 
 	public:

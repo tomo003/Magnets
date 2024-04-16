@@ -53,7 +53,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap6.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap7.csv");
 			m_GameStageCsv.ReadCsv();
 
 			CreateCsvObjects();
@@ -74,6 +74,8 @@ namespace basecross {
 			//auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
 			//SetSharedGameObject(L"MagnetsObject", ptrMagObj);
 
+			//AddGameObject<MoveMetalObject>(Vec3(30, 5, 0));
+
 
 		}
 		catch (...) {
@@ -83,8 +85,9 @@ namespace basecross {
 
 	void GameStage::CreateCsvObjects() {
 
-		const auto& groundGroup = CreateSharedObjectGroup(L"Ground");
-		const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
+		auto groundGroup = CreateSharedObjectGroup(L"Ground");
+		auto magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
+		std::shared_ptr<GameObject> ptrMoveMetal;
 
 		float size = 1;
 		Vec3 objScale = Vec3(1.0f) / size;
@@ -122,7 +125,11 @@ namespace basecross {
 
 				case 3: //金属
 					ptrMag = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					magnetsGroup->IntoGroup(ptrMag);
+					break;
+
+				case 4: //金属動くやつ
+					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + 5, 0));
+					SetSharedGameObject(L"MoveMetalObj", ptrMoveMetal);
 					break;
 
 				case 9://ベルトコンベア右回り端

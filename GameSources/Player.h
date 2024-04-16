@@ -41,7 +41,8 @@ namespace basecross {
 		float m_distanceTemp;
 		Vec3 m_force;
 
-		Vec3 m_gravityTemp;
+		const Vec3 m_gravityVelocity = Vec3(0.0f, 11.0f, 0.0f);
+		const Vec3 m_gravity = Vec3(0, -9.8f, 0);
 
 		float m_playerMass = 1.0f;
 
@@ -84,7 +85,7 @@ namespace basecross {
 
 		void OnCreate();
 		void OnUpdate();
-		//void OnUpdate2();
+		void OnUpdate2();
 
 		void MovePlayer();
 		void JumpPlayer();

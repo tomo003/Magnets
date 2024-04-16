@@ -31,9 +31,9 @@ namespace basecross {
 	void MyCamera::OnUpdate() {
 		auto ptrTarget = GetPlayerObj();
 		Vec3 newAt = GetAt();
-		newAt = Vec3(ptrTarget->GetComponent<Transform>()->GetPosition().x, 0.0f, 0.0f);
+		newAt = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, 0.0f, 0.0f);
 		Vec3 newEye = GetEye();
-		newEye = Vec3(ptrTarget->GetComponent<Transform>()->GetPosition().x,0.0f , -20.0f);
+		newEye = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x,0.0f , -20.0f);
 
 		SetAt(newAt);
 		SetEye(newEye);

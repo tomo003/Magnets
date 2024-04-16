@@ -112,7 +112,7 @@ namespace basecross {
 			jumpCount = 1;
 		}
 
-		if (m_pos.y < -5.0f) {
+		if (m_pos.y < -10.0f) {
 			DeathPlayer();
 		}
 
@@ -145,11 +145,9 @@ namespace basecross {
 	//ジャンプ関数
 	void Player::JumpPlayer() {
 		m_gravityComp = GetComponent<Gravity>();
-		m_gravityComp->StartJump(Vec3(0.0f, 5.0f, 0.0f));
-		auto gravity = GetComponent<Gravity>();
-		gravity->StartJump(Vec3(0.0f, 11.0f, 0.0f));
-		auto pos = GetComponent<Transform>()->GetPosition();
-		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, pos, Vec3(1.0f));
+		m_gravityComp->StartJump(m_gravityVelocity);
+		m_pos = GetComponent<Transform>()->GetPosition();
+		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, Vec3(1.0f));
 	}
 
 	//死亡関数
@@ -289,7 +287,6 @@ namespace basecross {
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMagnets && (m_eMagPole != EState::eFalse)) // チェック
 		{
-			m_gravityTemp = m_gravityComp->GetGravity();
 			m_gravityComp->SetGravityZero();
 
 			m_ptrTrans->SetParent(ptrMagnets);
@@ -318,7 +315,7 @@ namespace basecross {
 		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
 		if (ptrMagnets && (m_eMagPole == EState::eFalse)) // チェック
 		{
-			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
@@ -328,7 +325,7 @@ namespace basecross {
 		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
 		if (ptrMagnets) // チェック
 		{
-			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
@@ -344,13 +341,20 @@ namespace basecross {
 	}
 
 
-	//void Player::OnUpdate2() {
-	//	auto fps = App::GetApp()->GetStepTimer().GetFramesPerSecond();
-	//	wstring fpsStr(L"FPS: ");
-	//	fpsStr += Util::UintToWStr(fps);
-	//	auto ptrString = GetComponent<StringSprite>();
-	//	ptrString->SetText(fpsStr);
-	//}
+	void Player::OnUpdate2() {
+		//wstring posStr(L"POS: ");
+		//posStr += Util::FloatToWStr(m_pos.y);
+		//auto ptrString = GetComponent<StringSprite>();
+		//ptrString->SetText(posStr);
+
+		wstringstream wss;
+		wss << L"Player : " <<
+			m_pos.y << L", " << std::endl;
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto dstr = scene->GetDebugString();
+		scene->SetDebugString(wss.str());
+
+	}
 
 }
 //end basecross

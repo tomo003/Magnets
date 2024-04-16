@@ -23,16 +23,19 @@ namespace basecross {
 			2, 1, 3,   // ゲームでポリゴンはすべて三角
 		};
 
-		auto drawComp = AddComponent<PTStaticDraw>();
+		m_DrawComp = AddComponent<PTStaticDraw>();
 		// PT => Position,Texture
-		drawComp->SetOriginalMeshUse(true); // メッシュを自作する
-		drawComp->CreateOriginalMesh(m_vertices, m_indices);
-		drawComp->SetTextureResource(m_texKey);
+		m_DrawComp->SetOriginalMeshUse(true); // メッシュを自作する
+		m_DrawComp->CreateOriginalMesh(m_vertices, m_indices);
+		m_DrawComp->SetTextureResource(m_texKey);
 		SetAlphaActive(true);
 
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetPosition(m_pos);
 		m_ptrTrans->SetScale(Vec3(m_radius));
+
+		//auto ptrMoveMetal = GetStage()->GetSharedGameObject<MoveMetalObject>(L"MoveMetalObj");
+		//m_ptrTrans->SetParent(ptrMoveMetal);
 	}
 	
 	void MagnetArea::OnUpdate() {

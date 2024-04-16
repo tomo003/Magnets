@@ -19,12 +19,9 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(2.0f, 0.75f, 0.75f);
 
-		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_points = {
-			Vec3(+3.5f, m_position.y, 0.0f), // 左
-			Vec3(-3.5f, m_position.y, 0.0f) // 右
-		};
-
+		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
+		auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
+		m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
 	}
 
 	void MoveMetalObject::OnUpdate() {
@@ -50,6 +47,7 @@ namespace basecross {
 		m_ptrTrans->SetPosition(pos); // 新しい座標で更新する
 
 		ApplyForcePlayer();
+		//m_ptrArea->UpdateArea(m_position);
 	}
 
 	// プレイヤーに磁力による力を適用
