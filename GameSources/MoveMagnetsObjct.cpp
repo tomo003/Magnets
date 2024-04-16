@@ -6,7 +6,7 @@
 #define COL_PURPLE Col4(0.56f, 0.42f, 0.78f, true)
 
 namespace basecross {
-	void MoveMagnetsObject::OnCreate()
+	void MoveMetalObject::OnCreate()
 	{
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
@@ -27,7 +27,7 @@ namespace basecross {
 
 	}
 
-	void MoveMagnetsObject::OnUpdate() {
+	void MoveMetalObject::OnUpdate() {
 		// アプリケーションオブジェクトを取得する
 		auto& app = App::GetApp();
 
@@ -53,7 +53,7 @@ namespace basecross {
 	}
 
 	// プレイヤーに磁力による力を適用
-	void MoveMagnetsObject::ApplyForcePlayer() {
+	void MoveMetalObject::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
