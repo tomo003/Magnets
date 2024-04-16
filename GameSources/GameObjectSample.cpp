@@ -79,7 +79,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
@@ -101,7 +101,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
@@ -163,7 +163,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
@@ -185,7 +185,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
@@ -245,7 +245,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
@@ -267,7 +267,7 @@ namespace basecross {
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_position);
+		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {

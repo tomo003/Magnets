@@ -39,11 +39,7 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
-
-		Vec3 m_position;
-
 		float m_MagAreaRadius = 3.0f;
-
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
@@ -94,11 +90,7 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
-
-		Vec3 m_position;
-
 		float m_MagAreaRadius = 3.0f;
-
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
@@ -149,11 +141,7 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
-
-		Vec3 m_position;
-
 		float m_MagAreaRadius = 3.0f;
-
 
 		Vec3 m_Scale;
 		Vec3 m_Position;

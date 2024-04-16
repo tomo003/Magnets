@@ -41,13 +41,13 @@ namespace basecross {
 
 			AddGameObject<BackGroundSprite>();
 
-			AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
-			AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));
-			AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(3.0f, 4.0f, 0.0f));
+			//AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
+			//AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));
+			//AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(3.0f, 4.0f, 0.0f));
 
-			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-3.0f, 2.0f, 0.0f));
-			AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-2.0f, 2.0f, 0.0f));
-			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
+			//AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-3.0f, 2.0f, 0.0f));
+			//AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-2.0f, 2.0f, 0.0f));
+			//AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
 
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
@@ -106,23 +106,23 @@ namespace basecross {
 				switch (TokensNum) {
 				case 0: //通常地面
 					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY+5 , 0));
-					//groundGroup->IntoGroup(ptrGround);
+					groundGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
 					ptrMag = AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//magnetsGroup->IntoGroup(ptrMag);
+					magnetsGroup->IntoGroup(ptrMag);
 					break;
 
 				case 2: //磁石S極
 					ptrMag = AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//magnetsGroup->IntoGroup(ptrMag);
+					magnetsGroup->IntoGroup(ptrMag);
 					break;
 
 				case 3: //金属
 					ptrMag = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//magnetsGroup->IntoGroup(ptrMag);
+					magnetsGroup->IntoGroup(ptrMag);
 					break;
 
 				case 9://ベルトコンベア右回り端
