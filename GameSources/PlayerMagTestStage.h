@@ -12,6 +12,12 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class PlayerMagTestStage : public Stage {
+		enum class EState {
+			eFalse = -1, // 無
+			eN = 1, // Ｎ極
+			eS = 2 // Ｓ極
+		};
+
 		//ビューの作成
 		void CreateViewLight();
 	public:

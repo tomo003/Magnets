@@ -24,7 +24,7 @@ namespace basecross {
 		};
 
 		auto drawComp = AddComponent<PTStaticDraw>();
-		// PCT => Position, Color, Texture
+		// PT => Position,Texture
 		drawComp->SetOriginalMeshUse(true); // ƒƒbƒVƒ…‚ðŽ©ì‚·‚é
 		drawComp->CreateOriginalMesh(m_vertices, m_indices);
 		drawComp->SetTextureResource(m_texKey);

@@ -78,7 +78,7 @@ namespace basecross{
 		RoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
 		RoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
 		RoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
-
+		RoadTexture(L"GRAY_TX", L"GrayCircle.png");
 		RoadTexture(L"BPUSH", L"BPush.png");
 		RoadTexture(L"BACKGROUND", L"Back.png");
 

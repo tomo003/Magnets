@@ -65,16 +65,16 @@ namespace basecross {
 	void Player::MovePlayer() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
-		Vec3 pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
+		m_pos = m_ptrTrans->GetPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
-			pos = pos + padLStick * delta * m_speed;
+			m_pos = m_pos + padLStick * delta * m_speed;
 		}
-		m_ptrTrans->SetPosition(Vec3(pos));
+		m_ptrTrans->SetPosition(Vec3(m_pos));
 
 
 		//auto KeyState = app->GetInputDevice().GetKeyState();
@@ -101,13 +101,6 @@ namespace basecross {
 			AnimationPlayer(FRONT);
 		}
 
-		limitSpeed();
-		pos += m_Velocity * delta;
-		m_Velocity.setAll(0);
-
-
-		m_ptrTrans->SetPosition(Vec3(pos));
-
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
@@ -115,11 +108,11 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (pos.y <= 5.0f) {
+		else if (m_pos.y <= 5.0f) {
 			jumpCount = 1;
 		}
 
-		if (pos.y < -5.0f) {
+		if (m_pos.y < -5.0f) {
 			DeathPlayer();
 		}
 
@@ -142,10 +135,17 @@ namespace basecross {
 			
 		}
 
+		limitSpeed();
+		m_pos += m_Velocity * delta;
+		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_Velocity.setAll(0);
+
 	}
 
 	//ジャンプ関数
 	void Player::JumpPlayer() {
+		m_gravityComp = GetComponent<Gravity>();
+		m_gravityComp->StartJump(Vec3(0.0f, 5.0f, 0.0f));
 		auto gravity = GetComponent<Gravity>();
 		gravity->StartJump(Vec3(0.0f, 11.0f, 0.0f));
 		auto pos = GetComponent<Transform>()->GetPosition();
@@ -195,10 +195,15 @@ namespace basecross {
 			auto objTrans = ptrMagObj->GetComponent<Transform>();
 			Vec3 objPos = objTrans->GetPosition();
 			//float objAreaRadius = ptrMagObj->GetAreaRadius();
+		//auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
+		//auto objTrans = ptrMagObj->GetComponent<Transform>();
+		//Vec3 objPos = objTrans->GetPosition();
+		//float objMass = ptrMagObj->GetMass();
+		//float objAreaRadius = ptrMagObj->GetAreaRadius();
 
-			auto playerPos = m_ptrTrans->GetPosition();
+		m_pos= m_ptrTrans->GetPosition();
 
-			m_direction = objPos - playerPos;
+			m_direction = objPos - m_pos;
 			m_distanceTemp = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 			if (m_distanceTemp < m_distance) {
 				m_distance = m_distanceTemp;
@@ -214,9 +219,9 @@ namespace basecross {
 		float objMass = 1.0f;
 		float objAreaRadius = 3.0f;
 
-		auto playerPos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetPosition();
 
-		m_direction = objPos - playerPos;
+		m_direction = objPos - m_pos;
 		m_distance = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 		Vec3 force = (m_direction / m_distance) * ATTRACTION_CONSTANT * m_playerMass * objMass / (m_distance * m_distance);
 		m_Velocity += force;
@@ -249,9 +254,9 @@ namespace basecross {
 		Vec3 objPos = objTrans->GetPosition();
 		float objMass = 1.0f;
 
-		auto playerPos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetPosition();
 
-		m_direction = objPos - playerPos;
+		m_direction = objPos - m_pos;
 		m_distance = max(sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y), 1.0f);
 		Vec3 force = (m_direction / m_distance) * REPEL_CONSTANT * m_playerMass * objMass / (m_distance * m_distance);
 		m_Velocity += force * -1;
@@ -267,7 +272,7 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < 3.0f) {
-			if (playerMagPole <  0 || objMagPole < 0) {
+			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
 			else if (playerMagPole == objMagPole) {
@@ -276,8 +281,58 @@ namespace basecross {
 			else if (playerMagPole != objMagPole) {
 				ptrPlayer->PlayerApplyAttraction();
 			}// ptrPlayer->ApplyAttraction();
-
 		}
+	}
+
+	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		//auto magDir = GetMsgnetsDirection().second;
+		if (ptrMagnets && (m_eMagPole != EState::eFalse)) // チェック
+		{
+			m_gravityTemp = m_gravityComp->GetGravity();
+			m_gravityComp->SetGravityZero();
+
+			m_ptrTrans->SetParent(ptrMagnets);
+		}
+
+		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
+		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
+		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
+		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
+
+		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
+
+		Vec3 playerPos = m_ptrTrans->GetPosition();
+
+		if (ptrBeltConLeft || ptrBeltConSideLeft) {
+			playerPos = playerPos + Vec3(-0.5f, 0, 0) * delta * m_speed;
+			m_ptrTrans->SetPosition(playerPos);
+		}
+		if (ptrBeltConRight || ptrBeltConSideRight) {
+			playerPos = playerPos + Vec3(0.5f, 0, 0) * delta * m_speed;
+			m_ptrTrans->SetPosition(playerPos);
+		}
+	}
+
+	void Player::OnCollisionExcute(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		if (ptrMagnets && (m_eMagPole == EState::eFalse)) // チェック
+		{
+			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+	}
+
+	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
+		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		if (ptrMagnets) // チェック
+		{
+			m_gravityComp->SetGravity(m_gravityTemp);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+
 	}
 
 	// 速度を制限
@@ -297,25 +352,6 @@ namespace basecross {
 	//	ptrString->SetText(fpsStr);
 	//}
 
-	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
-		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
-		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
-		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
-
-		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
-
-		Vec3 playerPos = m_ptrTrans->GetPosition();
-
-		if (ptrBeltConLeft || ptrBeltConSideLeft) {
-			playerPos = playerPos + Vec3(-0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
-		}
-		if (ptrBeltConRight || ptrBeltConSideRight) {
-			playerPos = playerPos + Vec3(0.5f, 0, 0) * delta * m_speed;
-			m_ptrTrans->SetPosition(playerPos);
-		}
-	}
 }
 //end basecross
 

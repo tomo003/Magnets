@@ -24,8 +24,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RingObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveMagnetsObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player2.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.h" />
@@ -36,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BackGroundSprite.cpp" />
@@ -48,8 +51,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RingObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetsObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MoveMagnetsObjct.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player2.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />

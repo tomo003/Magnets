@@ -1,50 +1,53 @@
 /*!
-@file MagnetsObject.h
-@brief 磁石オブジェクト
+@file RingObject.h
+@brief リング型オブジェクト
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
-	class MagnetsObject : public GameObject
+	class RingObject : public GameObject
 	{
-	public:
 		enum class EState {
 			eFalse = -1, // 無
 			eN = 1, // Ｎ極
-			eS = 2, // Ｓ極
-			eMetal = 3 // 金属
+			eS = 2 // Ｓ極
 		};
 
 	private:
-		enum EState m_eMagPole;	// 磁極の状態
+		enum EState m_eMagPole; // 磁極の状態
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
- 
+
 		float m_ObjMass = 1.0f;
+		float m_MagAreaRadius = 3.0f;
 
 		Vec3 m_position;
 
-		float m_MagAreaRadius = 3.0f;
-
 	public:
-		MagnetsObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
+		RingObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
-			m_position(position)
+			m_position(position),
+			m_eMagPole(EState::eFalse)
 		{}
 
-		virtual void OnCreate();
-		virtual void OnUpdate();
+		void OnCreate();
+		void OnUpdate();
 
+		// 磁極取得用
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
 		}
+
+		// オブジェクトの重量取得用(引力・斥力に関係している)
 		float GetMass() {
 			return m_ObjMass;
 		}
+
+		// 磁力エリアの範囲取得
 		float GetAreaRadius() {
 			return m_MagAreaRadius;
 		}
@@ -55,10 +58,7 @@ namespace basecross {
 			return VV;
 		}
 
-		void ApplyForcePlayer();
-		void ApplyForceSecondPlayer();
+		//void ApplyForcePlayer();
+
 	};
-
 }
-//end basecross
-
