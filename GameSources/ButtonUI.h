@@ -7,9 +7,11 @@ namespace basecross {
 
 		bool m_changeSpeed; //ボタンが押されたら点滅速度変更フラグ
 
+		Vec3 m_pos;
+
 	public:
 		//コンストラクタ
-		ButtonSprite(const shared_ptr<Stage>& stage);
+		ButtonSprite(const shared_ptr<Stage>& stage , const Vec3& pos);
 		//デストラクタ
 		~ButtonSprite();
 

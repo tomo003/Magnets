@@ -129,7 +129,7 @@ namespace basecross {
 	//ƒWƒƒƒ“ƒvŠÖ”
 	void Player2::JumpPlayer() {
 		auto gravity = GetComponent<Gravity>();
-		gravity->StartJump(Vec3(0.0f, 5.0f, 0.0f));
+		gravity->StartJump(Vec3(0.0f, 11.0f, 0.0f));
 		m_speed = 5.0f;
 		m_attribute = 1;
 	}
