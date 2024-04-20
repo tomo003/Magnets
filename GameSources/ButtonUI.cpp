@@ -9,9 +9,10 @@
 
 namespace basecross {
 	// コンストラクタ
-	ButtonSprite::ButtonSprite(const shared_ptr<Stage>& stage, const Vec3& pos) :
+	ButtonSprite::ButtonSprite(const shared_ptr<Stage>& stage, const Vec3& pos, const wstring& texkey) :
 		Sprites(stage),
 		m_pos(pos),
+		m_texkey(texkey),
 		m_DefaultSize(Vec2(800.0f, 400.0f)),
 		m_changeSpeed(false)
 	{
@@ -22,7 +23,7 @@ namespace basecross {
 	// 初期化
 	void ButtonSprite::OnCreate()
 	{
-		Sprites::CreateSprite(m_pos, m_DefaultSize, L"BPUSH");	//位置座標、初期サイズ、ソース画像
+		Sprites::CreateSprite(m_pos, m_DefaultSize, m_texkey);	//位置座標、初期サイズ、ソース画像
 	}
 
 	// 更新処理

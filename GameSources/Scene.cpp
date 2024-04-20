@@ -80,6 +80,8 @@ namespace basecross{
 		RoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
 		RoadTexture(L"GRAY_TX", L"GrayCircle.png");
 		RoadTexture(L"BPUSH", L"BPush.png");
+		RoadTexture(L"RBPUSH", L"RB.png");
+		RoadTexture(L"READY", L"Ready.png");
 		RoadTexture(L"BACKGROUND", L"Back.png");
 
 		RoadTexture(L"TITLE", L"title.tga");

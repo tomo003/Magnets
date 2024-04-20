@@ -68,15 +68,15 @@ namespace basecross {
 			
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
-			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f));
-			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f));
+			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f),L"BPUSH");
+			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"BPUSH");
 
 			// 磁石オブジェクトを追加
-			auto ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-3.0f, 1.8f, 0.0f));
-			auto ptrMagObjN = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(3.0f, 1.8f, 0.0f));
+			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-3.0f, 1.8f, 0.0f));
+			m_ptrMagObjN = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(3.0f, 1.8f, 0.0f));
 
-			magnetsGroup->IntoGroup(ptrMagObjN);
-			magnetsGroup->IntoGroup(ptrMagObjS);
+			magnetsGroup->IntoGroup(m_ptrMagObjN);
+			magnetsGroup->IntoGroup(m_ptrMagObjS);
 
 		}
 		catch (...) {
@@ -85,28 +85,71 @@ namespace basecross {
 	}
 
 	void StandbyStage::OnUpdate() {
+		//プレイヤーの重力を0に変更
+		m_ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
+		m_ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
+
 		auto device = App::GetApp()->GetInputDevice();//コントローラー座標の取得
 		auto firstPad = device.GetControlerVec()[0];
 		auto secondPad = device.GetControlerVec()[1];
-		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();
+		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();//|| KeyState.m_bPressedKeyTbl[VK_SPACE]
 		//プレイヤー１
 		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, -1.5f, 0.0f));
 			m_ptrBbuttonSprite->SetDrawActive(false);
-
+			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f), L"RBPUSH");
+			playerBPush = true;
 		}
-
-		m_ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
-
+		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+			if (playerBPush) {
+				m_ptrBbuttonSprite->SetDrawActive(false);
+				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f), L"READY");
+				playerReady = true;
+			}
+		}
 		//プレイヤー２
-		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_B|| KeyState.m_bPressedKeyTbl[VK_SPACE]) {
+		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_B|| firstPad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Brack_MESH");;
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -1.5f, 0.0f));
-			m_ptrBbuttonSprite2->SetDrawActive(false);
+			m_ptrBbuttonSprite2->SetDrawActive(false);		
+			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"RBPUSH");
+			player2BPush = true;
+		}
+		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
+			if (player2BPush) {
+				m_ptrBbuttonSprite2->SetDrawActive(false);
+				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"READY");
+				player2Ready = true;
+			}
 		}
 
-		m_ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
+		//シーン遷移
+		if (playerReady && player2Ready) {
+			float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
+			float speed = delta * 3.0f;
+			m_time -= delta;
+
+			if (m_time < 0.0f) {
+				Vec3 magNPos = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();
+				Vec3 magSPos = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();
+
+				m_ptrMagObjN->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x + speed, magNPos.y, magNPos.z));
+				m_ptrMagObjS->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y, magSPos.z));
+				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x, magNPos.y - 1.0f, magNPos.z));
+				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x, magSPos.y - 1.0f, magSPos.z));
+
+				m_ptrBbuttonSprite->SetDrawActive(false);
+				m_ptrBbuttonSprite2->SetDrawActive(false);
+
+				if (magNPos.x > 20.0f) {
+					if (!stage) {
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMagTestStage");
+						stage = true;
+					}
+				}
+			}
+		}
 	}
 
 }
