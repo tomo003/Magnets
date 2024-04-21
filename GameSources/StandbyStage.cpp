@@ -139,6 +139,9 @@ namespace basecross {
 				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x, magNPos.y - 1.0f, magNPos.z));
 				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x, magSPos.y - 1.0f, magSPos.z));
 
+				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");;
+				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Red_MESH");;
+
 				m_ptrBbuttonSprite->SetDrawActive(false);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
 

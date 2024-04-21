@@ -12,7 +12,7 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 
 	//テクスチャの読み込み
-	void Scene::RoadTexture(const wstring& UseTextureName, const wstring& TextureDataName) {
+	void Scene::LoadTexture(const wstring& UseTextureName, const wstring& TextureDataName) {
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
 		wstring strTexture = dataDir + L"Texture\\" + TextureDataName;
@@ -20,7 +20,7 @@ namespace basecross{
 	}
 
 	// 静的モデルの読み込み
-	void Scene::RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName){
+	void Scene::LoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName){
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
 
@@ -30,7 +30,7 @@ namespace basecross{
 	}
 
 	// ボーンモデルの読み込み
-	void Scene::RoadBoneModel(const wstring& boneModelbmfName, const wstring& boneModelMeshName, const wstring& boneModelMeshTangentName)
+	void Scene::LoadBoneModel(const wstring& boneModelbmfName, const wstring& boneModelMeshName, const wstring& boneModelMeshTangentName)
 	{
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
@@ -60,7 +60,7 @@ namespace basecross{
 	}
 
 	// サウンドの読み込み
-	void Scene::RoadSound(const wstring& soundName, const wstring& soundDataName){
+	void Scene::LoadSound(const wstring& soundName, const wstring& soundDataName){
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
 		wstring strMusic = dataDir + L"Sound\\" + soundDataName;
@@ -72,41 +72,41 @@ namespace basecross{
 	void Scene::CreateResourses() {
 
 		//テクスチャ
-		RoadTexture(L"Player01_TX", L"pcube01.png");
-		RoadTexture(L"Player02_TX", L"pcube02.png");
-		RoadTexture(L"Player03_TX", L"pcube03.png");
-		RoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
-		RoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
-		RoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
-		RoadTexture(L"GRAY_TX", L"GrayCircle.png");
-		RoadTexture(L"BPUSH", L"BPush.png");
-		RoadTexture(L"RBPUSH", L"RB.png");
-		RoadTexture(L"READY", L"Ready.png");
-		RoadTexture(L"BACKGROUND", L"Back.png");
+		LoadTexture(L"Player01_TX", L"pcube01.png");
+		LoadTexture(L"Player02_TX", L"pcube02.png");
+		LoadTexture(L"Player03_TX", L"pcube03.png");
+		LoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
+		LoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
+		LoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
+		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
+		LoadTexture(L"BPUSH", L"BPush.png");
+		LoadTexture(L"RBPUSH", L"RB.png");
+		LoadTexture(L"READY", L"Ready.png");
+		LoadTexture(L"BACKGROUND", L"Back.png");
 
-		RoadTexture(L"TITLE", L"title.tga");
+		LoadTexture(L"TITLE", L"title.tga");
 
-		RoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
-		RoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
-		RoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		RoadTexture(L"CONCRETE_TX", L"Tile_Concrete.png");
-		RoadTexture(L"METAL_TX", L"Tile_Metal.png");
-		RoadTexture(L"START_TX", L"Tile_Start.png");
-		RoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
-		RoadTexture(L"GOAL_TX", L"Tile_Goal.png");
+		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
+		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
+		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
+		LoadTexture(L"CONCRETE_TX", L"Tile_Concrete.png");
+		LoadTexture(L"METAL_TX", L"Tile_Metal.png");
+		LoadTexture(L"START_TX", L"Tile_Start.png");
+		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
+		LoadTexture(L"GOAL_TX", L"Tile_Goal.png");
 
-		RoadStaticModelMesh(L"01", L"Player01_MESH");
-		RoadStaticModelMesh(L"02", L"Player02_MESH");
-		RoadStaticModelMesh(L"03", L"Player03_MESH");
+		LoadStaticModelMesh(L"01", L"Player01_MESH");
+		LoadStaticModelMesh(L"02", L"Player02_MESH");
+		LoadStaticModelMesh(L"03", L"Player03_MESH");
 
 		//Player1
-		RoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
-		RoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
-		RoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
+		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
+		LoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
+		LoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
 		//Player2
-		RoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
-		RoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
-		RoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
+		LoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
+		LoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
+		LoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
 
 		//ベルトコンベア
 		wstring dataDir = App::GetApp()->GetDataDirWString();
