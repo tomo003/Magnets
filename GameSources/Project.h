@@ -34,5 +34,7 @@
 #include "Utility.h"
 #include "RingObject.h"
 #include "BackGroundSprite.h"
+#include "FadeIn.h"
+#include "FadeOut.h"
 
 #include "MyCamera.h"

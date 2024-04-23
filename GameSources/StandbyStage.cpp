@@ -109,7 +109,7 @@ namespace basecross {
 			}
 		}
 		//プレイヤー２
-		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_B|| firstPad.wPressedButtons & XINPUT_GAMEPAD_A) {
+		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_B|| firstPad.wPressedButtons & XINPUT_GAMEPAD_X) {
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Brack_MESH");;
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -1.5f, 0.0f));
 			m_ptrBbuttonSprite2->SetDrawActive(false);		
@@ -127,7 +127,7 @@ namespace basecross {
 		//シーン遷移
 		if (playerReady && player2Ready) {
 			float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
-			float speed = delta * 3.0f;
+			float speed = delta * 6.5f;
 			m_time -= delta;
 
 			if (m_time < 0.0f) {
@@ -145,8 +145,11 @@ namespace basecross {
 				m_ptrBbuttonSprite->SetDrawActive(false);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
 
-				if (magNPos.x > 20.0f) {
+				if (magNPos.x > 10.0f) {
 					if (!stage) {
+						//AddGameObject<FadeIn>(L"FADE_BLACK");
+						AddGameObject<FadeOut>(L"FADE_WHITE");
+						//AddGameObject<FadeOut>(L"FADE_BLACK");
 						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMagTestStage");
 						stage = true;
 					}

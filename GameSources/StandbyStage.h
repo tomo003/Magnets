@@ -17,7 +17,7 @@ namespace basecross {
 		//	eN = 1, // ‚m‹É
 		//	eS = 2 // ‚r‹É
 		//};
-		float m_time = 5.0f;
+		float m_time = 2.0f;
 
 		//ƒvƒŒƒCƒ„[
 		std::shared_ptr<Player> m_ptrPlayer;

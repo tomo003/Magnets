@@ -86,6 +86,9 @@ namespace basecross{
 
 		LoadTexture(L"TITLE", L"title.tga");
 
+		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
+		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
+
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
