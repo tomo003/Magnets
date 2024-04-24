@@ -77,7 +77,7 @@ namespace basecross {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
 		if (m_speed != 5.0f){
-			m_pos = m_pos + delta * Vec3(m_speed,0,0) * m_attribute;
+			m_pos = m_pos + delta * Vec3(m_speed,0,0) * (float)m_attribute;
 		}
 		m_ptrTrans->SetPosition(Vec3(m_pos));
 

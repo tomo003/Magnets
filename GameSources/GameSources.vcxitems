@@ -20,6 +20,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FadeIn.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h" />
@@ -36,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StandbyStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
@@ -47,6 +50,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FadeIn.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp" />
@@ -62,6 +67,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StandbyStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
