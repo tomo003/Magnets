@@ -13,8 +13,8 @@ namespace basecross {
 		shared_ptr<EfkPlay> m_EfkPlay;
 		wstring m_EffectStr;
 
-		const float ATTRACTION_CONSTANT = 10.0f; // 引力の定数
-		const float REPEL_CONSTANT = 20.0f;   // 反発の定数
+		const float ATTRACTION_CONSTANT = 150.0f; // 引力の定数
+		const float REPEL_CONSTANT = 200.0f;   // 反発の定数
 		const float MAX_SPEED = 10.0f;         // 最大速度
 
 		// プレイヤーのジャンプに使用するボタン
@@ -42,7 +42,9 @@ namespace basecross {
 		float m_distanceTemp;
 		Vec3 m_force;
 
-		const Vec3 m_gravityVelocity = Vec3(0.0f, 11.0f, 0.0f);
+		Vec3 m_nearMagnetPos;//近い磁石オブジェクトの位置
+
+		const Vec3 m_gravityVelocity = Vec3(0.0f, 8.0f, 0.0f);
 		const Vec3 m_gravity = Vec3(0, -9.8f, 0);
 
 		float m_playerMass = 1.0f;
@@ -99,8 +101,8 @@ namespace basecross {
 
 		void AnimationPlayer(eMotion Motion);
 
-		void ApplyAttraction(); // プレイヤーに引力を適用
-		void ApplyRepulsion();  // プレイヤーに斥力を適用
+		void ApplyAttraction(shared_ptr<GameObject>& Other); // プレイヤーに引力を適用
+		void ApplyRepulsion(shared_ptr<GameObject>& Other);  // プレイヤーに斥力を適用
 
 		void PlayerApplyAttraction();
 		void PlayerApplyRepulsion();

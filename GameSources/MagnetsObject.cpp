@@ -69,10 +69,10 @@ namespace basecross {
 				return;
 			}
 			else if(playerMagPole == objMagPole){
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				//ptrPlayer->ApplyAttraction();
 			}// ptrPlayer->ApplyAttraction();
 
 		}
@@ -91,10 +91,10 @@ namespace basecross {
 				return;
 			}
 			else if(playerMagPole == objMagPole){
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
 		}

@@ -65,7 +65,7 @@ namespace basecross {
 				return;
 			}
 			else {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
 
 		}

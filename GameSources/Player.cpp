@@ -45,6 +45,8 @@ namespace basecross {
 		//	ptrCamera->SetPlayerObj(GetThis<GameObject>());
 		//}
 
+		m_gravityComp = GetComponent<Gravity>();
+
 		AddTag(L"Player");
 
 		//エフェクトの初期化
@@ -58,7 +60,7 @@ namespace basecross {
 	//更新処理
 	void Player::OnUpdate(){
 		MovePlayer();
-		//ApplyForcePlayer();
+		ApplyForcePlayer();
 	}
 
 	//プレイヤーの動き
@@ -190,29 +192,17 @@ namespace basecross {
 	}
 
 	// プレイやーに引力を適用
-	void Player::ApplyAttraction() {
-		auto group = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
-		auto groupVec = group->GetGroupVector();
-		for (const auto& v : groupVec) {
-			auto ptrMagObj = v.lock();
-			auto objTrans = ptrMagObj->GetComponent<Transform>();
-			Vec3 objPos = objTrans->GetPosition();
-			//float objAreaRadius = ptrMagObj->GetAreaRadius();
-		//auto ptrMagObj = GetStage()->GetSharedGameObject<MagnetsObject>(L"MagnetsObject");
-		//auto objTrans = ptrMagObj->GetComponent<Transform>();
-		//Vec3 objPos = objTrans->GetPosition();
-		//float objMass = ptrMagObj->GetMass();
-		//float objAreaRadius = ptrMagObj->GetAreaRadius();
+	void Player::ApplyAttraction(shared_ptr<GameObject>& Other) {
+		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
-		m_pos= m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetWorldPosition();
 
-			m_direction = objPos - m_pos;
-			m_distanceTemp = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
-			if (m_distanceTemp < m_distance) {
-				m_distance = m_distanceTemp;
-			}
-		}
-		m_force = (m_direction / m_distance) * ATTRACTION_CONSTANT * m_playerMass / (m_distance * m_distance);
+		m_direction = objPos - m_pos;
+		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+
+		auto playerToMagnet = m_direction.normalize();
+
+		m_force = (playerToMagnet / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
 	}
 	void Player::PlayerApplyAttraction() {
@@ -222,7 +212,7 @@ namespace basecross {
 		float objMass = 1.0f;
 		float objAreaRadius = 3.0f;
 
-		m_pos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetWorldPosition();
 
 		m_direction = objPos - m_pos;
 		m_distance = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
@@ -231,24 +221,17 @@ namespace basecross {
 	}
 
 	// プレイやーに斥力を適用
-	void Player::ApplyRepulsion() {
-		auto group = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
-		auto groupVec = group->GetGroupVector();
-		for (const auto& v : groupVec) {
-			auto ptrMagObj = v.lock();
-			auto objTrans = ptrMagObj->GetComponent<Transform>();
-			Vec3 objPos = objTrans->GetPosition();
-			//float objAreaRadius = ptrMagObj->GetAreaRadius();
+	void Player::ApplyRepulsion(shared_ptr<GameObject>& Other) {
+		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
-			auto playerPos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetWorldPosition();
 
-			m_direction = objPos - playerPos;
-			m_distanceTemp = sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
-			if (m_distanceTemp < m_distance) {
-				m_distance = m_distanceTemp;
-			}
-		}
-		m_force = (m_direction / m_distance) * REPEL_CONSTANT * m_playerMass / (m_distance * m_distance);
+		m_direction = objPos - m_pos;
+		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+
+		auto playerToMagnet = m_direction.normalize();
+
+		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force * -1;
 	}
 	void Player::PlayerApplyRepulsion() {
@@ -288,14 +271,27 @@ namespace basecross {
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
-		if (ptrMagnets && (m_eMagPole != EState::eFalse)) // チェック
-		{
-			m_gravityComp->SetGravityZero();
-
-			m_ptrTrans->SetParent(ptrMagnets);
-		}
+			if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
+				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrMoveMetal);
+			}
+			else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
+				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrMetal);
+			}
+			else if (ptrMagnetN && (m_eMagPole == EState::eS)) {
+				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrMagnetN);
+			}
+			else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
+				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrMagnetS);
+			}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
@@ -321,9 +317,26 @@ namespace basecross {
 	}
 
 	void Player::OnCollisionExcute(shared_ptr<GameObject>& Other) {
-		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
-		if (ptrMagnets && (m_eMagPole == EState::eFalse)) // チェック
-		{
+		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
+		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		else if (ptrMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		else if (ptrMagnetN && (m_eMagPole != EState::eS)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		else if (ptrMagnetS && (m_eMagPole != EState::eN)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
@@ -331,8 +344,11 @@ namespace basecross {
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
-		auto ptrMagnets = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
-		if (ptrMagnets) // チェック
+		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
@@ -358,7 +374,7 @@ namespace basecross {
 
 		wstringstream wss;
 		wss << L"Player : " <<
-			m_pos.y << L", " << std::endl;
+		m_pos.y << L", " << std::endl;
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto dstr = scene->GetDebugString();
 		scene->SetDebugString(wss.str());

@@ -43,14 +43,16 @@ namespace basecross {
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
+		int m_State;
 	public:
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
+			//const int State
 		);
 		virtual ~MagnetN();
 		virtual void OnCreate() override;
-		void OnUpdate();
+		virtual void OnUpdate();
 
 
 		int GetState() {
@@ -101,7 +103,7 @@ namespace basecross {
 		);
 		virtual ~MagnetS();
 		virtual void OnCreate() override;
-		void OnUpdate();
+		virtual void OnUpdate();
 
 
 		int GetState() {
@@ -152,7 +154,7 @@ namespace basecross {
 		);
 		virtual ~Metal();
 		virtual void OnCreate() override;
-		void OnUpdate();
+		virtual void OnUpdate();
 
 
 		int GetState() {

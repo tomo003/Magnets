@@ -53,7 +53,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap7.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap8.csv");
 			m_GameStageCsv.ReadCsv();
 
 			CreateCsvObjects();
@@ -85,8 +85,6 @@ namespace basecross {
 
 	void GameStage::CreateCsvObjects() {
 
-		auto groundGroup = CreateSharedObjectGroup(L"Ground");
-		auto magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 		std::shared_ptr<GameObject> ptrMoveMetal;
 
 		float size = 1;
@@ -108,23 +106,20 @@ namespace basecross {
 
 				switch (TokensNum) {
 				case 0: //通常地面
-					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY+5 , 0));
-					groundGroup->IntoGroup(ptrGround);
+					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
 					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
-					ptrMag = AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					magnetsGroup->IntoGroup(ptrMag);
+					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
 					break;
 
 				case 2: //磁石S極
-					ptrMag = AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					magnetsGroup->IntoGroup(ptrMag);
+					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
 					break;
 
 				case 3: //金属
-					ptrMag = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					ptrMoveMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
 					break;
 
 				case 4: //金属動くやつ
@@ -150,42 +145,24 @@ namespace basecross {
 
 				case 13: //スタート
 					ptrGround = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//groundGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				case 14: //セーブポイント
 					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//groundGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				case 15: //ゴール
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					//groundGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				default:
 					break;
 				}
-
-				//if (isCreateMaagnets) {
-				//	magnetsGroup->IntoGroup(ptrMag);
-				//}
-				//else {
-				//	groundGroup->IntoGroup(ptrGround);
-				//	isCreateMaagnets = true;
-				//}
-				//magnetsGroup->IntoGroup(ptrMag);
-				//groundGroup->IntoGroup(ptrGround);
-
-
 			}
 		}
-		magnetsGroup->IntoGroup(ptrMag);
-		groundGroup->IntoGroup(ptrGround);
-
 	}
 
 }

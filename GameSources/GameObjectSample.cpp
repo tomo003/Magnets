@@ -39,10 +39,12 @@ namespace basecross {
 	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
+		//const int State
 	) :
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Position(Position)
+		//m_State(State)
 	{
 	}
 	MagnetN::~MagnetN() {}
@@ -62,7 +64,23 @@ namespace basecross {
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
 
+		//switch (m_State)
+		//{
+		//case 1:
+		//	m_eMagPole = EState::eN;
+		//	drawComp->SetTextureResource(L"MGNETN_TX");
+		//	break;
+		//case 2:
+		//	m_eMagPole = EState::eS;
+		//	drawComp->SetTextureResource(L"MGNETS_TX");
+		//	break;
+		//default:
+		//	break;
+		//}
 		m_eMagPole = EState::eN;
+
+		//auto magnetsGroup = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
+		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
 	}
@@ -70,12 +88,12 @@ namespace basecross {
 	void MagnetN::OnUpdate()
 	{
 		ApplyForcePlayer();
-		//ApplyForceSecondPlayer();
+		ApplyForceSecondPlayer();
 	}
 
 	void MagnetN::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
@@ -87,17 +105,17 @@ namespace basecross {
 				return;
 			}
 			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
 		}
 	}
 	void MagnetN::ApplyForceSecondPlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
@@ -109,10 +127,10 @@ namespace basecross {
 				return;
 			}
 			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
 		}
@@ -159,7 +177,7 @@ namespace basecross {
 
 	void MagnetS::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
@@ -167,14 +185,15 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
+
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
 			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
 		}
@@ -193,10 +212,10 @@ namespace basecross {
 				return;
 			}
 			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
+				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
 		}
@@ -249,16 +268,12 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-			if (playerMagPole < 0 || objMagPole < 0) {
+			if (playerMagPole == -1) {
 				return;
 			}
-			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
+			else {
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
-			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction();
-			}// ptrPlayer->ApplyAttraction();
-
 		}
 	}
 	void Metal::ApplyForceSecondPlayer() {
@@ -275,7 +290,7 @@ namespace basecross {
 				return;
 			}
 			else {
-				ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
 		}
 	}
