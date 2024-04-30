@@ -287,6 +287,11 @@ namespace basecross {
 				m_ptrTrans->SetParent(ptrMagnetS);
 			}
 
+		//磁石衝突エフェクト
+			if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			}
+
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
