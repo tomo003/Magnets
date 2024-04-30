@@ -152,5 +152,17 @@ namespace basecross {
 		m_Renderer->SetCameraMatrix(v);
 		m_Renderer->SetProjectionMatrix(p);
 	}
+
+	void EffectPlayer::OnCreate() {
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto EfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_EffectStr = DataDir + L"Effects\\" + m_efkKey + L".efk";
+		m_Effect = ObjectFactory::Create<EfkEffect>(EfkInterface, m_EffectStr);
+
+		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, m_size);
+
+	}
+	
 }
 // end basecross
