@@ -25,12 +25,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="$(MSBuildThisFileDirectory)StandbyStage.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FadeIn.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
->>>>>>> yuu
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -58,11 +52,5 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="$(MSBuildThisFileDirectory)StandbyStage.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FadeIn.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
->>>>>>> yuu
   </ItemGroup>
 </Project>

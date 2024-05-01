@@ -118,7 +118,8 @@ namespace basecross{
 		auto multiModelMesh2 = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"s_Convayor.bmf");
 		App::GetApp()->RegisterResource(L"SIDE_CONVEYOR", multiModelMesh2);
 
-
+		// —Ö‚Á‚©
+		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
 	}
 
 	void Scene::OnCreate(){

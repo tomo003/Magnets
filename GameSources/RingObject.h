@@ -12,15 +12,16 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // 無
 			eN = 1, // Ｎ極
-			eS = 2 // Ｓ極
+			eS = 2,// Ｓ極
+			eMetal = 3 // 金属
 		};
 
 	private:
 		enum EState m_eMagPole; // 磁極の状態
 
 		// コンポーネント取得省略用
-		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
-		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
+		std::shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 3.0f;
@@ -31,7 +32,7 @@ namespace basecross {
 		RingObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
 			m_position(position),
-			m_eMagPole(EState::eFalse)
+			m_eMagPole(EState::eMetal)
 		{}
 
 		void OnCreate();
@@ -58,7 +59,7 @@ namespace basecross {
 			return VV;
 		}
 
-		//void ApplyForcePlayer();
+		void ApplyForcePlayer();
 
 	};
 }
