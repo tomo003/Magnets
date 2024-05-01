@@ -113,7 +113,8 @@ namespace basecross{
 		auto multiModelMesh2 = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"s_Convayor.bmf");
 		App::GetApp()->RegisterResource(L"SIDE_CONVEYOR", multiModelMesh2);
 
-
+		// 輪っか
+		RoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
 	}
 
 	void Scene::OnCreate(){
@@ -128,7 +129,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
 		}
 		catch (...) {
 			throw;

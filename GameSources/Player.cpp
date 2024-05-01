@@ -140,6 +140,7 @@ namespace basecross {
 
 		limitSpeed();
 		m_pos += m_Velocity * delta;
+		m_pos.z = 0.0f;
 		m_ptrTrans->SetPosition(Vec3(m_pos));
 		m_Velocity.setAll(0);
 

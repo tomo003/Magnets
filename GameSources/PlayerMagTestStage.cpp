@@ -76,6 +76,7 @@ namespace basecross {
 			//auto ptrMagObj = AddGameObject<MoveMetalObject>(Vec3(3.5f, 2.0f, 0.0f));
 			//auto ptrMagObj = AddGameObject<RingObject>(Vec3(0.0f, 2.0f, 0.0f));
 
+			AddGameObject<RingObject>(Vec3(-7.0f, 2.0f, 0.0f));
 		}
 		catch (...) {
 			throw;

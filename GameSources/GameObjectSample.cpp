@@ -249,16 +249,12 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-			if (playerMagPole < 0 || objMagPole < 0) {
+			if (playerMagPole == -1) {
 				return;
 			}
-			else if (playerMagPole == objMagPole) {
-				ptrPlayer->ApplyRepulsion();
-			}
-			else if (playerMagPole != objMagPole) {
+			else {
 				ptrPlayer->ApplyAttraction();
-			}// ptrPlayer->ApplyAttraction();
-
+			}
 		}
 	}
 	void Metal::ApplyForceSecondPlayer() {
