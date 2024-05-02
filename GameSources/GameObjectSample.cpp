@@ -83,6 +83,8 @@ namespace basecross {
 		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
+		GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
+
 	}
 
 	void MagnetN::OnUpdate()
@@ -167,6 +169,7 @@ namespace basecross {
 		m_eMagPole = EState::eS;
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
+		GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
 	}
 
 	void MagnetS::OnUpdate()

@@ -49,12 +49,6 @@ namespace basecross {
 
 		AddTag(L"Player");
 
-		//エフェクトの初期化
-		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		auto EfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
-		m_EffectStr = DataDir + L"Effects\\" + L"damage.efk";
-		m_Effect = ObjectFactory::Create<EfkEffect>(EfkInterface, m_EffectStr);
 	}
 
 	//更新処理
@@ -123,16 +117,26 @@ namespace basecross {
 
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			switch (m_eMagPole){
+			//switch (m_eMagPole){
+			//case EState::eFalse:
+			//	m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
+			//	m_eMagPole = EState::eN;
+			//	break;
+			//case EState::eN:
+			//	m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
+			//	m_eMagPole = EState::eS;
+			//	break;
+			//case EState::eS:
+			//	m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+			//	m_eMagPole = EState::eFalse;
+			//	break;
+			//}
+			switch (m_eMagPole) {
 			case EState::eFalse:
 				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
 				m_eMagPole = EState::eN;
 				break;
 			case EState::eN:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
-				m_eMagPole = EState::eS;
-				break;
-			case EState::eS:
 				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 				m_eMagPole = EState::eFalse;
 				break;
@@ -153,7 +157,7 @@ namespace basecross {
 		m_gravityComp = GetComponent<Gravity>();
 		m_gravityComp->StartJump(m_gravityVelocity);
 		m_pos = GetComponent<Transform>()->GetPosition();
-		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, Vec3(1.0f));
+		GetStage()->AddGameObject<EffectPlayer>(Vec3(m_pos.x,m_pos.y-1.0f,m_pos.z), Vec3(1.0f), L"jump");
 		m_speed = 5.0f;
 		m_attribute = 1;
 	}
@@ -292,6 +296,11 @@ namespace basecross {
 			else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 				m_gravityComp->SetGravityZero();
 				m_ptrTrans->SetParent(ptrMagnetS);
+			}
+
+		//磁石衝突エフェクト
+			if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 			}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);

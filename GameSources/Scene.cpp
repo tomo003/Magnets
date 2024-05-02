@@ -82,7 +82,13 @@ namespace basecross{
 		LoadTexture(L"BPUSH", L"BPush.png");
 		LoadTexture(L"RBPUSH", L"RB.png");
 		LoadTexture(L"READY", L"Ready.png");
+
 		LoadTexture(L"BACKGROUND", L"Back.png");
+		LoadTexture(L"BACKGROUND1", L"Back01.png");
+		LoadTexture(L"BACKGROUND2", L"Back02.png");
+		LoadTexture(L"BACKGROUND3", L"Back03.png");
+		LoadTexture(L"BACKGROUND4", L"Back04.png");
+		LoadTexture(L"BACKGROUND5", L"Back05.png");
 
 		LoadTexture(L"TITLE", L"title.tga");
 

@@ -150,5 +150,38 @@ namespace basecross {
 		virtual void OnDraw()override;
 	};
 
+	//--------------------------------------------------------------------------------------
+	// エフェクトのプレイヤー
+	//--------------------------------------------------------------------------------------
+	/*!
+	@param	pos		描画位置
+	@param	size	描画サイズ
+	@param	efkkey	エフェクトの名前
+	@return	なし
+	*/
+	//--------------------------------------------------------------------------------------
+	class EffectPlayer : public GameObject
+	{
+		shared_ptr<EfkEffect> m_Effect;
+		shared_ptr<EfkPlay> m_EfkPlay;
+		wstring m_EffectStr;
+
+		Vec3 m_pos;
+		Vec3 m_size;
+		wstring m_efkKey;
+
+	public:
+		EffectPlayer(const std::shared_ptr<Stage>& stage, const Vec3& pos, const Vec3& size, const wstring& efkkey) :
+			GameObject(stage),
+			m_pos(pos),
+			m_size(size),
+			m_efkKey(efkkey)
+		{
+		}
+
+		void OnCreate() override;
+	};
+
+
 }
 //end basecross

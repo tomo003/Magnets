@@ -11,6 +11,7 @@ namespace basecross {
 		Vec2 m_spriteSize;	// 大きさ
 		Vec2 m_afterSize;	// サイズ変更後の大きさ
 		Vec3 m_position;	// UIの位置
+		int m_layer;
 
 		float m_uiSizeCoefficient;	// UIサイズの係数
 		float m_totalTime;			// 時間
@@ -80,6 +81,16 @@ namespace basecross {
 		* @param texKey		使用テクスチャ
 		*/
 		void CreateSprite(const Vec3& position, const Vec2& size, const wstring& texKey);
+
+		/**
+		* @brief スプライトを作成する関数(レイヤー設定あり)
+		*
+		* @param position	表示位置
+		* @param size		表示サイズ
+		* @param texKey		使用テクスチャ
+		* @param layer		レイヤー
+		*/
+		void CreateSpriteLayer(const Vec3& position, const Vec2& size, const wstring& texKey, const int& layer);
 
 		/**
 		* @brief フェードするスプライトを作成する関数

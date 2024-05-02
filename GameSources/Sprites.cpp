@@ -61,6 +61,55 @@ namespace basecross {
 		// 描画レイヤーを最前面に
 		SetDrawLayer((int)DrawLayer::ForeFront);
 	}
+	void Sprites::CreateSpriteLayer(const Vec3& position, const Vec2& size, const wstring& texKey, const int& layer)
+	{
+		// 表示位置と表示サイズをメンバ変数に入れておく
+		m_position = position;
+		m_spriteSize = size;
+		m_layer = layer;
+
+		// 頂点データの設定 //
+		const Col4 white(1.0f, 1.0f, 1.0f, 1.0f);
+		m_vertices = {
+			{Vec3(0.0f	 , 0.0f	   , 0.0f), white, Vec2(0.0f, 0.0f)}, // 左上
+			{Vec3(size.x , 0.0f	   , 0.0f), white, Vec2(1.0f, 0.0f)}, // 右上
+			{Vec3(0.0f	 , -size.y , 0.0f), white, Vec2(0.0f, 1.0f)}, // 左下
+			{Vec3(size.x , -size.y , 0.0f), white, Vec2(1.0f, 1.0f)}, // 右下
+		};
+		m_indices = {
+			0, 1, 2,
+			2, 1, 3
+		};
+		// ここまで //
+
+		// 見た目の設定
+		m_draw = AddComponent<PCTSpriteDraw>(m_vertices, m_indices);
+		m_draw->SetTextureResource(texKey);
+
+		// 位置の設定
+		m_transform = GetComponent<Transform>();
+		m_transform->SetPosition(m_position);
+
+		// 透過処理を有効にする
+		SetAlphaActive(true);
+
+		// 描画レイヤーを設定
+		if (m_layer == 2) {
+			SetDrawLayer((int)DrawLayer::ForeFront);
+		}
+		else if (m_layer == 1) {
+			SetDrawLayer((int)DrawLayer::Front);
+		}
+		else if (m_layer == 0) {
+			SetDrawLayer((int)DrawLayer::Center);
+		}
+		else if (m_layer == -1) {
+			SetDrawLayer((int)DrawLayer::Bottom);
+		}
+		else if (m_layer == -2) {
+			SetDrawLayer((int)DrawLayer::MostBottom);
+		}
+	}
 
 	void Sprites::CreateFadeSprite(const Vec3& position, const Vec2& size, const wstring& texKey, const FadeType& fadeType) {
 
