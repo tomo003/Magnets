@@ -141,7 +141,7 @@ namespace basecross {
 						//AddGameObject<FadeIn>(L"FADE_BLACK");
 						AddGameObject<FadeOut>(L"FADE_WHITE");
 						//AddGameObject<FadeOut>(L"FADE_BLACK");
-						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMagTestStage");
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 						stage = true;
 					}
 				}

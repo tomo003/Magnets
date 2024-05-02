@@ -49,6 +49,8 @@ namespace basecross {
 		float jumpCount;
 		int count;
 
+		float m_RespawnPoint;
+
 		wstring m_magDirLR;
 		wstring m_magDirUD;
 
@@ -92,7 +94,10 @@ namespace basecross {
 
 		void MovePlayer();
 		void JumpPlayer();
-		void DeathPlayer();
+		void GoalPlayer();
+		void SetRespawnPoint(shared_ptr<GameObject>& Other);
+		void RespawnPlayer();
+
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 		void OnCollisionExcute(shared_ptr<GameObject>& Other) override;
