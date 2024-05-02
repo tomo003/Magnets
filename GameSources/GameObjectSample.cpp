@@ -315,6 +315,7 @@ namespace basecross {
 		drawComp->SetTextureResource(L"START_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::None);
 		ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
@@ -322,6 +323,10 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
+		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
 	}
 
 	//ステージのゴールオブジェクトの仮設置
@@ -385,5 +390,4 @@ namespace basecross {
 
 		AddTag(L"SavePoint");
 	}
-
 }

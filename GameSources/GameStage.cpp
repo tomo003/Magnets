@@ -56,7 +56,6 @@ namespace basecross {
 			m_GameStageCsv.SetFileName(DataDir + L"TestMap8.csv");
 			m_GameStageCsv.ReadCsv();
 
-			CreateCsvObjects();
 
 			// 地面のオブジェクトを追加
 			//AddGameObject<Ground>(Vec3(1),Vec3(0));
@@ -69,6 +68,8 @@ namespace basecross {
 			SetSharedGameObject(L"Player", ptrPlayer);
 			auto ptrPlayer2 = AddGameObject<Player2>();
 			SetSharedGameObject(L"Player2", ptrPlayer2);
+
+			CreateCsvObjects();
 
 			// 磁石オブジェクトを追加
 			//auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
@@ -92,7 +93,7 @@ namespace basecross {
 
 		std::shared_ptr<GameObject> ptrGround;
 		std::shared_ptr<GameObject> ptrMag;
-
+		std::shared_ptr<GameObject> ptrStart;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
@@ -144,8 +145,8 @@ namespace basecross {
 					break;
 
 				case 13: //スタート
-					ptrGround = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
-					isCreateMaagnets = false;
+					ptrStart = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					SetSharedGameObject(L"Start", ptrStart);
 					break;
 
 				case 14: //セーブポイント

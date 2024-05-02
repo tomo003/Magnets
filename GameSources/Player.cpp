@@ -118,7 +118,7 @@ namespace basecross {
 		}
 
 		if (m_pos.y < -10.0f) {
-			DeathPlayer();
+			RespawnPlayer();
 		}
 
 		//属性切り替え
@@ -157,10 +157,21 @@ namespace basecross {
 		m_attribute = 1;
 	}
 
-	//死亡関数
-	void Player::DeathPlayer() {
+	//ゴール関数
+	void Player::GoalPlayer() {
 		PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 	
+	}
+
+	//リスポーン地点を設定する
+	void Player::SetRespawnPoint(shared_ptr<GameObject>& Other) {
+		auto otherPos = Other->GetComponent<Transform>()->GetPosition();
+		m_RespawnPoint = otherPos.x;
+	}
+
+	//リスポーンする
+	void Player::RespawnPlayer() {
+		m_pos = Vec3(m_RespawnPoint, 0.0f, 0.0f);
 	}
 
 	//アニメーション関数
@@ -313,6 +324,19 @@ namespace basecross {
 		else {
 			m_speed = 5.0f;
 			m_attribute = 1;
+		}
+
+		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
+		if (ptrRespawnPoint)
+		{
+			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
+			m_RespawnPoint = otherPos.x;
+		}
+
+		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
+		if (ptrGoal)
+		{
+			GoalPlayer();
 		}
 	}
 
