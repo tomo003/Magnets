@@ -160,7 +160,7 @@ namespace basecross {
 		m_gravityComp = GetComponent<Gravity>();
 		m_gravityComp->StartJump(m_gravityVelocity);
 		m_pos = GetComponent<Transform>()->GetPosition();
-		GetStage()->AddGameObject<EffectPlayer>(Vec3(m_pos.x,m_pos.y-1.0f,m_pos.z), Vec3(1.0f), L"jump");
+		GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
 		m_speed = 5.0f;
 		m_attribute = 1;
 	}
