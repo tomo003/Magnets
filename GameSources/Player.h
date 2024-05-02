@@ -57,6 +57,8 @@ namespace basecross {
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
 
+		bool isCollRing = false; // リングと接触しているか(初期値はfalse)
+
 		enum eMotion {
 			RIGHT,
 			LEFT,

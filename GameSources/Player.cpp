@@ -67,6 +67,9 @@ namespace basecross {
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
+		if (isCollRing) // リングとの接触がある時(trueのとき)
+			padLStick.y = pad.fThumbLY; // スティックのY軸も入力する
+
 		if (padLStick.length() > 0.0f) {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
@@ -280,23 +283,29 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
+		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
-			if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
-				m_gravityComp->SetGravityZero();
-				m_ptrTrans->SetParent(ptrMoveMetal);
-			}
-			else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
-				m_gravityComp->SetGravityZero();
-				m_ptrTrans->SetParent(ptrMetal);
-			}
-			else if (ptrMagnetN && (m_eMagPole == EState::eS)) {
-				m_gravityComp->SetGravityZero();
-				m_ptrTrans->SetParent(ptrMagnetN);
-			}
-			else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
-				m_gravityComp->SetGravityZero();
-				m_ptrTrans->SetParent(ptrMagnetS);
-			}
+		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrMoveMetal);
+		}
+		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrMetal);
+		}
+		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrMagnetN);
+		}
+		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrMagnetS);
+		}
+		if (ptrRing && (m_eMagPole != EState::eFalse)) {
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrRing);
+			isCollRing = true; //　リングについたからtrue
+		}
 
 		//磁石衝突エフェクト
 			if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) {
@@ -331,22 +340,28 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
+		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
-		else if (ptrMetal && (m_eMagPole == EState::eFalse)) {
+		if (ptrMetal && (m_eMagPole == EState::eFalse)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
-		else if (ptrMagnetN && (m_eMagPole != EState::eS)) {
+		if (ptrMagnetN && (m_eMagPole != EState::eS)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
-		else if (ptrMagnetS && (m_eMagPole != EState::eN)) {
+		if (ptrMagnetS && (m_eMagPole != EState::eN)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrRing && (m_eMagPole == EState::eFalse)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
@@ -358,11 +373,13 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) // チェック
+		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
+			isCollRing = false; // リングから離れた時にfalse
 		}
 
 	}
