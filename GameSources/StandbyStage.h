@@ -34,6 +34,8 @@ namespace basecross {
 		bool player2BPush = false;
 		bool playerReady = false;
 		bool player2Ready = false;
+		bool playerPositionFixed = false;
+		bool player2PositionFixed = false;
 		bool stage = false;
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();

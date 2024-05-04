@@ -37,8 +37,8 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<BackGroundSprite>();
-			//AddGameObject<BackGroundSprite2>();
+			//AddGameObject<BackGroundSprite>();
+			AddGameObject<BackGroundSprite2>();
 
 			//CreateObjGroup();
 
@@ -92,6 +92,10 @@ namespace basecross {
 			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f), L"RBPUSH");
 			playerBPush = true;
 		}
+		if (playerBPush && !playerReady) {
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, -1.5f, 0.0f));
+			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
+		}
 		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (playerBPush) {
 				m_ptrBbuttonSprite->SetDrawActive(false);
@@ -99,13 +103,26 @@ namespace basecross {
 				playerReady = true;
 			}
 		}
+		Vec3 playerPos = m_ptrPlayer->GetComponent<Transform>()->GetPosition();
+		if (playerPos.y > 0.80f && playerReady&& !playerPositionFixed) {
+			AddGameObject<EffectPlayer>(playerPos, Vec3(1.0f), L"impact");
+			playerPositionFixed = true;
+		}
+		if (playerReady && playerPositionFixed) {
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, 0.8f, 0.0f));
+			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
+		}
 		//プレイヤー２
 		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_B|| firstPad.wPressedButtons & XINPUT_GAMEPAD_X) {
-			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Brack_MESH");;
+			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Brack_MESH");
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -1.5f, 0.0f));
 			m_ptrBbuttonSprite2->SetDrawActive(false);		
 			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"RBPUSH");
 			player2BPush = true;
+		}
+		if (player2BPush && !player2Ready) {
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -1.5f, 0.0f));
+			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Brack_MESH");
 		}
 		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
 			if (player2BPush) {
@@ -113,6 +130,15 @@ namespace basecross {
 				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"READY");
 				player2Ready = true;
 			}
+		}
+		Vec3 player2Pos = m_ptrPlayer2->GetComponent<Transform>()->GetPosition();
+		if (player2Pos.y >= 0.8f && player2Ready&& !player2PositionFixed) {
+			AddGameObject<EffectPlayer>(player2Pos, Vec3(1.0f), L"impact");
+			player2PositionFixed = true;
+		}
+		if (player2Ready && player2PositionFixed) {
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, 0.8f, 0.0f));
+			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");;
 		}
 
 		//シーン遷移
