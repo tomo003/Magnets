@@ -14,6 +14,8 @@ namespace basecross{
 	class Scene : public SceneBase{
 
 		shared_ptr<EfkInterface> m_EfkInterface;
+		
+		int m_scene = 0;
 
 	public:
 		void CreateResourses();
@@ -59,12 +61,15 @@ namespace basecross{
 		
 		virtual void OnEvent(const shared_ptr<Event>& event) override;
 
+		int GetSecen() {
+			return m_scene;
+		}
+
 		//エフェクトのインターフェースの取得
 		shared_ptr<EfkInterface> GetEfkInterface() const {
 			return m_EfkInterface;
 		}
 	};
-
 }
 
 //end basecross
