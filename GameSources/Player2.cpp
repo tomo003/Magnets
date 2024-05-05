@@ -275,22 +275,21 @@ namespace basecross {
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMoveMetal);
+			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
 		else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
+			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
 		else if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
+			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
 		else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
-		}
-
-		//磁石衝突エフェクト
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) {
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
 
