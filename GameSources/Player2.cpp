@@ -303,14 +303,33 @@ namespace basecross {
 			m_attribute = 1;
 		}
 
-		if (ptrBeltConLeft || ptrBeltConSideLeft) {
-			m_speed = 6.0f;
-			m_attribute = -1;
+		if (ptrBeltConLeft) {
+			Vec3 beltConLeftPos = ptrBeltConLeft->GetComponent<Transform>()->GetPosition();
+			if (beltConLeftPos.y < m_pos.y) {
+				m_speed = 6.0f;
+				m_attribute = -1;
+			}
 		}
-		else if (ptrBeltConRight || ptrBeltConSideRight) {
-			m_speed = 6.0f;
+		else if (ptrBeltConSideLeft) {
+			Vec3 beltConLeftSidePos = ptrBeltConSideLeft->GetComponent<Transform>()->GetPosition();
+			if (beltConLeftSidePos.y < m_pos.y) {
+				m_speed = 6.0f;
+				m_attribute = -1;
+			}
 		}
-		else {
+		else if (ptrBeltConRight) {
+			Vec3 beltConRightPos = ptrBeltConRight->GetComponent<Transform>()->GetPosition();
+			if (beltConRightPos.y < m_pos.y) {
+				m_speed = 6.0f;
+			}
+		}
+		else if (ptrBeltConSideRight) {
+			Vec3 beltConRightSidePos = ptrBeltConSideRight->GetComponent<Transform>()->GetPosition();
+			if (beltConRightSidePos.y < m_pos.y) {
+				m_speed = 6.0f;
+			}
+		}
+		else if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}
