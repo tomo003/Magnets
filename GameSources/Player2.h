@@ -52,6 +52,8 @@ namespace basecross {
 		float jumpCount;
 		int count;
 
+		float m_RespawnPoint;//リスポーンする位置
+
 		wstring m_magDirLR;
 		wstring m_magDirUD;
 
@@ -59,6 +61,8 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
+
+		bool isCollGoal = false;
 
 		enum eMotion {
 			RIGHT,
@@ -93,7 +97,8 @@ namespace basecross {
 
 		void MovePlayer();
 		void JumpPlayer();
-		void DeathPlayer();
+		void SetRespawnPoint(shared_ptr<GameObject>& Other);
+		void RespawnPlayer(float respawnPoint);
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 		void OnCollisionExcute(shared_ptr<GameObject>& Other) override;

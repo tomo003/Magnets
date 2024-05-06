@@ -53,8 +53,11 @@ namespace basecross {
 
 	//更新処理
 	void Player::OnUpdate(){
-		MovePlayer();
-		ApplyForcePlayer();
+		if (!isCollGoal)
+		{
+			MovePlayer();
+			ApplyForcePlayer();
+		}
 	}
 
 	//プレイヤーの動き
@@ -115,35 +118,37 @@ namespace basecross {
 		}
 
 		if (m_pos.y < -10.0f) {
-			RespawnPlayer();
+			auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+			ptrPlayer2->RespawnPlayer(m_RespawnPoint);
+			RespawnPlayer(m_RespawnPoint);
 		}
 
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			//switch (m_eMagPole){
-			//case EState::eFalse:
-			//	m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
-			//	m_eMagPole = EState::eN;
-			//	break;
-			//case EState::eN:
-			//	m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
-			//	m_eMagPole = EState::eS;
-			//	break;
-			//case EState::eS:
-			//	m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
-			//	m_eMagPole = EState::eFalse;
-			//	break;
-			//}
-			switch (m_eMagPole) {
+			switch (m_eMagPole){
 			case EState::eFalse:
 				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
 				m_eMagPole = EState::eN;
 				break;
 			case EState::eN:
+				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
+				m_eMagPole = EState::eS;
+				break;
+			case EState::eS:
 				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 				m_eMagPole = EState::eFalse;
 				break;
 			}
+			//switch (m_eMagPole) {
+			//case EState::eFalse:
+			//	m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
+			//	m_eMagPole = EState::eN;
+			//	break;
+			//case EState::eN:
+			//	m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+			//	m_eMagPole = EState::eFalse;
+			//	break;
+			//}
 			
 		}
 
@@ -168,12 +173,6 @@ namespace basecross {
 		m_attribute = 1;
 	}
 
-	//ゴール関数
-	void Player::GoalPlayer() {
-		PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-	
-	}
-
 	//リスポーン地点を設定する
 	void Player::SetRespawnPoint(shared_ptr<GameObject>& Other) {
 		auto otherPos = Other->GetComponent<Transform>()->GetPosition();
@@ -181,8 +180,8 @@ namespace basecross {
 	}
 
 	//リスポーンする
-	void Player::RespawnPlayer() {
-		m_pos = Vec3(m_RespawnPoint, 0.0f, 0.0f);
+	void Player::RespawnPlayer(float respawnPoint) {
+		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
 	}
 
 	//アニメーション関数
@@ -378,7 +377,8 @@ namespace basecross {
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
 		if (ptrGoal)
 		{
-			GoalPlayer();
+			AnimationPlayer(FRONT);
+			isCollGoal = true;
 		}
 	}
 
@@ -446,12 +446,12 @@ namespace basecross {
 		//auto ptrString = GetComponent<StringSprite>();
 		//ptrString->SetText(posStr);
 
-		wstringstream wss;
-		wss << L"Player : " <<
-		m_pos.y << L", " << std::endl;
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto dstr = scene->GetDebugString();
-		scene->SetDebugString(wss.str());
+		//wstringstream wss;
+		//wss << L"Player : " <<
+		//m_pos.y << L", " << std::endl;
+		//auto scene = App::GetApp()->GetScene<Scene>();
+		//auto dstr = scene->GetDebugString();
+		//scene->SetDebugString(wss.str());
 
 	}
 

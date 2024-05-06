@@ -193,6 +193,9 @@ namespace basecross {
 	class Goal : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
+
+		bool isCollPlayer = false;
+		bool isCollPlayer2 = false;
 	public:
 		Goal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -200,6 +203,9 @@ namespace basecross {
 		);
 		virtual ~Goal();
 		virtual void OnCreate() override;
+		virtual void OnUpdate() override;
+		void PlayerGoal();
+		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 	};
 
 	//セーブポイント

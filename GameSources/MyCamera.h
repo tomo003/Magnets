@@ -13,6 +13,12 @@ namespace basecross {
 
 	private:
 		weak_ptr<GameObject> m_TargetObj;
+		weak_ptr<GameObject> m_GoalObj;
+
+		float m_EyeZ = -20.0f;
+		float m_zoomEyeZ = -10.0f;
+		float m_Height = 0.0f;
+		float m_ratio = 0.0f;
 	public:
 		//コンストラクタ
 		MyCamera(){};
@@ -26,12 +32,20 @@ namespace basecross {
 		//目標オブジェクトを設定する
 		void SetPlayerObj(const shared_ptr<GameObject>& Obj);
 
+		//目標オブジェクトを得る
+		shared_ptr<GameObject> GetGoalObj() const;
+
+		//目標オブジェクトを設定する
+		void SetGoalObj(const shared_ptr<GameObject>& Obj);
+
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
 
 		virtual void SetEye(const bsm::Vec3& Eye)override;
 
 		virtual void OnUpdate()override;
+
+		void ZoomCamera();
 	};
 
 	//２人プレイ用カメラ
@@ -45,6 +59,12 @@ namespace basecross {
 
 		weak_ptr<GameObject> m_TargetObj;
 		weak_ptr<GameObject> m_SecondTargetObj;
+		weak_ptr<GameObject> m_GoalObj;
+
+		float m_EyeZ = -20.0f;
+		float m_zoomEyeZ = -10.0f;
+		float m_Height = 0.0f;
+		float m_ratio = 0.0f;
 
 	public:
 		DuoCamera() :
@@ -67,12 +87,20 @@ namespace basecross {
 		//目標オブジェクトを設定する(プレイヤー２)
 		void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
 
+		//目標オブジェクトを得る
+		shared_ptr<GameObject> GetGoalObj() const;
+
+		//目標オブジェクトを設定する
+		void SetGoalObj(const shared_ptr<GameObject>& Obj);
+
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
 
 		virtual void SetEye(const bsm::Vec3& Eye)override;
 
 		virtual void OnUpdate()override;
+
+		void ZoomCamera();
 	};
 
 

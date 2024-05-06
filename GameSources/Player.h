@@ -49,7 +49,7 @@ namespace basecross {
 		float jumpCount;
 		int count;
 
-		float m_RespawnPoint;
+		float m_RespawnPoint;//リスポーンする位置
 
 		wstring m_magDirLR;
 		wstring m_magDirUD;
@@ -60,6 +60,7 @@ namespace basecross {
 		std::shared_ptr<Gravity> m_gravityComp;
 
 		bool isCollRing = false; // リングと接触しているか(初期値はfalse)
+		bool isCollGoal = false;
 
 		enum eMotion {
 			RIGHT,
@@ -94,9 +95,8 @@ namespace basecross {
 
 		void MovePlayer();
 		void JumpPlayer();
-		void GoalPlayer();
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
-		void RespawnPlayer();
+		void RespawnPlayer(float respawnPoint);
 
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
