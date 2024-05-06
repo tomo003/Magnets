@@ -125,30 +125,30 @@ namespace basecross {
 
 		//‘®«Ø‚è‘Ö‚¦
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			switch (m_eMagPole){
-			case EState::eFalse:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N‹É
-				m_eMagPole = EState::eN;
-				break;
-			case EState::eN:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S‹É
-				m_eMagPole = EState::eS;
-				break;
-			case EState::eS:
-				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
-				m_eMagPole = EState::eFalse;
-				break;
-			}
-			//switch (m_eMagPole) {
+			//switch (m_eMagPole){
 			//case EState::eFalse:
 			//	m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N‹É
 			//	m_eMagPole = EState::eN;
 			//	break;
 			//case EState::eN:
+			//	m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S‹É
+			//	m_eMagPole = EState::eS;
+			//	break;
+			//case EState::eS:
 			//	m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
 			//	m_eMagPole = EState::eFalse;
 			//	break;
 			//}
+			switch (m_eMagPole) {
+			case EState::eFalse:
+				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N‹É
+				m_eMagPole = EState::eN;
+				break;
+			case EState::eN:
+				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
+				m_eMagPole = EState::eFalse;
+				break;
+			}
 			
 		}
 
