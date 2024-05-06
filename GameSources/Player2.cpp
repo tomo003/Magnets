@@ -144,10 +144,10 @@ namespace basecross {
 	void Player2::JumpPlayer() {
 		m_gravityComp = GetComponent<Gravity>();
 		m_gravityComp->StartJump(m_gravityVelocity);
-		m_pos = GetComponent<Transform>()->GetWorldPosition();
+		Vec3 pos = GetComponent<Transform>()->GetWorldPosition();
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"jump");
+			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(1.0f), L"jump");
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
