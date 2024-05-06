@@ -99,8 +99,8 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (m_pos.y <= 5.0f) {
-			jumpCount = 1;
+		else if (isGround) {
+			JumpCountReset();
 		}
 
 		if (m_pos.y < -10.0f) {

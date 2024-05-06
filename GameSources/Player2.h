@@ -51,6 +51,7 @@ namespace basecross {
 
 		float jumpCount;
 		int count;
+		bool isGround;
 
 		float m_RespawnPoint;//リスポーンする位置
 
@@ -97,6 +98,9 @@ namespace basecross {
 
 		void MovePlayer();
 		void JumpPlayer();
+		void JumpCountReset() {
+			jumpCount = 2;
+		}
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
 		void RespawnPlayer(float respawnPoint);
 
