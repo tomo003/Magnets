@@ -11,6 +11,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FadeOut.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GearObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RingObject.cpp" />
@@ -28,10 +29,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="$(MSBuildThisFileDirectory)GearObject.cpp" />
->>>>>>> Tomoya
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -44,6 +41,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FadeOut.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GearObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RingObject.h" />
@@ -62,9 +60,5 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="$(MSBuildThisFileDirectory)GearObject.h" />
->>>>>>> Tomoya
   </ItemGroup>
 </Project>
