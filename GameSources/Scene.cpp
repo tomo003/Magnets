@@ -126,6 +126,8 @@ namespace basecross{
 
 		// —Ö‚Á‚©
 		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
+		// Ž•ŽÔ
+		//LoadStaticModelMesh(L"Gear_01", L"GearObject_MESH");
 	}
 
 	void Scene::OnCreate(){

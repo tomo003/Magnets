@@ -22,7 +22,7 @@
 #include "BeltConveyor.h"
 #include "BeltConveyorSide.h"
 #include "ButtonUI.h"
-
+#include "GearObject.h"
 #include "StandbyStage.h"
 #include "PlayerMagTestStage.h"
 #include "MagnetsObject.h"

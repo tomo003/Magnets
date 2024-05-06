@@ -19,4 +19,14 @@ namespace Utility
 		return start + (end - start) * t;
 	}
 
+	inline float RadToDeg(const float rad) {
+		float deg = rad * 180.0f / XM_PI;
+		return deg;
+	}
+
+	inline float DegToRad(const float deg) {
+		float rad = deg * XM_PI / 180.0f;
+		return rad;
+	}
+
 }
