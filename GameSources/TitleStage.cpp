@@ -53,7 +53,7 @@ namespace basecross {
 
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B|| pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			if (!stage) {
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMStandbyStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				//XAPtr->Start(L"SELECT_SE", 0, 0.5f);
 				stage = true;
