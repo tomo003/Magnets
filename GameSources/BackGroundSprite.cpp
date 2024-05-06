@@ -40,33 +40,18 @@ namespace basecross {
 		m_mesh->UpdateVirtexBuffer<VertexPositionNormalTexture>(vertices);
 	}
 
-	// èâä˙âª
 	void BackGroundSprite2::OnCreate() {
-		m_mesh = MeshResource::CreateCube(5.0f, true);
-
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(m_mesh);
-		drawComp->SetTextureResource(L"BACKGROUND1");
-		drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
+		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		drawComp->SetTextureResource(m_texkey);
+		
+		auto trans = AddComponent<Transform>();
+		trans->SetScale(Vec3(m_scale.x,m_scale.y,1.0f));
+		trans->SetPosition(Vec3(m_position.x, m_position.y, 10.0f));
 
-		const Vec3 scale(200.00f, 5.0f, 1.0f);
-		auto transComp = AddComponent<Transform>();
-		transComp->SetScale(scale);
-		transComp->SetPosition(Vec3(0.0f, 0.0f, 3.0f));
-
-		auto vertices = m_mesh->GetBackupVerteces<VertexPositionNormalTexture>();
-		for (auto& vertex : vertices) {
-			if (vertex.normal.z < 0.0f || vertex.normal.z > 0.0f) { // ëOå„
-				vertex.textureCoordinate.x *= scale.x;
-				//vertex.textureCoordinate.y *= scale.y;
-			}
-			if (vertex.normal.x < 0.0f || vertex.normal.x > 0.0f) { // ç∂âE
-				vertex.textureCoordinate.x *= scale.z;
-				//vertex.textureCoordinate.y *= scale.y;
-			}
-		}
-
-		m_mesh->UpdateVirtexBuffer<VertexPositionNormalTexture>(vertices);
 	}
 
+	void BackGroundSprite2::OnUpdate() {
+
+	}
 }
