@@ -167,6 +167,7 @@ namespace basecross {
 	//リスポーンする
 	void Player2::RespawnPlayer(float respawnPoint) {
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
+		m_ptrTrans->SetPosition(Vec3(m_pos));
 	}
 
 	//アニメーション関数

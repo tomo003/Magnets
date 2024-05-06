@@ -28,10 +28,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="$(MSBuildThisFileDirectory)GearObject.cpp" />
->>>>>>> Tomoya
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -62,9 +58,5 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="$(MSBuildThisFileDirectory)GearObject.h" />
->>>>>>> Tomoya
   </ItemGroup>
 </Project>
