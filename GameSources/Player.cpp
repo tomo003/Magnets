@@ -113,8 +113,8 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (m_pos.y <= 5.0f) {
-			jumpCount = 1;
+		else if (isGround) {
+			JumpCountReset();
 		}
 
 		if (m_pos.y < -10.0f) {
@@ -297,6 +297,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -323,6 +324,9 @@ namespace basecross {
 			m_ptrTrans->SetParent(ptrRing);
 			isCollRing = true; //　リングについたからtrue
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+		}
+		if (ptrGround) {
+			isGround = true;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
@@ -421,6 +425,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
@@ -429,6 +434,9 @@ namespace basecross {
 			isCollRing = false; // リングから離れた時にfalse
 		}
 
+		if (ptrGround) {
+			isGround = false;
+		}
 	}
 
 	// 速度を制限
