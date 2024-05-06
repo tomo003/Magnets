@@ -50,6 +50,8 @@ namespace basecross {
 		int count;
 		bool isGround;
 
+		bool isEffect = true;
+
 		float m_RespawnPoint;//リスポーンする位置
 
 		wstring m_magDirLR;

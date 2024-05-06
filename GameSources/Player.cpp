@@ -303,31 +303,43 @@ namespace basecross {
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMoveMetal);
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+			}
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+			}
 		}
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			isEffect = true;
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			isEffect = true;
 		}
 		if (ptrRing && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrRing);
 			isCollRing = true; //@ƒŠƒ“ƒO‚É‚Â‚¢‚½‚©‚çtrue
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+			}
 		}
 		if (ptrGround) {
 			isGround = true;
+			isEffect = true;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
