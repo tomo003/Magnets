@@ -82,6 +82,7 @@ namespace basecross{
 		LoadTexture(L"BPUSH", L"BPush.png");
 		LoadTexture(L"RBPUSH", L"RB.png");
 		LoadTexture(L"READY", L"Ready.png");
+		LoadTexture(L"CLEAR", L"StageClear.png");
 
 		LoadTexture(L"BACKGROUND", L"Back.png");
 		LoadTexture(L"BACKGROUND1", L"Back01.png");
@@ -140,7 +141,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

@@ -330,6 +330,10 @@ namespace basecross {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
 		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
+
+		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 2.0f, 0.0f);
+		ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
 	}
 
 	//ステージのゴールオブジェクトの仮設置
@@ -352,7 +356,7 @@ namespace basecross {
 		drawComp->SetTextureResource(L"GOAL_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetFixed(true);
+		//ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
@@ -360,7 +364,56 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
+		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		if (ptrCamera) {
+			//ゴールオブジェクトの設定
+			ptrCamera->SetGoalObj(GetThis<GameObject>());
+		}
+
 		AddTag(L"Goal");
+	}
+
+	void Goal::OnUpdate()
+	{
+		auto& app = App::GetApp();
+		auto device = app->GetInputDevice();
+		auto& pad = device.GetControlerVec()[0];
+		auto& pad2 = device.GetControlerVec()[1];
+
+		if (isCollPlayer)
+		{
+			PlayerGoal();
+			if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			}
+		}
+
+		auto trans = GetComponent<Transform>();
+		trans->SetPosition(m_Position);
+	}
+
+	void Goal::PlayerGoal()
+	{
+		GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
+		GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BPUSH");
+		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		ptrCamera->ZoomCamera();
+		//auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		//ptrDuoCamera->ZoomCamera();
+
+	}
+
+	void Goal::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+
+		if (ptrPlayer) {
+			isCollPlayer = true;
+		}
+		if (ptrPlayer2) {
+			isCollPlayer2 = true;
+		}
 	}
 
 	//ステージのリスポーン地点の仮設置
