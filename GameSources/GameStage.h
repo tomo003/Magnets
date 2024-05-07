@@ -16,6 +16,8 @@ namespace basecross {
 	private:
 		CsvFile m_GameStageCsv;
 
+		shared_ptr<SoundItem> m_bgm;
+
 		bool isCreateMaagnets = true;
 
 		//ƒrƒ…[‚Ìì¬
@@ -29,8 +31,10 @@ namespace basecross {
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+		virtual void OnDestroy()override;
 
 		void CreateObjGroup();
+		void PlayBGM();
 	};
 
 
