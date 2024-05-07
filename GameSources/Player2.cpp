@@ -85,8 +85,8 @@ namespace basecross {
 				jumpCount--;
 			}
 		}
-		else if (isGround) {
-			JumpCountReset();
+		else if (m_pos.y <= 5.0f) {
+			jumpCount = 1;
 		}
 
 		if (m_pos.y < -10.0f) {
@@ -152,6 +152,8 @@ namespace basecross {
 
 	//ƒŠƒXƒ|[ƒ“‚·‚é
 	void Player2::RespawnPlayer(float respawnPoint) {
+		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
+		m_eMagPole = EState::eFalse;
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
