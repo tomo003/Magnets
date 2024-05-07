@@ -196,6 +196,7 @@ namespace basecross {
 
 		bool isCollPlayer = false;
 		bool isCollPlayer2 = false;
+		bool isDisplaySprite = false;
 	public:
 		Goal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,

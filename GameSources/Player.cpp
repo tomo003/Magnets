@@ -181,6 +181,8 @@ namespace basecross {
 
 	//ƒŠƒXƒ|[ƒ“‚·‚é
 	void Player::RespawnPlayer(float respawnPoint) {
+		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
+		m_eMagPole = EState::eFalse;
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(Vec3(m_pos));
 	}
@@ -262,7 +264,7 @@ namespace basecross {
 		Vec3 objPos = objTrans->GetPosition();
 		float objMass = 1.0f;
 
-		m_pos = m_ptrTrans->GetPosition();
+		m_pos = m_ptrTrans->GetWorldPosition();
 
 		m_direction = objPos - m_pos;
 		m_distance = max(sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y), 1.0f);
@@ -272,7 +274,7 @@ namespace basecross {
 
 	void Player::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
