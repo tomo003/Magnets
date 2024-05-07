@@ -366,28 +366,14 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		if (ptrCamera) {
-			//ゴールオブジェクトの設定
-			ptrCamera->SetGoalObj(GetThis<GameObject>());
-		}
-
 		AddTag(L"Goal");
 	}
 
 	void Goal::OnUpdate()
 	{
-		auto& app = App::GetApp();
-		auto device = app->GetInputDevice();
-		auto& pad = device.GetControlerVec()[0];
-		auto& pad2 = device.GetControlerVec()[1];
-
-		if (isCollPlayer)
+		if (isCollPlayer && isCollPlayer2)
 		{
 			PlayerGoal();
-			if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			}
 		}
 
 		auto trans = GetComponent<Transform>();
@@ -396,6 +382,11 @@ namespace basecross {
 
 	void Goal::PlayerGoal()
 	{
+		auto& app = App::GetApp();
+		auto device = app->GetInputDevice();
+		auto& pad = device.GetControlerVec()[0];
+		auto& pad2 = device.GetControlerVec()[1];
+
 		if (!isDisplaySprite)
 		{
 			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
@@ -407,6 +398,10 @@ namespace basecross {
 		
 		//auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		//ptrDuoCamera->ZoomCamera();
+
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+		}
 	}
 
 	void Goal::OnCollisionEnter(shared_ptr<GameObject>& Other)
@@ -418,6 +413,13 @@ namespace basecross {
 			isCollPlayer = true;
 		}
 		if (ptrPlayer2) {
+			wstringstream wss;
+			wss << L"Player : " <<
+				L", " << std::endl;
+			auto scene = App::GetApp()->GetScene<Scene>();
+			auto dstr = scene->GetDebugString();
+			scene->SetDebugString(wss.str());
+
 			isCollPlayer2 = true;
 		}
 	}

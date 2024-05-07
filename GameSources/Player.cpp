@@ -25,7 +25,7 @@ namespace basecross {
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
 		//m_ptrDraw = AddComponent<BcPNTStaticModelDraw>();
 		//m_ptrDraw->SetMeshResource(L"Player01_MESH");
-		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");
+		m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
@@ -169,8 +169,8 @@ namespace basecross {
 
 	//ƒŠƒXƒ|[ƒ“‚·‚é
 	void Player::RespawnPlayer(float respawnPoint) {
-		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
-		m_eMagPole = EState::eFalse;
+		m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//–³‹É
+		m_eMagPole = EState::eN;
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}

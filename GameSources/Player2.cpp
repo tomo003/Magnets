@@ -22,7 +22,7 @@ namespace basecross {
 
 		// BcPNTStaticModelDraw
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
-		m_ptrDraw->SetMeshResource(L"Player2Brack_MESH");
+		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
@@ -138,7 +138,7 @@ namespace basecross {
 		Vec3 pos = GetComponent<Transform>()->GetWorldPosition();
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
-			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(1.0f), L"jump");
+			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(0.3f), L"jump");
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
@@ -152,8 +152,8 @@ namespace basecross {
 
 	//ƒŠƒXƒ|[ƒ“‚·‚é
 	void Player2::RespawnPlayer(float respawnPoint) {
-		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
-		m_eMagPole = EState::eFalse;
+		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//–³‹É
+		m_eMagPole = EState::eS;
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}

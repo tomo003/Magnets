@@ -20,17 +20,6 @@ namespace basecross {
 		m_TargetObj = Obj;
 	}
 
-	shared_ptr<GameObject> MyCamera::GetGoalObj() const {
-		if (!m_GoalObj.expired()) {
-			return m_GoalObj.lock();
-		}
-		return nullptr;
-	}
-
-	void MyCamera::SetGoalObj(const shared_ptr<GameObject>& Obj) {
-		m_GoalObj = Obj;
-	}
-
 	void MyCamera::SetAt(const bsm::Vec3& At) {
 		Camera::SetAt(At);
 	}
@@ -57,22 +46,16 @@ namespace basecross {
 		float delta = app->GetElapsedTime();
 
 		auto ptrTarget = GetPlayerObj();
-		auto ptrGoal = GetGoalObj();
 
 		Vec3 newAt = GetAt();
 		Vec3 newEye = GetEye();
 		const float start = -20.0f;
-		const float sub = m_zoomEyeZ - start;
 		m_EyeZ = Utility::Lerp(start, m_zoomEyeZ, m_ratio);
-		m_Height =Utility::Lerp(0.0f, ptrGoal->AddComponent<Transform>()->GetPosition().y + 1,m_ratio);
+		m_Height =Utility::Lerp(0.0f, ptrTarget->GetComponent<Transform>()->GetPosition().y + 1, m_ratio);
 		if (m_ratio < 1)
 		{
 			m_ratio += 0.01;
 		}
-
-		newEye = Vec3(ptrGoal->GetComponent<Transform>()->GetWorldPosition().x, m_Height, m_EyeZ);
-		SetEye(newEye);
-		Camera::OnUpdate();
 	}
 
 	//二人プレイ用カメラ
@@ -98,17 +81,6 @@ namespace basecross {
 		m_SecondTargetObj = Obj;
 	}
 
-	shared_ptr<GameObject> DuoCamera::GetGoalObj() const {
-		if (!m_GoalObj.expired()) {
-			return m_GoalObj.lock();
-		}
-		return nullptr;
-	}
-
-	void DuoCamera::SetGoalObj(const shared_ptr<GameObject>& Obj) {
-		m_GoalObj = Obj;
-	}
-
 	void DuoCamera::SetAt(const bsm::Vec3& At) {
 		Camera::SetAt(At);
 	}
@@ -119,11 +91,15 @@ namespace basecross {
 
 	void DuoCamera::OnUpdate() {
 		auto ptrTarget = GetPlayerObj();
-		auto targetPos = ptrTarget->GetComponent<Transform>()->GetPosition();
+		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
-		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetPosition();
+		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto targetBetween = abs((targetPos.x - secondTargetPos.x)*0.3f);
 		float eyeZ = GetEye().z;
+		if (!isZoomCamera)
+		{
+			m_EyeZ = m_minEyeZ - targetBetween;
+		}
 
 		//if (eyeZ > m_maxEyeZ)
 		//{
@@ -134,15 +110,15 @@ namespace basecross {
 		//{
 		//	eyeZ = m_maxEyeZ;
 		//}
-		if (GetEye().z < -25.0f)
+		if (GetEye().z < m_maxEyeZ)
 		{
-			eyeZ = -25.0f;
+			eyeZ = m_maxEyeZ;
 		}
 
 		Vec3 newAt = GetAt();
-		newAt = Vec3((targetPos.x+ secondTargetPos.x)/2, 0.0f, 0.0f);
+		newAt = Vec3((targetPos.x+ secondTargetPos.x)/2, m_Height, 0.0f);
 		Vec3 newEye = GetEye();
-		newEye = Vec3((targetPos.x + secondTargetPos.x) / 2, 0.0f, -15-targetBetween); 
+		newEye = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, m_EyeZ);
 
 		SetAt(newAt);
 		SetEye(newEye);
@@ -150,7 +126,30 @@ namespace basecross {
 	}
 
 	void DuoCamera::ZoomCamera() {
+		auto& app = App::GetApp();
+		//デルタタイム(毎フレームからの経過時間)を取得する
+		float delta = app->GetElapsedTime();
 
+		auto ptrTarget = GetPlayerObj();
+		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
+		auto ptrSecondTarget = GetSecondPlayerObj();
+		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
+		auto targetBetween = abs((targetPos.x - secondTargetPos.x) * 0.3f);
+
+		Vec3 newAt = GetAt();
+		Vec3 newEye = GetEye();
+		if (!isZoomCamera)
+		{
+			m_start = m_minEyeZ - targetBetween;
+		}
+		m_EyeZ = Utility::Lerp(m_start, m_zoomEyeZ, m_ratio);
+		m_Height = Utility::Lerp(0.0f, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
+		if (m_ratio < 1)
+		{
+			m_ratio += 0.01;
+		}
+
+		isZoomCamera = true;
 	}
 }
 //end basecross

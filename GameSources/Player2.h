@@ -29,7 +29,7 @@ namespace basecross {
 		};
 
 	private:
-		enum EState m_eMagPole = EState::eFalse; // ¥‹É‚Ìó‘Ô
+		enum EState m_eMagPole = EState::eS; // ¥‹É‚Ìó‘Ô
 
 		Vec3 m_pos;
 		float m_speed;

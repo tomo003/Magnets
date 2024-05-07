@@ -32,12 +32,6 @@ namespace basecross {
 		//目標オブジェクトを設定する
 		void SetPlayerObj(const shared_ptr<GameObject>& Obj);
 
-		//目標オブジェクトを得る
-		shared_ptr<GameObject> GetGoalObj() const;
-
-		//目標オブジェクトを設定する
-		void SetGoalObj(const shared_ptr<GameObject>& Obj);
-
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
 
@@ -65,11 +59,13 @@ namespace basecross {
 		float m_zoomEyeZ = -10.0f;
 		float m_Height = 0.0f;
 		float m_ratio = 0.0f;
+		float m_start = 0.0f;
 
+		bool isZoomCamera = false;
 	public:
 		DuoCamera() :
-			m_minEyeZ(-20),
-			m_maxEyeZ(-30)
+			m_minEyeZ(-15),
+			m_maxEyeZ(-25)
 		{}
 
 		//デストラクタ
@@ -86,12 +82,6 @@ namespace basecross {
 
 		//目標オブジェクトを設定する(プレイヤー２)
 		void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
-
-		//目標オブジェクトを得る
-		shared_ptr<GameObject> GetGoalObj() const;
-
-		//目標オブジェクトを設定する
-		void SetGoalObj(const shared_ptr<GameObject>& Obj);
 
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
