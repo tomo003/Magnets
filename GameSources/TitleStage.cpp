@@ -28,7 +28,7 @@ namespace basecross {
 	} 
 
 	void TitleStage::PlayBGM() {
-		//m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"TITLESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
+		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
 	}
 
 

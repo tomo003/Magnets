@@ -156,6 +156,8 @@ namespace basecross {
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
 			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(0.3f), L"jump");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"JUMP_SE", 0, 2.0f);
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
@@ -296,6 +298,8 @@ namespace basecross {
 			if (isEffect) {
 				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 				isEffect = false;
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
@@ -304,6 +308,8 @@ namespace basecross {
 			if (isEffect) {
 				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 				isEffect = false;
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
@@ -311,12 +317,18 @@ namespace basecross {
 			m_ptrTrans->SetParent(ptrMagnetN);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 			isEffect = true;
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 			isEffect = true;
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+
 		}
 		if (ptrRing && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -325,6 +337,8 @@ namespace basecross {
 			if (isEffect) {
 				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 				isEffect = false;
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
 		if (ptrGround) {

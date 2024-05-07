@@ -139,6 +139,8 @@ namespace basecross {
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
 			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(1.0f), L"jump");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"JUMP_SE", 0, 2.0f);
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
@@ -279,6 +281,8 @@ namespace basecross {
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 			isEffect = false;
 			}
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"UNION_SE", 0, 2.0f);
 		}
 		else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();

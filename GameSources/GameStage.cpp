@@ -33,12 +33,22 @@ namespace basecross {
 		CreateSharedObjectGroup(L"BeltConveyorSideRight");
 	}
 
+	void GameStage::PlayBGM() {
+		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"GAMESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
+	}
+
+	void GameStage::OnDestroy() {
+		//BGMのストップ
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_bgm);
+	}
+
 	void GameStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
-
+			PlayBGM();
 			//背景
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50,0,0), L"BACKGROUND1");
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-10,0,0), L"BACKGROUND2");

@@ -129,6 +129,15 @@ namespace basecross{
 		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
 		// Ž•ŽÔ
 		//LoadStaticModelMesh(L"Gear_01", L"GearObject_MESH");
+
+		//BGM
+		LoadSound(L"TITLE_BGM",L"Title.wav");
+		LoadSound(L"STANDBY_BGM",L"StandBy.wav");
+		LoadSound(L"GAMESTAGE_BGM",L"GameStage.wav");
+		//Œø‰Ê‰¹
+		LoadSound(L"JUMP_SE", L"Jump.wav");
+		LoadSound(L"UNION_SE", L"Union.wav");
+
 	}
 
 	void Scene::OnCreate(){

@@ -19,6 +19,7 @@ namespace basecross {
 		//};
 		float m_time = 2.0f;
 
+		shared_ptr<SoundItem> m_bgm;
 		//ƒvƒŒƒCƒ„[
 		std::shared_ptr<Player> m_ptrPlayer;
 		std::shared_ptr<Player2> m_ptrPlayer2;
@@ -47,8 +48,10 @@ namespace basecross {
 		//‰Šú‰»
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
+		virtual void OnDestroy()override;
 
 		void CreateObjGroup();
+		void PlayBGM();
 	};
 
 
