@@ -159,7 +159,6 @@ namespace basecross {
 	@param	efkkey	エフェクトの名前
 	@return	なし
 	*/
-	//--------------------------------------------------------------------------------------
 	class EffectPlayer : public GameObject
 	{
 		shared_ptr<EfkEffect> m_Effect;
