@@ -65,20 +65,6 @@ namespace basecross {
 		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		m_ptrTrans->SetPosition(Vec3(m_pos));
-
-
-		//auto KeyState = app->GetInputDevice().GetKeyState();
-		//if (KeyState.m_bPushKeyTbl['A']) {
-		//	padLStick.x = -1.0f;
-		//}
-		//else if (KeyState.m_bPushKeyTbl['D']) {
-		//	padLStick.x = 1.0f;
-		//}
-		//else {
-		//	padLStick.x = 0;
-		//}
-
 
 		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
@@ -140,7 +126,7 @@ namespace basecross {
 
 		limitSpeed();
 		m_pos += m_Velocity * delta;
-		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		m_Velocity.setAll(0);
 
 	}
@@ -167,7 +153,7 @@ namespace basecross {
 	//リスポーンする
 	void Player2::RespawnPlayer(float respawnPoint) {
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
-		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	//アニメーション関数
@@ -314,6 +300,7 @@ namespace basecross {
 		}
 		if (ptrGround) {
 			isEffect = true;
+			isGround = true;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
