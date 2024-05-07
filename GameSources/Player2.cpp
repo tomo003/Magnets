@@ -65,20 +65,6 @@ namespace basecross {
 		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		m_ptrTrans->SetPosition(Vec3(m_pos));
-
-
-		//auto KeyState = app->GetInputDevice().GetKeyState();
-		//if (KeyState.m_bPushKeyTbl['A']) {
-		//	padLStick.x = -1.0f;
-		//}
-		//else if (KeyState.m_bPushKeyTbl['D']) {
-		//	padLStick.x = 1.0f;
-		//}
-		//else {
-		//	padLStick.x = 0;
-		//}
-
 
 		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
@@ -111,22 +97,12 @@ namespace basecross {
 
 		//属性切り替え
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			switch (m_eMagPole) {
-			case EState::eFalse:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
-				m_eMagPole = EState::eN;
-				break;
-			case EState::eN:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
-				m_eMagPole = EState::eS;
-				break;
-			case EState::eS:
-				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
-				m_eMagPole = EState::eFalse;
-				break;
-			}
 			//switch (m_eMagPole) {
 			//case EState::eFalse:
+			//	m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N極
+			//	m_eMagPole = EState::eN;
+			//	break;
+			//case EState::eN:
 			//	m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
 			//	m_eMagPole = EState::eS;
 			//	break;
@@ -135,12 +111,22 @@ namespace basecross {
 			//	m_eMagPole = EState::eFalse;
 			//	break;
 			//}
+			switch (m_eMagPole) {
+			case EState::eFalse:
+				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S極
+				m_eMagPole = EState::eS;
+				break;
+			case EState::eS:
+				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+				m_eMagPole = EState::eFalse;
+				break;
+			}
 
 		}
 
 		limitSpeed();
 		m_pos += m_Velocity * delta;
-		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		m_Velocity.setAll(0);
 
 	}
@@ -167,7 +153,7 @@ namespace basecross {
 	//リスポーンする
 	void Player2::RespawnPlayer(float respawnPoint) {
 		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
-		m_ptrTrans->SetPosition(Vec3(m_pos));
+		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	//アニメーション関数
@@ -282,26 +268,39 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MoveMetalObject>(Other);
+		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMoveMetal);
+			if (isEffect) {
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			isEffect = false;
+			}
 		}
 		else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+			}
 		}
 		else if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			isEffect = true;
 		}
 		else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+			isEffect = true;
+		}
+		if (ptrGround) {
+			isEffect = true;
+			isGround = true;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
