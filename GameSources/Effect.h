@@ -179,6 +179,10 @@ namespace basecross {
 		}
 
 		void OnCreate() override;
+
+		void StopEffect();
+		void AddLocation(const bsm::Vec3& Location);
+		void AddRotation(const bsm::Vec3& Rotation);
 	};
 
 
