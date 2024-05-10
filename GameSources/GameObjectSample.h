@@ -44,6 +44,7 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		int m_State;
+		std::shared_ptr<EffectPlayer> m_efk;
 	public:
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -71,7 +72,7 @@ namespace basecross {
 
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
-
+		void EfkStop();
 	};
 
 	//S極のオブジェクト
@@ -96,6 +97,8 @@ namespace basecross {
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
+
+		std::shared_ptr<EffectPlayer> m_efk;
 	public:
 		MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -123,6 +126,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
 
+		void EfkStop();
 	};
 
 	//金属のオブジェクト

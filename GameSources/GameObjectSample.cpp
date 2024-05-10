@@ -83,7 +83,7 @@ namespace basecross {
 		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
 
 	}
 
@@ -138,7 +138,9 @@ namespace basecross {
 		}
 	}
 
-
+	void MagnetN::EfkStop() {
+		m_efk->StopEffect();
+	}
 
 	//ステージのS極マグネットプロックの仮設置
 	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
@@ -169,7 +171,7 @@ namespace basecross {
 		m_eMagPole = EState::eS;
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
 	}
 
 	void MagnetS::OnUpdate()
@@ -222,6 +224,10 @@ namespace basecross {
 			}// ptrPlayer->ApplyAttraction();
 
 		}
+	}
+
+	void MagnetS::EfkStop(){
+		m_efk->StopEffect();
 	}
 
 	//ステージの鉄ブロックの仮設置
