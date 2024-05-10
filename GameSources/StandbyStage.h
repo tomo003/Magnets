@@ -12,11 +12,6 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class StandbyStage : public Stage {
-		//enum class EState {
-		//	eFalse = -1, // 無
-		//	eN = 1, // Ｎ極
-		//	eS = 2 // Ｓ極
-		//};
 		float m_time = 2.0f;
 
 		shared_ptr<SoundItem> m_bgm;
@@ -31,8 +26,6 @@ namespace basecross {
 		std::shared_ptr<MagnetN> m_ptrMagObjN;
 
 		//準備完了
-		bool playerBPush = false;
-		bool player2BPush = false;
 		bool playerReady = false;
 		bool player2Ready = false;
 		bool playerPositionFixed = false;
@@ -50,7 +43,6 @@ namespace basecross {
 		virtual void OnUpdate()override;
 		virtual void OnDestroy()override;
 
-		void CreateObjGroup();
 		void PlayBGM();
 	};
 
