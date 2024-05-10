@@ -126,6 +126,7 @@ namespace basecross {
 		EState GetPlayerMagPole() {
 			return m_eMagPole;
 		}
+		void SetPlayerMagPole(int i);
 
 		// ‹ß‚¢¥Î‚ª©•ª‚©‚çŒ©‚Ä4•ûŒü‚Ì‚Ç‚±‚É‚¢‚é‚©İ’è
 		void SetMsgnetsDirection(const Vec3& magPos) {

@@ -188,6 +188,20 @@ namespace basecross {
 		}
 	}
 
+	void Player2::SetPlayerMagPole(int i) {
+		switch (i) {
+		case 1:
+			m_eMagPole = EState::eN;
+			break;
+		case 2:
+			m_eMagPole = EState::eS;
+			break;
+		default:
+			m_eMagPole = EState::eFalse;
+			break;
+		}
+	}
+
 	// プレイやーに引力を適用
 	void Player2::ApplyAttraction(shared_ptr<GameObject>& Other) {
 		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();

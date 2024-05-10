@@ -177,6 +177,20 @@ namespace basecross {
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
+	void Player::SetPlayerMagPole(int i) {
+		switch (i) {
+		case 1:
+			m_eMagPole = EState::eN;
+			break;
+		case 2:
+			m_eMagPole = EState::eS;
+			break;
+		default:
+			m_eMagPole = EState::eFalse;
+			break;
+		}
+	}
+
 	//アニメーション関数
 	void Player::AnimationPlayer(eMotion Motion) {
 
