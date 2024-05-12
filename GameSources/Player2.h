@@ -47,6 +47,7 @@ namespace basecross {
 
 		float jumpCount;
 		int count;
+		bool isJump = true;
 		bool isGround;
 
 		bool isEffect = true;

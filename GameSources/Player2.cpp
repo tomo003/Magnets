@@ -244,6 +244,18 @@ namespace basecross {
 
 		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force * -1;
+
+		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+		if (scene != 1) {
+			if (isJump) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
+				App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
+				isJump = false;
+			}
+			if (length(objPos - m_pos) > 5.0f - 0.1f) {
+				isJump = true;
+			}
+		}
 	}
 	void Player2::PlayerApplyRepulsion() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player>(L"Player");
