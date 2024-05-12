@@ -38,8 +38,10 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
+		std::shared_ptr<GameObject> m_ptrArea;
+
 		float m_ObjMass = 1.0f;
-		float m_MagAreaRadius = 3.0f;
+		float m_MagAreaRadius = 5.0f;
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
@@ -93,7 +95,7 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
-		float m_MagAreaRadius = 3.0f;
+		float m_MagAreaRadius = 5.0f;
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
