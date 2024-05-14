@@ -141,6 +141,9 @@ namespace basecross {
 	void MagnetN::EfkStop() {
 		m_efk->StopEffect();
 	}
+	void MagnetN::OnDestroy() {
+		EfkStop();
+	}
 
 	//ステージのS極マグネットプロックの仮設置
 	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
@@ -228,6 +231,9 @@ namespace basecross {
 
 	void MagnetS::EfkStop(){
 		m_efk->StopEffect();
+	}
+	void MagnetS::OnDestroy() {
+		EfkStop();
 	}
 
 	//ステージの鉄ブロックの仮設置

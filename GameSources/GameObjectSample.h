@@ -55,7 +55,8 @@ namespace basecross {
 		);
 		virtual ~MagnetN();
 		virtual void OnCreate() override;
-		virtual void OnUpdate();
+		virtual void OnUpdate()override;
+		void OnDestroy()override;
 
 
 		int GetState() {
@@ -109,7 +110,7 @@ namespace basecross {
 		virtual ~MagnetS();
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
-
+		void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
