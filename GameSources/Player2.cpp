@@ -56,7 +56,7 @@ namespace basecross {
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
+		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
@@ -91,8 +91,15 @@ namespace basecross {
 
 		if (m_pos.y < -10.0f) {
 			auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-			ptrPlayer->RespawnPlayer(m_RespawnPoint);
-			RespawnPlayer(m_RespawnPoint);
+			float playerRespawnpPoint = ptrPlayer->GetRespawnPoint();
+			if (playerRespawnpPoint >= m_RespawnPoint) {
+				ptrPlayer->RespawnPlayer(m_RespawnPoint);
+				RespawnPlayer(m_RespawnPoint);
+			}
+			else if (playerRespawnpPoint < m_RespawnPoint) {
+				ptrPlayer->RespawnPlayer(playerRespawnpPoint);
+				RespawnPlayer(playerRespawnpPoint);
+			}
 		}
 
 		//属性切り替え
@@ -356,13 +363,6 @@ namespace basecross {
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;
 		}
-
-		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal)
-		{
-			AnimationPlayer(FRONT);
-			isCollGoal = true;
-		}
 	}
 
 	void Player2::OnCollisionExcute(shared_ptr<GameObject>& Other) {
@@ -390,6 +390,12 @@ namespace basecross {
 			m_ptrTrans->ClearParent();
 		}
 
+		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
+		{
+			AnimationPlayer(FRONT);
+			isCollGoal = true;
+		}
 	}
 
 	// 速度を制限

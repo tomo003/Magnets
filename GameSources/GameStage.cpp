@@ -170,7 +170,7 @@ namespace basecross {
 					break;
 
 				case 15: //ÉSÅ[Éã
-					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 6.5, 0));
 					isCreateMaagnets = false;
 					break;
 

@@ -105,6 +105,8 @@ namespace basecross{
 		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
 		LoadTexture(L"GOAL_TX", L"Tile_Goal.png");
 
+		LoadTexture(L"TENNSENN_TEX", L"tennsenn2.png");
+
 		LoadStaticModelMesh(L"01", L"Player01_MESH");
 		LoadStaticModelMesh(L"02", L"Player02_MESH");
 		LoadStaticModelMesh(L"03", L"Player03_MESH");
@@ -152,7 +154,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;

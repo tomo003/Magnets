@@ -206,7 +206,7 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 		void PlayerGoal();
-		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
+		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
 
 	//セーブポイント

@@ -100,6 +100,9 @@ namespace basecross {
 			jumpCount = 2;
 		}
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
+		float GetRespawnPoint()const {
+			return m_RespawnPoint;
+		}
 		void RespawnPlayer(float respawnPoint);
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;

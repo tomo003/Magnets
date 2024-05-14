@@ -107,8 +107,15 @@ namespace basecross {
 
 		if (m_pos.y < -10.0f) {
 			auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-			ptrPlayer2->RespawnPlayer(m_RespawnPoint);
-			RespawnPlayer(m_RespawnPoint);
+			float player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
+			if (player2RespawnpPoint >= m_RespawnPoint) {
+				ptrPlayer2->RespawnPlayer(m_RespawnPoint);
+				RespawnPlayer(m_RespawnPoint);
+			}
+			else if (player2RespawnpPoint < m_RespawnPoint) {
+				ptrPlayer2->RespawnPlayer(player2RespawnpPoint);
+				RespawnPlayer(player2RespawnpPoint);
+			}
 		}
 
 		//ëÆê´êÿÇËë÷Ç¶
@@ -395,12 +402,6 @@ namespace basecross {
 			m_RespawnPoint = otherPos.x;
 		}
 
-		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal)
-		{
-			AnimationPlayer(FRONT);
-			isCollGoal = true;
-		}
 	}
 
 	void Player::OnCollisionExcute(shared_ptr<GameObject>& Other) {
@@ -454,6 +455,14 @@ namespace basecross {
 		if (ptrGround) {
 			isGround = false;
 		}
+
+		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
+		{
+			AnimationPlayer(FRONT);
+			isCollGoal = true;
+		}
+
 	}
 
 	// ë¨ìxÇêßå¿

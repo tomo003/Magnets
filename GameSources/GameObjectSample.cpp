@@ -313,13 +313,13 @@ namespace basecross {
 	void Start::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		drawComp->SetTextureResource(L"START_TX");
+		//drawComp->SetTextureResource(L"START_TX");
 
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::None);
-		ptrColl->SetFixed(true);
+		//auto ptrColl = AddComponent<CollisionObb>();
+		//ptrColl->SetAfterCollision(AfterCollision::None);
+		//ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
@@ -350,23 +350,34 @@ namespace basecross {
 
 	void Goal::OnCreate()
 	{
+		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
+		spanMat.affineTransformation(
+			Vec3(0.3f, 0.3f, 0.5f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f)
+		);
+
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
+		drawComp->SetMeshResource(L"RingObject_MESH");
+		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		drawComp->SetTextureResource(L"GOAL_TX");
+		drawComp->SetMeshToTransformMatrix(spanMat);
 
-		auto ptrColl = AddComponent<CollisionObb>();
+		auto ptrColl = AddComponent<CollisionCapsule>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
-
-		//ptrColl->SetFixed(true);
+		ptrColl->SetDrawActive(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale);
+		transComp->SetScale(m_Scale.x ,m_Scale.y + 1 ,m_Scale.z/2);
+		transComp->SetRotation(0.0f, XM_PIDIV2 , 0.0f);
 
 		SetAlphaActive(true);
 
 		AddTag(L"Goal");
+
+		//GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(0.0f, 0.0f, 0.0f), Vec2(200, 200), L"TENNSENN_TEX");
 	}
 
 	void Goal::OnUpdate()
@@ -404,22 +415,22 @@ namespace basecross {
 		}
 	}
 
-	void Goal::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)
 	{
+		wstringstream wss;
+		wss << L"Player : " <<
+			 L", " << std::endl;
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto dstr = scene->GetDebugString();
+		scene->SetDebugString(wss.str());
+
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
-		if (ptrPlayer) {
+		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x) {
 			isCollPlayer = true;
 		}
-		if (ptrPlayer2) {
-			wstringstream wss;
-			wss << L"Player : " <<
-				L", " << std::endl;
-			auto scene = App::GetApp()->GetScene<Scene>();
-			auto dstr = scene->GetDebugString();
-			scene->SetDebugString(wss.str());
-
+		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x) {
 			isCollPlayer2 = true;
 		}
 	}
