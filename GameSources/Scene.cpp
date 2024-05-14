@@ -105,7 +105,10 @@ namespace basecross{
 		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
 		LoadTexture(L"GOAL_TX", L"Tile_Goal.png");
 
-		LoadTexture(L"TENNSENN_TEX", L"tennsenn2.png");
+		LoadTexture(L"TENNSENNRED_TX", L"tennsennRed.png");
+		LoadTexture(L"RED_TX", L"Red.png");
+		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png");
+		LoadTexture(L"BLUE_TX", L"Blue.png");
 
 		LoadStaticModelMesh(L"01", L"Player01_MESH");
 		LoadStaticModelMesh(L"02", L"Player02_MESH");

@@ -459,6 +459,8 @@ namespace basecross {
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
 		{
+			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
+			ptrSquareRed->ChangeTexture();
 			AnimationPlayer(FRONT);
 			isCollGoal = true;
 		}

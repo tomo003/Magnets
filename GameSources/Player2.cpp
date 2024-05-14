@@ -163,7 +163,7 @@ namespace basecross {
 	void Player2::RespawnPlayer(float respawnPoint) {
 		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//–³‹É
 		m_eMagPole = EState::eS;
-		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
+		m_pos = Vec3(respawnPoint + 1, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
@@ -393,6 +393,8 @@ namespace basecross {
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
 		{
+			auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue");
+			ptrSquareBlue->ChangeTexture();
 			AnimationPlayer(FRONT);
 			isCollGoal = true;
 		}

@@ -109,6 +109,8 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrGround;
 		std::shared_ptr<GameObject> ptrMag;
 		std::shared_ptr<GameObject> ptrStart;
+		std::shared_ptr<GameObject> ptrGoalSquareRed;
+		std::shared_ptr<GameObject> ptrGoalSquareBlue;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
@@ -170,7 +172,11 @@ namespace basecross {
 					break;
 
 				case 15: //ƒS[ƒ‹
-					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 6.5, 0));
+					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 8.0f, 0));
+					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + 13, 0));
+					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
+					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + 15, 0));
+					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
 					isCreateMaagnets = false;
 					break;
 

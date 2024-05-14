@@ -102,14 +102,20 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		//プレイヤーが一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
+			//属性がない同士だったら
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
+			//同じ属性だったら
 			else if (playerMagPole == objMagPole) {
+				//斥力の呼び出し
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
+			//違う属性だったら
 			else if (playerMagPole != objMagPole) {
+				//引力の呼び出し
 				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}// ptrPlayer->ApplyAttraction();
 
@@ -137,8 +143,6 @@ namespace basecross {
 
 		}
 	}
-
-
 
 	//ステージのS極マグネットプロックの仮設置
 	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
@@ -188,7 +192,6 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
@@ -328,11 +331,11 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
+		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x + 1, 0.0f, 0.0f);
 		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
 
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 2.0f, 0.0f);
+		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
 		ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
 	}
 
@@ -352,7 +355,7 @@ namespace basecross {
 	{
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.3f, 0.3f, 0.5f),
+			Vec3(0.15f, 0.3f, 0.5f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f)
@@ -361,34 +364,32 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"RingObject_MESH");
 		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
-		drawComp->SetTextureResource(L"GOAL_TX");
+		drawComp->SetTextureResource(L"RED_TX");
 		drawComp->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrColl = AddComponent<CollisionCapsule>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
-		ptrColl->SetDrawActive(true);
+		//ptrColl->SetDrawActive(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale.x ,m_Scale.y + 1 ,m_Scale.z/2);
+		transComp->SetScale(m_Scale.x+2, m_Scale.y + 2.5, m_Scale.z / 2);
 		transComp->SetRotation(0.0f, XM_PIDIV2 , 0.0f);
 
 		SetAlphaActive(true);
 
 		AddTag(L"Goal");
 
-		//GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(0.0f, 0.0f, 0.0f), Vec2(200, 200), L"TENNSENN_TEX");
+		//GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(0.0f, 0.0f, 0.0f), Vec2(200, 200), L"TENNSENN_TX");
 	}
 
 	void Goal::OnUpdate()
 	{
+		//両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
 			PlayerGoal();
 		}
-
-		auto trans = GetComponent<Transform>();
-		trans->SetPosition(m_Position);
 	}
 
 	void Goal::PlayerGoal()
@@ -398,18 +399,22 @@ namespace basecross {
 		auto& pad = device.GetControlerVec()[0];
 		auto& pad2 = device.GetControlerVec()[1];
 
+		//スプライトの表示
 		if (!isDisplaySprite)
 		{
 			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
 			GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BPUSH");
 			isDisplaySprite = true;
 		}
+
+		//カメラのゴール後にズーム演出
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		ptrCamera->ZoomCamera();
 		
 		//auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		//ptrDuoCamera->ZoomCamera();
 
+		//Ｂボタンを押したらタイトルへ
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 		}
@@ -417,13 +422,6 @@ namespace basecross {
 
 	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)
 	{
-		wstringstream wss;
-		wss << L"Player : " <<
-			 L", " << std::endl;
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto dstr = scene->GetDebugString();
-		scene->SetDebugString(wss.str());
-
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
@@ -455,7 +453,7 @@ namespace basecross {
 		drawComp->SetTextureResource(L"SAVEPOINT_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetFixed(true);
+		//ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
@@ -464,5 +462,134 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		AddTag(L"SavePoint");
+	}
+
+	void SavePoint::OnUpdate()
+	{
+		//両方のプレイヤーに触れたら
+		if (isCollPlayer && isCollPlayer2)
+		{
+			DeleteObject();
+		}
+
+		auto ptrTrans = GetComponent<Transform>();
+		ptrTrans->SetPosition(m_Position);
+	}
+
+	//オブジェクトの削除
+	void SavePoint::DeleteObject()
+	{
+		GetStage()->RemoveGameObject<SavePoint>(GetThis<GameObject>());
+	}
+
+	void SavePoint::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	{
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+
+		if (ptrPlayer) {
+			isCollPlayer = true;
+		}
+		if (ptrPlayer2) {
+			isCollPlayer2 = true;
+		}
+	}
+
+	//ゴールの上の四角赤仮設置
+	GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Position
+	) :
+		GameObject(StagePtr),
+		m_Scale(Scale),
+		m_Position(Position)
+	{
+	}
+	GoalSquareRed::~GoalSquareRed() {}
+
+	void GoalSquareRed::OnCreate()
+	{
+		// 頂点データ
+		m_vertices = {
+			//  Position,			   Texture(UV座標)
+			{Vec3(-1.0f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
+			{Vec3(+1.0f, +1.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
+			{Vec3(-1.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
+			{Vec3(+1.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
+		};
+
+		// 頂点インデックス
+		m_indices = {
+			0, 1, 2,
+			2, 1, 3,
+		};
+
+		auto drawComp = AddComponent<PTStaticDraw>();
+		drawComp->SetOriginalMeshUse(true);
+		drawComp->CreateOriginalMesh(m_vertices, m_indices);
+		drawComp->SetTextureResource(L"TENNSENNRED_TX");
+
+		auto transComp = GetComponent<Transform>();
+		transComp->SetPosition(m_Position);
+		transComp->SetScale(m_Scale);
+
+		SetAlphaActive(true);
+
+		AddTag(L"GoalSquareRed");
+	}
+
+	void GoalSquareRed::ChangeTexture()
+	{
+		auto drawComp = AddComponent<PTStaticDraw>();
+		drawComp->SetTextureResource(L"RED_TX");
+	}
+
+	//ゴールの上の四角青仮設置
+	GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Position
+	) :
+		GameObject(StagePtr),
+		m_Scale(Scale),
+		m_Position(Position)
+	{
+	}
+	GoalSquareBlue::~GoalSquareBlue() {}
+
+	void GoalSquareBlue::OnCreate()
+	{
+		// 頂点データ
+		m_vertices = {
+			//  Position,			   Texture(UV座標)
+			{Vec3(-1.0f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
+			{Vec3(+1.0f, +1.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
+			{Vec3(-1.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
+			{Vec3(+1.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
+		};
+
+		// 頂点インデックス
+		m_indices = {
+			0, 1, 2,  
+			2, 1, 3,  
+		};
+
+		auto drawComp = AddComponent<PTStaticDraw>();
+		drawComp->SetOriginalMeshUse(true); 
+		drawComp->CreateOriginalMesh(m_vertices, m_indices);
+		drawComp->SetTextureResource(L"TENNSENNBLUE_TX");
+
+		auto transComp = GetComponent<Transform>();
+		transComp->SetPosition(m_Position);
+		transComp->SetScale(m_Scale);
+
+		SetAlphaActive(true);
+
+		AddTag(L"GoalSquareBlue");
+	}
+
+	void GoalSquareBlue::ChangeTexture()
+	{
+		auto drawComp = AddComponent<PTStaticDraw>();
+		drawComp->SetTextureResource(L"BLUE_TX");
 	}
 }
