@@ -53,6 +53,10 @@ namespace basecross {
 		int count;
 		bool isJump = true;
 		bool isGround;
+		bool isInertia = false;
+		Vec3 m_inertia;
+
+		bool isPlayerContact;
 
 		bool isEffect = true;
 

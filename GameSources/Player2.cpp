@@ -81,8 +81,8 @@ namespace basecross {
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				//JumpPlayer();
-				jumpCount--;
+				JumpPlayer();
+				//jumpCount--;
 			}
 		}
 		else if (m_pos.y <= 5.0f) {
@@ -126,8 +126,15 @@ namespace basecross {
 
 		limitSpeed();
 		m_pos += m_Velocity * delta;
+		m_pos.z = 0.0f;
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
-		m_Velocity.setAll(0);
+
+		if (length(m_inertia - m_pos) > 8.0f) {
+			isInertia = false;
+		}
+		if (!isInertia) {
+			m_Velocity.setAll(0);
+		}
 
 	}
 
@@ -233,27 +240,32 @@ namespace basecross {
 
 	// プレイやーに斥力を適用
 	void Player2::ApplyRepulsion(shared_ptr<GameObject>& Other) {
-		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
+		if (!isPlayerContact) {
+			auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
-		m_pos = m_ptrTrans->GetWorldPosition();
+			m_pos = m_ptrTrans->GetWorldPosition();
 
-		m_direction = objPos - m_pos;
-		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+			m_direction = objPos - m_pos;
+			m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 
-		auto playerToMagnet = m_direction.normalize();
+			auto playerToMagnet = m_direction.normalize();
 
-		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
-		m_Velocity += m_force * -1;
+			m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
+			m_Velocity += m_force * -1;
+			isInertia = true;
+			m_inertia = objPos;
 
-		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
-		if (scene != 1) {
-			if (isJump) {
-				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
-				App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
-				isJump = false;
-			}
-			if (length(objPos - m_pos) > 5.0f - 0.1f) {
-				isJump = true;
+
+			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+			if (scene != 1) {
+				if (isJump) {
+					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
+					App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
+					isJump = false;
+				}
+				if (length(objPos - m_pos) > 5.0f - 0.1f) {
+					isJump = true;
+				}
 			}
 		}
 	}
@@ -298,6 +310,7 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MoveMetalObject>(Other);
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -336,9 +349,20 @@ namespace basecross {
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
 		}
+		if (ptrPlayer && (m_eMagPole == EState::eS)) {
+			int player = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+			if (player == 1) {
+				isPlayerContact = true;
+			}
+		}
+		else {
+			isPlayerContact = false;
+		}
+
 		if (ptrGround) {
 			isEffect = true;
 			isGround = true;
+			isInertia = false;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
