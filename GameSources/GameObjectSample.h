@@ -48,7 +48,6 @@ namespace basecross {
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-			//const int State
 		);
 		virtual ~MagnetN();
 		virtual void OnCreate() override;

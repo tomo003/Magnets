@@ -24,7 +24,6 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
 		drawComp->SetTextureResource(L"CONCRETE_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -39,12 +38,10 @@ namespace basecross {
 	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
-		//const int State
 	) :
 		GameObject(StagePtr),
 		m_Scale(Scale),
 		m_Position(Position)
-		//m_State(State)
 	{
 	}
 	MagnetN::~MagnetN() {}
@@ -53,7 +50,6 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		drawComp->SetTextureResource(L"MGNETN_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -64,23 +60,7 @@ namespace basecross {
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
 
-		//switch (m_State)
-		//{
-		//case 1:
-		//	m_eMagPole = EState::eN;
-		//	drawComp->SetTextureResource(L"MGNETN_TX");
-		//	break;
-		//case 2:
-		//	m_eMagPole = EState::eS;
-		//	drawComp->SetTextureResource(L"MGNETS_TX");
-		//	break;
-		//default:
-		//	break;
-		//}
 		m_eMagPole = EState::eN;
-
-		//auto magnetsGroup = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
-		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
 		GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
@@ -160,7 +140,6 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		drawComp->SetTextureResource(L"MGNETS_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -243,7 +222,6 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		drawComp->SetTextureResource(L"METAL_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -316,13 +294,6 @@ namespace basecross {
 	void Start::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
-		//drawComp->SetTextureResource(L"START_TX");
-
-		//auto ptrColl = AddComponent<CollisionObb>();
-		//ptrColl->SetAfterCollision(AfterCollision::None);
-		//ptrColl->SetFixed(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
@@ -363,7 +334,6 @@ namespace basecross {
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"RingObject_MESH");
-		//drawComp->SetDiffuse(Col4(1.0f, 0.0f, 0.0f, 1.0f));
 		drawComp->SetTextureResource(L"RED_TX");
 		drawComp->SetMeshToTransformMatrix(spanMat);
 
@@ -379,8 +349,6 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		AddTag(L"Goal");
-
-		//GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(0.0f, 0.0f, 0.0f), Vec2(200, 200), L"TENNSENN_TX");
 	}
 
 	void Goal::OnUpdate()
@@ -449,7 +417,6 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		//drawComp->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 1.0f));
 		drawComp->SetTextureResource(L"SAVEPOINT_TX");
 
 		auto ptrColl = AddComponent<CollisionObb>();
