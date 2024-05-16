@@ -32,11 +32,11 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		//auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
-		//if (ptrCamera) {
-		//	//カメラが追いかけるターゲット(プレイヤー)の設定
-		//	ptrCamera->SetSecondPlayerObj(GetThis<GameObject>());
-		//}
+		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		if (ptrCamera) {
+			//カメラが追いかけるターゲット(プレイヤー)の設定
+			ptrCamera->SetSecondPlayerObj(GetThis<GameObject>());
+		}
 
 		AddTag(L"Player2");
 	}
@@ -57,7 +57,7 @@ namespace basecross {
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
+		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
@@ -169,9 +169,9 @@ namespace basecross {
 
 	//リスポーンする
 	void Player2::RespawnPlayer(float respawnPoint) {
-		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//無極
-		m_eMagPole = EState::eS;
-		m_pos = Vec3(respawnPoint , 0.0f, 0.0f);
+		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+		m_eMagPole = EState::eFalse;
+		m_pos = Vec3(respawnPoint+1 , 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 

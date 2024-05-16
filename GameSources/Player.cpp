@@ -34,16 +34,16 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		if (ptrCamera) {
-			//カメラが追いかけるターゲット(プレイヤー)の設定
-			ptrCamera->SetPlayerObj(GetThis<GameObject>());
-		}
-		//auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
 		//if (ptrCamera) {
 		//	//カメラが追いかけるターゲット(プレイヤー)の設定
 		//	ptrCamera->SetPlayerObj(GetThis<GameObject>());
 		//}
+		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		if (ptrCamera) {
+			//カメラが追いかけるターゲット(プレイヤー)の設定
+			ptrCamera->SetPlayerObj(GetThis<GameObject>());
+		}
 
 		m_gravityComp = GetComponent<Gravity>();
 
@@ -182,9 +182,9 @@ namespace basecross {
 
 	//リスポーンする
 	void Player::RespawnPlayer(float respawnPoint) {
-		m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//無極
-		m_eMagPole = EState::eN;
-		m_pos = Vec3(respawnPoint+1, 0.0f, 0.0f);
+		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+		m_eMagPole = EState::eFalse;
+		m_pos = Vec3(respawnPoint+2, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 

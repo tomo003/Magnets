@@ -362,7 +362,7 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 9, m_Scale.z / 3);
+		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / 3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
 		SetAlphaActive(true);
@@ -395,11 +395,11 @@ namespace basecross {
 		}
 
 		//カメラのゴール後にズーム演出
-		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		ptrCamera->ZoomCamera();
+		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		//ptrCamera->ZoomCamera();
 		
-		//auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
-		//ptrDuoCamera->ZoomCamera();
+		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		ptrDuoCamera->ZoomCamera();
 
 		//Ｂボタンを押したらタイトルへ
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
