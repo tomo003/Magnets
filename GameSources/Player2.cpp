@@ -10,6 +10,7 @@ namespace basecross {
 		m_ptrTrans->SetPosition(0.0f, 5.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
+		//ptrColl->SetDrawActive(true);
 		auto ptrGra = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
@@ -163,7 +164,7 @@ namespace basecross {
 	void Player2::RespawnPlayer(float respawnPoint) {
 		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//無極
 		m_eMagPole = EState::eS;
-		m_pos = Vec3(respawnPoint + 1, 0.0f, 0.0f);
+		m_pos = Vec3(respawnPoint , 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
@@ -358,7 +359,7 @@ namespace basecross {
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
-		if (ptrRespawnPoint)
+		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;

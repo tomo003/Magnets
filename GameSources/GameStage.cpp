@@ -167,15 +167,15 @@ namespace basecross {
 					break;
 
 				case 14: //セーブポイント
-					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 5, 0));
+					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 8.0f, 0));
 					isCreateMaagnets = false;
 					break;
 
 				case 15: //ゴール
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 8.0f, 0));
-					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + 13, 0));
+					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + 15.0f, 0));
 					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
-					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + 15, 0));
+					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + 17.0f, 0));
 					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
 					isCreateMaagnets = false;
 					break;

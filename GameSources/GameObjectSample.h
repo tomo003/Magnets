@@ -227,7 +227,7 @@ namespace basecross {
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 	};
 
-	//ゴールの上の四角赤
+	//ゴール、リスポーン地点の上の四角赤
 	class GoalSquareRed : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
@@ -244,7 +244,7 @@ namespace basecross {
 		void ChangeTexture();
 	};
 
-	//ゴールの上の四角青
+	//ゴール、リスポーン地点の上の四角青
 	class GoalSquareBlue : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;

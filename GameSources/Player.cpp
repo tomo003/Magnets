@@ -180,7 +180,7 @@ namespace basecross {
 	void Player::RespawnPlayer(float respawnPoint) {
 		m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//–³‹É
 		m_eMagPole = EState::eN;
-		m_pos = Vec3(respawnPoint, 0.0f, 0.0f);
+		m_pos = Vec3(respawnPoint+1, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
@@ -396,7 +396,7 @@ namespace basecross {
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
-		if (ptrRespawnPoint)
+		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;

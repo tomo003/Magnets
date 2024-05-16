@@ -302,7 +302,7 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x + 1, 0.0f, 0.0f);
+		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x+1 , 0.0f, 0.0f);
 		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
 
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -326,7 +326,7 @@ namespace basecross {
 	{
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.15f, 0.3f, 0.5f),
+			Vec3(0.15f, 0.15f, 0.7f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f)
@@ -337,14 +337,14 @@ namespace basecross {
 		drawComp->SetTextureResource(L"RED_TX");
 		drawComp->SetMeshToTransformMatrix(spanMat);
 
-		auto ptrColl = AddComponent<CollisionCapsule>();
+		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
 		//ptrColl->SetDrawActive(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale.x+2, m_Scale.y + 2.5, m_Scale.z / 2);
-		transComp->SetRotation(0.0f, XM_PIDIV2 , 0.0f);
+		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 9, m_Scale.z / 3);
+		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
 		SetAlphaActive(true);
 
@@ -415,16 +415,27 @@ namespace basecross {
 
 	void SavePoint::OnCreate()
 	{
+		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
+		spanMat.affineTransformation(
+			Vec3(0.15f, 0.15f, 0.7f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f)
+		);
+
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		drawComp->SetMeshResource(L"RingObject_MESH");
 		drawComp->SetTextureResource(L"SAVEPOINT_TX");
+		drawComp->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrColl = AddComponent<CollisionObb>();
-		//ptrColl->SetFixed(true);
+		ptrColl->SetAfterCollision(AfterCollision::None);
+		//ptrColl->SetDrawActive(true);
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale);
+		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 9, m_Scale.z / 3);
+		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
 		SetAlphaActive(true);
 
@@ -436,7 +447,7 @@ namespace basecross {
 		//両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
-			DeleteObject();
+			//DeleteObject();
 		}
 
 		auto ptrTrans = GetComponent<Transform>();
@@ -446,7 +457,7 @@ namespace basecross {
 	//オブジェクトの削除
 	void SavePoint::DeleteObject()
 	{
-		GetStage()->RemoveGameObject<SavePoint>(GetThis<GameObject>());
+		//GetStage()->RemoveGameObject<SavePoint>(GetThis<GameObject>());
 	}
 
 	void SavePoint::OnCollisionEnter(shared_ptr<GameObject>& Other)
@@ -548,6 +559,9 @@ namespace basecross {
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
+
+		auto ptrColl = AddComponent<CollisionObb>();
+		//ptrColl->SetDrawActive(true);
 
 		SetAlphaActive(true);
 
