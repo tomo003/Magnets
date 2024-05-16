@@ -438,14 +438,6 @@ namespace basecross {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}
-
-		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
-		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
-		{
-			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
-			m_RespawnPoint = otherPos.x;
-		}
-
 	}
 
 	void Player::OnCollisionExcute(shared_ptr<GameObject>& Other) {
@@ -509,6 +501,12 @@ namespace basecross {
 			isCollGoal = true;
 		}
 
+		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
+		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
+		{
+			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
+			m_RespawnPoint = otherPos.x;
+		}
 	}
 
 	// ë¨ìxÇêßå¿
