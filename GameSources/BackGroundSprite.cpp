@@ -47,7 +47,7 @@ namespace basecross {
 		
 		auto trans = AddComponent<Transform>();
 		trans->SetScale(Vec3(m_scale.x,m_scale.y,1.0f));
-		trans->SetPosition(Vec3(m_position.x, m_position.y, 10.0f));
+		trans->SetPosition(Vec3(m_position.x, m_position.y, 10.0f+m_position.z));
 
 	}
 
