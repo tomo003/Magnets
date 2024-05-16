@@ -38,12 +38,15 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
+		std::shared_ptr<GameObject> m_ptrArea;
+
 		float m_ObjMass = 1.0f;
-		float m_MagAreaRadius = 3.0f;
+		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		int m_State;
+		std::shared_ptr<EffectPlayer> m_efk;
 	public:
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -51,7 +54,8 @@ namespace basecross {
 		);
 		virtual ~MagnetN();
 		virtual void OnCreate() override;
-		virtual void OnUpdate();
+		virtual void OnUpdate()override;
+		void OnDestroy()override;
 
 
 		int GetState() {
@@ -70,7 +74,7 @@ namespace basecross {
 
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
-
+		void EfkStop();
 	};
 
 	//S極のオブジェクト
@@ -91,10 +95,12 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
 		float m_ObjMass = 1.0f;
-		float m_MagAreaRadius = 3.0f;
+		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
 		Vec3 m_Position;
+
+		std::shared_ptr<EffectPlayer> m_efk;
 	public:
 		MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -103,7 +109,7 @@ namespace basecross {
 		virtual ~MagnetS();
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
-
+		void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
@@ -122,6 +128,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
 
+		void EfkStop();
 	};
 
 	//金属のオブジェクト

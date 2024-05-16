@@ -9,9 +9,9 @@
 namespace basecross {
 	class Player2 : public GameObject
 	{
-		const float ATTRACTION_CONSTANT = 100.0f; // 引力の定数
-		const float REPEL_CONSTANT = 200.0f;   // 反発の定数
-		const float MAX_SPEED = 10.0f;         // 最大速度
+		const float ATTRACTION_CONSTANT = 150.0f; // 引力の定数
+		const float REPEL_CONSTANT = 400.0f;   // 反発の定数
+		const float MAX_SPEED = 20.0f;         // 最大速度
 
 		// プレイヤーのジャンプに使用するボタン
 		const WORD BUTTON_JUMP = XINPUT_GAMEPAD_A;
@@ -43,11 +43,16 @@ namespace basecross {
 		const Vec3 m_gravityVelocity = Vec3(0.0f, 8.0f, 0.0f);
 		const Vec3 m_gravity = Vec3(0, -9.8f, 0);
 
-		float m_playerMass = 1.0f;
+		float m_playerMass = 100.0f;
 
 		float jumpCount;
 		int count;
+		bool isJump = true;
 		bool isGround;
+		bool isInertia = false;
+		Vec3 m_inertia;
+
+		bool isPlayerContact;
 
 		bool isEffect = true;
 
@@ -125,6 +130,7 @@ namespace basecross {
 		EState GetPlayerMagPole() {
 			return m_eMagPole;
 		}
+		void SetPlayerMagPole(int i);
 
 		// 近い磁石が自分から見て4方向のどこにいるか設定
 		void SetMsgnetsDirection(const Vec3& magPos) {

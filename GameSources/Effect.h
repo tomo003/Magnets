@@ -159,7 +159,6 @@ namespace basecross {
 	@param	efkkey	エフェクトの名前
 	@return	なし
 	*/
-	//--------------------------------------------------------------------------------------
 	class EffectPlayer : public GameObject
 	{
 		shared_ptr<EfkEffect> m_Effect;
@@ -180,6 +179,10 @@ namespace basecross {
 		}
 
 		void OnCreate() override;
+
+		void StopEffect();
+		void AddLocation(const bsm::Vec3& Location);
+		void AddRotation(const bsm::Vec3& Rotation);
 	};
 
 

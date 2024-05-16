@@ -98,7 +98,7 @@ namespace basecross {
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
 				JumpPlayer();
-				jumpCount--;
+				//jumpCount--;
 			}
 		}
 		else if (isGround) {
@@ -151,8 +151,13 @@ namespace basecross {
 		m_pos += m_Velocity * delta;
 		m_pos.z = 0.0f;
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
-		m_Velocity.setAll(0);
 
+		if (length(m_inertia - m_pos) > 8.0f) {
+			isInertia = false;
+		}
+		if (!isInertia) {
+			m_Velocity.setAll(0);
+		}
 	}
 
 	//ジャンプ関数
@@ -163,8 +168,7 @@ namespace basecross {
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
 			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(0.3f), L"jump");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"JUMP_SE", 0, 2.0f);
+			App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
@@ -182,6 +186,20 @@ namespace basecross {
 		m_eMagPole = EState::eN;
 		m_pos = Vec3(respawnPoint+1, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+	}
+
+	void Player::SetPlayerMagPole(int i) {
+		switch (i) {
+		case 1:
+			m_eMagPole = EState::eN;
+			break;
+		case 2:
+			m_eMagPole = EState::eS;
+			break;
+		default:
+			m_eMagPole = EState::eFalse;
+			break;
+		}
 	}
 
 	//アニメーション関数
@@ -243,17 +261,33 @@ namespace basecross {
 
 	// プレイやーに斥力を適用
 	void Player::ApplyRepulsion(shared_ptr<GameObject>& Other) {
-		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
+		if (!isPlayerContact) {
+			auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
-		m_pos = m_ptrTrans->GetWorldPosition();
+			m_pos = m_ptrTrans->GetWorldPosition();
 
-		m_direction = objPos - m_pos;
-		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+			m_direction = objPos - m_pos;
+			m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 
-		auto playerToMagnet = m_direction.normalize();
+			auto playerToMagnet = m_direction.normalize();
 
-		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
-		m_Velocity += m_force * -1;
+			m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
+			m_Velocity += m_force * -1;
+			isInertia = true;
+			m_inertia = objPos;
+
+			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+			if (scene != 1) {
+				if (isJump) {
+					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
+					App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
+					isJump = false;
+				}
+				if (length(objPos - m_pos) > 5.0f - 0.1f) {
+					isJump = true;
+				}
+			}
+		}
 	}
 	void Player::PlayerApplyRepulsion() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -297,6 +331,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -335,7 +370,6 @@ namespace basecross {
 			isEffect = true;
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
-
 		}
 		if (ptrRing && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -348,9 +382,19 @@ namespace basecross {
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
+		if (ptrPlayer2 && (m_eMagPole == EState::eN)) {
+			int player2 = static_cast<int>(ptrPlayer2->GetPlayerMagPole());
+			if (player2 == 2) {
+				isPlayerContact = true;
+			}
+		}
+		else {
+			isPlayerContact = false;
+		}
 		if (ptrGround) {
 			isGround = true;
 			isEffect = true;
+			isInertia = false;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);

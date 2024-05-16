@@ -163,6 +163,15 @@ namespace basecross {
 		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, m_size);
 
 	}
+	void EffectPlayer::StopEffect() {
+		m_EfkPlay->StopEffect();
+	}
+	void EffectPlayer::AddLocation(const bsm::Vec3& Location) {
+		m_EfkPlay->AddLocation(Location); 
+	}
+	void EffectPlayer::AddRotation(const bsm::Vec3& Rotation) {
+		m_EfkPlay->AddRotation(Rotation);
+	}
 	
 }
 // end basecross
