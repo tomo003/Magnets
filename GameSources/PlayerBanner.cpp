@@ -27,7 +27,7 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		m_ptrTrans = GetComponent<Transform>();
-		m_ptrTrans->SetScale(Vec3(1));
-		m_ptrTrans->SetPosition(m_playerPos.x, m_playerPos.y + 2.0f, m_playerPos.z);
+		m_ptrTrans->SetScale(Vec3(0.5f));
+		m_ptrTrans->SetPosition(m_playerPos.x, m_playerPos.y + 1.5f, m_playerPos.z);
 	}
 }
