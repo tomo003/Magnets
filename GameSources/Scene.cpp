@@ -79,10 +79,11 @@ namespace basecross{
 		LoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
 		LoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
 		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
-		LoadTexture(L"BPUSH", L"BPush.png");
-		LoadTexture(L"RBPUSH", L"RB.png");
-		LoadTexture(L"READY", L"Ready.png");
+		LoadTexture(L"BPUSH", L"PushB.png");
+		LoadTexture(L"RBPUSH", L"PushRB.png");
+		LoadTexture(L"READY", L"StandBy.png");
 		LoadTexture(L"CLEAR", L"StageClear.png");
+		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
 
 		LoadTexture(L"BACKGROUND", L"Back.png");
 		LoadTexture(L"BACKGROUND1", L"Background_01.png");
@@ -109,6 +110,9 @@ namespace basecross{
 		LoadTexture(L"RED_TX", L"Red.png");
 		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png");
 		LoadTexture(L"BLUE_TX", L"Blue.png");
+
+		LoadTexture(L"1P", L"1P.png");
+		LoadTexture(L"2P", L"2P.png");
 
 		LoadStaticModelMesh(L"01", L"Player01_MESH");
 		LoadStaticModelMesh(L"02", L"Player02_MESH");
