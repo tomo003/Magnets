@@ -7,7 +7,7 @@ namespace basecross {
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetScale(Vec3(1.0f));
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
-		m_ptrTrans->SetPosition(0.0f, 5.0f, 0.0f);
+		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
@@ -37,7 +37,13 @@ namespace basecross {
 			//カメラが追いかけるターゲット(プレイヤー)の設定
 			ptrCamera->SetSecondPlayerObj(GetThis<GameObject>());
 		}
-
+		
+		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+		if (scene == 1) {
+			auto playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"2P");
+			auto m_playerBanner = playerBanner->GetComponent<Transform>();
+			m_playerBanner->SetParent(GetThis<Player2>());
+		}
 		AddTag(L"Player2");
 	}
 
@@ -153,7 +159,7 @@ namespace basecross {
 		Vec3 pos = GetComponent<Transform>()->GetWorldPosition();
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 1) {
-			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(1.0f), L"jump");
+			GetStage()->AddGameObject<EffectPlayer>(pos, Vec3(0.3f), L"jump");
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"JUMP_SE", 0, 2.0f);
 		}
