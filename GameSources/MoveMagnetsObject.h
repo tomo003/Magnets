@@ -95,7 +95,7 @@ namespace basecross {
 
 		// 巡回ポイント
 		int m_currentPointIndex; // 現在の移動ライン番号
-
+		std::shared_ptr<EffectPlayer> m_efk;
 	public:
 		MoveMetalObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
@@ -106,6 +106,7 @@ namespace basecross {
 
 		void OnCreate();
 		void OnUpdate();
+		void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
@@ -125,5 +126,6 @@ namespace basecross {
 
 		// プレイヤーに磁力による力を適用
 		void ApplyForcePlayer();
+		void EfkStop();
 	};
 }

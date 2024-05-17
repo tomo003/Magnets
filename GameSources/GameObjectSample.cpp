@@ -252,7 +252,8 @@ namespace basecross {
 
 		m_eMagPole = EState::eMetal;
 
-		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
+		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
 	}
 
 	void Metal::OnUpdate()
@@ -296,6 +297,13 @@ namespace basecross {
 				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
 		}
+	}
+
+	void Metal::EfkStop() {
+		m_efk->StopEffect();
+	}
+	void Metal::OnDestroy() {
+		EfkStop();
 	}
 
 	//ステージのスタートオブジェクトの仮設置

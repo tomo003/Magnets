@@ -19,9 +19,10 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(2.0f, 0.75f, 0.75f);
 
-		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
-		auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
-		m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
+		//m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
+		//auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
+		//m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_position, Vec3(1.0f), L"MagneticRange");
 	}
 
 	void MoveMetalObject::OnUpdate() {
@@ -48,6 +49,9 @@ namespace basecross {
 
 		ApplyForcePlayer();
 		//m_ptrArea->UpdateArea(m_position);
+
+		Vec3 position = m_ptrTrans->GetWorldPosition();
+		//m_efk->AddLocation(position);
 	}
 
 	// プレイヤーに磁力による力を適用
@@ -70,5 +74,13 @@ namespace basecross {
 
 		}
 	}
+
+	void MoveMetalObject::EfkStop() {
+		m_efk->StopEffect();
+	}
+	void MoveMetalObject::OnDestroy() {
+		EfkStop();
+	}
+
 
 }
