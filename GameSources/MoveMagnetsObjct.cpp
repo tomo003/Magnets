@@ -50,8 +50,23 @@ namespace basecross {
 		ApplyForcePlayer();
 		//m_ptrArea->UpdateArea(m_position);
 
-		Vec3 position = m_ptrTrans->GetWorldPosition();
-		//m_efk->AddLocation(position);
+		Vec3 position = m_ptrTrans->GetPosition();
+		
+		Vec3 startPos = m_points[0];
+		Vec3 endPos = m_points[1];
+		if (position.x >= startPos.x ) {
+			isEfkMove = true;
+		}
+		else if (position.x <= endPos.x ) {
+			isEfkMove = false;
+		}
+		if (isEfkMove) {
+			m_efk->AddLocation(endPos * delta * -0.031f);
+		}
+		else if(!isEfkMove){
+			m_efk->AddLocation(startPos * delta * 0.031f);
+		}
+		
 	}
 
 	// プレイヤーに磁力による力を適用

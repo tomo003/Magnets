@@ -96,6 +96,7 @@ namespace basecross {
 		// 巡回ポイント
 		int m_currentPointIndex; // 現在の移動ライン番号
 		std::shared_ptr<EffectPlayer> m_efk;
+		bool isEfkMove = true;
 	public:
 		MoveMetalObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
