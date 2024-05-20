@@ -68,6 +68,13 @@ namespace basecross {
 		}
 	}
 
+	void EfkPlay::SetLocation(const bsm::Vec3& Location) {
+		auto shptr = m_EfkInterface.lock();
+		if (shptr && m_Handle != -1) {
+			shptr->m_Manager->SetLocation(m_Handle, ::Effekseer::Vector3D(Location.x, Location.y, Location.z));
+		}
+	}
+
 	void EfkPlay::AddRotation(const bsm::Vec3& Rotation) {
 		auto shptr = m_EfkInterface.lock();
 		if (shptr && m_Handle != -1) {
@@ -168,6 +175,9 @@ namespace basecross {
 	}
 	void EffectPlayer::AddLocation(const bsm::Vec3& Location) {
 		m_EfkPlay->AddLocation(Location); 
+	}
+	void EffectPlayer::SetLocation(const bsm::Vec3& Location) {
+		m_EfkPlay->SetLocation(Location); 
 	}
 	void EffectPlayer::AddRotation(const bsm::Vec3& Rotation) {
 		m_EfkPlay->AddRotation(Rotation);
