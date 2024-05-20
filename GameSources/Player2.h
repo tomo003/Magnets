@@ -66,7 +66,7 @@ namespace basecross {
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
 
-		bool isCollGoal = false;
+		bool isGoal = false;
 
 		enum eMotion {
 			RIGHT,

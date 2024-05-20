@@ -321,11 +321,11 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x+1 , 0.0f, 0.0f);
+		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x , 0.0f, 0.0f);
 		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
 
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
+		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 1.0f, 0.0f);
 		ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
 	}
 
@@ -404,6 +404,8 @@ namespace basecross {
 		//Ｂボタンを押したらタイトルへ
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 		}
 	}
 
@@ -453,7 +455,7 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 9, m_Scale.z / 3);
+		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / 3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
 		SetAlphaActive(true);
@@ -535,10 +537,10 @@ namespace basecross {
 		AddTag(L"GoalSquareRed");
 	}
 
-	void GoalSquareRed::ChangeTexture()
+	void GoalSquareRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
-		drawComp->SetTextureResource(L"RED_TX");
+		drawComp->SetTextureResource(Texture);
 	}
 
 	//ゴールの上の四角青仮設置
@@ -579,17 +581,14 @@ namespace basecross {
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
 
-		auto ptrColl = AddComponent<CollisionObb>();
-		//ptrColl->SetDrawActive(true);
-
 		SetAlphaActive(true);
 
 		AddTag(L"GoalSquareBlue");
 	}
 
-	void GoalSquareBlue::ChangeTexture()
+	void GoalSquareBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
-		drawComp->SetTextureResource(L"BLUE_TX");
+		drawComp->SetTextureResource(Texture);
 	}
 }

@@ -56,7 +56,7 @@ namespace basecross {
 			if (!stage) {
 				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				//XAPtr->Start(L"SELECT_SE", 0, 0.5f);
+				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 				stage = true;
 			}
 		}

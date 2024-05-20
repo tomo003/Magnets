@@ -53,7 +53,7 @@ namespace basecross {
 
 	//XVˆ—
 	void Player::OnUpdate(){
-		if (!isCollGoal)
+		if (!isGoal)
 		{
 			MovePlayer();
 			ApplyForcePlayer();
@@ -195,6 +195,9 @@ namespace basecross {
 		m_eMagPole = EState::eFalse;
 		m_pos = Vec3(respawnPoint+2, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+		isGoal = false;
+		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
+		ptrSquareRed->ChangeTexture(L"TENNSENNRED_TX");
 	}
 
 	void Player::SetPlayerMagPole(int i) {
@@ -527,9 +530,9 @@ namespace basecross {
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
-			ptrSquareRed->ChangeTexture();
+			ptrSquareRed->ChangeTexture(L"RED_TX");
 			AnimationPlayer(FRONT);
-			isCollGoal = true;
+			isGoal = true;
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
@@ -557,7 +560,7 @@ namespace basecross {
 
 		//wstringstream wss;
 		//wss << L"Player : " <<
-		//m_pos.y << L", " << std::endl;
+		//	isPlayerContact << L", " << std::endl;
 		//auto scene = App::GetApp()->GetScene<Scene>();
 		//auto dstr = scene->GetDebugString();
 		//scene->SetDebugString(wss.str());
