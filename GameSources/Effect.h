@@ -87,6 +87,15 @@ namespace basecross {
 		@return	なし
 		*/
 		void AddLocation(const bsm::Vec3& Location);
+		
+		/**
+		@brief	エフェクトを移動する
+		@param	x	[in]	X座標
+		@param	y	[in]	Y座標
+		@param	z	[in]	Z座標
+		@return	なし
+		*/
+		void SetLocation(const bsm::Vec3& Location);
 
 		/**
 		@brief	エフェクトを回転
@@ -182,6 +191,7 @@ namespace basecross {
 
 		void StopEffect();
 		void AddLocation(const bsm::Vec3& Location);
+		void SetLocation(const bsm::Vec3& Location);
 		void AddRotation(const bsm::Vec3& Rotation);
 	};
 

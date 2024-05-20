@@ -33,10 +33,20 @@ namespace basecross {
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();
 		auto& pad = device.GetControlerVec()[0];
+		auto& pad2 = device.GetControlerVec()[1];
 
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B)	//もしBボタンが押されたら
-		{
-			m_changeSpeed = true;	//点滅スピードの変更をtrueにする
+		auto scene = app->GetScene<Scene>()->GetSecen();
+		if (scene == 0 || scene == 2) {
+			if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B)
+			{
+				m_changeSpeed = true;	//点滅スピードの変更をtrueにする
+			}
+		}
+		if (scene == 1) {
+			if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER || pad2.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER)
+			{
+				m_changeSpeed = true;	//点滅スピードの変更をtrueにする
+			}
 		}
 
 		Sprites::UpdateFlashingSprite(2, 30, m_changeSpeed);	//初期点滅スピード、変更後の点滅スピード

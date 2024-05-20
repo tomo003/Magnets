@@ -54,6 +54,7 @@ namespace basecross {
 
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B|| pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			if (!stage) {
+				AddGameObject<FadeOut>(L"FADE_WHITE");
 				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
