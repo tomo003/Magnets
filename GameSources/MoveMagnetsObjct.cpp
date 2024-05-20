@@ -71,4 +71,120 @@ namespace basecross {
 		}
 	}
 
+	void MoveFloorButton::OnCreate() {
+		m_DrawComp = AddComponent<PNTStaticDraw>();
+		m_DrawComp->SetMeshResource(L"DEFAULT_CYLINDER");
+		m_DrawComp->SetTextureResource(L"MOVEFLOOR_TX");
+		//m_DrawComp->SetEmissive(Col4(0.0f, 1.0f, 0.0f, 1.0f));
+
+		m_TransComp = GetComponent<Transform>();
+		m_TransComp->SetPosition(m_position);
+		m_TransComp->SetScale(m_scale);
+
+		auto CollComp = AddComponent<CollisionObb>();
+
+		SetUp();
+	}
+
+	void MoveFloorButton::OnUpdate() {
+		// アプリケーションオブジェクトを取得する
+		auto& app = App::GetApp();
+		// デルタタイム(前フレームからの経過時間)を取得する
+		float delta = app->GetElapsedTime();
+
+		//switch (eMoveState)
+		//{
+		//case EMoveState::eReMove: // ReMoveなら戻る
+		//	m_position.y += m_speed * delta;
+		//	break;
+		//case EMoveState::eStop: // Stopなら停止(何も加算しない)
+		//	break;
+		//case EMoveState::eMove: // Moveなら移動
+		//	m_position.y -= m_speed * delta;
+		//	break;
+		//default:
+		//	break;
+		//}
+		m_TransComp->SetPosition(m_startPos.x, m_startPos.y, m_startPos.z); // 新しい座標で更新する
+
+		// 初期位置、停止位置を越えるならステートを停止に切り替え
+		if (m_position.y < m_endPosY || m_position.y > m_startPos.y) {
+			eMoveState = EMoveState::eStop;
+		}
+	}
+
+
+	void MoveFloorButton::OnCollisionEnter(const CollisionPair& Pair) {
+		const shared_ptr<GameObject>& other = Pair.m_Dest.lock()->GetGameObject();
+		const Vec3& hitPoint = Pair.m_CalcHitPoint; // 衝突位置(Vec3)
+
+		if (other->FindTag(L"Player")) {
+			eMoveState = EMoveState::eMove;
+
+			auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
+			ptrMoveFloor->FloorActive(true);
+		}
+	}
+
+	void MoveFloorButton::OnCollisionExcute(const CollisionPair& Pair) {
+		const shared_ptr<GameObject>& other = Pair.m_Dest.lock()->GetGameObject();
+		const Vec3& hitPoint = Pair.m_CalcHitPoint; // 衝突位置(Vec3)
+	}
+
+	void MoveFloorButton::OnCollisionExit(const CollisionPair& Pair) {
+		const shared_ptr<GameObject>& other = Pair.m_Dest.lock()->GetGameObject();
+		const Vec3& hitPoint = Pair.m_CalcHitPoint; // 衝突位置(Vec3)
+
+		if (other->FindTag(L"Player")) {
+			eMoveState = EMoveState::eReMove;
+
+			auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
+			ptrMoveFloor->FloorActive(false);
+		}
+	}
+
+	void MoveFloor::OnCreate()
+	{
+		m_DrawComp = AddComponent<PNTStaticDraw>();
+		m_DrawComp->SetMeshResource(L"DEFAULT_CUBE");
+		m_DrawComp->SetTextureResource(L"MOVEFLOOR_TX");
+
+		auto CollComp = AddComponent<CollisionObb>();
+		CollComp->SetFixed(true);
+
+		m_TransComp = GetComponent<Transform>();
+		m_TransComp->SetPosition(m_position);
+		m_TransComp->SetScale(m_scale);
+
+		m_actionComp = AddComponent<Action>();
+
+		SetUp();
+	}
+
+	void MoveFloor::OnUpdate() {
+		// アプリケーションオブジェクトを取得する
+		auto& app = App::GetApp();
+		// デルタタイム(前フレームからの経過時間)を取得する
+		float delta = app->GetElapsedTime();
+
+		switch (eMoveState)
+		{
+		case EMoveState::eReMove: // ReMoveなら戻る
+			m_position -= m_MoveDir * m_speed * delta;
+			break;
+		case EMoveState::eStop: // Stopなら停止(何も加算しない)
+			break;
+		case EMoveState::eMove: // Moveなら移動
+			m_position += m_MoveDir * m_speed * delta;
+			break;
+		default:
+			break;
+		}
+		m_TransComp->SetPosition(m_position); // 新しい座標で更新する
+
+		// 初期位置、停止位置を越えるならステートを停止に切り替え
+		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
+			eMoveState = EMoveState::eStop;
+		}
+	}
 }

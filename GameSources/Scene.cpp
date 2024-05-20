@@ -104,6 +104,7 @@ namespace basecross{
 		LoadTexture(L"START_TX", L"Tile_Start.png");
 		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
 		LoadTexture(L"GOAL_TX", L"Tile_Goal.png");
+		LoadTexture(L"MOVEFLOOR_TX", L"MoveFloor.png");
 
 		LoadTexture(L"TENNSENNRED_TX", L"tennsennRed.png");
 		LoadTexture(L"RED_TX", L"Red.png");
@@ -133,7 +134,7 @@ namespace basecross{
 		// 輪っか
 		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
 		// 歯車
-		//LoadStaticModelMesh(L"Gear_01", L"GearObject_MESH");
+		LoadStaticModelMesh(L"GearObj", L"GearObject_MESH");
 
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");
@@ -157,7 +158,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
 		}
 		catch (...) {
 			throw;

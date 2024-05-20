@@ -6,10 +6,10 @@ namespace basecross {
 	{
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
-			Vec3(0.15f, 0.15f, 0.15f),
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f)
+			Vec3(0.1f),
+			Vec3(0.0f),
+			Vec3(0.0f),
+			Vec3(0.0f)
 		);
 
 		m_DrawComp = AddComponent<PNTStaticDraw>();
@@ -19,12 +19,12 @@ namespace basecross {
 
 		auto CollComp = AddComponent<CollisionSphere>();
 		CollComp->SetFixed(true);
-		CollComp->SetDrawActive(true);
+		//CollComp->SetDrawActive(true);
 
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetPosition(m_position);
 		m_TransComp->SetScale(Vec3(3.0f));
-		m_TransComp->SetRotation(0.0f, 0.0f, 0.0f);
+		m_TransComp->SetRotation(Vec3(0.0f));
 
 		SetAlphaActive(true);
 
@@ -33,12 +33,11 @@ namespace basecross {
 	}
 
 	void GearObject::OnUpdate() {
-		auto delta = App::GetApp()->GetElapsedTime();
-		m_Rotation = m_TransComp->GetQuaternion();
+		float delta = App::GetApp()->GetElapsedTime();
 
-		m_Rotation.z += Utility::DegToRad(m_RotPerSec) * delta;
+		m_Rotation.z += delta;
 
-		m_TransComp->SetRotation(0.0f, 0.0f, m_Rotation.z);
+		m_TransComp->SetRotation( m_Rotation);
 
 		ApplyForcePlayer();
 	}

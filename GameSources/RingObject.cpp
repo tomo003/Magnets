@@ -19,7 +19,7 @@ namespace basecross {
 
 		auto CollComp = AddComponent<CollisionSphere>();
 		CollComp->SetFixed(true);
-		CollComp->SetDrawActive(true);
+		//CollComp->SetDrawActive(true);
 
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetPosition(m_position);

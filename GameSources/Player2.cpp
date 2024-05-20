@@ -39,6 +39,7 @@ namespace basecross {
 		}
 
 		AddTag(L"Player2");
+		AddTag(L"Player");
 	}
 
 	//XVˆ—
