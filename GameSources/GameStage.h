@@ -25,6 +25,8 @@ namespace basecross {
 
 		void CreateCsvObjects();
 
+		float m_CSVHight = +5;
+
 	public:
 		//\’z‚Æ”jŠü
 		GameStage() :Stage() {}
