@@ -71,7 +71,7 @@ namespace basecross {
 		std::shared_ptr<Gravity> m_gravityComp;
 
 		bool isCollRing = false; // ƒŠƒ“ƒO‚ÆÚG‚µ‚Ä‚¢‚é‚©(‰Šú’l‚Ífalse)
-		bool isCollGoal = false;
+		bool isGoal = false;
 
 		enum eMotion {
 			RIGHT,

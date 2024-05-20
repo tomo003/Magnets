@@ -142,6 +142,7 @@ namespace basecross{
 		//Œø‰Ê‰¹
 		LoadSound(L"JUMP_SE", L"Jump.wav");
 		LoadSound(L"UNION_SE", L"Union.wav");
+		LoadSound(L"BUTTON_SE", L"Decition.wav");
 
 	}
 

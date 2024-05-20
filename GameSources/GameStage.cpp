@@ -167,7 +167,7 @@ namespace basecross {
 					break;
 
 				case 14: //セーブポイント
-					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 8.0f, 0));
+					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 6.0f, 0));
 					isCreateMaagnets = false;
 					break;
 

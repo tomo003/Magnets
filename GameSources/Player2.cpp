@@ -43,7 +43,7 @@ namespace basecross {
 
 	//更新処理
 	void Player2::OnUpdate() {
-		if (!isCollGoal)
+		if (!isGoal)
 		{
 			MovePlayer();
 			ApplyForcePlayer();
@@ -173,6 +173,9 @@ namespace basecross {
 		m_eMagPole = EState::eFalse;
 		m_pos = Vec3(respawnPoint+1 , 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+		isGoal = false;
+		auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue");
+		ptrSquareBlue->ChangeTexture(L"TENNSENNBLUE_TX");
 	}
 
 	//アニメーション関数
@@ -445,9 +448,9 @@ namespace basecross {
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue");
-			ptrSquareBlue->ChangeTexture();
+			ptrSquareBlue->ChangeTexture(L"BLUE_TX");
 			AnimationPlayer(FRONT);
-			isCollGoal = true;
+			isGoal = true;
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);

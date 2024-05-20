@@ -248,7 +248,7 @@ namespace basecross {
 		);
 		virtual ~GoalSquareRed();
 		virtual void OnCreate() override;
-		void ChangeTexture();
+		void ChangeTexture(wstring Texture);
 	};
 
 	//ゴール、リスポーン地点の上の四角青
@@ -265,7 +265,7 @@ namespace basecross {
 		);
 		virtual ~GoalSquareBlue();
 		virtual void OnCreate() override;
-		void ChangeTexture();
+		void ChangeTexture(wstring Texture);
 	};
 }
 //end basecross
