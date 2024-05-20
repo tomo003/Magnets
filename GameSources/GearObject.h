@@ -38,8 +38,8 @@ namespace basecross {
 			m_eMagPole(EState::eMetal)
 		{}
 
-		void OnCreate();
-		void OnUpdate();
+		void OnCreate() override;
+		void OnUpdate() override;
 
 		// Ž¥‹ÉŽæ“¾—p
 		int GetState() {

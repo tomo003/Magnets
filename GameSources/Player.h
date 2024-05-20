@@ -48,7 +48,8 @@ namespace basecross {
 
 		float jumpCount;
 		int count;
-		bool isGround;
+		bool isGround; // 着地しているかの判定
+		bool isCollGear; // 歯車とくっついているかの判定
 
 		float m_RespawnPoint;//リスポーンする位置
 
@@ -149,6 +150,22 @@ namespace basecross {
 			return VV;
 		}
 
+		void LandingJadge(const shared_ptr<GameObject>& Other) {
+			auto ptrOtherObjTrans = Other->GetComponent<Transform>();
+			Vec3 OtherObjPos = ptrOtherObjTrans->GetPosition();
+			float OtherObjScaleHalfY = ptrOtherObjTrans->GetScale().y / 2;
+			float playerScaleHalfY = m_ptrTrans->GetScale().y / 2;
+			float ScaleYDiff = OtherObjScaleHalfY + playerScaleHalfY;
+			float PosYDiff = fabs(OtherObjPos.y - m_pos.y);
+
+			if (PosYDiff >= ScaleYDiff) {
+				isGround = true;
+			}
+		}
+
+		Vec3 CycloidPos() {
+
+		}
 	};
 
 }

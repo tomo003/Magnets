@@ -106,6 +106,15 @@ namespace basecross {
 			AnimationPlayer(FRONT);
 		}
 
+		if (padLStick.length() > 0.0f) {
+			if (padLStick.x > 0.0f) {
+
+			}
+			else if (padLStick.x < 0.0f) {
+
+			}
+		}
+
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
@@ -293,12 +302,15 @@ namespace basecross {
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		m_pos = m_ptrTrans->GetWorldPosition();
 		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -326,9 +338,18 @@ namespace basecross {
 			isCollRing = true; //　リングについたからtrue
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
-		if (ptrGround) {
-			isGround = true;
+		if (ptrGear && (m_eMagPole != EState::eFalse) && (isCollGear == false)){
+			m_gravityComp->SetGravityZero();
+			m_ptrTrans->SetParent(ptrGear);
+			isCollGear = true; //　歯車についたからtrue
+			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
+		if (ptrMoveFloor) {
+			m_ptrTrans->SetParent(ptrMoveFloor);
+		}
+
+		// 着地の判定
+		LandingJadge(Other);
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
@@ -393,6 +414,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
 		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
@@ -418,6 +440,11 @@ namespace basecross {
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
+		if (ptrGear && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
@@ -426,8 +453,10 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing) // チェック
+		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing || ptrGear || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
@@ -435,9 +464,7 @@ namespace basecross {
 			isCollRing = false; // リングから離れた時にfalse
 		}
 
-		if (ptrGround) {
-			isGround = false;
-		}
+		isGround = false;
 	}
 
 	// 速度を制限

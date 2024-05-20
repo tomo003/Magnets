@@ -38,6 +38,7 @@ namespace basecross {
 		//}
 
 		AddTag(L"Player2");
+		AddTag(L"Player");
 	}
 
 	//XVˆ—
@@ -358,6 +359,8 @@ namespace basecross {
 			AnimationPlayer(FRONT);
 			isCollGoal = true;
 		}
+
+		isGround = true;
 	}
 
 	void Player2::OnCollisionExcute(shared_ptr<GameObject>& Other) {
