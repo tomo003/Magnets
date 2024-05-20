@@ -52,7 +52,9 @@ namespace basecross {
 			AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
 
 			// 地面のオブジェクトを追加
-			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
+			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.5f, 0.0f));
+			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(18.0f, -3.5f, 0.0f));
+			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(-18.0f, -3.5f, 0.0f));
 
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();
@@ -63,10 +65,10 @@ namespace basecross {
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
 			// 磁石オブジェクトを追加
-			auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
+			//auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
 			//ptrMagObj = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(10.0f, -0.5f, 0.0f));
 
-			magnetsGroup->IntoGroup(ptrMagObj);
+			//magnetsGroup->IntoGroup(ptrMagObj);
 
 			//SetSharedGameObject(L"MagnetsObject", ptrMagObj);
 			//auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f), EState::eN);
@@ -76,7 +78,11 @@ namespace basecross {
 			//auto ptrMagObj = AddGameObject<MoveMetalObject>(Vec3(3.5f, 2.0f, 0.0f));
 			//auto ptrMagObj = AddGameObject<RingObject>(Vec3(0.0f, 2.0f, 0.0f));
 
-			AddGameObject<RingObject>(Vec3(-7.0f, 2.0f, 0.0f));
+			AddGameObject<GearObject>(Vec3(-7.0f, 2.0f, 0.0f));
+
+			AddGameObject <MoveFloorButton>(Vec3(15.0f, -2.85f, 0.0f));
+			auto ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(8.0f, 0.45f, 0.9f), Vec3(17.0f, -3.25f, 0.0f), Vec3(-1.0f, 0.0f, 0.0f));
+			SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
 		}
 		catch (...) {
 			throw;
