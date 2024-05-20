@@ -52,7 +52,7 @@ namespace basecross {
 	}
 
 	//XVˆ—
-	void Player::OnUpdate(){
+	void Player::OnUpdate() {
 		if (!isGoal)
 		{
 			MovePlayer();
@@ -77,8 +77,8 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
-		if (m_speed != 5.0f){
-			m_pos = m_pos + delta * Vec3(m_speed,0,0) * (float)m_attribute;
+		if (m_speed != 5.0f) {
+			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
 
 
@@ -153,7 +153,7 @@ namespace basecross {
 				m_eMagPole = EState::eFalse;
 				break;
 			}
-			
+
 		}
 
 		limitSpeed();
@@ -193,7 +193,7 @@ namespace basecross {
 	void Player::RespawnPlayer(float respawnPoint) {
 		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
 		m_eMagPole = EState::eFalse;
-		m_pos = Vec3(respawnPoint+2, 0.0f, 0.0f);
+		m_pos = Vec3(respawnPoint + 2, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		isGoal = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
@@ -229,7 +229,7 @@ namespace basecross {
 		}
 		float delat = App::GetApp()->GetElapsedTime();
 
-		switch (m_currentMotion){
+		switch (m_currentMotion) {
 		case RIGHT:
 			m_ptrDraw->UpdateAnimation(delat * 1.0f);
 			break;
@@ -406,7 +406,7 @@ namespace basecross {
 		else {
 			isPlayerContact = false;
 		}
-		if (ptrGear && (m_eMagPole != EState::eFalse) && (isCollGear == false)){
+		if (ptrGear && (m_eMagPole != EState::eFalse) && (isCollGear == false)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrGear);
 			isCollGear = true; //@Ž•ŽÔ‚É‚Â‚¢‚½‚©‚çtrue
@@ -414,6 +414,7 @@ namespace basecross {
 		}
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
+		}
 		if (ptrGround) {
 			isGround = true;
 			isEffect = true;

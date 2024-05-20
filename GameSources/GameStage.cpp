@@ -68,7 +68,7 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"TestMap8.csv");
+			m_GameStageCsv.SetFileName(DataDir + L"TestMap9.csv");
 			m_GameStageCsv.ReadCsv();
 
 
@@ -111,6 +111,7 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrStart;
 		std::shared_ptr<GameObject> ptrGoalSquareRed;
 		std::shared_ptr<GameObject> ptrGoalSquareBlue;
+		std::shared_ptr<GameObject> ptrMoveFloor;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
@@ -143,6 +144,15 @@ namespace basecross {
 				case 4: //金属動くやつ
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + 5, 0));
 					SetSharedGameObject(L"MoveMetalObj", ptrMoveMetal);
+					break;
+
+				case 7://動く床
+					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(3.0f, 0.45f, 0.9f), Vec3(posX, -posY + 6, 0),  Vec3(-1.0f, 0.0f, 0.0f));
+					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
+					break;
+
+				case 8://動く床発動用ボタン
+					AddGameObject <MoveFloorButton>(Vec3(posX, -posY + 4.5, 0));
 					break;
 
 				case 9://ベルトコンベア右回り端
