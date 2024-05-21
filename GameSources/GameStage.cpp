@@ -101,7 +101,6 @@ namespace basecross {
 
 	void GameStage::CreateCsvObjects() {
 
-		std::shared_ptr<GameObject> ptrMoveMetal;
 
 		float size = 1;
 		Vec3 objScale = Vec3(1.0f) / size;
@@ -138,12 +137,11 @@ namespace basecross {
 					break;
 
 				case 3: //ã‡ëÆ
-					ptrMoveMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
 					break;
 
 				case 4: //ã‡ëÆìÆÇ≠Ç‚Ç¬
-					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHight, 0));
-					SetSharedGameObject(L"MoveMetalObj", ptrMoveMetal);
+					AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHight, 0));
 					break;
 
 				case 7://É{É^ÉìâüÇµÇΩÇÁìÆÇ≠è∞
