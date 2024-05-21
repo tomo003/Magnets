@@ -11,7 +11,7 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		auto ptrGra = AddComponent<Gravity>();
+		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
@@ -330,6 +330,7 @@ namespace basecross {
 	}
 
 	void Player2::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		m_pos = m_ptrTrans->GetWorldPosition();
 		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
 		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
@@ -341,13 +342,13 @@ namespace basecross {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMoveMetal);
 			if (isEffect) {
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-			isEffect = false;
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
-		else if (ptrMetal && (m_eMagPole != EState::eFalse)) {
+		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
 			if (isEffect) {
@@ -357,15 +358,16 @@ namespace basecross {
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
 		}
-		else if (ptrMagnetN && (m_eMagPole == EState::eS)) {
+		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 			isEffect = true;
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+
 		}
-		else if (ptrMagnetS && (m_eMagPole == EState::eN)) {
+		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
@@ -437,8 +439,34 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
-		if ((ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) && (m_eMagPole == EState::eFalse)) // チェック
-		{
+		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
+		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
+		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMagnetN && (m_eMagPole != EState::eS)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMagnetS && (m_eMagPole != EState::eN)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrRing && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrGear && (m_eMagPole == EState::eFalse)) {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
@@ -450,11 +478,18 @@ namespace basecross {
 		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) // チェック
+		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
+		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS ||  ptrGear || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
+		}
+
+		if (ptrGround) {
+			isGround = false;
 		}
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
