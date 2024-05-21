@@ -96,7 +96,7 @@ namespace basecross {
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto targetBetween = abs((targetPos.x - secondTargetPos.x)*0.3f);
 		float eyeZ = GetEye().z;
-		if (!isZoomCamera)
+		if (!isZoomCamera && eyeZ > m_maxEyeZ)
 		{
 			m_EyeZ = m_minEyeZ - targetBetween;
 		}
@@ -110,9 +110,9 @@ namespace basecross {
 		//{
 		//	eyeZ = m_maxEyeZ;
 		//}
-		if (GetEye().z < m_maxEyeZ)
+		if (eyeZ < m_maxEyeZ)
 		{
-			eyeZ = m_maxEyeZ;
+			m_EyeZ = m_maxEyeZ;
 		}
 
 		Vec3 newAt = GetAt();
@@ -123,6 +123,14 @@ namespace basecross {
 		SetAt(newAt);
 		SetEye(newEye);
 		Camera::OnUpdate();
+
+		wstringstream wss;
+		wss << L"Player : " <<
+			m_EyeZ << L", " << std::endl;
+		auto scene = App::GetApp()->GetScene<Scene>();
+		auto dstr = scene->GetDebugString();
+		scene->SetDebugString(wss.str());
+
 	}
 
 	void DuoCamera::ZoomCamera() {
