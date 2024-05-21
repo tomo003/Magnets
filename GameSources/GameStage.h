@@ -25,7 +25,7 @@ namespace basecross {
 
 		void CreateCsvObjects();
 
-		float m_CSVHight = +5;
+		float m_CSVHight = +42;
 
 	public:
 		//\’z‚Æ”jŠü
