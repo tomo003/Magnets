@@ -113,14 +113,6 @@ namespace basecross {
 		SetAt(newAt);
 		SetEye(newEye);
 		Camera::OnUpdate();
-
-		wstringstream wss;
-		wss << L"Player : " <<
-			targetBetween << L", " << std::endl;
-		auto scene = App::GetApp()->GetScene<Scene>();
-		auto dstr = scene->GetDebugString();
-		scene->SetDebugString(wss.str());
-
 	}
 
 	void DuoCamera::ZoomCamera() {

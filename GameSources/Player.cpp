@@ -11,7 +11,7 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		auto ptrGra = AddComponent<Gravity>();
+		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
@@ -44,8 +44,6 @@ namespace basecross {
 			//カメラが追いかけるターゲット(プレイヤー)の設定
 			ptrCamera->SetPlayerObj(GetThis<GameObject>());
 		}
-
-		m_gravityComp = GetComponent<Gravity>();
 
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene == 1) {
@@ -86,12 +84,7 @@ namespace basecross {
 		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		if (m_speed != 5.0f && padLStick.x > 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-		else if (m_speed != 5.0f && padLStick.x < 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0) ;
-		}
+
 
 		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
@@ -439,7 +432,8 @@ namespace basecross {
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
-		
+
+
 		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
 			m_speed = 5.0f;
 			m_attribute = 1;
@@ -530,7 +524,7 @@ namespace basecross {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
-			isCollRing = false; // リングから離れた時にfalse
+			//isCollRing = false; // リングから離れた時にfalse
 		}
 
 		if (ptrGround) {
