@@ -240,6 +240,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		isFullScreen = true;     // フラグをtrueに設定
 	}
 
+	//実行時のマウスカーソルの表示
+	ShowCursor(FALSE);
+
 	MyRegisterClass(hInstance);
 	// アプリケーションの初期化を実行します:
 	HWND hWnd = InitInstance(hInstance, nCmdShow, isFullScreen, iClientWidth, iClientHeight);
