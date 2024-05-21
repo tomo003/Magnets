@@ -527,9 +527,7 @@ namespace basecross {
 			//isCollRing = false; // ƒŠƒ“ƒO‚©‚ç—£‚ê‚½Žž‚Éfalse
 		}
 
-		if (ptrGround) {
 			isGround = false;
-		}
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
