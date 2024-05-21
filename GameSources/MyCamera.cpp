@@ -96,21 +96,11 @@ namespace basecross {
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto targetBetween = abs((targetPos.x - secondTargetPos.x)*0.3f);
 		float eyeZ = GetEye().z;
-		if (!isZoomCamera && eyeZ > m_maxEyeZ)
+		if (!isZoomCamera && targetBetween < 5)
 		{
 			m_EyeZ = m_minEyeZ - targetBetween;
 		}
-
-		//if (eyeZ > m_maxEyeZ)
-		//{
-		//	//MessageBox(0, L"DuoCamera", 0, 0);
-		//	eyeZ - targetBetween;
-		//}
-		//else
-		//{
-		//	eyeZ = m_maxEyeZ;
-		//}
-		if (eyeZ < m_maxEyeZ)
+		else if (targetBetween > 5)
 		{
 			m_EyeZ = m_maxEyeZ;
 		}
@@ -126,7 +116,7 @@ namespace basecross {
 
 		wstringstream wss;
 		wss << L"Player : " <<
-			m_EyeZ << L", " << std::endl;
+			targetBetween << L", " << std::endl;
 		auto scene = App::GetApp()->GetScene<Scene>();
 		auto dstr = scene->GetDebugString();
 		scene->SetDebugString(wss.str());
