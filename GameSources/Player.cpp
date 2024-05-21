@@ -411,6 +411,7 @@ namespace basecross {
 		}
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
+		}
 		if (ptrGround) {
 			isGround = true;
 			isEffect = true;

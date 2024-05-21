@@ -419,9 +419,9 @@ namespace basecross {
 
 	void Player2::OnCollisionExcute(shared_ptr<GameObject>& Other) {
 		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
-		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetS = dynamic_pointer_cast<MoveMetalObject>(Other);
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		if ((ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) && (m_eMagPole == EState::eFalse)) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
@@ -432,9 +432,9 @@ namespace basecross {
 
 	void Player2::OnCollisionExit(shared_ptr<GameObject>& Other) {
 		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
-		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetS = dynamic_pointer_cast<MoveMetalObject>(Other);
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
