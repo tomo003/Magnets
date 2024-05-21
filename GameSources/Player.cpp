@@ -530,12 +530,10 @@ namespace basecross {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
-			isCollRing = false; // ƒŠƒ“ƒO‚©‚ç—£‚ê‚½Žž‚Éfalse
+			//isCollRing = false; // ƒŠƒ“ƒO‚©‚ç—£‚ê‚½Žž‚Éfalse
 		}
 
-		if (ptrGround) {
 			isGround = false;
-		}
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
 		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)

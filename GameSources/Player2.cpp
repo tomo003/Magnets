@@ -11,7 +11,7 @@ namespace basecross {
 		auto ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
-		auto ptrGra = AddComponent<Gravity>();
+		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
