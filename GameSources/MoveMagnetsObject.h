@@ -102,7 +102,7 @@ namespace basecross {
 			GameObject(stage),
 			m_position(position),
 			m_eMagPole(EState::eMetal),
-			m_speed(1.0f)
+			m_speed(2.0f)
 		{}
 
 		void OnCreate();
@@ -223,8 +223,7 @@ namespace basecross {
 			GameObject(stage),
 			m_position(position),
 			m_scale(scale),
-			m_MoveDir(movedir),
-			m_speed(1.0f)
+			m_MoveDir(movedir)
 		{}
 
 		void OnCreate();
