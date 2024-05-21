@@ -147,7 +147,7 @@ namespace basecross {
 					break;
 
 				case 7://ìÆÇ≠è∞
-					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(3.0f, 0.45f, 0.9f), Vec3(posX, -posY + m_CSVHight, 0),  Vec3(-1.0f, 0.0f, 0.0f));
+					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(3.0f, 0.45f, 0.9f), Vec3(posX, -posY + m_CSVHight + 1, 0),  Vec3(-1.0f, 0.0f, 0.0f));
 					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
 					break;
 
