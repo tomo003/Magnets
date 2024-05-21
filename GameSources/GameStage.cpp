@@ -112,6 +112,7 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrGoalSquareRed;
 		std::shared_ptr<GameObject> ptrGoalSquareBlue;
 		std::shared_ptr<GameObject> ptrMoveFloor;
+		std::shared_ptr<GameObject> ptrMoveFloorButton;
 
 		auto& LineVec = m_GameStageCsv.GetCsvVec();
 		for (size_t i = 0; i < LineVec.size(); i++) {
@@ -152,7 +153,8 @@ namespace basecross {
 					break;
 
 				case 8://動く床発動用ボタン
-					AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHight-0.48, 0));
+					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHight-0.48, 0));
+					SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
 					break;
 
 				case 9://ベルトコンベア右回り端

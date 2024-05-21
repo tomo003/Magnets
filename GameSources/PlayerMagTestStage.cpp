@@ -82,7 +82,7 @@ namespace basecross {
 
 			auto ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(8.0f, 0.45f, 0.9f), Vec3(17.0f, -3.25f, 0.0f), Vec3(-1.0f, 0.0f, 0.0f));
 			SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
-			AddGameObject <MoveFloorButton>(Vec3(15.0f, -3.1f, 0.0f));
+			AddGameObject <MoveFloorButton>(Vec3(15.0f, -3.0f, 0.0f));
 		}
 		catch (...) {
 			throw;

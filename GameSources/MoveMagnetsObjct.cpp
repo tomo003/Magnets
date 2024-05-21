@@ -92,9 +92,9 @@ namespace basecross {
 		m_TransComp->SetPosition(m_position);
 		m_TransComp->SetScale(m_scale);
 
-		auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
+		//auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
 		auto CollComp = AddComponent<CollisionObb>();
-		CollComp->AddExcludeCollisionGameObject(ptrMoveFloor);
+		//CollComp->AddExcludeCollisionGameObject(ptrMoveFloor);
 
 		SetUp();
 	}
@@ -164,6 +164,8 @@ namespace basecross {
 
 		auto CollComp = AddComponent<CollisionObb>();
 		CollComp->SetFixed(true);
+		auto ptrMoveFloorButton = GetStage()->GetSharedGameObject<MoveFloorButton>(L"MoveFloorButton");
+		CollComp->AddExcludeCollisionGameObject(ptrMoveFloorButton);
 
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetPosition(m_position);
