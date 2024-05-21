@@ -64,7 +64,7 @@ namespace basecross {
 		bool isZoomCamera = false;
 	public:
 		DuoCamera() :
-			m_minEyeZ(-15),
+			m_minEyeZ(-20),
 			m_maxEyeZ(-25)
 		{}
 
