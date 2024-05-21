@@ -64,7 +64,7 @@ namespace basecross {
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
+		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
@@ -72,12 +72,6 @@ namespace basecross {
 		}
 		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
-		}
-		if (m_speed != 5.0f && padLStick.x > 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-		else if (m_speed != 5.0f && padLStick.x < 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
 
 		if (padLStick.length() > 0.0f) {

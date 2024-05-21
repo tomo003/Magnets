@@ -86,12 +86,7 @@ namespace basecross {
 		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		if (m_speed != 5.0f && padLStick.x > 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-		else if (m_speed != 5.0f && padLStick.x < 0.0f) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0) ;
-		}
+
 
 		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
@@ -439,7 +434,8 @@ namespace basecross {
 		auto ptrBeltConRight = dynamic_pointer_cast<BeltConveyorRight>(Other);
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
-		
+
+
 		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
 			m_speed = 5.0f;
 			m_attribute = 1;
