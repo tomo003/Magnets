@@ -92,7 +92,9 @@ namespace basecross {
 		m_TransComp->SetPosition(m_position);
 		m_TransComp->SetScale(m_scale);
 
+		auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
 		auto CollComp = AddComponent<CollisionObb>();
+		CollComp->AddExcludeCollisionGameObject(ptrMoveFloor);
 
 		SetUp();
 	}
@@ -119,9 +121,9 @@ namespace basecross {
 		m_TransComp->SetPosition(m_startPos.x, m_startPos.y, m_startPos.z); // 新しい座標で更新する
 
 		// 初期位置、停止位置を越えるならステートを停止に切り替え
-		if (m_position.y < m_endPosY || m_position.y > m_startPos.y) {
-			eMoveState = EMoveState::eStop;
-		}
+		//if (m_position.y < m_endPosY || m_position.y > m_startPos.y) {
+		//	eMoveState = EMoveState::eStop;
+		//}
 	}
 
 
