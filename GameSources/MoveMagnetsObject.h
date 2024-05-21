@@ -127,6 +127,7 @@ namespace basecross {
 
 		// プレイヤーに磁力による力を適用
 		void ApplyForcePlayer();
+		void ApplyForceSecondPlayer();
 		void EfkStop();
 	};
 

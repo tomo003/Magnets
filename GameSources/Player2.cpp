@@ -95,7 +95,7 @@ namespace basecross {
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				JumpPlayer();
+				//JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -332,9 +332,9 @@ namespace basecross {
 	void Player2::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 		m_pos = m_ptrTrans->GetWorldPosition();
 		auto ptrMoveMetal = dynamic_pointer_cast<MoveMetalObject>(Other); // オブジェクト取得
-		auto ptrMetal = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetN = dynamic_pointer_cast<MoveMetalObject>(Other);
-		auto ptrMagnetS = dynamic_pointer_cast<MoveMetalObject>(Other);
+		auto ptrMetal = dynamic_pointer_cast<Metal>(Other);
+		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
+		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		//auto magDir = GetMsgnetsDirection().second;

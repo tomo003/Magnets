@@ -48,6 +48,7 @@ namespace basecross {
 		m_ptrTrans->SetPosition(pos); // 新しい座標で更新する
 
 		ApplyForcePlayer();
+		ApplyForceSecondPlayer();
 		//m_ptrArea->UpdateArea(m_position);
 
 		Vec3 position = m_ptrTrans->GetPosition();
@@ -71,7 +72,26 @@ namespace basecross {
 			else {
 				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
+		}
+	}
 
+	// プレイヤーに磁力による力を適用
+	void MoveMetalObject::ApplyForceSecondPlayer() {
+		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+		int objMagPole = static_cast<int>(m_eMagPole);
+
+		auto direction = ABSV(playerPos, m_position);
+		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+		if (distance < m_MagAreaRadius) {
+			if (playerMagPole == -1) {
+				return;
+			}
+			else {
+				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+			}
 		}
 	}
 
