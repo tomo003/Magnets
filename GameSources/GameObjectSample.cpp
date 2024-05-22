@@ -477,29 +477,29 @@ namespace basecross {
 		//両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
-			//DeleteObject();
+			auto drawComp = AddComponent<PNTStaticDraw>();
+			drawComp->SetTextureResource(L"PURPLE_TX");
 		}
 
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetPosition(m_Position);
 	}
 
-	//オブジェクトの削除
-	void SavePoint::DeleteObject()
-	{
-		//GetStage()->RemoveGameObject<SavePoint>(GetThis<GameObject>());
-	}
-
-	void SavePoint::OnCollisionEnter(shared_ptr<GameObject>& Other)
+	void SavePoint::OnCollisionExit(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+		auto ptrPos = GetComponent<Transform>()->GetPosition();
 
-		if (ptrPlayer) {
+		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetPosition().x && !isCollPlayer) {
 			isCollPlayer = true;
+			auto drawComp = AddComponent<PNTStaticDraw>();
+			drawComp->SetTextureResource(L"RED_TX");
 		}
-		if (ptrPlayer2) {
+		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
+			auto drawComp = AddComponent<PNTStaticDraw>();
+			drawComp->SetTextureResource(L"BLUE_TX");
 		}
 	}
 
