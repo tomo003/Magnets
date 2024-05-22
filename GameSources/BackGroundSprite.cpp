@@ -19,7 +19,9 @@ namespace basecross {
 		const Vec3 scale(200.00f, 30.0f, 1.0f);
 		auto transComp = AddComponent<Transform>();
 		transComp->SetScale(scale);
-		transComp->SetPosition(Vec3(0.0f, 5.0f, 3.0f));
+		transComp->SetPosition(Vec3(0.0f, 5.0f,0.0f));
+
+		SetDrawLayer(-3);
 
 		auto vertices = m_mesh->GetBackupVerteces<VertexPositionNormalTexture>();
 		for (auto& vertex : vertices) { 
@@ -49,6 +51,7 @@ namespace basecross {
 		trans->SetScale(Vec3(m_scale.x,m_scale.y,1.0f));
 		trans->SetPosition(Vec3(m_position.x, m_position.y, 10.0f+m_position.z));
 
+		SetDrawLayer(-3);
 	}
 
 	void BackGroundSprite2::OnUpdate() {

@@ -28,6 +28,8 @@ namespace basecross {
 
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetScale(Vec3(0.5f));
-		m_ptrTrans->SetPosition(m_playerPos.x, m_playerPos.y + 1.5f, m_playerPos.z);
+		m_ptrTrans->SetPosition(m_playerPos.x, m_playerPos.y + 1.5f, m_playerPos.z - 1.0f);
+
+		SetDrawLayer(2);
 	}
 }

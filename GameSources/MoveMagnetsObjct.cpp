@@ -184,8 +184,8 @@ namespace basecross {
 
 		auto CollComp = AddComponent<CollisionObb>();
 		CollComp->SetFixed(true);
-		auto ptrMoveFloorButton = GetStage()->GetSharedGameObject<MoveFloorButton>(L"MoveFloorButton");
-		CollComp->AddExcludeCollisionGameObject(ptrMoveFloorButton);
+		//auto ptrMoveFloorButton = GetStage()->GetSharedGameObject<MoveFloorButton>(L"MoveFloorButton");
+		//CollComp->AddExcludeCollisionGameObject(ptrMoveFloorButton);
 
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetPosition(m_position);
