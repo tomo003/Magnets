@@ -85,7 +85,7 @@ namespace basecross{
 		LoadTexture(L"CLEAR", L"StageClear.png");
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
 
-		LoadTexture(L"BACKGROUND", L"Back.png");
+		LoadTexture(L"BACKGROUND", L"BackA.png");
 		LoadTexture(L"BACKGROUND1", L"BackA.png");
 		LoadTexture(L"BACKGROUND2", L"BackA.png");
 		LoadTexture(L"BACKGROUND3", L"BackA.png");
@@ -100,7 +100,7 @@ namespace basecross{
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		LoadTexture(L"CONCRETE_TX", L"Tile_Concrete.png");
+		LoadTexture(L"CONCRETE_TX", L"Tile_Concrete1.png");
 		LoadTexture(L"METAL_TX", L"Tile_Metal.png");
 		LoadTexture(L"START_TX", L"Tile_Start.png");
 		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
