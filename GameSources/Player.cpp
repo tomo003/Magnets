@@ -115,7 +115,7 @@ namespace basecross {
 		//ƒWƒƒƒ“ƒvˆ—
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				JumpPlayer();
+				//JumpPlayer();
 				//jumpCount--;
 			}
 		}
