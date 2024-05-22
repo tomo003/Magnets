@@ -66,7 +66,8 @@ namespace basecross {
 		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.5f), L"MagneticRange");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
+		m_efk->SetDrawLayer(-1);
 
 	}
 
