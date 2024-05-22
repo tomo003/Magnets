@@ -83,7 +83,7 @@ namespace basecross {
 		std::shared_ptr<MagnetArea> m_ptrArea;
 
 		float m_ObjMass = 1.0f; // オブジェクトの重量(引力斥力で使用)
-		float m_MagAreaRadius = 3.5f; // 磁力エリアの半径
+		float m_MagAreaRadius = 4.5f; // 磁力エリアの半径
 
 		Vec3 m_position;
 		float m_speed;
