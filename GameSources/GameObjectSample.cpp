@@ -165,7 +165,7 @@ namespace basecross {
 		m_eMagPole = EState::eS;
 
 		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.5f), L"MagneticRange");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
 	}
 
 	void MagnetS::OnUpdate()
@@ -254,7 +254,7 @@ namespace basecross {
 		m_eMagPole = EState::eMetal;
 
 		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(m_Position, Vec3(1.0f), L"MagneticRange");
+		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.0f), L"MagneticRange");
 	}
 
 	void Metal::OnUpdate()
