@@ -170,6 +170,7 @@ namespace basecross {
 	*/
 	class EffectPlayer : public GameObject
 	{
+		shared_ptr<EfkInterface> m_EfkInterface;
 		shared_ptr<EfkEffect> m_Effect;
 		shared_ptr<EfkPlay> m_EfkPlay;
 		wstring m_EffectStr;
@@ -188,6 +189,8 @@ namespace basecross {
 		}
 
 		void OnCreate() override;
+		void OnUpdate() override;
+		void OnDraw()override;
 
 		void StopEffect();
 		void AddLocation(const bsm::Vec3& Location);
