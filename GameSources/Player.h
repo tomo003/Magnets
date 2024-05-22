@@ -42,9 +42,6 @@ namespace basecross {
 		float m_distanceTemp;
 		Vec3 m_force;
 
-		float m_limit = 20;
-		bool isLimit = false;
-
 		Vec3 m_nearMagnetPos;//近い磁石オブジェクトの位置
 
 		const Vec3 m_gravityVelocity = Vec3(0.0f, 8.0f, 0.0f);
@@ -120,7 +117,6 @@ namespace basecross {
 		}
 		void RespawnPlayer(float respawnPoint);
 
-		void PlayerLimit();
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 		void OnCollisionExcute(shared_ptr<GameObject>& Other) override;

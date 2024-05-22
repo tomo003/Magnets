@@ -159,22 +159,18 @@ namespace basecross {
 
 				case 9://ベルトコンベア右回り端
 					AddGameObject<BeltConveyorSideRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight,-0.5));
 					break;
 
 				case 10://ベルトコンベア右回り真ん中
 					AddGameObject<BeltConveyorRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
 					break;
 
 				case 11://ベルトコンベア左回り端
 					AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
 					break;
 
 				case 12://ベルトコンベア左回り真ん中
 					AddGameObject<BeltConveyorLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
 					break;
 
 				case 13: //スタート

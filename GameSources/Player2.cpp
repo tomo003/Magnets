@@ -54,7 +54,6 @@ namespace basecross {
 		{
 			MovePlayer();
 			ApplyForcePlayer();
-			PlayerLimit();
 		}
 	}
 
@@ -71,13 +70,13 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
-		if (m_speed > 5.0f) {
+		if (m_speed != 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		if (m_speed > 5.0f && padLStick.x > 0.0f && !isLimit) {
+		if (m_speed != 5.0f && padLStick.x > 0.0f) {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
-		else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLimit) {
+		else if (m_speed != 5.0f && padLStick.x < 0.0f) {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
 
@@ -190,47 +189,6 @@ namespace basecross {
 		isGoal = false;
 		auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue");
 		ptrSquareBlue->ChangeTexture(L"TENNSENNBLUE_TX");
-	}
-
-	void Player2::PlayerLimit() {
-		auto& app = App::GetApp();
-		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
-		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
-
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		auto playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
-		m_pos = m_ptrTrans->GetWorldPosition();
-
-		auto direction = abs(m_pos.x - playerPos.x);
-
-		//プレイヤー２がプレイヤーより右側で、一定以上離れたら
-		if (direction > m_limit && m_pos.x > playerPos.x && padLStick.x >= 0)
-		{
-			m_speed = 0;
-			isLimit = true;
-		}
-		//LStickの左に入力があったら
-		else if (padLStick.x < 0 && m_pos.x > playerPos.x)
-		{
-			m_speed = 5;
-			isLimit = false;
-		}
-
-		//プレイヤー２がプレイヤーより左側で、一定以上離れたら
-		if (direction > m_limit && m_pos.x < playerPos.x && padLStick.x <= 0)
-		{
-			m_speed = 0;
-			isLimit = true;
-		}
-		//LStickの右に入力があったら
-		else if (padLStick.x > 0 && m_pos.x < playerPos.x)
-		{
-			m_speed = 5;
-			isLimit = false;
-		}
-
-		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	//アニメーション関数
@@ -438,38 +396,38 @@ namespace basecross {
 		auto ptrBeltConSideLeft = dynamic_pointer_cast<BeltConveyorSideLeft>(Other);
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
 
-		if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isLimit) {
+		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}
 
-		if (ptrBeltConLeft && !isLimit) {
+		if (ptrBeltConLeft) {
 			Vec3 beltConLeftPos = ptrBeltConLeft->GetComponent<Transform>()->GetPosition();
 			if (beltConLeftPos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
 			}
 		}
-		else if (ptrBeltConSideLeft && !isLimit) {
+		else if (ptrBeltConSideLeft) {
 			Vec3 beltConLeftSidePos = ptrBeltConSideLeft->GetComponent<Transform>()->GetPosition();
 			if (beltConLeftSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
 			}
 		}
-		else if (ptrBeltConRight && !isLimit) {
+		else if (ptrBeltConRight) {
 			Vec3 beltConRightPos = ptrBeltConRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightPos.y < m_pos.y) {
 				m_speed = 6.0f;
 			}
 		}
-		else if (ptrBeltConSideRight && !isLimit) {
+		else if (ptrBeltConSideRight) {
 			Vec3 beltConRightSidePos = ptrBeltConSideRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
 			}
 		}
-		else if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isLimit) {
+		else if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}

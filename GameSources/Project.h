@@ -22,7 +22,6 @@
 #include "GameObjectSample.h"
 #include "BeltConveyor.h"
 #include "BeltConveyorSide.h"
-#include "BeltConveyorDirection.h"
 #include "ButtonUI.h"
 #include "GearObject.h"
 #include "StandbyStage.h"
