@@ -163,11 +163,19 @@ namespace basecross {
 	void EffectPlayer::OnCreate() {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		auto EfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_EfkInterface = ObjectFactory::Create<EfkInterface>();
 		m_EffectStr = DataDir + L"Effects\\" + m_efkKey + L".efk";
-		m_Effect = ObjectFactory::Create<EfkEffect>(EfkInterface, m_EffectStr);
+		m_Effect = ObjectFactory::Create<EfkEffect>(m_EfkInterface, m_EffectStr);
 
 		m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_Effect, m_pos, m_size);
+	}
+	void EffectPlayer::OnUpdate() {
+		m_EfkInterface->OnUpdate();
+	}
+	void EffectPlayer::OnDraw() {
+		auto& camera = GetStage()->GetView()->GetTargetCamera();
+		m_EfkInterface->SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
+		m_EfkInterface->OnDraw();
 
 	}
 	void EffectPlayer::StopEffect() {

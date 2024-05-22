@@ -153,8 +153,6 @@ namespace basecross{
 
 	void Scene::OnCreate(){
 		try {
-			m_EfkInterface = ObjectFactory::Create<EfkInterface>();
-
 			CreateResourses();
 
 			//ƒNƒŠƒA‚·‚éF‚ðÝ’è
@@ -172,14 +170,10 @@ namespace basecross{
 
 	void Scene::OnUpdate() {
 		SceneBase::OnUpdate();
-		m_EfkInterface->OnUpdate();
 	}
 
 	void Scene::OnDraw() {
 		SceneBase::OnDraw();
-		auto& camera = GetActiveStage()->GetView()->GetTargetCamera();
-		m_EfkInterface->SetViewProj(camera->GetViewMatrix(),camera->GetProjMatrix());
-		m_EfkInterface->OnDraw();
 	}
 
 	Scene::~Scene() {

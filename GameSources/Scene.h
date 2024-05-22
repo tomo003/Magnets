@@ -11,10 +11,7 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
-	class Scene : public SceneBase{
-
-		shared_ptr<EfkInterface> m_EfkInterface;
-		
+	class Scene : public SceneBase{		
 		int m_scene = 0;
 
 	public:
@@ -63,11 +60,6 @@ namespace basecross{
 
 		int GetSecen() {
 			return m_scene;
-		}
-
-		//エフェクトのインターフェースの取得
-		shared_ptr<EfkInterface> GetEfkInterface() const {
-			return m_EfkInterface;
 		}
 	};
 }
