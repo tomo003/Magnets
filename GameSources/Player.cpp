@@ -577,10 +577,12 @@ namespace basecross {
 			isGround = false;
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isGoal)
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 			ptrSquareRed->ChangeTexture(L"RED_TX");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 			AnimationPlayer(FRONT);
 			isGoal = true;
 		}
