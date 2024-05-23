@@ -250,5 +250,7 @@ namespace basecross {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
 		}
+
+		void ResetAll();
 	};
 }

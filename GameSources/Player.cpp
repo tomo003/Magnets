@@ -92,7 +92,7 @@ namespace basecross {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
 
-		if (padLStick.length() > 0.0f) {
+		if (padLStick.length() > 0.0f && m_emState == magneticState::emNone) {
 			if (padLStick.x > 0.0f) {
 				AnimationPlayer(RIGHT);
 			}
@@ -135,6 +135,9 @@ namespace basecross {
 				ptrPlayer2->RespawnPlayer(player2RespawnpPoint);
 				RespawnPlayer(player2RespawnpPoint);
 			}
+
+			auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
+			ptrMoveFloor->ResetAll();
 		}
 
 		//‘®«Ø‚è‘Ö‚¦
@@ -415,6 +418,7 @@ namespace basecross {
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
+			m_emState = magneticState::emMetal;
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -426,6 +430,7 @@ namespace basecross {
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
+			m_emState = magneticState::emMetal;
 		}
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
@@ -434,7 +439,7 @@ namespace basecross {
 			isEffect = true;
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
-
+			m_emState = magneticState::emMagnet;
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
@@ -443,6 +448,7 @@ namespace basecross {
 			isEffect = true;
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+			m_emState = magneticState::emMagnet;
 		}
 		if (ptrRing && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -455,20 +461,22 @@ namespace basecross {
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
+			m_emState = magneticState::emRing;
 		}
 		if (ptrPlayer2 && (m_eMagPole == EState::eN)) {
 			int player2 = static_cast<int>(ptrPlayer2->GetPlayerMagPole());
-			if (player2 == 2) {
+			if (player2 == (int)EState::eS) {
 				isPlayerContact = true;
+				m_emState = magneticState::emPlayer;
 			}
 		}
 		else {
 			isPlayerContact = false;
 		}
-		if (ptrGear && (m_eMagPole != EState::eFalse) && (isCollGear == false)) {
+		if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrGear);
-			isCollGear = true; //@Ž•ŽÔ‚É‚Â‚¢‚½‚©‚çtrue
+			m_emState = magneticState::emGear;
 			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 		}
 		if (ptrMoveFloor) {
@@ -533,35 +541,38 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
-		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
-		}
-		if (ptrMetal && (m_eMagPole == EState::eFalse)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
-		}
-		if (ptrMagnetN && (m_eMagPole != EState::eS)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
-		}
-		if (ptrMagnetS && (m_eMagPole != EState::eN)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
-		}
-		if (ptrRing && (m_eMagPole == EState::eFalse)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
-		}
-		if (ptrGear && (m_eMagPole == EState::eFalse)) {
-			m_gravityComp->SetGravity(m_gravity);
-			m_gravityComp->SetGravityVerocityZero();
-			m_ptrTrans->ClearParent();
+		if ((int)m_emState >= 0) {
+			if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			if (ptrMetal && (m_eMagPole == EState::eFalse)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			if (ptrMagnetN && (m_eMagPole != EState::eS)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			if (ptrMagnetS && (m_eMagPole != EState::eN)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			if (ptrRing && (m_eMagPole == EState::eFalse)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			if (ptrGear && (m_eMagPole == EState::eFalse)) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
+			m_emState = magneticState::emNone;
 		}
 	}
 
@@ -579,7 +590,7 @@ namespace basecross {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
-			//isCollRing = false; // ƒŠƒ“ƒO‚©‚ç—£‚ê‚½Žž‚Éfalse
+			m_emState = magneticState::emNone;
 		}
 
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
