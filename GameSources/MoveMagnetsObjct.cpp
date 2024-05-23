@@ -125,19 +125,6 @@ namespace basecross {
 		// デルタタイム(前フレームからの経過時間)を取得する
 		float delta = app->GetElapsedTime();
 
-		//switch (eMoveState)
-		//{
-		//case EMoveState::eReMove: // ReMoveなら戻る
-		//	m_position.y += m_speed * delta;
-		//	break;
-		//case EMoveState::eStop: // Stopなら停止(何も加算しない)
-		//	break;
-		//case EMoveState::eMove: // Moveなら移動
-		//	m_position.y -= m_speed * delta;
-		//	break;
-		//default:
-		//	break;
-		//}
 		m_TransComp->SetPosition(m_startPos.x, m_startPos.y, m_startPos.z); // 新しい座標で更新する
 
 		// 初期位置、停止位置を越えるならステートを停止に切り替え
@@ -221,5 +208,9 @@ namespace basecross {
 		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
 			eMoveState = EMoveState::eStop;
 		}
+	}
+
+	void MoveFloor::ResetAll() {
+		m_TransComp->SetPosition(m_startPos);
 	}
 }
