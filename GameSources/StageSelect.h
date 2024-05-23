@@ -17,7 +17,6 @@ namespace basecross {
 
 		void CreateViewLight();//ビューの作成
 		void CreateSelectSprite();//スプライトの作成
-		void PlayBGM();//BGMの作成
 		void ChangeSelect(int num);
 		void CreateCursor();
 		void CreateAnimeSprite();
@@ -30,7 +29,6 @@ namespace basecross {
 
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
-		virtual void OnDestroy()override;
 
 	};
 }

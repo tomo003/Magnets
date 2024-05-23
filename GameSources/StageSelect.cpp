@@ -70,9 +70,6 @@ namespace basecross {
 		}
 	}
 
-	void SelectStage::PlayBGM() {
-		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
-	}
 
 
 	void SelectStage::OnCreate() {
@@ -80,14 +77,8 @@ namespace basecross {
 		CreateSelectSprite();
 		CreateAnimeSprite();
 		CreateCursor();
-		PlayBGM();
 	}
 
-	void SelectStage::OnDestroy() {
-		//BGMのストップ
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		XAPtr->Stop(m_bgm);
-	}
 
 
 	void SelectStage::OnUpdate() {
@@ -111,6 +102,8 @@ namespace basecross {
 		if (pad.bConnected) {
 			if (!m_CntrolLock) {
 				if (pad.fThumbLX >= 0.8f) {
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum++;
 					if (StageNum > 6) {
 						StageNum = 1;
@@ -121,6 +114,8 @@ namespace basecross {
 
 				}
 				else if (pad.fThumbLX <= -0.8f) {
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum--;
 					if (StageNum < 1) {
 						StageNum = 6;
@@ -130,6 +125,8 @@ namespace basecross {
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY >= 0.8f) {
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum -= 3;
 					if (StageNum <= 0) {
 						StageNum += 6;
@@ -139,6 +136,8 @@ namespace basecross {
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY <= -0.8f) {
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum += 3;
 					if (StageNum > 6) {
 						StageNum -= 6;

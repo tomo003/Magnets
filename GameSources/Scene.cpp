@@ -194,7 +194,11 @@ namespace basecross{
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
+		const auto& audioPtr = App::GetApp()->GetXAudio2Manager();
+		auto& app = App::GetApp();
+
 		if (event->m_MsgStr == L"ToGameStage") {
+			audioPtr->Stop(m_bgm);
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
 			m_scene = 2;
@@ -204,6 +208,9 @@ namespace basecross{
 			m_scene = 0;
 		}
 		else if (event->m_MsgStr == L"ToStandbyStage") {
+			audioPtr->Stop(m_bgm);
+			m_bgm = audioPtr->Start(L"STANDBY_BGM", XAUDIO2_LOOP_INFINITE, 2.0f);
+
 			ResetActiveStage<StandbyStage>();
 			m_scene = 1;
 		}

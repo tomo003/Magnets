@@ -26,10 +26,6 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	void StandbyStage::PlayBGM() {
-		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"STANDBY_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
-	}
-
 	void StandbyStage::OnDestroy() {
 		//BGMのストップ
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
@@ -41,7 +37,6 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			//BGMの再生
-			PlayBGM();
 			//AddGameObject<BackGroundSprite>();
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 

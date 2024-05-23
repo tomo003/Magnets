@@ -43,7 +43,6 @@ namespace basecross {
 		virtual void OnUpdate()override;
 		virtual void OnDestroy()override;
 
-		void PlayBGM();
 	};
 
 

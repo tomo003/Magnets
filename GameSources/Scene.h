@@ -15,6 +15,7 @@ namespace basecross{
 		shared_ptr<EfkInterface> m_EfkInterface;
 		int m_stageNum;
 		int m_scene = 0;
+		shared_ptr<SoundItem> m_bgm;
 
 	public:
 		void CreateResourses();
