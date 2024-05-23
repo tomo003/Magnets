@@ -100,6 +100,7 @@ namespace basecross {
 		Vec3 playerPos = m_ptrPlayer->GetComponent<Transform>()->GetPosition();
 		if (playerPos.y > 0.80f && playerReady&& !playerPositionFixed) {
 			AddGameObject<EffectPlayer>(playerPos, Vec3(1.0f), L"impact");
+			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			playerPositionFixed = true;
 		}
 		if (playerReady && playerPositionFixed) {
@@ -124,6 +125,7 @@ namespace basecross {
 		Vec3 player2Pos = m_ptrPlayer2->GetComponent<Transform>()->GetPosition();
 		if (player2Pos.y >= 0.8f && player2Ready&& !player2PositionFixed) {
 			AddGameObject<EffectPlayer>(player2Pos, Vec3(1.0f), L"impact");
+			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			player2PositionFixed = true;
 		}
 		if (player2Ready && player2PositionFixed) {
