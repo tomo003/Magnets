@@ -53,6 +53,8 @@ namespace basecross {
 
 		float m_playerMass = 100.0f;
 
+		Vec3 m_objPos = Vec3(0);
+
 		float jumpCount;
 		int count;
 		bool isJump = true;
