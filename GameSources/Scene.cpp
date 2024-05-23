@@ -94,6 +94,16 @@ namespace basecross{
 
 		LoadTexture(L"TITLE", L"title.png");
 
+		LoadTexture(L"STAGE1", L"Stage1.png");
+		LoadTexture(L"STAGE1UI", L"Stage1UI.png");
+		LoadTexture(L"STAGE2UI", L"Stage2UI.png");
+		LoadTexture(L"STAGE3UI", L"Stage3UI.png");
+		LoadTexture(L"STAGE4UI", L"Stage4UI.png");
+		LoadTexture(L"STAGE5UI", L"Stage5UI.png");
+		LoadTexture(L"STAGE6UI", L"Stage6UI.png");
+		LoadTexture(L"STAGESELECT", L"StageSelect.png");
+		LoadTexture(L"CURSOR", L"Cursor.png");
+
 		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
 		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
 
@@ -195,6 +205,10 @@ namespace basecross{
 		else if (event->m_MsgStr == L"ToStandbyStage") {
 			ResetActiveStage<StandbyStage>();
 			m_scene = 1;
+		}
+		else if (event->m_MsgStr == L"ToSelectStage") {
+			ResetActiveStage<SelectStage>();
+			m_scene = 3;
 		}
 		if (event->m_MsgStr == L"ToMagTestStage") {
 			//最初のアクティブステージの設定

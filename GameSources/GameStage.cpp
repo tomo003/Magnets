@@ -45,6 +45,7 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		try {
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
@@ -68,7 +69,29 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
-			m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
+			switch (PtrScene->GetStageNum()) {
+			case 1:
+				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
+				break;
+			case 2:
+				m_GameStageCsv.SetFileName(DataDir + L"MagTest02.csv");
+				break;
+			case 3:
+				m_GameStageCsv.SetFileName(DataDir + L"MagTest03.csv");
+				break;
+			case 4:
+				m_GameStageCsv.SetFileName(DataDir + L"GameStage4.csv");
+				break;
+			case 5:
+				m_GameStageCsv.SetFileName(DataDir + L"GameStage5.csv");
+				break;
+			case 6:
+				m_GameStageCsv.SetFileName(DataDir + L"GameStage6.csv");
+				break;
+			default:
+				m_GameStageCsv.SetFileName(DataDir + L"GameStage1.csv");
+				break;
+			}
 			m_GameStageCsv.ReadCsv();
 
 

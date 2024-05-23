@@ -11,7 +11,9 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
-	class Scene : public SceneBase{		
+	class Scene : public SceneBase{
+		shared_ptr<EfkInterface> m_EfkInterface;
+		int m_stageNum;
 		int m_scene = 0;
 
 	public:
@@ -33,7 +35,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(){}
+		Scene() :SceneBase(), m_stageNum(1) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -61,6 +63,18 @@ namespace basecross{
 		int GetSecen() {
 			return m_scene;
 		}
+		int GetStageNum() const {
+			return m_stageNum;
+		}
+		void SetStageNum(int s)
+		{
+			m_stageNum = s;
+		}
+		//エフェクトのインターフェースの取得
+		shared_ptr<EfkInterface> GetEfkInterface() const {
+			return m_EfkInterface;
+		}
+
 	};
 }
 

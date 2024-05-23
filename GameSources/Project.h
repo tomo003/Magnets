@@ -38,5 +38,8 @@
 #include "BackGroundSprite.h"
 #include "FadeIn.h"
 #include "FadeOut.h"
+#include"StageSelect.h"
+#include"SelectScreenSprite.h"
+#include"StageSelectSprite.h"
 
 #include "MyCamera.h"

@@ -162,7 +162,7 @@ namespace basecross {
 				if (magNPos.x > 10.0f) {
 					if (!stage) {
 						AddGameObject<FadeOut>(L"FADE_WHITE");
-						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 						stage = true;
 					}
 				}
