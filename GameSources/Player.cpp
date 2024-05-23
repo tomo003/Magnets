@@ -46,7 +46,7 @@ namespace basecross {
 		}
 
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
-		if (scene == 1) {
+		if (scene != 0) {
 			auto playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"1P");
 			auto m_playerBanner = playerBanner->GetComponent<Transform>();
 			m_playerBanner->SetParent(GetThis<Player>());
