@@ -61,6 +61,7 @@ namespace basecross {
 		{
 			MovePlayer();
 			ApplyForcePlayer();
+			PlayerLimit();
 		}
 	}
 
@@ -81,13 +82,13 @@ namespace basecross {
 		if (padLStick.length() > 0.0f) {
 			m_pos = m_pos + padLStick * delta * m_speed;
 		}
-		if (m_speed != 5.0f) {
+		if (m_speed > 5.0f) {
 			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
 		}
-		if (m_speed != 5.0f && padLStick.x > 0.0f) {
+		if (m_speed > 5.0f && padLStick.x > 0.0f && !isLimit) {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
-		else if (m_speed != 5.0f && padLStick.x < 0.0f) {
+		else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLimit) {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
 
@@ -207,6 +208,47 @@ namespace basecross {
 		isGoal = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 		ptrSquareRed->ChangeTexture(L"TENNSENNRED_TX");
+	}
+
+	//プレイヤーが離れすぎないようにする制限
+	void Player::PlayerLimit() {
+		auto& app = App::GetApp();
+		auto device = app->GetInputDevice();//コントローラー座標の取得
+		auto pad = device.GetControlerVec()[0];
+		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
+
+		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		auto player2Pos = ptrPlayer2->GetComponent<Transform>()->GetWorldPosition();
+		m_pos = m_ptrTrans->GetWorldPosition();
+
+		auto direction = abs(m_pos.x - player2Pos.x);
+
+		//プレイヤーが右に一定距離離れた時
+		if (direction > m_limit && m_pos.x > player2Pos.x && padLStick.x >= 0)
+		{
+			m_speed = 0;
+			isLimit = true;
+		}
+		//左に入力があったら
+		else if (padLStick.x < 0 && m_pos.x > player2Pos.x)
+		{
+			m_speed = 5;
+			isLimit = false;
+		}
+		//プレイヤーが左に一定距離離れた時
+		if (direction > m_limit && m_pos.x < player2Pos.x && padLStick.x <= 0)
+		{
+			m_speed = 0;
+			isLimit = true;
+		}
+		//右に入力があったら
+		else if (padLStick.x > 0 && m_pos.x < player2Pos.x)
+		{
+			m_speed = 5;
+			isLimit = false;
+		}
+
+		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	void Player::SetPlayerMagPole(int i) {
@@ -439,38 +481,38 @@ namespace basecross {
 		auto ptrBeltConSideRight = dynamic_pointer_cast<BeltConveyorSideRight>(Other);
 
 
-		if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
+		if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isLimit) {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}
 
-		if (ptrBeltConLeft) {
+		if (ptrBeltConLeft && !isLimit) {
 			Vec3 beltConLeftPos = ptrBeltConLeft->GetComponent<Transform>()->GetPosition();
 			if (beltConLeftPos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
 			}
 		}
-		else if (ptrBeltConSideLeft) {
+		else if (ptrBeltConSideLeft && !isLimit) {
 			Vec3 beltConLeftSidePos = ptrBeltConSideLeft->GetComponent<Transform>()->GetPosition();
 			if (beltConLeftSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
 			}
 		}
-		else if (ptrBeltConRight) {
+		else if (ptrBeltConRight && !isLimit) {
 			Vec3 beltConRightPos = ptrBeltConRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightPos.y < m_pos.y) {
 				m_speed = 6.0f;
 			}
 		}
-		else if (ptrBeltConSideRight) {
+		else if (ptrBeltConSideRight && !isLimit) {
 			Vec3 beltConRightSidePos = ptrBeltConSideRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
 			}
 		}
-		else if (!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) {
+		else if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isLimit) {
 			m_speed = 5.0f;
 			m_attribute = 1;
 		}
@@ -535,16 +577,18 @@ namespace basecross {
 			isGround = false;
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x)
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isGoal)
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 			ptrSquareRed->ChangeTexture(L"RED_TX");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 			AnimationPlayer(FRONT);
 			isGoal = true;
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
-		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
+		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x && m_RespawnPoint < ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;
