@@ -28,8 +28,18 @@ namespace basecross {
 			eS = 2 // Ｓ極
 		};
 
+		enum class magneticState {
+			emNone = -1, // くっついてない
+			emPlayer = 0, // Player
+			emMagnet = 1, // MagnetN,S
+			emRing = 2, // ring
+			emGear = 3, // Gear
+			emMetal = 4 // Metal,MoveMetal
+		};
+
 	private:
 		enum EState m_eMagPole = EState::eN; // 磁極の状態
+		enum magneticState m_emState = magneticState::emNone;
 
 		Vec3 m_pos;
 		float m_speed;
@@ -59,7 +69,6 @@ namespace basecross {
 
 		bool isEffect = true;
 		bool isGround; // 着地しているかの判定
-		bool isCollGear; // 歯車とくっついているかの判定
 
 		float m_RespawnPoint;//リスポーンする位置
 
