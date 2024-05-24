@@ -232,7 +232,7 @@ namespace basecross {
 		virtual ~SavePoint();
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
-		void DeleteObject();
+		void ResetTexture();
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
 
