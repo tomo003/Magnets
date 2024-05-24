@@ -485,6 +485,17 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position);
 	}
 
+	void SavePoint::ResetTexture()
+	{
+		if (!isCollPlayer || !isCollPlayer2)
+		{
+			auto drawComp = AddComponent<PNTStaticDraw>();
+			drawComp->SetTextureResource(L"SAVEPOINT_TX");
+			isCollPlayer = false;
+			isCollPlayer2 = false;
+		}
+	}
+
 	void SavePoint::OnCollisionExit(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);

@@ -127,10 +127,11 @@ namespace basecross {
 		}
 		void GoalPlayer();
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
+		void SetRespawnPoint(float RepawnPoint);
 		float GetRespawnPoint()const {
 			return m_RespawnPoint;
 		}
-		void RespawnPlayer(float respawnPoint);
+		void RespawnPlayer();
 
 		void PlayerLimit();
 

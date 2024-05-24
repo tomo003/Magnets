@@ -128,12 +128,14 @@ namespace basecross {
 			auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 			float player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
 			if (player2RespawnpPoint >= m_RespawnPoint) {
-				ptrPlayer2->RespawnPlayer(m_RespawnPoint);
-				RespawnPlayer(m_RespawnPoint);
+				ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
+				ptrPlayer2->RespawnPlayer();
+				RespawnPlayer();
 			}
 			else if (player2RespawnpPoint < m_RespawnPoint) {
-				ptrPlayer2->RespawnPlayer(player2RespawnpPoint);
-				RespawnPlayer(player2RespawnpPoint);
+				SetRespawnPoint(player2RespawnpPoint);
+				ptrPlayer2->RespawnPlayer();
+				RespawnPlayer();
 			}
 
 			auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
@@ -208,15 +210,26 @@ namespace basecross {
 		m_RespawnPoint = otherPos.x;
 	}
 
+	void Player::SetRespawnPoint(float RespawnPoint) {
+		m_RespawnPoint = RespawnPoint;
+	}
+
 	//リスポーンする
-	void Player::RespawnPlayer(float respawnPoint) {
+	void Player::RespawnPlayer() {
 		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 		m_eMagPole = EState::eFalse;
-		m_pos = Vec3(respawnPoint + 2, 0.0f, 0.0f);
+		m_pos = Vec3(m_RespawnPoint + 2, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		isGoal = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 		ptrSquareRed->ChangeTexture(L"TENNSENNRED_TX");
+		auto savePointGroup = GetStage()->GetSharedObjectGroup(L"SavePoint");
+		auto groupVector = savePointGroup->GetGroupVector();
+		for (auto v : groupVector)
+		{
+			auto ptrSavePoint = dynamic_pointer_cast<SavePoint>(v.lock());
+			ptrSavePoint->ResetTexture();
+		}
 	}
 
 	//プレイヤーが離れすぎないようにする制限

@@ -123,6 +123,7 @@ namespace basecross {
 	}
 
 	void GameStage::CreateCsvObjects() {
+		auto SavePointGroup = CreateSharedObjectGroup(L"SavePoint");
 
 		std::shared_ptr<GameObject> ptrMoveMetal;
 
@@ -132,6 +133,7 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrGround;
 		std::shared_ptr<GameObject> ptrMag;
 		std::shared_ptr<GameObject> ptrStart;
+		std::shared_ptr<GameObject> ptrSavePoint;
 		std::shared_ptr<GameObject> ptrGoalSquareRed;
 		std::shared_ptr<GameObject> ptrGoalSquareBlue;
 		std::shared_ptr<GameObject> ptrMoveFloor;
@@ -206,7 +208,8 @@ namespace basecross {
 					break;
 
 				case 14: //セーブポイント
-					ptrGround = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
+					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
+					SavePointGroup->IntoGroup(ptrSavePoint);
 					isCreateMaagnets = false;
 					break;
 
