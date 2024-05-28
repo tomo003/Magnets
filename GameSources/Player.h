@@ -86,6 +86,8 @@ namespace basecross {
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
 
+		std::shared_ptr<PlayerBanner> m_playerBanner;
+
 		bool isCollRing = false; // リングと接触しているか(初期値はfalse)
 		bool isGoal = false;
 
@@ -134,7 +136,7 @@ namespace basecross {
 		void RespawnPlayer();
 
 		void PlayerLimit();
-
+		void PlayerBannerPosition(Vec3 position);
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 		void OnCollisionExcute(shared_ptr<GameObject>& Other) override;

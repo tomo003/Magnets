@@ -72,6 +72,8 @@ namespace basecross {
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
 
+		std::shared_ptr<PlayerBanner> m_playerBanner;
+
 		bool isGoal = false;
 
 		enum eMotion {
@@ -134,6 +136,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 
 		void limitSpeed();
+		void PlayerBannerPosition(Vec3 position);
 
 		// プレイヤーの磁極を他クラスで取得する用の関数
 		EState GetPlayerMagPole() {
