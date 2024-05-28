@@ -169,7 +169,6 @@ namespace basecross {
 
 				case 4: //‹à‘®“®‚­‚â‚Â
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHight, 0));
-					SetSharedGameObject(L"MoveMetalObj", ptrMoveMetal);
 					break;
 
 				case 7://ƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚ç“®‚­°
