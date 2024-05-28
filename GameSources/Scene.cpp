@@ -153,6 +153,8 @@ namespace basecross{
 		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
 		// 歯車
 		LoadStaticModelMesh(L"GearObj", L"GearObject_MESH");
+		// 壊れる壁
+		LoadBoneModel(L"BreakWall", L"BreakWall_MESH", L"BreakWall_MESH_TAN");
 
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");
@@ -175,7 +177,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
 		}
 		catch (...) {
 			throw;

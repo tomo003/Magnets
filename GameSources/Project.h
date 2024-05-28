@@ -41,5 +41,5 @@
 #include"StageSelect.h"
 #include"SelectScreenSprite.h"
 #include"StageSelectSprite.h"
-
+#include "BreakWall.h"
 #include "MyCamera.h"
