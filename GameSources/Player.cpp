@@ -138,8 +138,8 @@ namespace basecross {
 				RespawnPlayer();
 			}
 
-			auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
-			ptrMoveFloor->ResetAll();
+			//auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
+			//ptrMoveFloor->ResetAll();
 		}
 
 		//‘®«Ø‚è‘Ö‚¦
