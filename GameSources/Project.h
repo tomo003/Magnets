@@ -41,5 +41,6 @@
 #include"StageSelect.h"
 #include"SelectScreenSprite.h"
 #include"StageSelectSprite.h"
-
+#include"FlashSprite.h"
+#include "Flash.h"
 #include "MyCamera.h"

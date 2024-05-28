@@ -399,8 +399,11 @@ namespace basecross {
 		if (!isDisplaySprite)
 		{
 			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
-			GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BACKTOTITLE");
+			//GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BACKTOTITLE");
 			isDisplaySprite = true;
+
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			PtrScene->SetGameState(GameState::GameClear);
 		}
 
 		//カメラのゴール後にズーム演出
@@ -411,11 +414,11 @@ namespace basecross {
 		ptrDuoCamera->ZoomCamera();
 
 		//Ｂボタンを押したらタイトルへ
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+		/*if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-		}
+		}*/
 	}
 
 	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)

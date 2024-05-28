@@ -7,6 +7,11 @@
 #include "stdafx.h"
 
 namespace basecross{
+	enum class GameState {
+		MainGame,
+		GameOver,
+		GameClear,
+	};
 
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
@@ -16,8 +21,11 @@ namespace basecross{
 		int m_stageNum;
 		int m_scene = 0;
 		shared_ptr<SoundItem> m_bgm;
+		GameState m_GameState;
+		int m_ResultNum;
 
 	public:
+
 		void CreateResourses();
 
 		//テクスチャ
@@ -36,7 +44,7 @@ namespace basecross{
 		@brief コンストラクタ
 		*/
 		//--------------------------------------------------------------------------------------
-		Scene() :SceneBase(), m_stageNum(1) {}
+		Scene() :SceneBase(), m_stageNum(1),m_GameState(GameState::MainGame),m_ResultNum(1) {}
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief デストラクタ
@@ -71,6 +79,24 @@ namespace basecross{
 		{
 			m_stageNum = s;
 		}
+
+		int GetResultNum() const {
+			return m_ResultNum;
+		}
+		void SetResultNum(int s)
+		{
+			m_ResultNum = s;
+		}
+
+
+		GameState GetGameState() const {
+			return m_GameState;
+		}
+
+		void SetGameState(const GameState& gameState) {
+			m_GameState = gameState;
+		}
+
 		//エフェクトのインターフェースの取得
 		shared_ptr<EfkInterface> GetEfkInterface() const {
 			return m_EfkInterface;
