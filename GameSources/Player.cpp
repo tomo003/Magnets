@@ -52,6 +52,11 @@ namespace basecross {
 			m_playerBanner->GetComponent<Transform>()->SetParent(GetThis<Player>());
 		}
 
+
+		auto ptrShadow = AddComponent<Shadowmap>();
+		ptrShadow->SetMeshResource(L"PlayerRed_MESH");
+		ptrShadow->SetDrawActive(true);
+
 		AddTag(L"Player");
 	}
 
@@ -138,8 +143,6 @@ namespace basecross {
 				RespawnPlayer();
 			}
 
-			//auto ptrMoveFloor = GetStage()->GetSharedGameObject<MoveFloor>(L"MoveFloor");
-			//ptrMoveFloor->ResetAll();
 		}
 
 		//‘®«Ø‚è‘Ö‚¦
@@ -364,6 +367,7 @@ namespace basecross {
 			m_Velocity += m_force * -1;
 			isInertia = true;
 			m_inertia = objPos;
+			isRepulsion = true;
 
 			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 			if (scene != 1) {
@@ -508,9 +512,12 @@ namespace basecross {
 			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
 		if (ptrGround) {
-			isGround = true;
+			//isGround = true;
 			isEffect = true;
 			isInertia = false;
+		}
+		if (!ptrPlayer2) {
+			isRepulsion = false;
 		}
 
 		// ’…’n‚Ì”»’è

@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorDirection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorSide.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BreakWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorDirection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorSide.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BreakWall.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />

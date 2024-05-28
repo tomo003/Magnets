@@ -59,7 +59,7 @@ namespace basecross {
 		Vec3 m_inertia;
 
 		bool isPlayerContact;
-
+		bool isRepulsion = false; // 反発してるときtrue
 		bool isEffect = true;
 
 		float m_RespawnPoint;//リスポーンする位置
@@ -166,6 +166,9 @@ namespace basecross {
 		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
+		}
+		bool IsRepulState() {
+			return isRepulsion;
 		}
 
 	};
