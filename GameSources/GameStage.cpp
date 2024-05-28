@@ -125,7 +125,7 @@ namespace basecross {
 
 	void GameStage::CreateAnimeSprite() {
 		auto PtrSp = AddGameObject<FlashSprite>(
-			Vec3(-850.0f, -50.0f,0.0f), Vec2(650.0f, 500.0f), L"BACKTOSTAGESELECT", false);
+			Vec3(-850.0f, -50.0f,0.0f), Vec2(670.0f, 500.0f), L"BACKTOSTAGESELECT", false);
 		PtrSp->SetSelect(true);
 		m_SpVec[0] = PtrSp;
 
@@ -134,7 +134,7 @@ namespace basecross {
 		m_SpVec[1] = PtrSp;
 
 		PtrSp = AddGameObject<FlashSprite>(
-			Vec3(220.0f, -65.0f, 0.0f), Vec2(650.0f, 500.0f), L"BACKTOTITLE", false);
+			Vec3(220.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);
 		m_SpVec[2] = PtrSp;
 	}
 
