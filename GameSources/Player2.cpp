@@ -586,6 +586,7 @@ namespace basecross {
 		if (speed > MAX_SPEED && !isPlayerContact) {
 			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
 		}
+		//プレイヤー同士が触れているときの速度制限を変更する
 		else if (speed > LIMIT_MAX_SPEED) {
 			m_Velocity = (m_Velocity / speed) * LIMIT_MAX_SPEED;
 		}
