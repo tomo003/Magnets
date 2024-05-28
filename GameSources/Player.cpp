@@ -47,9 +47,9 @@ namespace basecross {
 
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 0) {
-			auto playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"1P");
-			auto m_playerBanner = playerBanner->GetComponent<Transform>();
-			m_playerBanner->SetParent(GetThis<Player>());
+			//auto playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"1P");
+			m_playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"1P");
+			m_playerBanner->GetComponent<Transform>()->SetParent(GetThis<Player>());
 		}
 
 		AddTag(L"Player");
@@ -116,7 +116,7 @@ namespace basecross {
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				//JumpPlayer();
+				JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -285,6 +285,10 @@ namespace basecross {
 			m_eMagPole = EState::eFalse;
 			break;
 		}
+	}
+
+	void Player::PlayerBannerPosition(Vec3 position) {
+		m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(position));
 	}
 
 	//アニメーション関数
@@ -486,6 +490,14 @@ namespace basecross {
 		else {
 			isPlayerContact = false;
 		}
+
+		if (ptrPlayer2) {
+			if (ptrPlayer2->GetComponent<Transform>()->GetPosition().y > m_pos.y + 0.5f) {
+				m_playerBanner->GetComponent<Transform>()->SetPosition(0, 2.0f, 0);
+				ptrPlayer2->PlayerBannerPosition(Vec3(0, 2.5f, 0));
+			}
+		}
+
 		if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrGear);
@@ -598,6 +610,7 @@ namespace basecross {
 		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing || ptrGear || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
@@ -609,6 +622,14 @@ namespace basecross {
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_objPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
 		}
+
+		if (ptrPlayer2) {
+			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+			if (scene != 1) {
+				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 1.5f, 0));
+			}
+		}
+
 
 		isGround = false;
 

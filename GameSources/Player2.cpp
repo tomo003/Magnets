@@ -40,9 +40,8 @@ namespace basecross {
 		
 		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (scene != 0) {
-			auto playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"2P");
-			auto m_playerBanner = playerBanner->GetComponent<Transform>();
-			m_playerBanner->SetParent(GetThis<Player2>());
+			m_playerBanner = GetStage()->AddGameObject<PlayerBanner>(L"2P");
+			m_playerBanner->GetComponent<Transform>()->SetParent(GetThis<Player2>());
 		}
 		AddTag(L"Player2");
 		AddTag(L"Player");
@@ -251,6 +250,10 @@ namespace basecross {
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
+	void Player2::PlayerBannerPosition(Vec3 position) {
+		m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(position));
+	}
+
 	//アニメーション関数
 	void Player2::AnimationPlayer(eMotion Motion) {
 
@@ -445,6 +448,12 @@ namespace basecross {
 		else {
 			isPlayerContact = false;
 		}
+		if (ptrPlayer) {
+			if (ptrPlayer->GetComponent<Transform>()->GetPosition().y > m_pos.y + 0.5f) {
+				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 2.5f, 0));
+				ptrPlayer->PlayerBannerPosition(Vec3(0, 2.5f, 0));
+			}
+		}
 
 		if (ptrGround) {
 			isEffect = true;
@@ -542,6 +551,7 @@ namespace basecross {
 		auto ptrGear = dynamic_pointer_cast<GearObject>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS ||  ptrGear || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
@@ -553,6 +563,12 @@ namespace basecross {
 			m_objPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
 		}
 
+		if (ptrPlayer) {
+			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
+			if (scene != 1) {
+				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 1.5f, 0));
+			}
+		}
 
 		if (ptrGround) {
 			isGround = false;
