@@ -11,6 +11,7 @@ namespace basecross {
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 		m_ptrDraw->SetTextureResource(L"GRAY_TX");
+		m_ptrDraw->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -106,6 +107,7 @@ namespace basecross {
 		m_DrawComp = AddComponent<PNTStaticDraw>();
 		m_DrawComp->SetMeshResource(L"DEFAULT_CYLINDER");
 		m_DrawComp->SetTextureResource(L"MOVEFLOOR_TX");
+		m_DrawComp->SetOwnShadowActive(true);
 		//m_DrawComp->SetEmissive(Col4(0.0f, 1.0f, 0.0f, 1.0f));
 
 		m_TransComp = GetComponent<Transform>();
@@ -168,6 +170,7 @@ namespace basecross {
 		m_DrawComp = AddComponent<PNTStaticDraw>();
 		m_DrawComp->SetMeshResource(L"DEFAULT_CUBE");
 		m_DrawComp->SetTextureResource(L"MOVEFLOOR_TX");
+		m_DrawComp->SetOwnShadowActive(true);
 
 		auto CollComp = AddComponent<CollisionObb>();
 		CollComp->SetFixed(true);
@@ -189,6 +192,7 @@ namespace basecross {
 		// デルタタイム(前フレームからの経過時間)を取得する
 		float delta = app->GetElapsedTime();
 
+		// 移動床の状態に従って動作切り替え
 		switch (eMoveState)
 		{
 		case EMoveState::eReMove: // ReMoveなら戻る

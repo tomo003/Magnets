@@ -32,6 +32,10 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
+		auto ptrShadow = AddComponent<Shadowmap>();
+		ptrShadow->SetMeshResource(L"PlayerRed_MESH");
+		ptrShadow->SetDrawActive(true);
+
 		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
 			//カメラが追いかけるターゲット(プレイヤー)の設定
@@ -65,7 +69,7 @@ namespace basecross {
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
+		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
@@ -325,7 +329,7 @@ namespace basecross {
 			m_Velocity += m_force * -1;
 			isInertia = true;
 			m_inertia = objPos;
-
+			isRepulsion = true;
 
 			int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 			if (scene != 1) {
@@ -437,6 +441,9 @@ namespace basecross {
 			isEffect = true;
 			isGround = true;
 			isInertia = false;
+		}
+		if (!ptrPlayer) {
+			isRepulsion = false;
 		}
 
 		auto ptrBeltConLeft = dynamic_pointer_cast<BeltConveyorLeft>(Other);

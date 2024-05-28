@@ -25,6 +25,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(L"CONCRETE_TX");
+		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -51,6 +52,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(L"MGNETN_TX");
+		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -154,6 +156,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(L"MGNETS_TX");
+		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -243,6 +246,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(L"METAL_TX");
+		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);

@@ -31,9 +31,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerBanner.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BeltConveyorDirection.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StageSelect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SelectScreenSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StageSelect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelectSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BreakWall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -67,8 +68,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerBanner.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BeltConveyorDirection.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StageSelect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SelectScreenSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StageSelect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelectSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BreakWall.h" />
   </ItemGroup>
 </Project>
