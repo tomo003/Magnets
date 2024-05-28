@@ -16,6 +16,7 @@ namespace basecross {
 		const float ATTRACTION_CONSTANT = 150.0f; // 引力の定数
 		const float REPEL_CONSTANT = 400.0f;   // 反発の定数
 		const float MAX_SPEED = 20.0f;         // 最大速度
+		const float LIMIT_MAX_SPEED = 5.0f;    //プレイヤー同士が川なっているときの最大速度
 
 		// プレイヤーのジャンプに使用するボタン
 		const WORD BUTTON_JUMP = XINPUT_GAMEPAD_A;

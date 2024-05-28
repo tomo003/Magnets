@@ -309,9 +309,7 @@ namespace basecross {
 		m_direction = objPos - m_pos;
 		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 
-		auto playerToMagnet = m_direction.normalize();
-
-		m_force = (playerToMagnet / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
+		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
 	}
 	void Player2::PlayerApplyAttraction() {
@@ -338,9 +336,6 @@ namespace basecross {
 
 			m_direction = objPos - m_pos;
 			m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
-
-			auto playerToMagnet = m_direction.normalize();
-
 			m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 			m_Velocity += m_force * -1;
 			isInertia = true;
@@ -443,14 +438,11 @@ namespace basecross {
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"UNION_SE", 0, 2.0f);
 		}
-		if (ptrPlayer && (m_eMagPole == EState::eS)) {
-			int player = static_cast<int>(ptrPlayer->GetPlayerMagPole());
-			if (player == 1) {
-				isPlayerContact = true;
-			}
+		if (ptrPlayer) {
+		isPlayerContact = true;
 		}
-		else {
-			isPlayerContact = false;
+		if (ptrPlayer && (m_eMagPole == EState::eS)) {
+			isPlayerContact = true;
 		}
 		if (ptrPlayer) {
 			if (ptrPlayer->GetComponent<Transform>()->GetPosition().y > m_pos.y + 0.5f) {
@@ -548,6 +540,11 @@ namespace basecross {
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 		}
+
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		if (ptrPlayer) {
+			isPlayerContact = true;
+		}
 	}
 
 	void Player2::OnCollisionExit(shared_ptr<GameObject>& Other) {
@@ -598,13 +595,23 @@ namespace basecross {
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;
 		}
+
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		if (ptrPlayer)
+		{
+			isPlayerContact = false;
+		}
 	}
 
 	// 速度を制限
 	void Player2::limitSpeed() {
 		float speed = std::sqrt(m_Velocity.x * m_Velocity.x + m_Velocity.y * m_Velocity.y);
-		if (speed > MAX_SPEED) {
+		if (speed > MAX_SPEED && !isPlayerContact) {
 			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
+		}
+		//プレイヤー同士が触れているときの速度制限を変更する
+		else if (speed > LIMIT_MAX_SPEED) {
+			m_Velocity = (m_Velocity / speed) * LIMIT_MAX_SPEED;
 		}
 	}
 
