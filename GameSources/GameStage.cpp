@@ -71,13 +71,13 @@ namespace basecross {
 
 			switch (PtrScene->GetStageNum()) {
 			case 1:
-				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				break;
 			case 2:
-				m_GameStageCsv.SetFileName(DataDir + L"MagTest02.csv");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				break;
 			case 3:
-				m_GameStageCsv.SetFileName(DataDir + L"MagTest03.csv");
+				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
 				break;
 			case 4:
 				m_GameStageCsv.SetFileName(DataDir + L"GameStage4.csv");
