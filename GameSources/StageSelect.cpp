@@ -100,7 +100,7 @@ namespace basecross {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		int StageNum = PtrScene->GetStageNum();
 		if (pad.bConnected) {
-			if (!m_CntrolLock) {
+			if (!m_CntrolLock && !m_Lock) {
 				if (pad.fThumbLX >= 0.8f) {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);

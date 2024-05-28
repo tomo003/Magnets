@@ -37,8 +37,7 @@ namespace basecross {
 
 		bool m_Clear;
 		bool m_pushButton;
-
-
+		bool m_Lock = false;
 	public:
 
 

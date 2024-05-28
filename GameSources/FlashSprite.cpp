@@ -8,7 +8,6 @@
 #include "Project.h"
 
 namespace basecross {
-	// �R���X�g���N�^
 	FlashSprite::FlashSprite(const shared_ptr<Stage>& stage, const Vec3& position, const Vec2& defaultsize, const wstring& TextureKey, const bool& selected) :
 		Flash(stage),
 		m_FsPosition(position),
@@ -20,28 +19,25 @@ namespace basecross {
 	{
 	}
 
-	// ������
 	void FlashSprite::OnCreate()
 	{
-		Flash::CreateSprite(m_FsPosition, m_defaultsize, m_texturekey);	//�ʒu���W�A�����T�C�Y�A�\�[�X�摜
+		Flash::CreateSprite(m_FsPosition, m_defaultsize, m_texturekey);	
 	}
 
-	// �X�V����
 	void FlashSprite::OnUpdate()
 	{
-		//�Q�[���p�b�h�̎擾
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();
 		auto& pad = device.GetControlerVec()[0];
 
 		if (IsSelect())
 		{
-			if (pad.wPressedButtons & XINPUT_GAMEPAD_B && m_FlashType == Button)	//����B�{�^���������ꂽ��
+			if (pad.wPressedButtons & XINPUT_GAMEPAD_B && m_FlashType == Button)	
 			{
-				m_changeSpeed = true;	//�_�ŃX�s�[�h�̕ύX��true�ɂ���
+				m_changeSpeed = true;	
 			}
 
-			Flash::UpdateFlashingSprite(2, 30, m_changeSpeed);	//�����_�ŃX�s�[�h�A�ύX��̓_�ŃX�s�[�h
+			Flash::UpdateFlashingSprite(2, 30, m_changeSpeed);
 		}
 		else
 		{

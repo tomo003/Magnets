@@ -12,6 +12,7 @@ namespace basecross {
 
 		bool stage = false;
 		bool m_CntrolLock = false;
+		bool m_Lock = false;
 		vector<weak_ptr<SelectScreenSprite>> m_SpVec;
 		shared_ptr<SoundItem> m_bgm; // サウンドアイテム
 

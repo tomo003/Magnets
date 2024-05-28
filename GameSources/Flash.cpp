@@ -52,7 +52,7 @@ namespace basecross {
 		// 透過処理を有効にする
 		SetAlphaActive(true);
 		// 描画レイヤーを最前面に
-		SetDrawLayer(10);
+		SetDrawLayer(1);
 	}
 
 	void Flash::CreateFadeSprite(const Vec3& position, const Vec2& size, const wstring& texKey, const FadeType& fadeType) {

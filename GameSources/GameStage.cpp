@@ -316,25 +316,28 @@ namespace basecross {
 	{
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		if (PtrScene->GetGameState() == GameState::GameClear)
+			AddGameObject<FadeOut>(L"FADE_WHITE");
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();		
+		XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 		{
 			m_pushButton = true;
 			int ResultNum = PtrScene->GetResultNum();
-			m_CntrolLock = true;
+			m_CntrolLock = false;
 			int StageNum = PtrScene->GetStageNum();
 
 			if (ResultNum == 0)
 			{
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 			}
 			if (ResultNum == 1)
 			{
 				StageNum++;
 				PtrScene->SetStageNum(StageNum);
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 			}
 			if (ResultNum == 2)
 			{
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 			}
 
 		}
