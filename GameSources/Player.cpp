@@ -324,15 +324,13 @@ namespace basecross {
 		m_direction = objPos - m_pos;
 		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 
-		auto playerToMagnet = m_direction.normalize();
-
-		m_force = (playerToMagnet / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
+		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
 	}
 	void Player::PlayerApplyAttraction() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
-		Vec3 objPos = objTrans->GetPosition();
+		Vec3 objPos = objTrans->GetWorldPosition();
 		float objMass = 1.0f;
 		float objAreaRadius = 3.0f;
 
@@ -353,8 +351,6 @@ namespace basecross {
 
 			m_direction = objPos - m_pos;
 			m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
-
-			auto playerToMagnet = m_direction.normalize();
 
 			m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 			m_Velocity += m_force * -1;
@@ -476,15 +472,12 @@ namespace basecross {
 			}
 			m_emState = magneticState::emRing;
 		}
+		if (ptrPlayer2) {
+			isPlayerContact = true;
+		}
 		if (ptrPlayer2 && (m_eMagPole == EState::eN)) {
-			int player2 = static_cast<int>(ptrPlayer2->GetPlayerMagPole());
-			if (player2 == (int)EState::eS) {
 				isPlayerContact = true;
 				m_emState = magneticState::emPlayer;
-			}
-		}
-		else {
-			isPlayerContact = false;
 		}
 		if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
 			m_gravityComp->SetGravityZero();
@@ -586,6 +579,11 @@ namespace basecross {
 				m_ptrTrans->ClearParent();
 			}
 			m_emState = magneticState::emNone;
+
+			auto ptrPlayer2= dynamic_pointer_cast<Player2>(Other);
+			if (ptrPlayer2){
+				isPlayerContact = true;
+			}
 		}
 	}
 
@@ -629,13 +627,22 @@ namespace basecross {
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos.x;
 		}
+
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+		if (ptrPlayer2)
+		{
+			isPlayerContact = false;
+		}
 	}
 
 	// ‘¬“x‚ð§ŒÀ
 	void Player::limitSpeed() {
 		float speed = std::sqrt(m_Velocity.x * m_Velocity.x + m_Velocity.y * m_Velocity.y);
-		if (speed > MAX_SPEED) {
+		if (speed > MAX_SPEED && !isPlayerContact) {
 			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
+		}
+		else if (speed > LIMIT_MAX_SPEED) {
+			m_Velocity = (m_Velocity / speed) * LIMIT_MAX_SPEED;
 		}
 	}
 
