@@ -104,6 +104,9 @@ namespace basecross{
 		LoadTexture(L"STAGESELECT", L"StageSelect.png");
 		LoadTexture(L"CURSOR", L"Cursor.png");
 
+		LoadTexture(L"BACKTOSTAGESELECT", L"BackToStageSelect.png");
+		LoadTexture(L"NEXTSTAGE", L"NextStage.png");
+
 		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
 		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
 

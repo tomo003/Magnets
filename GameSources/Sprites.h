@@ -149,6 +149,5 @@ namespace basecross {
 		{
 			m_isSeekSizeState = (SeekSizeState)state;
 		}
-
 	};
 }
