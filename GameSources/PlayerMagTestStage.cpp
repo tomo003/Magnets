@@ -39,7 +39,7 @@ namespace basecross {
 			CreateViewLight();
 			CreateObjGroup();
 
-			AddGameObject<BackGroundSprite>();
+			//AddGameObject<BackGroundSprite>();
 
 			AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
 			AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));

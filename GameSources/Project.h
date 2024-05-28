@@ -41,5 +41,6 @@
 #include"StageSelect.h"
 #include"SelectScreenSprite.h"
 #include"StageSelectSprite.h"
+#include "StartMoveObject.h"
 
 #include "MyCamera.h"
