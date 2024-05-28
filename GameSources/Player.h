@@ -68,13 +68,14 @@ namespace basecross {
 		float jumpCount;
 		int count;
 		bool isJump = true;
-		bool isInertia = false;
+		bool isInertia = false; // ベルトコンベア系
 		Vec3 m_inertia;
 
 		bool isPlayerContact;
 
 		bool isEffect = true;
 		bool isGround; // 着地しているかの判定
+		bool isRepulsion = false; // 反発してるときtrue
 
 		float m_RespawnPoint;//リスポーンする位置
 
@@ -199,6 +200,10 @@ namespace basecross {
 
 		Vec3 CycloidPos() {
 
+		}
+
+		bool IsRepulState() {
+			return isRepulsion;
 		}
 	};
 

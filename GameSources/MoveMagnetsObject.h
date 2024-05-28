@@ -64,6 +64,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 	};
 
+	// ‰•œ°
 	class MoveMetalObject : public GameObject
 	{
 	public:
