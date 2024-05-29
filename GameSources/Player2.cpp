@@ -23,7 +23,7 @@ namespace basecross {
 
 		// BcPNTStaticModelDraw
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
-		m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");
+		m_ptrDraw->SetMeshResource(L"Player2Blueanger_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
@@ -140,7 +140,7 @@ namespace basecross {
 			//}
 			switch (m_eMagPole) {
 			case EState::eFalse:
-				m_ptrDraw->SetMeshResource(L"PlayerBlue_MESH");//S‹É
+				m_ptrDraw->SetMeshResource(L"Player2Blueanger_MESH");//S‹É
 				m_eMagPole = EState::eS;
 				break;
 			case EState::eS:

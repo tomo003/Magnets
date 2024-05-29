@@ -90,7 +90,7 @@ namespace basecross {
 		}
 		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!playerReady) {
-				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");;
+				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 				m_ptrPlayer->SetPlayerMagPole(1);
 				m_ptrBbuttonSprite->SetDrawActive(false);
 				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f), L"READY");
@@ -105,7 +105,7 @@ namespace basecross {
 		}
 		if (playerReady && playerPositionFixed) {
 			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, 0.8f, 0.0f));
-			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
+			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");
 		}
 		//プレイヤー２
 		if (!player2Ready) {
@@ -115,7 +115,7 @@ namespace basecross {
 		}
 		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
 			if (!player2Ready) {
-				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");;
+				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer2->SetPlayerMagPole(2);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
 				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"READY");
@@ -130,7 +130,7 @@ namespace basecross {
 		}
 		if (player2Ready && player2PositionFixed) {
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, 0.8f, 0.0f));
-			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");;
+			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 		}
 
 		//シーン遷移
@@ -148,8 +148,8 @@ namespace basecross {
 				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x + speed, magNPos.y - 1.0f, magNPos.z));
 				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y - 1.0f, magSPos.z));
 
-				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");;
-				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Red_MESH");;
+				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
+				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 
 				m_ptrMagObjN->EfkStop();
 				m_ptrMagObjS->EfkStop();

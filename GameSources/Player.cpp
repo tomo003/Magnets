@@ -25,7 +25,7 @@ namespace basecross {
 		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
 		//m_ptrDraw = AddComponent<BcPNTStaticModelDraw>();
 		//m_ptrDraw->SetMeshResource(L"Player01_MESH");
-		m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");
+		m_ptrDraw->SetMeshResource(L"PlayerRedanger_MESH");
 		m_ptrDraw->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrDraw->AddAnimation(L"RIGHT", 0, 30, true, 30);
@@ -53,7 +53,7 @@ namespace basecross {
 
 
 		auto ptrShadow = AddComponent<Shadowmap>();
-		ptrShadow->SetMeshResource(L"PlayerRed_MESH");
+		ptrShadow->SetMeshResource(L"PlayerRedanger_MESH");
 		ptrShadow->SetDrawActive(true);
 
 		AddTag(L"Player");
@@ -162,7 +162,7 @@ namespace basecross {
 			//}
 			switch (m_eMagPole) {
 			case EState::eFalse:
-				m_ptrDraw->SetMeshResource(L"PlayerRed_MESH");//N‹É
+				m_ptrDraw->SetMeshResource(L"PlayerRedanger_MESH");//N‹É
 				m_eMagPole = EState::eN;
 				break;
 			case EState::eN:

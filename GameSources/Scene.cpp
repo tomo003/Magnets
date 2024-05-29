@@ -141,9 +141,12 @@ namespace basecross{
 		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
 		LoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
 		LoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
+		LoadBoneModel(L"Redanger", L"PlayerRedanger_MESH", L"PlayerRedanger_MESH_TAN");//N極
+
 		//Player2
 		LoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
 		LoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
+		LoadBoneModel(L"Blueanger", L"Player2Blueanger_MESH", L"Player2Blueanger_MESH_TAN");
 		LoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
 
 		//ベルトコンベア
