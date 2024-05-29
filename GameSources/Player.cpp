@@ -656,7 +656,7 @@ namespace basecross {
 			m_RespawnPoint = otherPos.x;
 		}
 
-		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+		//auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 		if (ptrPlayer2)
 		{
 			isPlayerContact = false;
