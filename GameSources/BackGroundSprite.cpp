@@ -9,11 +9,11 @@
 
 namespace basecross {
 	void BackGroundSprite::OnCreate(){
-		m_mesh = MeshResource::CreateCube(5.0f, true);
+		m_mesh = MeshResource::CreateCube(10.0f, true);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(m_mesh);
-		drawComp->SetTextureResource(L"BACKGROUND");
+		drawComp->SetTextureResource(m_tex);
 		drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
 
 		const Vec3 scale(200.00f, 30.0f, 1.0f);

@@ -11,11 +11,12 @@ namespace basecross {
 	class BackGroundSprite : public GameObject {
 		shared_ptr<MeshResource> m_mesh;
 		const Vec2 m_DefaultSize; // 初期サイズ
-
+		wstring m_tex;
 	public:
 		// コンストラクタ
-		BackGroundSprite(const shared_ptr<Stage>& stage) :
+		BackGroundSprite(const shared_ptr<Stage>& stage,const wstring tex) :
 			GameObject(stage),
+			m_tex(tex),
 			m_DefaultSize(Vec2((float)App::GetApp()->GetGameWidth(), (float)App::GetApp()->GetGameHeight()))
 		{
 		}

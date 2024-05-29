@@ -91,6 +91,7 @@ namespace basecross{
 		LoadTexture(L"BACKGROUND3", L"BackA.png");
 		LoadTexture(L"BACKGROUND4", L"BackA.png");
 		LoadTexture(L"BACKGROUND5", L"BackA.png");
+		LoadTexture(L"BACKGROUND6", L"BackB.png");
 
 		LoadTexture(L"TITLE", L"title.png");
 
