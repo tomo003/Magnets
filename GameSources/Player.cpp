@@ -5,7 +5,7 @@ namespace basecross {
 	void Player::OnCreate()
 	{
 		m_ptrTrans = GetComponent<Transform>();
-		m_ptrTrans->SetScale(Vec3(1.0f));
+		m_ptrTrans->SetScale(m_Scale);
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -96,7 +96,7 @@ namespace basecross {
 			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
 		}
 
-		if (padLStick.length() > 0.0f && m_emState == magneticState::emNone) {
+		if (padLStick.length() > 0.0f) {
 			if (padLStick.x > 0.0f) {
 				AnimationPlayer(RIGHT);
 			}
@@ -487,6 +487,7 @@ namespace basecross {
 				m_emState = magneticState::emPlayer;
 		}
 
+		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (ptrPlayer2) {
 			if (ptrPlayer2->GetComponent<Transform>()->GetPosition().y > m_pos.y + 0.5f) {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(0, 2.0f, 0);
@@ -494,12 +495,12 @@ namespace basecross {
 			}
 		}
 
-		if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
-			m_gravityComp->SetGravityZero();
-			m_ptrTrans->SetParent(ptrGear);
-			m_emState = magneticState::emGear;
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-		}
+		//if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
+		//	m_gravityComp->SetGravityZero();
+		//	m_ptrTrans->SetParent(ptrGear);
+		//	m_emState = magneticState::emGear;
+		//	GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+		//}
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
@@ -508,9 +509,7 @@ namespace basecross {
 			isEffect = true;
 			isInertia = false;
 		}
-		if (!ptrPlayer2) {
 			isRepulsion = false;
-		}
 
 		// ’…’n‚Ì”»’è
 		LandingJadge(Other);
@@ -591,11 +590,11 @@ namespace basecross {
 				m_gravityComp->SetGravityVerocityZero();
 				m_ptrTrans->ClearParent();
 			}
-			if (ptrGear && (m_eMagPole == EState::eFalse)) {
-				m_gravityComp->SetGravity(m_gravity);
-				m_gravityComp->SetGravityVerocityZero();
-				m_ptrTrans->ClearParent();
-			}
+			//if (ptrGear && (m_eMagPole == EState::eFalse)) {
+			//	m_gravityComp->SetGravity(m_gravity);
+			//	m_gravityComp->SetGravityVerocityZero();
+			//	m_ptrTrans->ClearParent();
+			//}
 			m_emState = magneticState::emNone;
 
 			auto ptrPlayer2= dynamic_pointer_cast<Player2>(Other);
@@ -632,6 +631,7 @@ namespace basecross {
 			if (scene != 1) {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 1.5f, 0));
 			}
+			isPlayerContact = false;
 		}
 
 
@@ -675,6 +675,7 @@ namespace basecross {
 			m_Velocity = (m_Velocity / speed) * LIMIT_MAX_SPEED;
 		}
 	}
+
 
 
 	void Player::OnUpdate2() {

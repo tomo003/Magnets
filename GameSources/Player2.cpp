@@ -99,7 +99,7 @@ namespace basecross {
 		//ƒWƒƒƒ“ƒvˆ—
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				//JumpPlayer();
+				JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -572,6 +572,7 @@ namespace basecross {
 			if (scene != 1) {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 1.5f, 0));
 			}
+			isPlayerContact = false;
 		}
 
 		if (ptrGround) {

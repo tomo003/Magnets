@@ -187,6 +187,22 @@ namespace basecross {
 	}
 
 	void MoveFloor::OnUpdate() {
+		FloorMovePattern();
+
+		// 初期位置、停止位置を越えるならステートを停止に切り替え
+		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
+			eMoveState = EMoveState::eStop;
+		}
+	}
+
+	/**
+	* @fn void FloorMovePattern()
+	* @brief 移動床の状態に従って動作切り替えする関数
+	* @param 引数なし
+	* @return 戻り値なし
+	* @details eMoveState(移動床の状態)によって動作を切り替え、位置を更新する
+	*/
+	void MoveFloor::FloorMovePattern() {
 		// アプリケーションオブジェクトを取得する
 		auto& app = App::GetApp();
 		// デルタタイム(前フレームからの経過時間)を取得する
@@ -208,10 +224,6 @@ namespace basecross {
 		}
 		m_TransComp->SetPosition(m_position); // 新しい座標で更新する
 
-		// 初期位置、停止位置を越えるならステートを停止に切り替え
-		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
-			eMoveState = EMoveState::eStop;
-		}
 	}
 
 	void MoveFloor::ResetAll() {
