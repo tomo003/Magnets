@@ -7,7 +7,6 @@
 #include "stdafx.h"
 
 namespace basecross {
-
 	template<typename T>
 	struct InputHandler {
 		void PushHandler(const shared_ptr<T>& Obj) {

@@ -45,7 +45,7 @@ namespace basecross {
 		if (scene == 1) {
 			if (pad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER || pad2.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER)
 			{
-				m_changeSpeed = true;	//点滅スピードの変更をtrueにする
+				//m_changeSpeed = true;	//点滅スピードの変更をtrueにする
 			}
 		}
 
