@@ -94,6 +94,7 @@ namespace basecross {
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 				stage = true;
+				m_Lock = true;
 			}
 		}
 
@@ -148,7 +149,7 @@ namespace basecross {
 				}
 			}
 			else {
-				if (pad.fThumbLX == 0.0f) {
+				if (pad.fThumbLX == 0.0f && !m_Lock) {
 					m_CntrolLock = false;
 				}
 			}

@@ -9,7 +9,6 @@
 
 namespace basecross {
 
-
 }
 
 //end basecross

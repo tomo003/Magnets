@@ -147,6 +147,7 @@ namespace basecross {
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 
 			if (CntlVec[0].bConnected) {
+				
 				if (!m_CntrolLock) {
 					if (CntlVec[0].fThumbLX >= 0.8) {
 						ResultNum++;
@@ -155,6 +156,7 @@ namespace basecross {
 							ResultNum = 0;
 						}
 						m_CntrolLock = true;
+						m_Lock = true;
 						PtrScene->SetResultNum(ResultNum);
 						ChangeSelectMenu(ResultNum);
 					}
@@ -169,7 +171,7 @@ namespace basecross {
 					}
 				}
 				else {
-					if (CntlVec[0].fThumbLX == 0.0f) {
+					if (CntlVec[0].fThumbLX == 0.0f && !m_pushButton) {
 						m_CntrolLock = false;
 					}
 				}
@@ -322,7 +324,8 @@ namespace basecross {
 		{
 			m_pushButton = true;
 			int ResultNum = PtrScene->GetResultNum();
-			m_CntrolLock = false;
+			m_Lock = true;
+			m_CntrolLock = true;
 			int StageNum = PtrScene->GetStageNum();
 
 			if (ResultNum == 0)
