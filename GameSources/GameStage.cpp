@@ -75,6 +75,7 @@ namespace basecross {
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				break;
 			case 2:
+				AddGameObject<BackGroundSprite>(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				break;
 			case 3:
