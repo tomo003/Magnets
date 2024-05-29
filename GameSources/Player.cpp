@@ -664,8 +664,11 @@ namespace basecross {
 	// 速度を制限
 	void Player::limitSpeed() {
 		float speed = std::sqrt(m_Velocity.x * m_Velocity.x + m_Velocity.y * m_Velocity.y);
-		if (speed > MAX_SPEED && !isPlayerContact) {
-			m_Velocity = (m_Velocity / speed) * MAX_SPEED;
+		if (!isPlayerContact)
+		{
+			if (speed > MAX_SPEED) {
+				m_Velocity = (m_Velocity / speed) * MAX_SPEED;
+			}
 		}
 		//プレイヤー同士が触れているときの速度制限を変更する
 		else if (speed > LIMIT_MAX_SPEED) {
