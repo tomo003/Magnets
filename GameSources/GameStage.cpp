@@ -219,78 +219,78 @@ namespace basecross {
 			Util::WStrToTokenVector(Tokens, LineVec[i], L',');
 			for (size_t j = 0; j < Tokens.size(); j++) {
 				float posX = (float)((int)j -5) / size;
-				float posY = (float)((int)i) / size;
+				float posY = (float)(((int)i) / size + m_CSVHeight);
 				int TokensNum = stoi(Tokens[j]);
 
 
 				switch (TokensNum) {
 				case 0: //通常地面
-					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
-					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 					break;
 
 				case 2: //磁石S極
-					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 					break;
 
 				case 3: //金属
-					ptrMoveMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					ptrMoveMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 					break;
 
 				case 4: //金属動くやつ
-					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHight, 0));
+					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY , 0));
 					break;
 
 				case 7://ボタン押したら動く床
-					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY + m_CSVHight , 0),  Vec3(-1.0f, 0.0f, 0.0f));
+					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY , 0),  Vec3(-1.0f, 0.0f, 0.0f));
 					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
 					break;
 
 				case 8://動く床発動用ボタン
-					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHight-0.48, 0));
+					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY -0.48, 0));
 					SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
 					break;
 
 				case 9://ベルトコンベア右回り端
-					AddGameObject<BeltConveyorSideRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
+					AddGameObject<BeltConveyorSideRight>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY , -0.5));
 					break;
 
 				case 10://ベルトコンベア右回り真ん中
-					AddGameObject<BeltConveyorRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
+					AddGameObject<BeltConveyorRight>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY , -0.5));
 					break;
 
 				case 11://ベルトコンベア左回り端
-					AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
+					AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY , -0.5));
 					break;
 
 				case 12://ベルトコンベア左回り真ん中
-					AddGameObject<BeltConveyorLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, -0.5));
+					AddGameObject<BeltConveyorLeft>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
+					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY , -0.5));
 					break;
 
 				case 13: //スタート
-					ptrStart = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight, 0));
+					ptrStart = AddGameObject<Start>(Vec3(1.0f) / size, Vec3(posX, -posY , 0));
 					SetSharedGameObject(L"Start", ptrStart);
 					break;
 
 				case 14: //セーブポイント
-					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
+					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + 1, 0));
 					SavePointGroup->IntoGroup(ptrSavePoint);
 					isCreateMaagnets = false;
 					break;
 
 				case 15: //ゴール
-					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
-					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 7, 0));
+					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + 1, 0));
+					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + 7, 0));
 					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
-					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 9, 0));
+					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + 9, 0));
 					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
 					isCreateMaagnets = false;
 					break;
