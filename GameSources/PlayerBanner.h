@@ -16,7 +16,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 
-		Vec3 m_playerPos;
+		Vec3 m_playerPos = Vec3(0);
 
 		wstring m_texKey; // テクスチャ
 
