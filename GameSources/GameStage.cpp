@@ -111,6 +111,8 @@ namespace basecross {
 
 			CreateCsvObjects();
 
+			AddGameObject<StartMoveObject>(Vec3(1.0f), Vec3(1.0f));
+
 			// 磁石オブジェクトを追加
 			//auto ptrMagObj = AddGameObject<MagnetsObject>(Vec3(3.5f, -0.5f, 0.0f));
 			//SetSharedGameObject(L"MagnetsObject", ptrMagObj);

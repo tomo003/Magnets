@@ -21,6 +21,20 @@ namespace basecross {
 		virtual void OnCreate() override;
 	};
 
+	//テクスチャが変更できる四角いオブジェクト
+	class ChangeTextureBox : public GameObject {
+		Vec3 m_Scale;
+		Vec3 m_Position;
+	public:
+		ChangeTextureBox(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
+			const Vec3& Position
+		);
+		virtual ~ChangeTextureBox();
+		virtual void OnCreate() override;
+		virtual void ChangeTexture(wstring Texture);
+	};
+
 	//N極のオブジェクト
 	class MagnetN : public GameObject {
 	public:

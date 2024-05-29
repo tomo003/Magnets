@@ -48,6 +48,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelectSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StandbyStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StartMoveObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelectSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StandbyStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StartMoveObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

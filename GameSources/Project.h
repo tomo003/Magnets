@@ -44,4 +44,6 @@
 #include"FlashSprite.h"
 #include "Flash.h"
 #include "BreakWall.h"
+#include "StartMoveObject.h"
+
 #include "MyCamera.h"

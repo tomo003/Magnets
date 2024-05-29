@@ -73,12 +73,23 @@ namespace basecross {
 		return nullptr;
 	}
 
+	shared_ptr<GameObject> DuoCamera::GetStartObj() const {
+		if (!m_StartObj.expired()) {
+			return m_StartObj.lock();
+		}
+		return nullptr;
+	}
+
 	void DuoCamera::SetPlayerObj(const shared_ptr<GameObject>& Obj) {
 		m_TargetObj = Obj;
 	}
 
 	void DuoCamera::SetSecondPlayerObj(const shared_ptr<GameObject>& Obj) {
 		m_SecondTargetObj = Obj;
+	}
+
+	void DuoCamera::SetStartObj(const shared_ptr<GameObject>& Obj) {
+		m_StartObj = Obj;
 	}
 
 	void DuoCamera::SetAt(const bsm::Vec3& At) {
@@ -90,6 +101,10 @@ namespace basecross {
 	}
 
 	void DuoCamera::OnUpdate() {
+		//MoveCamera();
+	}
+
+	void DuoCamera::MoveCamera() {
 		auto ptrTarget = GetPlayerObj();
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
@@ -113,6 +128,19 @@ namespace basecross {
 		SetAt(newAt);
 		SetEye(newEye);
 		Camera::OnUpdate();
+	}
+
+	void DuoCamera::StartCamera() {
+		auto ptrTarget = GetStartObj();
+		Vec3 newAt = GetAt();
+		newAt = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, m_Height, 0.0f);
+		Vec3 newEye = GetEye();
+		newEye = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, m_Height, m_EyeZ);
+
+		SetAt(newAt);
+		SetEye(newEye);
+		Camera::OnUpdate();
+
 	}
 
 	void DuoCamera::ZoomCamera() {

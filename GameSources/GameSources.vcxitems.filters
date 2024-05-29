@@ -37,6 +37,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FlashSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Flash.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BreakWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StartMoveObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -76,5 +77,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FlashSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Flash.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BreakWall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StartMoveObject.h" />
   </ItemGroup>
 </Project>
