@@ -15,9 +15,18 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
+		//スタートオブジェクト
+		std::shared_ptr<Start> m_ptrStart;
+		//プレイヤー
+		std::shared_ptr<Player> m_ptrPlayer;
+		std::shared_ptr<Player2> m_ptrPlayer2;
 		//磁石
 		std::shared_ptr<MagnetS> m_ptrMagObjS;
 		std::shared_ptr<MagnetN> m_ptrMagObjN;
+
+		//プレイヤーが離れているか
+		bool leavePlayer = false;
+		bool leavePlayer2 = false;
 
 public:
 	StartMoveObject(const std::shared_ptr<Stage>&StagePtr,

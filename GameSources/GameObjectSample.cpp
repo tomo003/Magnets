@@ -329,13 +329,13 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x +1.0f , 0.0f, 0.0f);
-		ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
+		//auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		//ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x +1.0f , 0.0f, 0.0f);
+		//ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
 
-		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
-		ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
+		//auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		//ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
+		//ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
 	}
 
 	//ステージのゴールオブジェクトの仮設置
