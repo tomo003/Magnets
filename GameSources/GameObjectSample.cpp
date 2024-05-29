@@ -34,6 +34,37 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 	}
 
+	//テクスチャが変更できる四角いオブジェクト
+	ChangeTextureBox::ChangeTextureBox(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Position
+	) :
+		GameObject(StagePtr),
+		m_Scale(Scale),
+		m_Position(Position)
+	{
+	}
+	ChangeTextureBox::~ChangeTextureBox() {}
+
+	void ChangeTextureBox::OnCreate()
+	{
+		auto drawComp = AddComponent<PNTStaticDraw>();
+		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+
+		auto ptrColl = AddComponent<CollisionObb>();
+		ptrColl->SetFixed(true);
+
+		auto transComp = GetComponent<Transform>();
+		transComp->SetPosition(m_Position);
+		transComp->SetScale(m_Scale);
+	}
+
+	void ChangeTextureBox::ChangeTexture(wstring Texture)
+	{
+		auto drawComp = AddComponent<PNTStaticDraw>();
+		drawComp->SetTextureResource(Texture);
+	}
+
 	//ステージのN極マグネットプロックの仮設置
 	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -329,13 +360,11 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		//auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		//ptrPlayer->GetComponent<Transform>()->SetPosition(m_Position.x +1.0f , 0.0f, 0.0f);
-		//ptrPlayer->SetRespawnPoint(GetThis<GameObject>());
-
-		//auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		//ptrPlayer2->GetComponent<Transform>()->SetPosition(m_Position.x, 0.0f, 0.0f);
-		//ptrPlayer2->SetRespawnPoint(GetThis<GameObject>());
+		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		if (ptrCamera) {
+			//カメラにスタートオブジェクト設定
+			ptrCamera->SetStartObj(GetThis<GameObject>());
+		}
 	}
 
 	//ステージのゴールオブジェクトの仮設置

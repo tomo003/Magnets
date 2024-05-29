@@ -53,6 +53,7 @@ namespace basecross {
 
 		weak_ptr<GameObject> m_TargetObj;
 		weak_ptr<GameObject> m_SecondTargetObj;
+		weak_ptr<GameObject> m_StartObj;
 		weak_ptr<GameObject> m_GoalObj;
 
 		float m_EyeZ = -20.0f;
@@ -77,11 +78,17 @@ namespace basecross {
 		//目標オブジェクトを得る(プレイヤー２)
 		shared_ptr<GameObject> GetSecondPlayerObj() const;
 
+		//目標オブジェクトを得る(スタートオブジェクト)
+		shared_ptr<GameObject> GetStartObj() const;
+
 		//目標オブジェクトを設定する(プレイヤー１)
-		void SetPlayerObj(const shared_ptr<GameObject>& Obj);
+		virtual void SetPlayerObj(const shared_ptr<GameObject>& Obj);
 
 		//目標オブジェクトを設定する(プレイヤー２)
-		void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
+		virtual void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
+
+		//目標オブジェクトを設定する(スタートオブジェクト)
+		virtual void SetStartObj(const shared_ptr<GameObject>& Obj);
 
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
@@ -90,7 +97,11 @@ namespace basecross {
 
 		virtual void OnUpdate()override;
 
-		void ZoomCamera();
+		virtual void MoveCamera();
+
+		virtual void StartCamera();
+
+		virtual void ZoomCamera();
 	};
 
 
