@@ -19,7 +19,7 @@ namespace basecross {
 		const Vec3 scale(200.00f, 30.0f, 1.0f);
 		auto transComp = AddComponent<Transform>();
 		transComp->SetScale(scale);
-		transComp->SetPosition(Vec3(0.0f, 5.0f,0.0f));
+		transComp->SetPosition(Vec3(0.0f, 5.0f, 10.0f));
 
 		SetDrawLayer(-3);
 
