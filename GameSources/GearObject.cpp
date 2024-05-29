@@ -19,14 +19,14 @@ namespace basecross {
 
 		auto CollComp = AddComponent<CollisionSphere>();
 		CollComp->SetFixed(true);
-		//CollComp->SetDrawActive(true);
+		CollComp->SetDrawActive(true);
 
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetPosition(m_position);
-		m_TransComp->SetScale(Vec3(3.0f));
+		m_TransComp->SetScale(Vec3(10.0f));
 		m_TransComp->SetRotation(Vec3(0.0f));
 
-		SetAlphaActive(true);
+		//SetAlphaActive(true);
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
 

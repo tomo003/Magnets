@@ -231,6 +231,8 @@ namespace basecross {
 		void OnCreate();
 		void OnUpdate();
 
+		void FloorMovePattern();
+
 		void SetUp() { // スタート位置と停止位置を設定
 			m_startPos = m_position;
 			m_endPos = m_position + (m_scale * m_MoveDir);

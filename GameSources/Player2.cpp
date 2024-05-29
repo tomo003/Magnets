@@ -99,7 +99,7 @@ namespace basecross {
 		//ƒWƒƒƒ“ƒvˆ—
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				//JumpPlayer();
+				JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -449,9 +449,11 @@ namespace basecross {
 				isPlayerContact = true;
 			}
 		}
-		else {
-			isPlayerContact = false;
-		}
+		//else {
+		//	isPlayerContact = false;
+		//}
+
+		int scene = App::GetApp()->GetScene<Scene>()->GetSecen();
 		if (ptrPlayer) {
 			if (ptrPlayer->GetComponent<Transform>()->GetPosition().y > m_pos.y + 0.5f) {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 2.5f, 0));
@@ -575,6 +577,7 @@ namespace basecross {
 			if (scene != 1) {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 1.5f, 0));
 			}
+			isPlayerContact = false;
 		}
 
 		if (ptrGround) {

@@ -41,6 +41,7 @@ namespace basecross {
 		enum EState m_eMagPole = EState::eN; // é•ã…ÇÃèÛë‘
 		enum magneticState m_emState = magneticState::emNone;
 
+		Vec3 m_Scale = Vec3(1.0f);
 		Vec3 m_pos;
 		float m_speed;
 		int m_attribute;
@@ -185,7 +186,7 @@ namespace basecross {
 			return VV;
 		}
 
-		void LandingJadge(const shared_ptr<GameObject>& Other) {
+		void LandingJadge(shared_ptr<GameObject>& Other) {
 			auto ptrOtherObjTrans = Other->GetComponent<Transform>();
 			Vec3 OtherObjPos = ptrOtherObjTrans->GetPosition();
 			float OtherObjScaleHalfY = ptrOtherObjTrans->GetScale().y / 2;
@@ -205,6 +206,7 @@ namespace basecross {
 		bool IsRepulState() {
 			return isRepulsion;
 		}
+
 	};
 
 }
