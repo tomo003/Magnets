@@ -33,16 +33,14 @@ namespace basecross {
 		// デルタタイム(前フレームからの経過時間)を取得する
 		float delta = app->GetElapsedTime();
 
-		static float a = 0.0f; // 0 ～ 1の係数(0 - 100%)
-
 		const Vec3 start = m_points[m_currentPointIndex % m_points.size()];
 		const Vec3 end = m_points[(m_currentPointIndex + 1) % m_points.size()];
-		Vec3 pos = Utility::Lerp(start, end, a); // 自作した線形補間関数
-		a += m_speed * delta / (end - start).length(); // end - startは2点間を結ぶベクトル。その長さは「2点間の距離」となる
-		if (a >= 1.0f)
+		Vec3 pos = Utility::Lerp(start, end, m_ratio); // 自作した線形補間関数
+		m_ratio += m_speed * delta / (end - start).length(); // end - startは2点間を結ぶベクトル。その長さは「2点間の距離」となる
+		if (m_ratio >= 1.0f)
 		{
 			m_currentPointIndex++;
-			a = 0.0f;
+			m_ratio = 0.0f;
 		}
 
 		//Vec3 pos = m_transform->GetPosition(); // 現在の座標を取得する
