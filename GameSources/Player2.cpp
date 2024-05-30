@@ -399,6 +399,7 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
@@ -449,6 +450,9 @@ namespace basecross {
 				m_playerBanner->GetComponent<Transform>()->SetPosition(Vec3(0, 2.5f, 0));
 				ptrPlayer->PlayerBannerPosition(Vec3(0, 2.5f, 0));
 			}
+		}
+		if (ptrMoveFloor) {
+			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
 
 		if (ptrGround) {

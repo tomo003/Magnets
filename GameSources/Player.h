@@ -87,6 +87,7 @@ namespace basecross {
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<CollisionObb> m_ptrColl; // ドローコンポーネント
 		std::shared_ptr<Gravity> m_gravityComp;
 
 		std::shared_ptr<PlayerBanner> m_playerBanner;
