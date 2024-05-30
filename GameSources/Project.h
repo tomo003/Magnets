@@ -45,5 +45,7 @@
 #include "Flash.h"
 #include "BreakWall.h"
 #include "StartMoveObject.h"
+#include "GoalObject.h"
+#include "SaveObject.h"
 
 #include "MyCamera.h"

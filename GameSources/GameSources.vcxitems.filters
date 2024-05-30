@@ -34,10 +34,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SelectScreenSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelectSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FlashSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Flash.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)BreakWall.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StartMoveObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BreakWall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Flash.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FlashSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -74,9 +76,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SelectScreenSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelectSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FlashSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Flash.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)BreakWall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StartMoveObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BreakWall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Flash.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FlashSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
   </ItemGroup>
 </Project>
