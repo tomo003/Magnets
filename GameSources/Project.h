@@ -20,6 +20,7 @@
 #include "Ground.h"
 #include "TestStage.h"
 #include "GameObjectSample.h"
+#include "CoinObject.h"
 #include "BeltConveyor.h"
 #include "BeltConveyorSide.h"
 #include "BeltConveyorDirection.h"
