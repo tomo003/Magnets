@@ -9,24 +9,13 @@
 namespace basecross {
 	class GearObject : public GameObject
 	{
-		enum class EState {
-			eFalse = -1, // 無
-			eN = 1, // Ｎ極
-			eS = 2,// Ｓ極
-			eMetal = 3 // 金属
-		};
-
-	private:
-		enum EState m_eMagPole; // 磁極の状態
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
 
-		float m_ObjMass = 1.0f;
-		float m_MagAreaRadius = 3.0f;
-
 		Vec3 m_position;
+		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.0f);
 		Vec3 m_Rotation;
 
 		float m_RotPerSec = 30; // 一秒で30度回す
@@ -34,35 +23,36 @@ namespace basecross {
 	public:
 		GearObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
 			GameObject(stage),
-			m_position(position),
-			m_eMagPole(EState::eMetal)
+			m_position(position)
 		{}
 
 		void OnCreate() override;
 		void OnUpdate() override;
 
-		// 磁極取得用
-		int GetState() {
-			return static_cast<int>(m_eMagPole);
-		}
+	};
 
-		// オブジェクトの重量取得用(引力・斥力に関係している)
-		float GetMass() {
-			return m_ObjMass;
-		}
+	class GearObjFloor : GameObject
+	{
+		Vec3 m_position;
+		Vec3 m_Sclae = Vec3(3.0f, 0.75f, 1.0f);
 
-		// 磁力エリアの範囲取得
-		float GetAreaRadius() {
-			return m_MagAreaRadius;
-		}
+	public :
+		GearObjFloor(const std::shared_ptr<Stage>& stage, const Vec3& position):
+			GameObject(stage),
+			m_position(position)
+		{}
+
+		void OnCreate() override;
+		void OnUpdate() override;
+
+		void RotToCenter(const Vec3& center, const float& rotDir);
+
+		void ApplyForcePlayer();
 
 		// abs関数(絶対値を求める)をVec3で使えるように
 		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
 		}
-
-		void ApplyForcePlayer();
-
 	};
 }
