@@ -35,6 +35,8 @@ namespace basecross {
 
 	void PlayerMagTestStage::OnCreate() {
 		try {
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			PtrScene->SetGameState(GameState::MainGame);
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
@@ -81,7 +83,7 @@ namespace basecross {
 
 			AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
 
-			AddGameObject<GearObject>(Vec3(-7.0f, 2.0f, 0.0f));
+			AddGameObject<GearObject>(Vec3(-9.0f, 2.0f, 0.0f));
 
 			AddGameObject<BreakWall>(Vec3(17.0f, -2.0f, 0.0f), Vec3(0.0f));
 

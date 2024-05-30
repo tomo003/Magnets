@@ -101,7 +101,7 @@ namespace basecross {
 	}
 
 	void DuoCamera::OnUpdate() {
-		//MoveCamera();
+		MoveCamera();
 	}
 
 	void DuoCamera::MoveCamera() {
