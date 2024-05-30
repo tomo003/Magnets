@@ -208,6 +208,7 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrMag;
 		std::shared_ptr<GameObject> ptrStart;
 		std::shared_ptr<GameObject> ptrSavePoint;
+		std::shared_ptr<GameObject> ptrGoal;
 		std::shared_ptr<GameObject> ptrGoalSquareRed;
 		std::shared_ptr<GameObject> ptrGoalSquareBlue;
 		std::shared_ptr<GameObject> ptrMoveFloor;
@@ -287,7 +288,7 @@ namespace basecross {
 					break;
 
 				case 15: //ÉSÅ[Éã
-					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
+					ptrGoal = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 1, 0));
 					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 7, 0));
 					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
 					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHight + 9, 0));
@@ -319,34 +320,38 @@ namespace basecross {
 
 	void GameStage::OnPushB()
 	{
-		/*auto PtrScene = App::GetApp()->GetScene<Scene>();
-		if (PtrScene->GetGameState() == GameState::GameClear)
-			AddGameObject<FadeOut>(L"FADE_WHITE");
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();		
-		XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-		{
-			m_pushButton = true;
-			int ResultNum = PtrScene->GetResultNum();
-			m_Lock = true;
-			m_CntrolLock = true;
-			int StageNum = PtrScene->GetStageNum();
+		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
+		auto ptrPlayer2 = GetSharedGameObject<Player2>(L"Player2");
+		if (ptrPlayer->IsGoal() && ptrPlayer2->IsGoal()) {
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			if (PtrScene->GetGameState() == GameState::GameClear)
+				AddGameObject<FadeOut>(L"FADE_WHITE");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+			{
+				m_pushButton = true;
+				int ResultNum = PtrScene->GetResultNum();
+				m_Lock = true;
+				m_CntrolLock = true;
+				int StageNum = PtrScene->GetStageNum();
 
-			if (ResultNum == 0)
-			{
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-			}
-			if (ResultNum == 1)
-			{
-				StageNum++;
-				PtrScene->SetStageNum(StageNum);
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-			}
-			if (ResultNum == 2)
-			{
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			}
+				if (ResultNum == 0)
+				{
+					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+				}
+				if (ResultNum == 1)
+				{
+					StageNum++;
+					PtrScene->SetStageNum(StageNum);
+					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+				}
+				if (ResultNum == 2)
+				{
+					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+				}
 
-		}*/
+			}
+		}
 	}
 }
 //end basecross

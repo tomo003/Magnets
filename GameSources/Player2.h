@@ -172,6 +172,10 @@ namespace basecross {
 			return isRepulsion;
 		}
 
+		// ƒS[ƒ‹”»’è
+		bool IsGoal() {
+			return isGoal;
+		}
 	};
 
 }

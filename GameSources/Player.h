@@ -220,6 +220,11 @@ namespace basecross {
 		* @details ‚±‚ÌŠÖ”“à‚ÅRespawnPlayer‚ğŒÄ‚Ño‚·
 		*/
 		void PlayerDeath();
+
+		// ƒS[ƒ‹”»’è
+		bool IsGoal() {
+			return isGoal;
+		}
 	};
 
 }

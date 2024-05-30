@@ -19,7 +19,6 @@ namespace basecross {
 
 		shared_ptr<SoundItem> m_bgm;
 
-
 		bool isCreateMaagnets = true;
 
 		//ƒrƒ…[‚Ìì¬

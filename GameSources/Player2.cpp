@@ -68,7 +68,7 @@ namespace basecross {
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
 
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[1];
+		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		if (padLStick.length() > 0.0f) {
