@@ -2,13 +2,17 @@
 #include "Project.h"
 
 namespace basecross {
+
+	// コリジョン判定範囲
+	const AABB DEFF_AABB(Vec3(-100.0f, -100.0f, -100.0f), Vec3(100.0f, 100.0f, 100.0f));
+
 	void Player::OnCreate()
 	{
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetScale(m_Scale);
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
-		auto ptrColl = AddComponent<CollisionObb>();
+		m_ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
 		m_gravityComp = AddComponent<Gravity>();
@@ -71,6 +75,11 @@ namespace basecross {
 			if (m_pos.y < -10.0f) {
 				PlayerDeath();
 			}
+
+			// コリジョン判定範囲をプレイヤーの座標から求めて設定
+			auto collManager = m_ptrColl->GetCollisionManager();
+			AABB root = AABB(DEFF_AABB.m_Min + m_pos, DEFF_AABB.m_Max + m_pos);
+			collManager->SetRootAABB(root);
 		}
 	}
 

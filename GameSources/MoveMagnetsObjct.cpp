@@ -52,14 +52,14 @@ namespace basecross {
 		ApplyForceSecondPlayer();
 		//m_ptrArea->UpdateArea(m_position);
 
-		Vec3 position = m_ptrTrans->GetPosition();
-		m_efk->SetLocation(Vec3(position.x, position.y, position.z + (m_ptrTrans->GetScale().z / 2)));
+		/*Vec3 position = m_ptrTrans->GetPosition();*/
+		m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
 	}
 
 	// プレイヤーに磁力による力を適用
 	void MoveMetalObject::ApplyForcePlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
@@ -79,7 +79,7 @@ namespace basecross {
 	// プレイヤーに磁力による力を適用
 	void MoveMetalObject::ApplyForceSecondPlayer() {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
+		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
 		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
 		int objMagPole = static_cast<int>(m_eMagPole);
 
