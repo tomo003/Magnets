@@ -55,6 +55,14 @@ namespace basecross {
 		void CreateAnimeSprite();
 		void ClearResult();
 
+		/**
+		* @brief 背景生成関数
+		* @param[in] texkey(背景テクスチャの名前)
+		* @return 戻り値なし
+		* @details forループで複数の背景を表示させる
+		*/
+		void CreateBackGround(const wstring& texkey);
+
 		void OnPushB();
 	};
 

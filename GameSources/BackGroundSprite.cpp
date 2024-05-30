@@ -12,7 +12,7 @@ namespace basecross {
 		m_mesh = MeshResource::CreateCube(10.0f, true);
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(m_mesh);
+		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(m_tex);
 		drawComp->SetSamplerState(SamplerState::AnisotropicWrap);
 

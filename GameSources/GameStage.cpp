@@ -51,12 +51,6 @@ namespace basecross {
 			CreateViewLight();
 			CreateObjGroup();
 			PlayBGM();
-			//îwåi
-			//AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50,0,0), L"BACKGROUND1");
-			//AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-10,0,0), L"BACKGROUND2");
-			//AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(30,0,0), L"BACKGROUND3");
-			//AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(70,0,0), L"BACKGROUND4");
-			//AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(100,0,0), L"BACKGROUND5");
 
 			//AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
 			//AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));
@@ -72,10 +66,11 @@ namespace basecross {
 
 			switch (PtrScene->GetStageNum()) {
 			case 1:
+				CreateBackGround(L"BACKGROUND");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				break;
 			case 2:
-				AddGameObject<BackGroundSprite>(L"BACKGROUND6");
+				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				break;
 			case 3:
@@ -123,6 +118,18 @@ namespace basecross {
 		}
 		catch (...) {
 			throw;
+		}
+	}
+
+	/**
+	* @brief îwåiê∂ê¨ä÷êî
+	* @param[in] texkey(îwåiÉeÉNÉXÉ`ÉÉÇÃñºëO)
+	* @return ñﬂÇËílÇ»Çµ
+	* @details forÉãÅ[ÉvÇ≈ï°êîÇÃîwåiÇï\é¶Ç≥ÇπÇÈ
+	*/
+	void GameStage::CreateBackGround(const wstring& texkey) {
+		for (int i = 0; i < 5; i++) {
+			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50 + (40 * i),0,0), texkey);
 		}
 	}
 
