@@ -66,6 +66,11 @@ namespace basecross {
 			MovePlayer();
 			ApplyForcePlayer();
 			PlayerLimit();
+
+			// y座標が-10以下になると死亡(リスポーン)
+			if (m_pos.y < -10.0f) {
+				PlayerDeath();
+			}
 		}
 	}
 
@@ -108,15 +113,6 @@ namespace basecross {
 			AnimationPlayer(FRONT);
 		}
 
-		if (padLStick.length() > 0.0f) {
-			if (padLStick.x > 0.0f) {
-
-			}
-			else if (padLStick.x < 0.0f) {
-
-			}
-		}
-
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
@@ -126,22 +122,6 @@ namespace basecross {
 		}
 		else if (isGround) {
 			JumpCountReset();
-		}
-
-		if (m_pos.y < -10.0f) {
-			auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-			float player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
-			if (player2RespawnpPoint >= m_RespawnPoint) {
-				ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
-				ptrPlayer2->RespawnPlayer();
-				RespawnPlayer();
-			}
-			else if (player2RespawnpPoint < m_RespawnPoint) {
-				SetRespawnPoint(player2RespawnpPoint);
-				ptrPlayer2->RespawnPlayer();
-				RespawnPlayer();
-			}
-
 		}
 
 		//属性切り替え
@@ -204,6 +184,21 @@ namespace basecross {
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
+	}
+
+	void Player::PlayerDeath() {
+		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		float player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
+		if (player2RespawnpPoint >= m_RespawnPoint) {
+			ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
+			ptrPlayer2->RespawnPlayer();
+			RespawnPlayer();
+		}
+		else if (player2RespawnpPoint < m_RespawnPoint) {
+			SetRespawnPoint(player2RespawnpPoint);
+			ptrPlayer2->RespawnPlayer();
+			RespawnPlayer();
+		}
 	}
 
 	//リスポーン地点を設定する
