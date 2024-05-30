@@ -29,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObjectSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GearObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ground.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerBanner.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SelectScreenSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
@@ -69,6 +71,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObjectSample.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GearObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ground.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerBanner.cpp" />
@@ -81,6 +84,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerMagTestStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SelectScreenSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp" />

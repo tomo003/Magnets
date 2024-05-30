@@ -26,7 +26,7 @@ namespace basecross {
 
 		void CreateCsvObjects();
 
-		float m_CSVHight = +42;
+		float m_CSVHeight = +42;
 
 		vector<weak_ptr<FlashSprite>> m_SpVec;
 
