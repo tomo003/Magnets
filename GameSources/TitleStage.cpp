@@ -21,7 +21,7 @@ namespace basecross {
 	}
 
 	void TitleStage::CreateTitleSprite() {
-		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND3");
+		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND");
 		
 		AddGameObject<TitleSprite>();
 		AddGameObject<ButtonSprite>(Vec3( - 400.0f, -50.0f, 0.0f), L"BPUSH");

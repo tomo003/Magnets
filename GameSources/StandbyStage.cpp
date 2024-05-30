@@ -38,7 +38,7 @@ namespace basecross {
 			CreateViewLight();
 			//BGMの再生
 			//AddGameObject<BackGroundSprite>();
-			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
+			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND");
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));

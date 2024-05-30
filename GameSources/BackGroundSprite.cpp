@@ -57,4 +57,5 @@ namespace basecross {
 	void BackGroundSprite2::OnUpdate() {
 
 	}
+
 }

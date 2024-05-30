@@ -28,7 +28,7 @@ namespace basecross {
 		SetSharedGameObject(L"Cursor", PtrCursor);
 	}
 	void SelectStage::CreateSelectSprite() {
-		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND3");
+		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND");
 		AddGameObject<SelectSprite>(L"STAGESELECT", true, Vec2(350.0f, 180.0f), Vec3(-590.0f, 390.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(200.0f, 80.0f), Vec3(-560.0f, 0.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(200.0f, 80.0f), Vec3(0.0f, 0.0f, 0.0f));

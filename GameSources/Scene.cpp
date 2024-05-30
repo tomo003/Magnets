@@ -86,11 +86,11 @@ namespace basecross{
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
 
 		LoadTexture(L"BACKGROUND", L"BackA.png");
-		LoadTexture(L"BACKGROUND1", L"BackA.png");
-		LoadTexture(L"BACKGROUND2", L"BackA.png");
-		LoadTexture(L"BACKGROUND3", L"BackA.png");
-		LoadTexture(L"BACKGROUND4", L"BackA.png");
-		LoadTexture(L"BACKGROUND5", L"BackA.png");
+		//LoadTexture(L"BACKGROUND1", L"BackA.png");
+		//LoadTexture(L"BACKGROUND2", L"BackA.png");
+		//LoadTexture(L"BACKGROUND3", L"BackA.png");
+		//LoadTexture(L"BACKGROUND4", L"BackA.png");
+		//LoadTexture(L"BACKGROUND5", L"BackA.png");
 		LoadTexture(L"BACKGROUND6", L"BackB.png");
 
 		LoadTexture(L"TITLE", L"title.png");
@@ -184,7 +184,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;
