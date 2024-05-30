@@ -253,6 +253,10 @@ namespace basecross {
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
+				case 6://âÛÇπÇÈï«
+					AddGameObject<BreakWall>(Vec3(posX, -posY + m_CSVHeight, 0), Vec3(0.0f));
+					break;
+
 				case 7://É{É^ÉìâüÇµÇΩÇÁìÆÇ≠è∞
 					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY + m_CSVHeight , 0),  Vec3(-1.0f, 0.0f, 0.0f));
 					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
@@ -301,6 +305,14 @@ namespace basecross {
 					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 9, 0));
 					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
 					isCreateMaagnets = false;
+					break;
+
+				case 16: //éïé‘
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0));
+					break;
+
+				case 17: //åÆ
+					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
 				default:
