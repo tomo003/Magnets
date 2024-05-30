@@ -137,7 +137,7 @@ namespace basecross {
 		AddTag(L"GoalSquareRed");
 	}
 
-	void GoalSquareRed::ChangeTexture(wstring Texture)
+	void SaveTriangleRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
@@ -185,7 +185,7 @@ namespace basecross {
 		AddTag(L"GoalSquareBlue");
 	}
 
-	void GoalSquareBlue::ChangeTexture(wstring Texture)
+	void SaveTriangleBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
