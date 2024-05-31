@@ -254,6 +254,11 @@ namespace basecross {
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0), RIGHT_VEC, 3.5f);
 					break;
 
+				case 5: //‹à‘®“®‚­‚â‚Â
+					// position, Dir, Vol
+					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0), UP_VEC, 3.5f);
+					break;
+
 				case 6://‰ó‚¹‚é•Ç
 					AddGameObject<BreakWall>(Vec3(posX, -posY + m_CSVHeight, 0), Vec3(0.0f));
 					break;
