@@ -39,8 +39,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CoinObject.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)GoalObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
+=======
+>>>>>>> yuu3
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -82,7 +85,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CoinObject.h" />
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)GoalObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
+=======
+>>>>>>> yuu3
   </ItemGroup>
 </Project>

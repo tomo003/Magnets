@@ -20,6 +20,7 @@ namespace basecross{
 		shared_ptr<EfkInterface> m_EfkInterface;
 		int m_stageNum;
 		int m_scene = 0;
+		int m_score[5] = {0};
 		shared_ptr<SoundItem> m_bgm;
 		GameState m_GameState;
 		int m_ResultNum;
@@ -97,11 +98,12 @@ namespace basecross{
 			m_GameState = gameState;
 		}
 
-		//エフェクトのインターフェースの取得
-		shared_ptr<EfkInterface> GetEfkInterface() const {
-			return m_EfkInterface;
+		void SetScore(const int i) {
+			m_score[i - 1]++;
 		}
-
+		int GetScore(const int i) {
+			return m_score[i - 1];
+		}
 	};
 }
 

@@ -30,14 +30,70 @@ namespace basecross {
 	void SelectStage::CreateSelectSprite() {
 		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND");
 		AddGameObject<SelectSprite>(L"STAGESELECT", true, Vec2(350.0f, 180.0f), Vec3(-590.0f, 390.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(200.0f, 80.0f), Vec3(-560.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(200.0f, 80.0f), Vec3(0.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE3UI", true, Vec2(200.0f, 80.0f), Vec3(520.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE4UI", true, Vec2(200.0f, 80.0f), Vec3(-560.0f, -350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE5UI", true, Vec2(200.0f, 80.0f), Vec3(0.0f, -350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE6UI", true, Vec2(200.0f, 80.0f), Vec3(520.0f, -350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(200.0f, 80.0f), Vec3(-650.0f, 0.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(200.0f, 80.0f), Vec3(-100.0f, 0.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE3UI", true, Vec2(200.0f, 80.0f), Vec3(420.0f, 0.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE4UI", true, Vec2(200.0f, 80.0f), Vec3(-650.0f, -350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE5UI", true, Vec2(200.0f, 80.0f), Vec3(-100.0f, -350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE6UI", true, Vec2(200.0f, 80.0f), Vec3(420.0f, -350.0f, 0.0f));
 
 
+	}
+
+	void SelectStage::CreateKeyLoad(const int scene, const Vec3 pos) {
+		int score = App::GetApp()->GetScene<Scene>()->GetScore(scene);
+		switch (score){
+		case 0:
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		case 1:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		case 2:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x+ 50.0f, pos.y , 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x+ 100.0f, pos.y , 0.0f));
+			break;
+		case 3:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		default:
+			break;
+		}
+	}
+	void SelectStage::CreateKeySprite() {
+		auto scene = App::GetApp()->GetScene<Scene>();
+		int StageNum = scene->GetStageNum();
+		for (int i = 0; i < 7; i++){
+			switch (i) {
+			case 1:
+				CreateKeyLoad(1, Vec3(-500.0f, 0.0f, 0.0f));
+				break;
+			case 2:
+				CreateKeyLoad(2, Vec3(50.0f, 0.0f, 0.0f));
+				break;
+			case 3:
+				CreateKeyLoad(3, Vec3(580.0f, 0.0f, 0.0f));
+				break;
+			case 4:
+				CreateKeyLoad(4, Vec3(-500.0f, -350.0f, 0.0f));
+				break;
+			case 5:
+				CreateKeyLoad(5, Vec3(50.0f, -350.0f, 0.0f));
+				break;
+			case 6:
+				CreateKeyLoad(6, Vec3(580.0f, -350.0f, 0.0f));
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	void SelectStage::CreateAnimeSprite()
@@ -77,6 +133,7 @@ namespace basecross {
 		CreateSelectSprite();
 		CreateAnimeSprite();
 		CreateCursor();
+		CreateKeySprite();
 	}
 
 

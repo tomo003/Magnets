@@ -18,6 +18,8 @@ namespace basecross {
 
 		void CreateViewLight();//ビューの作成
 		void CreateSelectSprite();//スプライトの作成
+		void CreateKeySprite();
+		void CreateKeyLoad(const int scene ,const Vec3 pos);
 		void ChangeSelect(int num);
 		void CreateCursor();
 		void CreateAnimeSprite();

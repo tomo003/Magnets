@@ -37,6 +37,10 @@ namespace basecross {
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
 		if (ptrPlayer || ptrPlayer2) {
+			auto scene = App::GetApp()->GetScene<Scene>();
+			int sceneNum = scene->GetStageNum();
+			scene->SetScore(sceneNum);
+
 			SetUpdateActive(false);
 			SetDrawActive(false);
 		}
