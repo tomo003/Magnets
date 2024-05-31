@@ -2,6 +2,12 @@
 
 #include "BaseMathInc.h"
 
+#define RIGHT_VEC Vec3(1.0f, 0.0f, 0.0f)
+#define LEFT_VEC Vec3(-1.0f, 0.0f, 0.0f)
+#define UP_VEC Vec3(0.0f, 1.0f, 0.0f)
+#define DOWN_VEC Vec3(0.0f, -1.0f, 0.0f)
+
+
 namespace Utility
 {
 	/**

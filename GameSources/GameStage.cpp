@@ -250,7 +250,8 @@ namespace basecross {
 					break;
 
 				case 4: //ã‡ëÆìÆÇ≠Ç‚Ç¬
-					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0));
+					// position, Dir, Vol
+					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0), RIGHT_VEC, 3.5f);
 					break;
 
 				case 6://âÛÇπÇÈï«
@@ -258,7 +259,7 @@ namespace basecross {
 					break;
 
 				case 7://É{É^ÉìâüÇµÇΩÇÁìÆÇ≠è∞
-					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY + m_CSVHeight , 0),  Vec3(-1.0f, 0.0f, 0.0f));
+					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY + m_CSVHeight , 0), LEFT_VEC);
 					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
 					break;
 
