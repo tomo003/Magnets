@@ -60,6 +60,7 @@ namespace basecross {
 		if (PlayerRepulState || Player2RepulState) {
 			isBreak = true;
 			m_CollComp->SetUpdateActive(false);
+			m_CollComp->SetDrawActive(false);
 		}
 	}
 
