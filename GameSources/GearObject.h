@@ -31,14 +31,33 @@ namespace basecross {
 
 	};
 
-	class GearObjFloor : GameObject
+	class GearObjFloor : public Metal
 	{
+	public:
+		enum class EState {
+			eFalse = -1, // 無
+			eN = 1, // Ｎ極
+			eS = 2, // Ｓ極
+			eMetal = 3 // 金属
+		};
+
+	private:
+		enum EState m_eMagPole = EState::eMetal;
+
+		// コンポーネント取得省略用
+		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
+		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<EffectPlayer> m_efk;
+
+		float m_ObjMass = 1.0f;
+		float m_MagAreaRadius = 3.0f;
+
 		Vec3 m_position;
 		Vec3 m_Sclae = Vec3(3.0f, 0.75f, 1.0f);
 
 	public :
 		GearObjFloor(const std::shared_ptr<Stage>& stage, const Vec3& position):
-			GameObject(stage),
+			Metal(stage, m_Sclae, position),
 			m_position(position)
 		{}
 
@@ -47,7 +66,19 @@ namespace basecross {
 
 		void RotToCenter(const Vec3& center, const float& rotDir);
 
+		int GetState() {
+			return static_cast<int>(m_eMagPole);
+		}
+		float GetMass() {
+			return m_ObjMass;
+		}
+		float GetAreaRadius() {
+			return m_MagAreaRadius;
+		}
+
 		void ApplyForcePlayer();
+		void ApplyForceSecondPlayer();
+		void EfkStop();
 
 		// abs関数(絶対値を求める)をVec3で使えるように
 		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
