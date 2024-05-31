@@ -46,6 +46,7 @@
 
 
 // STL
+#include <array>
 #include <vector>
 #include <list>
 #include <map>

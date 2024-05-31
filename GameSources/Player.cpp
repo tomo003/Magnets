@@ -512,8 +512,8 @@ namespace basecross {
 			//isGround = true;
 			isEffect = true;
 			isInertia = false;
-		}
 			isRepulsion = false;
+		}
 
 		// ’…’n‚Ì”»’è
 		LandingJadge(Other);

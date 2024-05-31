@@ -8,6 +8,7 @@
 #include <Effekseer.h>
 #include <EffekseerRendererDX11.h>
 #include <Effect.h>
+#include "Utility.h"
 
 #include "ProjectShader.h"
 #include "ProjectBehavior.h"
@@ -34,7 +35,6 @@
 #include "Sprites.h"
 #include "TitleStage.h"
 #include "TitleSprite.h"
-#include "Utility.h"
 #include "RingObject.h"
 #include "BackGroundSprite.h"
 #include "FadeIn.h"

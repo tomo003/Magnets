@@ -89,22 +89,28 @@ namespace basecross {
 
 		Vec3 m_position;
 		float m_speed;
+		Vec3 m_moveDir;// 移動方向
+		float m_moveVol;// 移動量
 
-		const std::vector<Vec3> m_points = {
-			Vec3(m_position.x +3.5f, m_position.y, 0.0f), // 左
-			Vec3(m_position .x -3.5f, m_position.y, 0.0f) // 右
-		};
+		const array<Vec3, 2> m_points;
 
 		// 巡回ポイント
 		int m_currentPointIndex; // 現在の移動ライン番号
 		std::shared_ptr<EffectPlayer> m_efk;
 		bool isEfkMove = true;
 	public:
-		MoveMetalObject(const std::shared_ptr<Stage>& stage, const Vec3& position) :
+		MoveMetalObject(
+			const std::shared_ptr<Stage>& stage, 
+			const Vec3& position, 
+			const Vec3& moveDir,
+			const float& moveVol) :
 			GameObject(stage),
 			m_position(position),
+			m_moveDir(moveDir),
+			m_moveVol(moveVol),
 			m_eMagPole(EState::eMetal),
-			m_speed(2.0f)
+			m_speed(2.0f),
+			m_points{Vec3(position + (moveDir * moveVol)), Vec3(position - (moveDir * moveVol))}
 		{}
 
 		void OnCreate();

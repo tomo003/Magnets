@@ -179,23 +179,23 @@ namespace basecross {
 		virtual void OnUpdate();
 		void OnDestroy()override;
 
-		int GetState() {
+		virtual int GetState() {
 			return static_cast<int>(m_eMagPole);
 		}
-		float GetMass() {
+		virtual float GetMass() {
 			return m_ObjMass;
 		}
-		float GetAreaRadius() {
+		virtual float GetAreaRadius() {
 			return m_MagAreaRadius;
 		}
-		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
+		virtual Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
 		}
 
-		void ApplyForcePlayer();
-		void ApplyForceSecondPlayer();
-		void EfkStop();
+		virtual void ApplyForcePlayer();
+		virtual void ApplyForceSecondPlayer();
+		virtual void EfkStop();
 	};
 
 	//スタートオブジェクト
