@@ -84,6 +84,7 @@ namespace basecross{
 		LoadTexture(L"READY", L"StandBy.png");
 		LoadTexture(L"CLEAR", L"StageClear.png");
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
+		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png");
 
 		LoadTexture(L"BACKGROUND", L"BackA.png");
 		//LoadTexture(L"BACKGROUND1", L"BackA.png");
@@ -126,6 +127,10 @@ namespace basecross{
 		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png");
 		LoadTexture(L"BLUE_TX", L"Blue.png");
 		LoadTexture(L"PURPLE_TX", L"Purple.png");
+		LoadTexture(L"TENNSENNTRIANGLERED_TX", L"tennsennTriangleR.png");
+		LoadTexture(L"TRIANGLERED_TX", L"TriangleR.png");
+		LoadTexture(L"TENNSENNTRIANGLEBLUE_TX", L"tennsennTriangleB.png");
+		LoadTexture(L"TRIANGLEBLUE_TX", L"TriangleB.png");
 
 		LoadTexture(L"GUIDER_TX", L"GuideRight.png");
 		LoadTexture(L"GUIDEL_TX", L"GuideLeft.png");
