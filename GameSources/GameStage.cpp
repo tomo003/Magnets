@@ -300,9 +300,9 @@ namespace basecross {
 
 				case 15: //ÉSÅ[Éã
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
-					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 7, 0));
+					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX -1, -posY + m_CSVHeight + 7, 0));
 					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
-					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 9, 0));
+					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX + 1, -posY + m_CSVHeight + 7, 0));
 					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
 					isCreateMaagnets = false;
 					break;
