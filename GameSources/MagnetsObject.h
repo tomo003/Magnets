@@ -1,6 +1,7 @@
 /*!
-@file MagnetsObject.h
-@brief 磁石オブジェクト
+* @file MagnetsObject.h
+* @brief 磁石オブジェクト
+* @author 穴澤委也
 */
 
 #pragma once
