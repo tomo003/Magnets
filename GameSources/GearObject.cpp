@@ -30,12 +30,12 @@ namespace basecross {
 		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
 
 		// °’Ç‰Á
-		m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + 3.5f, 0.0f));
-		m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - 3.5f, 0.0f));
+		//m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + 3.5f, 0.0f));
+		//m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - 3.5f, 0.0f));
 
 		// ƒRƒŠƒWƒ‡ƒ“”»’è‚ÌœŠO
-		CollComp->AddExcludeCollisionGameObject(m_ptrGearFloorF);
-		CollComp->AddExcludeCollisionGameObject(m_ptrGearFloorS);
+		//CollComp->AddExcludeCollisionGameObject(m_ptrGearFloorF);
+		//CollComp->AddExcludeCollisionGameObject(m_ptrGearFloorS);
 	}
 
 	void GearObject::OnUpdate() {
@@ -64,7 +64,7 @@ namespace basecross {
 	}
 
 	void GearObjFloor::OnUpdate() {
-		RotToCenter()
+		//RotToCenter()
 	}
 
 	void GearObjFloor::ApplyForcePlayer() {
