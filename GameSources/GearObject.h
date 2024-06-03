@@ -1,6 +1,8 @@
 /*!
-@file GearObject.h
-@brief リング型オブジェクト
+* @file GearObject.h
+* @brief 歯車オブジェクト
+* @author 穴澤委也
+* @details 歯車オブジェクトと歯車に付属している床
 */
 
 #pragma once
@@ -9,10 +11,13 @@
 namespace basecross {
 	class GearObject : public GameObject
 	{
+		// GameeObject格納用ポインタ
+		shared_ptr<GearObjFloor> m_ptrGearFloorF;
+		shared_ptr<GearObjFloor> m_ptrGearFloorS;
 
 		// コンポーネント取得省略用
-		std::shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
-		std::shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
+		shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
+		shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
 
 		Vec3 m_position;
 		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.0f);
@@ -29,6 +34,10 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() override;
 
+		float GetRotSpeed() {
+			return m_RotPerSec;
+		}
+
 	};
 
 	class GearObjFloor : public Metal
@@ -42,29 +51,29 @@ namespace basecross {
 		};
 
 	private:
-		enum EState m_eMagPole = EState::eMetal;
+		const enum EState m_eMagPole = EState::eMetal;
 
 		// コンポーネント取得省略用
-		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
-		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
-		std::shared_ptr<EffectPlayer> m_efk;
+		shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
+		shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
+		shared_ptr<EffectPlayer> m_efk;
 
 		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 3.0f;
 
 		Vec3 m_position;
-		Vec3 m_Sclae = Vec3(3.0f, 0.75f, 1.0f);
+		Vec3 m_Scale = Vec3(3.0f, 0.75f, 1.0f);
 
 	public :
-		GearObjFloor(const std::shared_ptr<Stage>& stage, const Vec3& position):
-			Metal(stage, m_Sclae, position),
+		GearObjFloor(const std::shared_ptr<Stage>& stage, const Vec3& position, const Vec3& center):
+			Metal(stage, m_Scale, position),
 			m_position(position)
 		{}
 
 		void OnCreate() override;
 		void OnUpdate() override;
 
-		void RotToCenter(const Vec3& center, const float& rotDir);
+		void RotToCenter(const Vec3& center);
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
