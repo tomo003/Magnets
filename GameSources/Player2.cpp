@@ -459,8 +459,6 @@ namespace basecross {
 			isEffect = true;
 			isGround = true;
 			isInertia = false;
-		}
-		if (!ptrPlayer) {
 			isRepulsion = false;
 		}
 

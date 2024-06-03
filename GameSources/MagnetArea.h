@@ -1,6 +1,8 @@
 /*!
-@file MagnetsArea.h
-@brief 磁気エリア
+* @file MagnetsArea.h
+* @brief 磁気エリア
+* @author 穴澤委也
+* @details 磁気エリア用の板ポリ
 */
 
 #pragma once

@@ -1,6 +1,7 @@
 /*!
-@file BreakWall.h
-@brief ‰ó‚ê‚é•Ç
+* @file BreakWall.h
+* @brief ‰ó‚ê‚é•Ç
+* @author ŒŠàVˆÏ–ç
 */
 
 #pragma once

@@ -168,9 +168,23 @@ namespace basecross {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
 		}
+
+		/**
+		* @brief 反発状態かどうかを他クラスに渡すための関数
+		* @param 引数なし
+		* @return bool 反発状態ならtrue
+		*/
 		bool IsRepulState() {
 			return isRepulsion;
 		}
+
+		/**
+		* @brief プレイヤー死亡時に呼び出す関数
+		* @param 引数なし
+		* @return 戻り値なし
+		* @details この関数内でRespawnPlayerを呼び出す
+		*/
+		void PlayerDeath();
 
 		// ゴール判定
 		bool IsGoal() {
