@@ -101,15 +101,15 @@ namespace basecross {
 		auto PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, 180.0f));
 		PtrSp->SetSelect(true);
 		m_SpVec[0] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(0.0f, 180.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE2", true, Vec2(400.0f, 250.0f), Vec2(0.0f, 180.0f));
 		m_SpVec[1] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(520.0f, 180.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE3", true, Vec2(400.0f, 250.0f), Vec2(520.0f, 180.0f));
 		m_SpVec[2] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, -170.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE4", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, -170.0f));
 		m_SpVec[3] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(0.0f, -170.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE5", true, Vec2(400.0f, 250.0f), Vec2(0.0f, -170.0f));
 		m_SpVec[4] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(520.0f, -170.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE6", true, Vec2(400.0f, 250.0f), Vec2(520.0f, -170.0f));
 		m_SpVec[5] = PtrSp;
 	}
 	void SelectStage::ChangeSelect(int num) {
