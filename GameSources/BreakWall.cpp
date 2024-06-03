@@ -12,7 +12,7 @@ namespace basecross {
 
 		m_CollComp = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
-		m_CollComp->SetDrawActive(true);
+		//m_CollComp->SetDrawActive(true);
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(

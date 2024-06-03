@@ -120,7 +120,7 @@ namespace basecross {
 	* @details forƒ‹[ƒv‚Å•¡”‚Ì”wŒi‚ğ•\¦‚³‚¹‚é
 	*/
 	void GameStage::CreateBackGround(const wstring& texkey) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i <= 5; i++) {
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50 + (40 * i),0,0), texkey);
 		}
 	}

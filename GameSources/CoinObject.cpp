@@ -16,7 +16,7 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetUpdateActive(true);
-		ptrColl->SetDrawActive(true);
+		//ptrColl->SetDrawActive(true);
 
 		AddTag(L"CoinObject");
 
