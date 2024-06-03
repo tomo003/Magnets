@@ -66,19 +66,23 @@ namespace basecross {
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				break;
 			case 3:
-				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
+				CreateBackGround(L"BACKGROUND7");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
 				break;
 			case 4:
-				m_GameStageCsv.SetFileName(DataDir + L"GameStage4.csv");
+				CreateBackGround(L"BACKGROUND8");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
 				break;
 			case 5:
-				m_GameStageCsv.SetFileName(DataDir + L"GameStage5.csv");
+				CreateBackGround(L"BACKGROUND9");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage5.csv");
 				break;
 			case 6:
-				m_GameStageCsv.SetFileName(DataDir + L"GameStage6.csv");
+				CreateBackGround(L"BACKGROUND10");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
 				break;
 			default:
-				m_GameStageCsv.SetFileName(DataDir + L"GameStage1.csv");
+				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				break;
 			}
 			m_GameStageCsv.ReadCsv();

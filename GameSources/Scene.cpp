@@ -93,10 +93,20 @@ namespace basecross{
 		//LoadTexture(L"BACKGROUND4", L"BackA.png");
 		//LoadTexture(L"BACKGROUND5", L"BackA.png");
 		LoadTexture(L"BACKGROUND6", L"BackB.png");
+		LoadTexture(L"BACKGROUND7", L"BackC.png");
+		LoadTexture(L"BACKGROUND8", L"BackD.png");
+		LoadTexture(L"BACKGROUND9", L"BackE.png");
+		LoadTexture(L"BACKGROUND10", L"BackF.png");
 
 		LoadTexture(L"TITLE", L"title.png");
 
 		LoadTexture(L"STAGE1", L"Stage1.png");
+		LoadTexture(L"STAGE2", L"Stage2.png");
+		LoadTexture(L"STAGE3", L"Stage3.png");
+		LoadTexture(L"STAGE4", L"Stage4.png");
+		LoadTexture(L"STAGE5", L"Stage5.png");
+		LoadTexture(L"STAGE6", L"Stage6.png");
+
 		LoadTexture(L"STAGE1UI", L"Stage1UI.png");
 		LoadTexture(L"STAGE2UI", L"Stage2UI.png");
 		LoadTexture(L"STAGE3UI", L"Stage3UI.png");

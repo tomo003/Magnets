@@ -52,7 +52,7 @@ namespace basecross {
 
 		auto device = App::GetApp()->GetInputDevice();//コントローラー座標の取得
 		auto firstPad = device.GetControlerVec()[0];
-		auto secondPad = device.GetControlerVec()[0];
+		auto secondPad = device.GetControlerVec()[1];
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
