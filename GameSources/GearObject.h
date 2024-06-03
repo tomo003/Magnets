@@ -12,8 +12,8 @@ namespace basecross {
 	class GearObject : public GameObject
 	{
 		// GameeObject格納用ポインタ
-		shared_ptr<GearObjFloor> m_ptrGearFloorF;
-		shared_ptr<GearObjFloor> m_ptrGearFloorS;
+		//shared_ptr<GearObjFloor> m_ptrGearFloorF;
+		//shared_ptr<GearObjFloor> m_ptrGearFloorS;
 
 		// コンポーネント取得省略用
 		shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
