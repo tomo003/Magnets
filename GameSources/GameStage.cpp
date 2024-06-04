@@ -198,7 +198,7 @@ namespace basecross {
 				if (i == num) {
 					shptr->SetSelect(true);
 				}
-				else {
+				else { 
 					shptr->SetSelect(false);
 				}
 			}
