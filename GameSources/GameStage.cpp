@@ -33,8 +33,8 @@ namespace basecross {
 		CreateSharedObjectGroup(L"BeltConveyorSideRight");
 	}
 
-	void GameStage::PlayBGM() {
-		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"GAMESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
+	void GameStage::PlayBGM(wstring sound) {
+		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(sound, XAUDIO2_LOOP_INFINITE, 1.0f);
 	}
 
 	void GameStage::OnDestroy() {
@@ -50,7 +50,6 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
-			PlayBGM();
 
 			wstring DataDir;
 			App::GetApp()->GetDataDirectory(DataDir);
@@ -60,29 +59,37 @@ namespace basecross {
 			case 1:
 				CreateBackGround(L"BACKGROUND");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 2:
 				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
+				PlayBGM(L"BGM1");
 				break;
 			case 3:
 				CreateBackGround(L"BACKGROUND7");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
+				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 4:
 				CreateBackGround(L"BACKGROUND8");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
+				PlayBGM(L"BGM1");
 				break;
 			case 5:
 				CreateBackGround(L"BACKGROUND9");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage5.csv");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 6:
 				CreateBackGround(L"BACKGROUND10");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
+				PlayBGM(L"BGM1");
 				break;
 			default:
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			}
 			m_GameStageCsv.ReadCsv();
