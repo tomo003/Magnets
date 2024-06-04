@@ -39,6 +39,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CoinObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GoalObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -80,5 +82,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CoinObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GoalObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
   </ItemGroup>
 </Project>

@@ -51,7 +51,7 @@ namespace basecross {
 		virtual void OnDestroy()override;
 
 		void CreateObjGroup();
-		void PlayBGM();
+		void PlayBGM(wstring sound);
 		void CreateAnimeSprite();
 		void ClearResult();
 
