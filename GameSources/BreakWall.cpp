@@ -57,6 +57,7 @@ namespace basecross {
 		if (ptrPlayer) PlayerRepulState = ptrPlayer->IsRepulState();
 		if (ptrPlayer2) Player2RepulState = ptrPlayer2->IsRepulState();
 
+		// プレイヤーのどちらかが反発状態で当たった時にアニメーション実行
 		if (PlayerRepulState || Player2RepulState) {
 			isBreak = true;
 			m_CollComp->SetUpdateActive(false);

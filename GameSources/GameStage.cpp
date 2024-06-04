@@ -310,7 +310,7 @@ namespace basecross {
 					break;
 
 				case 16: //•Ô
-					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0));
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), 1); // ˆø”2‚Â–Ú‚ª1‚¾‚Æ¶‰ñ“]A-1‚¾‚Æ‰E‰ñ“]
 					break;
 
 				case 17: //Œ®
