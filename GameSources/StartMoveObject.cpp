@@ -81,7 +81,7 @@ namespace basecross {
 		{
 			if (!MoveSEPlay)
 			{
-				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
+				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 2.0f);
 				MoveSEPlay = true;
 			}
 
@@ -100,7 +100,7 @@ namespace basecross {
 			if (!StopSEPlay)
 			{
 				XAPtr->Stop(m_kadouonn);
-				XAPtr->Start(L"STOP_SE", 0, 2.0f);
+				XAPtr->Start(L"STOP_SE", 0, 3.0f);
 				StopSEPlay = true;
 				MoveSEPlay = false;
 			}

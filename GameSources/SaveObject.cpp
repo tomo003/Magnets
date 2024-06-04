@@ -269,14 +269,14 @@ namespace basecross {
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"RED_TX");
 			m_ptrTriangleRed->ChangeTexture(L"TRIANGLERED_TX");
-			XAPtr->Start(L"SAVE_SE", 0, 2.0f);
+			XAPtr->Start(L"SAVE_SE", 0, 3.0f);
 		}
 		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"BLUE_TX");
 			m_ptrTriangleBlue->ChangeTexture(L"TRIANGLEBLUE_TX");
-			XAPtr->Start(L"SAVE_SE", 0, 2.0f);
+			XAPtr->Start(L"SAVE_SE", 0, 3.0f);
 		}
 	}
 }
