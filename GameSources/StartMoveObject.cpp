@@ -102,6 +102,7 @@ namespace basecross {
 				XAPtr->Stop(m_kadouonn);
 				XAPtr->Start(L"STOP_SE", 0, 2.0f);
 				StopSEPlay = true;
+				MoveSEPlay = false;
 			}
 			if (!leavePlayer)
 			{
@@ -135,10 +136,10 @@ namespace basecross {
 
 		//プレイヤーが磁石から離れたら
 		if (leavePlayer && leavePlayer2){
-			if (MoveSEPlay)
+			if (!MoveSEPlay)
 			{
 				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
-				MoveSEPlay = false;
+				MoveSEPlay = true;
 			}
 
 			//カメラをゲームプレイ用に変更

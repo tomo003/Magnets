@@ -15,6 +15,7 @@ namespace basecross {
 		float m_time = 2.0f;
 
 		shared_ptr<SoundItem> m_bgm;
+		shared_ptr<SoundItem> m_kadouonn;
 		//プレイヤー
 		std::shared_ptr<Player> m_ptrPlayer;
 		std::shared_ptr<Player2> m_ptrPlayer2;
@@ -31,6 +32,7 @@ namespace basecross {
 		bool playerPositionFixed = false;
 		bool player2PositionFixed = false;
 		bool stage = false;
+		bool moveSEPlay = false;
 		//ビューの作成
 		void CreateViewLight();
 	public:

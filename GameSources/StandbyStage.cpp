@@ -30,6 +30,7 @@ namespace basecross {
 		//BGMのストップ
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		XAPtr->Stop(m_bgm);
+		XAPtr->Stop(m_kadouonn);
 	}
 
 	void StandbyStage::OnCreate() {
@@ -135,11 +136,17 @@ namespace basecross {
 
 		//シーン遷移
 		if (playerReady && player2Ready) {
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
 			float speed = delta * 6.5f;
 			m_time -= delta;
 
 			if (m_time < 0.0f) {
+				if (!moveSEPlay)
+				{
+					m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
+					moveSEPlay = true;
+				}
 				Vec3 magNPos = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();
 				Vec3 magSPos = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();
 
