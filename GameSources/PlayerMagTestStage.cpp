@@ -62,7 +62,7 @@ namespace basecross {
 			auto ptrPlayer = AddGameObject<Player>();
 			SetSharedGameObject(L"Player", ptrPlayer);
 			auto ptrPlayer2 = AddGameObject<Player2>();
-			ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(-3.0, 0.0f, 0.0f));
+			ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0, 0.0f, 0.0f));
 			SetSharedGameObject(L"Player2", ptrPlayer2);
 
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
@@ -83,7 +83,7 @@ namespace basecross {
 
 			AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
 
-			AddGameObject<GearObject>(Vec3(-9.0f, 2.0f, 0.0f));
+			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), 1);
 
 			AddGameObject<BreakWall>(Vec3(17.0f, -2.0f, 0.0f), Vec3(0.0f));
 
