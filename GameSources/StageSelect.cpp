@@ -44,24 +44,24 @@ namespace basecross {
 		int score = App::GetApp()->GetScene<Scene>()->GetScore(scene);
 		switch (score){
 		case 0:
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
 			break;
 		case 1:
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
 			break;
 		case 2:
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x+ 50.0f, pos.y , 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x+ 100.0f, pos.y , 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 50.0f, pos.y , 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 100.0f, pos.y , 0.0f));
 			break;
 		case 3:
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(50.0f, 50.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
 			break;
 		default:
 			break;
