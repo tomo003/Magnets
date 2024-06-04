@@ -262,22 +262,21 @@ namespace basecross {
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 		auto ptrPos = GetComponent<Transform>()->GetPosition();
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 
 		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetPosition().x && !isCollPlayer) {
 			isCollPlayer = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"RED_TX");
 			m_ptrTriangleRed->ChangeTexture(L"TRIANGLERED_TX");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+			XAPtr->Start(L"SAVE_SE", 0, 2.0f);
 		}
 		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"BLUE_TX");
 			m_ptrTriangleBlue->ChangeTexture(L"TRIANGLEBLUE_TX");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+			XAPtr->Start(L"SAVE_SE", 0, 2.0f);
 		}
 	}
 }

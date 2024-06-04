@@ -646,8 +646,6 @@ namespace basecross {
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 			ptrSquareRed->ChangeTexture(L"RED_TX");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 			AnimationPlayer(FRONT);
 			isGoal = true;
 		}
