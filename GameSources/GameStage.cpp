@@ -59,36 +59,36 @@ namespace basecross {
 			case 1:
 				CreateBackGround(L"BACKGROUND");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE1_BGM");
 				break;
 			case 2:
 				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE2_BGM");
 				break;
 			case 3:
 				CreateBackGround(L"BACKGROUND7");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE3_BGM");
 				break;
 			case 4:
 				CreateBackGround(L"BACKGROUND8");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE4_BGM");
 				break;
 			case 5:
 				CreateBackGround(L"BACKGROUND9");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage5.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE5_BGM");
 				break;
 			case 6:
 				CreateBackGround(L"BACKGROUND10");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE6_BGM");
 				break;
 			default:
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
-				PlayBGM(L"GAMESTAGE_BGM");
+				PlayBGM(L"GAMESTAGE1_BGM");
 				break;
 			}
 			m_GameStageCsv.ReadCsv();

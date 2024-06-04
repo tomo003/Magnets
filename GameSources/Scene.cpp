@@ -183,7 +183,13 @@ namespace basecross{
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");
 		LoadSound(L"STANDBY_BGM",L"StandBy.wav");
-		LoadSound(L"GAMESTAGE_BGM",L"GameStage.wav");
+		LoadSound(L"GAMESTAGE1_BGM",L"GameStage1.wav");
+		LoadSound(L"GAMESTAGE2_BGM", L"GameStage2.wav");
+		LoadSound(L"GAMESTAGE3_BGM", L"GameStage3.wav");
+		LoadSound(L"GAMESTAGE4_BGM", L"GameStage4.wav");
+		LoadSound(L"GAMESTAGE5_BGM", L"GameStage5.wav");
+		LoadSound(L"GAMESTAGE6_BGM", L"GameStage6.wav");
+
 		//Œø‰Ê‰¹
 		LoadSound(L"JUMP_SE", L"Jump.wav");
 		LoadSound(L"UNION_SE", L"Union.wav");
