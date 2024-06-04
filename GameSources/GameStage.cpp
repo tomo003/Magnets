@@ -69,7 +69,6 @@ namespace basecross {
 			case 3:
 				CreateBackGround(L"BACKGROUND7");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
-				m_GameStageCsv.SetFileName(DataDir + L"MagTest01.csv");
 				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 4:
