@@ -64,7 +64,7 @@ namespace basecross {
 			case 2:
 				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
-				PlayBGM(L"BGM1");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 3:
 				CreateBackGround(L"BACKGROUND7");
@@ -75,7 +75,7 @@ namespace basecross {
 			case 4:
 				CreateBackGround(L"BACKGROUND8");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
-				PlayBGM(L"BGM1");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			case 5:
 				CreateBackGround(L"BACKGROUND9");
@@ -85,7 +85,7 @@ namespace basecross {
 			case 6:
 				CreateBackGround(L"BACKGROUND10");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
-				PlayBGM(L"BGM1");
+				PlayBGM(L"GAMESTAGE_BGM");
 				break;
 			default:
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
