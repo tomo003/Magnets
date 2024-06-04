@@ -50,6 +50,8 @@ namespace basecross {
 		float delta = App::GetApp()->GetElapsedTime();// デルタタイムの取得
 		float speed = delta * 6.5f;
 
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+
 		auto device = App::GetApp()->GetInputDevice();//コントローラー座標の取得
 		auto firstPad = device.GetControlerVec()[0];
 		auto secondPad = device.GetControlerVec()[1];
@@ -63,6 +65,7 @@ namespace basecross {
 		auto ptrStart = GetStage()->GetSharedGameObject<Start>(L"Start");
 		auto ptrStartPos = ptrStart->GetComponent<Transform>()->GetPosition();
 
+		//プレイヤーがくっついていたら
 		if (!leavePlayer)
 		{
 			ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
@@ -73,20 +76,33 @@ namespace basecross {
 			ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");
 			ptrPlayer2->SetPlayerMagPole(3);
 		}
+		//プレイヤーが離れていなくてスタートポジションにだとりついていなかったら
 		if (((ptrMagenetPosN.x + ptrMagenetPosS.x)/2) < ptrStartPos.x && !leavePlayer && !leavePlayer2)
 		{
+			if (!MoveSEPlay)
+			{
+				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
+				MoveSEPlay = true;
+			}
+
 			//プレイヤーの重力を0に変更
 			ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
 			ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
-
+			//スタートポジションまで移動させる
 			m_ptrMagObjN->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x + speed, ptrMagenetPosN.y, ptrMagenetPosN.z));
 			m_ptrMagObjS->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x + speed, ptrMagenetPosS.y, ptrMagenetPosS.z));
 			ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x + speed, ptrMagenetPosN.y - 1, ptrMagenetPosN.z));
 			ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x + speed, ptrMagenetPosS.y - 1, ptrMagenetPosS.z));
-
 		}
+		//磁石がスタートポジションにたどり着いたら
 		else if (((ptrMagenetPosN.x + ptrMagenetPosS.x) / 2) >= ptrStartPos.x )
 		{
+			if (!StopSEPlay)
+			{
+				XAPtr->Stop(m_kadouonn);
+				XAPtr->Start(L"STOP_SE", 0, 2.0f);
+				StopSEPlay = true;
+			}
 			if (!leavePlayer)
 			{
 				ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
@@ -119,6 +135,12 @@ namespace basecross {
 
 		//プレイヤーが磁石から離れたら
 		if (leavePlayer && leavePlayer2){
+			if (MoveSEPlay)
+			{
+				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
+				MoveSEPlay = false;
+			}
+
 			//カメラをゲームプレイ用に変更
 			auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 			ptrDuoCamera->MoveCamera();
@@ -129,6 +151,7 @@ namespace basecross {
 			//磁石が返ったら磁石を消す
 			if (ptrMagenetPosN.x < -20)
 			{
+				XAPtr->Stop(m_kadouonn);
 				m_ptrMagObjN->OnDestroy();
 				m_ptrMagObjS->OnDestroy();
 			}

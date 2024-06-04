@@ -375,7 +375,7 @@ namespace basecross {
 					App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
 					isJump = false;
 				}
-				if (length(objPos - m_pos) > 5.0f - 0.1f) {
+				if (length(objPos - m_pos) > 3.0f - 0.1f) {
 					isJump = true;
 				}
 			}

@@ -188,6 +188,8 @@ namespace basecross{
 		LoadSound(L"JUMP_SE", L"Jump.wav");
 		LoadSound(L"UNION_SE", L"Union.wav");
 		LoadSound(L"BUTTON_SE", L"Decition.wav");
+		LoadSound(L"STOP_SE", L"Gachan.wav");
+		LoadSound(L"KADOU_SE", L"Kadouonn.wav");
 
 	}
 

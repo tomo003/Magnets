@@ -15,6 +15,8 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
+		shared_ptr<SoundItem> m_kadouonn;
+
 		//¥Î
 		std::shared_ptr<ChangeTextureBox> m_ptrMagObjS;
 		std::shared_ptr<ChangeTextureBox> m_ptrMagObjN;
@@ -22,6 +24,9 @@ namespace basecross {
 		//ƒvƒŒƒCƒ„[‚ª—£‚ê‚Ä‚¢‚é‚©
 		bool leavePlayer = false;
 		bool leavePlayer2 = false;
+
+		bool MoveSEPlay = false;
+		bool StopSEPlay = false;
 
 public:
 	StartMoveObject(const std::shared_ptr<Stage>&StagePtr,
