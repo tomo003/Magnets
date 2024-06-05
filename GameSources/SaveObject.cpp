@@ -205,7 +205,7 @@ namespace basecross {
 
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"RingObject_MESH");
-		drawComp->SetTextureResource(L"SAVEPOINT_TX");
+		drawComp->SetTextureResource(L"GREEN_TX");
 		drawComp->SetMeshToTransformMatrix(spanMat);
 
 		auto ptrColl = AddComponent<CollisionObb>();
