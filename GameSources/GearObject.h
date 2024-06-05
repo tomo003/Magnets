@@ -30,7 +30,7 @@ namespace basecross {
 		shared_ptr<EffectPlayer> m_efk;
 
 		float m_ObjMass = 1.0f; // オブジェクトの重さ(引力で使用)
-		float m_MagAreaRadius = 5.0f; // 磁力を適用する範囲
+		float m_MagAreaRadius = 3.0f; // 磁力を適用する範囲
 
 		Vec3 m_position;
 		float m_posDiff = 4.5f;
