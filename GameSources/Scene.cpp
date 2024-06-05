@@ -131,6 +131,7 @@ namespace basecross{
 		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png");
 		LoadTexture(L"BLUE_TX", L"Blue.png");
 		LoadTexture(L"PURPLE_TX", L"Purple.png");
+		LoadTexture(L"GREEN_TX", L"Green.png");
 		LoadTexture(L"TENNSENNTRIANGLERED_TX", L"tennsennTriangleR.png");
 		LoadTexture(L"TRIANGLERED_TX", L"TriangleR.png");
 		LoadTexture(L"TENNSENNTRIANGLEBLUE_TX", L"tennsennTriangleB.png");
