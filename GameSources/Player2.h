@@ -40,7 +40,7 @@ namespace basecross {
 		Vec3 m_force;
 
 		//プレイヤー同士が離れると行動制限がかかる距離
-		float m_limit = 20;
+		float m_limit = 25;
 		bool isRightLimit = false;
 		bool isLeftLimit = false;
 
