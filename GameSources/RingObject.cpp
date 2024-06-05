@@ -28,7 +28,7 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 
 	}
 

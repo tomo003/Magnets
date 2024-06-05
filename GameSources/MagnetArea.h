@@ -18,7 +18,6 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 
-		wstring m_texKey; // テクスチャ
 		Vec3 m_pos; // 中心位置
 		float m_radius; // 半径
 
@@ -26,12 +25,10 @@ namespace basecross {
 		
 		MagnetArea(const std::shared_ptr<Stage>& stage,
 				   const Vec3& pos,
-				   const float& radius,
-				   const wstring& tex) :
+				   const float& radius) :
 			GameObject(stage),
-			m_pos(pos),
-			m_radius(radius),
-			m_texKey(tex)
+			m_pos(pos.x, pos.y, pos.z + 0.5f),
+			m_radius(radius)
 		{}
 
 		void OnCreate() override;

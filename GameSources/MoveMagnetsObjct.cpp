@@ -20,7 +20,7 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(2.0f, 0.75f, 0.75f);
 
-		//m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
+		//m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 		//auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
 		//m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
 		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_position.x, m_position.y, m_position.z + (m_ptrTrans->GetScale().z / 2)), Vec3(1.0f), L"MagneticRange");

@@ -30,7 +30,7 @@ namespace basecross {
 		shared_ptr<EffectPlayer> m_efk;
 
 		float m_ObjMass = 1.0f; // オブジェクトの重さ(引力で使用)
-		float m_MagAreaRadius = 3.0f; // 磁力を適用する範囲
+		float m_MagAreaRadius = 5.0f; // 磁力を適用する範囲
 
 		Vec3 m_position;
 		float m_posDiff = 4.5f;
@@ -146,7 +146,7 @@ namespace basecross {
 		shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
 
 		Vec3 m_position;
-		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.0f); // ちょっとだけ奥に配置
+		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.2f); // ちょっとだけ奥に配置
 		Vec3 m_Rotation = Vec3(0.0f);
 
 		float m_RotSpeed = 50; // 一秒で50度回す

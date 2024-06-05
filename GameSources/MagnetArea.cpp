@@ -27,7 +27,9 @@ namespace basecross {
 		// PT => Position,Texture
 		m_DrawComp->SetOriginalMeshUse(true); // ƒƒbƒVƒ…‚ðŽ©ì‚·‚é
 		m_DrawComp->CreateOriginalMesh(m_vertices, m_indices);
-		m_DrawComp->SetTextureResource(m_texKey);
+		m_DrawComp->SetTextureResource(L"TYPEALL_TX");
+		m_DrawComp->SetRasterizerState(RasterizerState::CullFront);
+		m_DrawComp->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f));
 		SetAlphaActive(true);
 
 		m_ptrTrans = GetComponent<Transform>();
@@ -36,6 +38,22 @@ namespace basecross {
 
 		//auto ptrMoveMetal = GetStage()->GetSharedGameObject<MoveMetalObject>(L"MoveMetalObj");
 		//m_ptrTrans->SetParent(ptrMoveMetal);
+
+		auto effect = GetStage()->AddGameObject<GameObject>();
+		auto effDraw = effect->AddComponent<PTStaticDraw>();
+		effDraw->SetOriginalMeshUse(true);
+		effDraw->CreateOriginalMesh(m_vertices, m_indices);
+		effDraw->SetTextureResource(L"TYPEALL_N_TX");
+		effDraw->SetRasterizerState(RasterizerState::CullFront);
+		effDraw->SetEmissive(Col4(0.0f, 0.0f, 0.0f, 1.0f));
+		effDraw->SetDiffuse(Col4(1.0f, 1.0f, 1.0f, 0.5f));
+		effect->SetAlphaActive(true);
+		effect->SetDrawLayer(1);
+
+		auto effTrans = effect->GetComponent<Transform>();
+		effTrans->SetScale(Vec3(m_radius));
+		effTrans->SetPosition(m_pos);
+		effTrans->SetParent(GetThis<GameObject>());
 	}
 	
 	void MagnetArea::OnUpdate() {

@@ -41,7 +41,17 @@ namespace basecross {
 	void GearObjFloor::OnCreate() {
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		m_ptrDraw->SetTextureResource(L"METAL_TX");
+		switch (m_eMagPole)
+		{
+		case EState::eFalse:
+			m_ptrDraw->SetTextureResource(L"METAL_TX");
+			break;
+		case EState::eMetal:
+			m_ptrDraw->SetTextureResource(L"CONCRETE_TX");
+			break;
+		default:
+			break;
+		}
 		m_ptrDraw->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -52,7 +62,7 @@ namespace basecross {
 		m_ptrTrans->SetScale(m_Scale);
 
 		if ((int)m_eMagPole > 0) {
-			auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
+			auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 			auto m_AreaTransComp = ptrArea->GetComponent<Transform>();
 			m_AreaTransComp->SetParent(GetThis<GearObjFloor>());
 		}
@@ -113,5 +123,4 @@ namespace basecross {
 			}
 		}
 	}
-
 }

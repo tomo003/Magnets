@@ -75,9 +75,8 @@ namespace basecross{
 		LoadTexture(L"Player01_TX", L"pcube01.png");
 		LoadTexture(L"Player02_TX", L"pcube02.png");
 		LoadTexture(L"Player03_TX", L"pcube03.png");
-		LoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
-		LoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
-		LoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
+		LoadTexture(L"TYPEALL_TX", L"MagnetArea.png");
+		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaB.png");
 		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
 		LoadTexture(L"BPUSH", L"PushB.png");
 		LoadTexture(L"RBPUSH", L"PushRB.png");
