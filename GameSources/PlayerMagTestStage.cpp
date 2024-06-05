@@ -83,7 +83,7 @@ namespace basecross {
 
 			AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
 
-			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), 1);
+			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), ROT_LEFT, STATE_METAL, STATE_NONE);
 
 			AddGameObject<BreakWall>(Vec3(17.0f, -2.0f, 0.0f), Vec3(0.0f));
 

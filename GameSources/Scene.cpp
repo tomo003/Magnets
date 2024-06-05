@@ -102,7 +102,7 @@ namespace basecross{
 		LoadTexture(L"STAGE5", L"Stage5.png");
 		LoadTexture(L"STAGE6", L"Stage6.png");
 
-		LoadTexture(L"STAGE1UI", L"Stage1UI.png");9
+		LoadTexture(L"STAGE1UI", L"Stage1UI.png");
 		LoadTexture(L"STAGE2UI", L"Stage2UI.png");
 		LoadTexture(L"STAGE3UI", L"Stage3UI.png");
 		LoadTexture(L"STAGE4UI", L"Stage4UI.png");
