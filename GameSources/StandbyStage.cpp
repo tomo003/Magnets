@@ -39,7 +39,7 @@ namespace basecross {
 			CreateViewLight();
 			//BGMの再生
 			//AddGameObject<BackGroundSprite>();
-			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND");
+			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
@@ -158,8 +158,8 @@ namespace basecross {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 
-				m_ptrMagObjN->EfkStop();
-				m_ptrMagObjS->EfkStop();
+				//m_ptrMagObjN->EfkStop();
+				//m_ptrMagObjS->EfkStop();
 				m_ptrBbuttonSprite->SetDrawActive(false);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
 

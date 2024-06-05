@@ -23,9 +23,9 @@ namespace basecross {
 		m_TransComp->SetRotation(m_Rotation);
 
 		// 床を追加して親子付け
-		m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + 4.0f, 0.0f), m_RotSpeed, m_RotDir);
+		m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + 4.0f, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateF);
 		m_ptrGearFloorF->GetComponent<Transform>()->SetParent(GetThis<GearObject>());
-		m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - 4.0f, 0.0f), m_RotSpeed, m_RotDir);
+		m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - 4.0f, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateS);
 		m_ptrGearFloorS->GetComponent<Transform>()->SetParent(GetThis<GearObject>());
 
 	}
@@ -41,7 +41,17 @@ namespace basecross {
 	void GearObjFloor::OnCreate() {
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		m_ptrDraw->SetTextureResource(L"METAL_TX");
+		switch (m_eMagPole)
+		{
+		case EState::eFalse:
+			m_ptrDraw->SetTextureResource(L"METAL_TX");
+			break;
+		case EState::eMetal:
+			m_ptrDraw->SetTextureResource(L"CONCRETE_TX");
+			break;
+		default:
+			break;
+		}
 		m_ptrDraw->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -51,9 +61,11 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(m_Scale);
 
-		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius, L"TYPEALL_TX");
-		auto m_AreaTransComp = ptrArea->GetComponent<Transform>();
-		m_AreaTransComp->SetParent(GetThis<GearObjFloor>());
+		if ((int)m_eMagPole > 0) {
+			auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
+			auto m_AreaTransComp = ptrArea->GetComponent<Transform>();
+			m_AreaTransComp->SetParent(GetThis<GearObjFloor>());
+		}
 	}
 
 	void GearObjFloor::OnUpdate() {
@@ -61,8 +73,10 @@ namespace basecross {
 
 		m_position = m_ptrTrans->GetWorldPosition();
 
-		ApplyForcePlayer();
-		ApplyForceSecondPlayer();
+		if ((int)m_eMagPole > 0) {
+			ApplyForcePlayer();
+			ApplyForceSecondPlayer();
+		}
 	}
 
 	void GearObjFloor::RotToCenter() {
@@ -109,21 +123,4 @@ namespace basecross {
 			}
 		}
 	}
-
-	//void GearObjFloor::OnCollisionEnter(const CollisionPair& Pair) {
-	//	const shared_ptr<GameObject>& other = Pair.m_Dest.lock()->GetGameObject();
-	//	const Vec3& hitPoint = Pair.m_CalcHitPoint; // 衝突位置(Vec3)
-
-	//	if (other->FindTag(L"Player")) {
-	//		other->GetComponent<Transform>()->SetParent(GetThis<GearObjFloor>());
-	//	}
-	//}
-
-	void GearObjFloor::EfkStop() {
-		m_efk->StopEffect();
-	}
-	void GearObjFloor::OnDestroy() {
-		EfkStop();
-	}
-
 }

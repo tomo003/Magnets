@@ -98,9 +98,9 @@ namespace basecross {
 		//auto magnetsGroup = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
 		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
-		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
-		m_efk->SetDrawLayer(-1);
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
+		//m_efk->SetDrawLayer(-1);
 
 	}
 
@@ -162,12 +162,12 @@ namespace basecross {
 	}
 
 
-	void MagnetN::EfkStop() {
-		m_efk->StopEffect();
-	}
-	void MagnetN::OnDestroy() {
-		EfkStop();
-	}
+	//void MagnetN::EfkStop() {
+	//	m_efk->StopEffect();
+	//}
+	//void MagnetN::OnDestroy() {
+	//	EfkStop();
+	//}
 
 
 	//ステージのS極マグネットプロックの仮設置
@@ -198,8 +198,8 @@ namespace basecross {
 
 		m_eMagPole = EState::eS;
 
-		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
 	}
 
 	void MagnetS::OnUpdate()
@@ -253,12 +253,12 @@ namespace basecross {
 		}
 	}
 
-	void MagnetS::EfkStop(){
-		m_efk->StopEffect();
-	}
-	void MagnetS::OnDestroy() {
-		EfkStop();
-	}
+	//void MagnetS::EfkStop(){
+	//	m_efk->StopEffect();
+	//}
+	//void MagnetS::OnDestroy() {
+	//	EfkStop();
+	//}
 
 	//ステージの鉄ブロックの仮設置
 	Metal::Metal(const std::shared_ptr<Stage>& StagePtr,
@@ -288,8 +288,8 @@ namespace basecross {
 
 		m_eMagPole = EState::eMetal;
 
-		//auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius, L"TYPEALL_TX");
-		m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.0f), L"MagneticRange");
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.0f), L"MagneticRange");
 	}
 
 	void Metal::OnUpdate()
@@ -335,12 +335,12 @@ namespace basecross {
 		}
 	}
 
-	void Metal::EfkStop() {
-		m_efk->StopEffect();
-	}
-	void Metal::OnDestroy() {
-		EfkStop();
-	}
+	//void Metal::EfkStop() {
+	//	m_efk->StopEffect();
+	//}
+	//void Metal::OnDestroy() {
+	//	EfkStop();
+	//}
 
 	//ステージのスタートオブジェクトの仮設置
 	Start::Start(const std::shared_ptr<Stage>& StagePtr,

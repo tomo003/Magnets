@@ -594,14 +594,14 @@ namespace basecross {
 				m_gravityComp->SetGravityVerocityZero();
 				m_ptrTrans->ClearParent();
 			}
-			//if (ptrGearFloor) {
-			//	auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-			//	if (m_eMagPole == EState::eFalse && GearFloorPos.y > m_pos.y) {
-			//		m_gravityComp->SetGravity(m_gravity);
-			//		m_gravityComp->SetGravityVerocityZero();
-			//		m_ptrTrans->ClearParent();
-			//	}
-			//}
+			if (ptrGearFloor) {
+				auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
+				if (m_eMagPole == EState::eFalse && GearFloorPos.y > m_pos.y) {
+					m_gravityComp->SetGravity(m_gravity);
+					m_gravityComp->SetGravityVerocityZero();
+					m_ptrTrans->ClearParent();
+				}
+			}
 			m_emState = magneticState::emNone;
 
 			auto ptrPlayer2= dynamic_pointer_cast<Player2>(Other);

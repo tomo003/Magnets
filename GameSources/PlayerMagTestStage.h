@@ -15,7 +15,8 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // –³
 			eN = 1, // ‚m‹É
-			eS = 2 // ‚r‹É
+			eS = 2, // ‚r‹É
+			eMetal = 3
 		};
 
 		//ƒrƒ…[‚Ìì¬
@@ -28,6 +29,14 @@ namespace basecross {
 		virtual void OnCreate()override;
 
 		void CreateObjGroup();
+
+		/**
+		* @brief ”wŒi¶¬ŠÖ”
+		* @param[in] texkey(”wŒiƒeƒNƒXƒ`ƒƒ‚Ì–¼‘O)
+		* @return –ß‚è’l‚È‚µ
+		* @details forƒ‹[ƒv‚Å•¡”‚Ì”wŒi‚ğ•\¦‚³‚¹‚é
+		*/
+		void CreateBackGround(const wstring& texkey);
 	};
 
 

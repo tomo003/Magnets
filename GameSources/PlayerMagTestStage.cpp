@@ -41,17 +41,7 @@ namespace basecross {
 			CreateViewLight();
 			CreateObjGroup();
 
-			//AddGameObject<BackGroundSprite>();
-
-			//AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 4.0f, 0.0f));
-			//AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(2.0f, 4.0f, 0.0f));
-			//AddGameObject<BeltConveyorLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(3.0f, 4.0f, 0.0f));
-			//AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f, 1.0f, 1.0f), Vec3(4.0f, 4.0f, 0.0f));
-
-			//AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-4.0f, 2.0f, 0.0f));
-			//AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-3.0f, 2.0f, 0.0f));
-			//AddGameObject<BeltConveyorRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-2.0f, 2.0f, 0.0f));
-			//AddGameObject<BeltConveyorSideRight>(Vec3(1.0f, 1.0f, 1.0f), Vec3(-1.0f, 2.0f, 0.0f));
+			CreateBackGround(L"BACKGROUND4");
 
 			// 地面のオブジェクトを追加
 			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.0f, 0.0f));
@@ -83,7 +73,7 @@ namespace basecross {
 
 			AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
 
-			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), 1);
+			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), ROT_LEFT, STATE_METAL, STATE_NONE);
 
 			AddGameObject<BreakWall>(Vec3(17.0f, -2.0f, 0.0f), Vec3(0.0f));
 
@@ -94,6 +84,18 @@ namespace basecross {
 		}
 		catch (...) {
 			throw;
+		}
+	}
+
+	/**
+	* @brief 背景生成関数
+	* @param[in] texkey(背景テクスチャの名前)
+	* @return 戻り値なし
+	* @details forループで複数の背景を表示させる
+	*/
+	void PlayerMagTestStage::CreateBackGround(const wstring& texkey) {
+		for (int i = 0; i <= 5; i++) {
+			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50 + (40 * i), 0, 0), texkey);
 		}
 	}
 

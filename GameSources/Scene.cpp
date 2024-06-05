@@ -75,9 +75,8 @@ namespace basecross{
 		LoadTexture(L"Player01_TX", L"pcube01.png");
 		LoadTexture(L"Player02_TX", L"pcube02.png");
 		LoadTexture(L"Player03_TX", L"pcube03.png");
-		LoadTexture(L"N_AREA_TX", L"MagnetAreaTypeN.png");
-		LoadTexture(L"S_AREA_TX", L"MagnetAreaTypeS.png");
-		LoadTexture(L"TYPEALL_TX", L"MagnetAreaTypeAll.png");
+		LoadTexture(L"TYPEALL_TX", L"MagnetAreaE.png");
+		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaC.png");
 		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
 		LoadTexture(L"BPUSH", L"PushB.png");
 		LoadTexture(L"RBPUSH", L"PushRB.png");
@@ -86,12 +85,12 @@ namespace basecross{
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
 		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png");
 
-		LoadTexture(L"BACKGROUND", L"BackA.png");
-		LoadTexture(L"BACKGROUND6", L"BackB.png");
-		LoadTexture(L"BACKGROUND7", L"BackC.png");
-		LoadTexture(L"BACKGROUND8", L"BackD.png");
-		LoadTexture(L"BACKGROUND9", L"BackE.png");
-		LoadTexture(L"BACKGROUND10", L"BackF.png");
+		LoadTexture(L"BACKGROUND1", L"BackA.png");
+		LoadTexture(L"BACKGROUND2", L"BackB.png");
+		LoadTexture(L"BACKGROUND3", L"BackC.png");
+		LoadTexture(L"BACKGROUND4", L"BackD.png");
+		LoadTexture(L"BACKGROUND5", L"BackE.png");
+		LoadTexture(L"BACKGROUND6", L"BackF.png");
 
 		LoadTexture(L"TITLE", L"title.png");
 
@@ -230,7 +229,7 @@ namespace basecross{
 		const auto& audioPtr = App::GetApp()->GetXAudio2Manager();
 		auto& app = App::GetApp();
 
-		if (event->m_MsgStr == L"ToGameStage") {
+		if (event->m_MsgStr == L"ToGame5rStage") {
 			audioPtr->Stop(m_bgm);
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();

@@ -7,6 +7,12 @@
 #define UP_VEC Vec3(0.0f, 1.0f, 0.0f)
 #define DOWN_VEC Vec3(0.0f, -1.0f, 0.0f)
 
+#define ROT_RIGHT -1
+#define ROT_LEFT 1
+
+#define STATE_NONE -1
+#define STATE_METAL 3
+
 
 namespace Utility
 {
