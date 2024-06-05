@@ -160,6 +160,7 @@ namespace basecross {
 		std::shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_DrawComp; // ドローコンポーネント
 		std::shared_ptr<Action> m_actionComp; // アクションコンポーネント
+		shared_ptr<SoundItem> m_kadouonn;
 
 		Vec3 m_position;
 		Vec3 m_scale;

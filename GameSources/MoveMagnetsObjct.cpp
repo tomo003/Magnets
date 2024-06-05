@@ -206,6 +206,8 @@ namespace basecross {
 		// デルタタイム(前フレームからの経過時間)を取得する
 		float delta = app->GetElapsedTime();
 
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+
 		// 移動床の状態に従って動作切り替え
 		switch (eMoveState)
 		{
