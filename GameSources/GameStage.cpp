@@ -57,32 +57,32 @@ namespace basecross {
 
 			switch (PtrScene->GetStageNum()) {
 			case 1:
-				CreateBackGround(L"BACKGROUND");
+				CreateBackGround(L"BACKGROUND1");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				PlayBGM(L"GAMESTAGE1_BGM");
 				break;
 			case 2:
-				CreateBackGround(L"BACKGROUND6");
+				CreateBackGround(L"BACKGROUND2");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				PlayBGM(L"GAMESTAGE2_BGM");
 				break;
 			case 3:
-				CreateBackGround(L"BACKGROUND7");
+				CreateBackGround(L"BACKGROUND3");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
 				PlayBGM(L"GAMESTAGE3_BGM");
 				break;
 			case 4:
-				CreateBackGround(L"BACKGROUND8");
+				CreateBackGround(L"BACKGROUND4");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
 				PlayBGM(L"GAMESTAGE4_BGM");
 				break;
 			case 5:
-				CreateBackGround(L"BACKGROUND9");
+				CreateBackGround(L"BACKGROUND5");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage5.csv");
 				PlayBGM(L"GAMESTAGE5_BGM");
 				break;
 			case 6:
-				CreateBackGround(L"BACKGROUND10");
+				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
 				PlayBGM(L"GAMESTAGE6_BGM");
 				break;
