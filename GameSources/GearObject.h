@@ -149,21 +149,23 @@ namespace basecross {
 		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.2f); // ‚¿‚å‚Á‚Æ‚¾‚¯‰œ‚É”z’u
 		Vec3 m_Rotation = Vec3(0.0f);
 
-		float m_RotSpeed = 50; // ˆê•b‚Å50“x‰ñ‚·
+		float m_RotSpeed; // ˆê•b‚Å50“x‰ñ‚·
 		int m_RotDir; // ‰ñ“]•ûŒü(1 = ¶‰ñ“]A-1 = ‰E‰ñ“])
 	public:
 		GearObject(
 			const std::shared_ptr<Stage>& stage, 
 			const Vec3& position, 
 			const int& RotDir,
+			const float& RotSpeed,
 			const int& fisetFloorState,
 			const int& secondFloorState
 			) :
 			GameObject(stage),
 			m_position(position),
-			m_RotDir(RotDir),
-			m_eFloorStateF(fisetFloorState),
-			m_eFloorStateS(secondFloorState)
+			m_RotDir(RotDir), // ‰ñ“]•ûŒü
+			m_RotSpeed(RotSpeed), // •bŠÔ‰½“x‰ñ“]‚·‚é‚©(Deg)
+			m_eFloorStateF(fisetFloorState), // ˆêŒÂ–Ú‚Ì°‚Ì‘®«
+			m_eFloorStateS(secondFloorState) // “ñŒÂ–Ú‚Ì°‚Ì‘®«
 		{}
 
 		void OnCreate() override;
