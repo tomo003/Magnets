@@ -10,10 +10,13 @@ namespace basecross {
 
 	void CoinObject::OnCreate() {
 		auto ptrTrans = AddComponent<Transform>();
-		ptrTrans->SetScale(Vec3(0.8f, 0.8f,0.1f));
+		ptrTrans->SetScale(Vec3(0.5f));
 		ptrTrans->SetPosition(m_position);
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
+		m_ptrDraw = AddComponent<BcPNTBoneModelDraw>();
+		m_ptrDraw->SetMeshResource(L"Key_MESH");
+		m_ptrDraw->AddAnimation(L"FRY", 0, 30, true, 30);
+		m_ptrDraw->AddAnimation(L"GET", 30, 30, true, 30);
+		m_ptrDraw->ChangeCurrentAnimation(L"FRY");
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetUpdateActive(true);
 		//ptrColl->SetDrawActive(true);
@@ -30,6 +33,17 @@ namespace basecross {
 	}
 
 	void CoinObject::OnUpdate() {
+		float delat = App::GetApp()->GetElapsedTime();
+		m_ptrDraw->UpdateAnimation(delat * 1.0f);
+		
+		if (palyerTouch) {
+			m_time++;
+		
+			if (m_time > 60.0f) {
+				SetUpdateActive(false);
+				SetDrawActive(false);
+			}
+		}
 	}
 
 	void CoinObject::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -37,12 +51,12 @@ namespace basecross {
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
 		if (ptrPlayer || ptrPlayer2) {
+			m_ptrDraw->ChangeCurrentAnimation(L"GET");
 			auto scene = App::GetApp()->GetScene<Scene>();
 			int sceneNum = scene->GetStageNum();
 			scene->SetScore(sceneNum);
 
-			SetUpdateActive(false);
-			SetDrawActive(false);
+			palyerTouch = true;
 		}
 	}
 }
