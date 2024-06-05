@@ -104,6 +104,10 @@ namespace basecross{
 		int GetScore(const int i) {
 			return m_score[i - 1];
 		}
+		void ResetScore(const int i) {
+			m_score[i - 1] = 0;
+		}
+
 	};
 }
 

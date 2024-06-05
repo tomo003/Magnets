@@ -14,6 +14,7 @@ namespace basecross {
 		bool palyerTouch = false;
 	private:
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw;
+		std::shared_ptr<CollisionObb> m_ptrColl;
 	public:
 		//\’z‚Æ”jŠü
 		CoinObject(const shared_ptr<Stage>& StagePtr, const Vec3& position) :
