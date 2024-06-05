@@ -213,11 +213,23 @@ namespace basecross {
 		{
 		case EMoveState::eReMove: // ReMove‚È‚ç–ß‚é
 			m_position -= m_MoveDir * m_speed * delta;
+			if (!MoveSEPlay)
+			{
+				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 2.0f);
+				MoveSEPlay = true;
+			}
 			break;
 		case EMoveState::eStop: // Stop‚È‚ç’âŽ~(‰½‚à‰ÁŽZ‚µ‚È‚¢)
+			XAPtr->Stop(m_kadouonn);
+			MoveSEPlay = false;
 			break;
 		case EMoveState::eMove: // Move‚È‚çˆÚ“®
 			m_position += m_MoveDir * m_speed * delta;
+			if (!MoveSEPlay)
+			{
+				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 2.0f);
+				MoveSEPlay = true;
+			}
 			break;
 		default:
 			break;

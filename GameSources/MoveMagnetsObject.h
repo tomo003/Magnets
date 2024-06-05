@@ -171,6 +171,8 @@ namespace basecross {
 
 		float m_speed = 2.0f;
 
+		bool MoveSEPlay = false;
+
 	public:
 		MoveFloor(
 			const std::shared_ptr<Stage>& stage, 
