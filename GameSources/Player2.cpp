@@ -494,7 +494,7 @@ namespace basecross {
 
 		if (ptrGearFloor) {
 			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-			if (m_eMagPole == EState::eN) {
+			if (m_eMagPole == EState::eS) {
 				m_gravityComp->SetGravityZero();
 				if (isEffect) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
@@ -538,6 +538,14 @@ namespace basecross {
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
+		}
+		if (ptrGearFloor) {
+			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
+			if (m_eMagPole == EState::eFalse && GearFloorPos.y > m_pos.y) {
+				m_gravityComp->SetGravity(m_gravity);
+				m_gravityComp->SetGravityVerocityZero();
+				m_ptrTrans->ClearParent();
+			}
 		}
 
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
