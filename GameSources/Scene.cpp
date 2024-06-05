@@ -229,7 +229,7 @@ namespace basecross{
 		const auto& audioPtr = App::GetApp()->GetXAudio2Manager();
 		auto& app = App::GetApp();
 
-		if (event->m_MsgStr == L"ToGame5rStage") {
+		if (event->m_MsgStr == L"ToGameStage") {
 			audioPtr->Stop(m_bgm);
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
