@@ -41,7 +41,8 @@ namespace basecross {
 
 		//プレイヤー同士が離れると行動制限がかかる距離
 		float m_limit = 20;
-		bool isLimit = false;
+		bool isRightLimit = false;
+		bool isLeftLimit = false;
 
 		Vec3 m_nearMagnetPos;//近い磁石オブジェクトの位置
 
