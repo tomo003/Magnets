@@ -69,7 +69,7 @@ namespace basecross {
 		virtual ~MagnetN();
 		virtual void OnCreate() override;
 		virtual void OnUpdate()override;
-		void OnDestroy()override;
+		//void OnDestroy()override;
 
 
 		int GetState() {
@@ -88,7 +88,7 @@ namespace basecross {
 
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
-		void EfkStop();
+		//void EfkStop();
 	};
 
 	//S極のオブジェクト
@@ -123,7 +123,7 @@ namespace basecross {
 		virtual ~MagnetS();
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
-		void OnDestroy()override;
+		//void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
@@ -142,7 +142,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
 
-		void EfkStop();
+		//void EfkStop();
 	};
 
 	//金属のオブジェクト
@@ -177,7 +177,7 @@ namespace basecross {
 		virtual ~Metal();
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
-		void OnDestroy()override;
+		//void OnDestroy()override;
 
 		virtual int GetState() {
 			return static_cast<int>(m_eMagPole);
@@ -195,7 +195,7 @@ namespace basecross {
 
 		virtual void ApplyForcePlayer();
 		virtual void ApplyForceSecondPlayer();
-		virtual void EfkStop();
+		//virtual void EfkStop();
 	};
 
 	//スタートオブジェクト

@@ -75,8 +75,8 @@ namespace basecross{
 		LoadTexture(L"Player01_TX", L"pcube01.png");
 		LoadTexture(L"Player02_TX", L"pcube02.png");
 		LoadTexture(L"Player03_TX", L"pcube03.png");
-		LoadTexture(L"TYPEALL_TX", L"MagnetArea.png");
-		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaB.png");
+		LoadTexture(L"TYPEALL_TX", L"MagnetAreaE.png");
+		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaC.png");
 		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
 		LoadTexture(L"BPUSH", L"PushB.png");
 		LoadTexture(L"RBPUSH", L"PushRB.png");
@@ -205,7 +205,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
 			throw;
@@ -227,7 +227,7 @@ namespace basecross{
 		const auto& audioPtr = App::GetApp()->GetXAudio2Manager();
 		auto& app = App::GetApp();
 
-		if (event->m_MsgStr == L"ToGameStage") {
+		if (event->m_MsgStr == L"ToGame5rStage") {
 			audioPtr->Stop(m_bgm);
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();

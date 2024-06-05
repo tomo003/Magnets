@@ -158,8 +158,8 @@ namespace basecross {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 
-				m_ptrMagObjN->EfkStop();
-				m_ptrMagObjS->EfkStop();
+				//m_ptrMagObjN->EfkStop();
+				//m_ptrMagObjS->EfkStop();
 				m_ptrBbuttonSprite->SetDrawActive(false);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
 
