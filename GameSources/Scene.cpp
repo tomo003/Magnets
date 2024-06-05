@@ -149,6 +149,8 @@ namespace basecross{
 		LoadStaticModelMesh(L"02", L"Player02_MESH");
 		LoadStaticModelMesh(L"03", L"Player03_MESH");
 
+		LoadBoneModel(L"Key", L"Key_MESH",L"Key_MESH_TAN");
+
 		//Player1
 		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
 		LoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
@@ -206,7 +208,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;
