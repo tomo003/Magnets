@@ -315,11 +315,15 @@ namespace basecross {
 					isCreateMaagnets = false;
 					break;
 
-				case 16: //歯車
+				case 16: //歯車右回り
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), -1); // 引数2つ目が1だと左回転、-1だと右回転
+					break;
+
+				case 17: //歯車左回り
 					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), 1); // 引数2つ目が1だと左回転、-1だと右回転
 					break;
 
-				case 17: //鍵
+				case 18: //鍵
 					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
