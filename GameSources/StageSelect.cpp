@@ -58,12 +58,10 @@ namespace basecross {
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 50.0f, pos.y , 0.0f));
 			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 100.0f, pos.y , 0.0f));
 			break;
-		case 3:
+		default:
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
-			break;
-		default:
 			break;
 		}
 	}
@@ -213,7 +211,7 @@ namespace basecross {
 		}
 		shared_ptr<SelectScreenSprite> shptr = m_SpVec[StageNum - 1].lock();
 		ptrCursor->GetComponent<Transform>()->SetPosition(shptr->GetComponent<Transform>()->GetPosition());
-
+		PtrScene->ResetScore(StageNum);
 	}
 }
 //end basecross

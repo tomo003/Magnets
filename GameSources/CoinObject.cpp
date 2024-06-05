@@ -17,8 +17,8 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"FRY", 0, 30, true, 30);
 		m_ptrDraw->AddAnimation(L"GET", 30, 30, true, 30);
 		m_ptrDraw->ChangeCurrentAnimation(L"FRY");
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetUpdateActive(true);
+		m_ptrColl = AddComponent<CollisionObb>();
+		m_ptrColl->SetUpdateActive(true);
 		//ptrColl->SetDrawActive(true);
 
 		AddTag(L"CoinObject");
@@ -39,7 +39,7 @@ namespace basecross {
 		if (palyerTouch) {
 			m_time++;
 		
-			if (m_time > 60.0f) {
+			if (m_time > 50.0f) {
 				SetUpdateActive(false);
 				SetDrawActive(false);
 			}
@@ -55,7 +55,7 @@ namespace basecross {
 			auto scene = App::GetApp()->GetScene<Scene>();
 			int sceneNum = scene->GetStageNum();
 			scene->SetScore(sceneNum);
-
+			m_ptrColl->SetUpdateActive(false);
 			palyerTouch = true;
 		}
 	}
