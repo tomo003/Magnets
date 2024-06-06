@@ -505,6 +505,7 @@ namespace basecross {
 				if (isEffect) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 					isEffect = false;
+					m_objPos = ptrGearFloor->GetComponent<Transform>()->GetPosition();
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
