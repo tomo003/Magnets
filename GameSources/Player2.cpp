@@ -152,7 +152,7 @@ namespace basecross {
 		}
 
 		if (!isEffect) {
-			if (length(m_objPos - m_pos) >= 2.0f) {
+			if (length(m_objPos - m_pos) >= 1.5f) {
 				isEffect = true;
 			}
 		}
@@ -397,6 +397,7 @@ namespace basecross {
 			if (isEffect) {
 				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 				isEffect = false;
+				m_objPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"UNION_SE", 0, 2.0f);
 			}
@@ -415,19 +416,24 @@ namespace basecross {
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-			isEffect = true;
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"UNION_SE", 0, 2.0f);
-
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+				m_objPos = ptrMagnetN->GetComponent<Transform>()->GetPosition();
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
+			}
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
-			GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-			isEffect = true;
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"UNION_SE", 0, 2.0f);
+			if (isEffect) {
+				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+				isEffect = false;
+				m_objPos = ptrMagnetS->GetComponent<Transform>()->GetPosition();
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"UNION_SE", 0, 2.0f);
+			}
 		}
 		if (ptrPlayer) {
 		isPlayerContact = true;
@@ -446,7 +452,7 @@ namespace basecross {
 		}
 
 		if (ptrGround) {
-			isEffect = true;
+			//isEffect = true;
 			isGround = true;
 			isInertia = false;
 			isRepulsion = false;
@@ -500,6 +506,7 @@ namespace basecross {
 				if (isEffect) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 					isEffect = false;
+					m_objPos = ptrGearFloor->GetComponent<Transform>()->GetPosition();
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
