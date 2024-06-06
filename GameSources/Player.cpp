@@ -214,7 +214,8 @@ namespace basecross {
 		m_pos = Vec3(m_RespawnPoint + 2, 0.0f, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		isGoal = false;
-		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
+		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed", false);
+		if (!ptrSquareRed) return;
 		ptrSquareRed->ChangeTexture(L"TENNSENNRED_TX");
 		auto savePointGroup = GetStage()->GetSharedObjectGroup(L"SavePoint");
 		auto groupVector = savePointGroup->GetGroupVector();
