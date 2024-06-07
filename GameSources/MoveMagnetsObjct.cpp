@@ -94,12 +94,12 @@ namespace basecross {
 		}
 	}
 
-	void MoveMetalObject::EfkStop() {
-		m_efk->StopEffect();
-	}
-	void MoveMetalObject::OnDestroy() {
-		EfkStop();
-	}
+	//void MoveMetalObject::EfkStop() {
+	//	m_efk->StopEffect();
+	//}
+	//void MoveMetalObject::OnDestroy() {
+	//	EfkStop();
+	//}
 
 	void MoveFloorButton::OnCreate() {
 		m_DrawComp = AddComponent<PNTStaticDraw>();

@@ -99,6 +99,7 @@ namespace basecross {
 		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
 		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
 		//m_efk->SetDrawLayer(-1);
 
@@ -199,6 +200,7 @@ namespace basecross {
 		m_eMagPole = EState::eS;
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
 		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
 	}
 
@@ -289,6 +291,7 @@ namespace basecross {
 		m_eMagPole = EState::eMetal;
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
 		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.0f), L"MagneticRange");
 	}
 

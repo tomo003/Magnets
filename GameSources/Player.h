@@ -127,9 +127,9 @@ namespace basecross {
 		void OnUpdate();
 		void OnUpdate2();
 
-		void MovePlayer();
-		void JumpPlayer();
-		void JumpCountReset() {
+		void MovePlayer(); // プレイヤーの移動
+		void JumpPlayer(); // プレイヤーのジャンプ(デバッグ用)
+		void JumpCountReset() { // ジャンプ回数リセット用
 			jumpCount = 2;
 		}
 		void GoalPlayer();

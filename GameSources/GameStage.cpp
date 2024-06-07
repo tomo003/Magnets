@@ -316,11 +316,11 @@ namespace basecross {
 					break;
 
 				case 16: //歯車右回り
-					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_RIGHT, STATE_METAL, STATE_NONE); // 引数2つ目が1だと左回転、-1だと右回転
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_RIGHT, 50.0f, STATE_METAL, STATE_NONE);
 					break;
 
 				case 17: //歯車左回り
-					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_LEFT, STATE_METAL, STATE_NONE); // 引数2つ目が1だと左回転、-1だと右回転
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_LEFT, 60.0f, STATE_NONE, STATE_METAL);
 					break;
 
 				case 18: //鍵
