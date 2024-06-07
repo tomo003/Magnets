@@ -15,7 +15,7 @@ namespace basecross {
 
 		void CreateViewLight();//ビューの作成
 		void CreateTitleSprite();//スプライトの作成
-		void PlayBGM();//BGMの作成
+		//void PlayBGM();//BGMの作成
 
 	public:
 		TitleStage() :
@@ -26,7 +26,7 @@ namespace basecross {
 
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
-		virtual void OnDestroy()override;
+		//virtual void OnDestroy()override;
 
 	};
 }

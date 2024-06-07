@@ -19,6 +19,9 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 	}
+	void SelectStage::PlayBGM() {
+		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"STANDBY_BGM", XAUDIO2_LOOP_INFINITE, 3.0f);
+	}
 
 	void SelectStage::CreateCursor()
 	{
@@ -132,8 +135,14 @@ namespace basecross {
 		CreateAnimeSprite();
 		CreateCursor();
 		CreateKeySprite();
+		PlayBGM();
 	}
 
+	void SelectStage::OnDestroy() {
+		//BGMのストップ
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_bgm);
+	}
 
 
 	void SelectStage::OnUpdate() {
