@@ -13,7 +13,7 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
-		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
+		std::vector<VertexPositionColor> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
 		RightGuide(const std::shared_ptr<Stage>& StagePtr,
@@ -28,7 +28,7 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
-		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
+		std::vector<VertexPositionColor> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
 		LeftGuide(const std::shared_ptr<Stage>& StagePtr,

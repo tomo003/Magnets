@@ -105,7 +105,7 @@ namespace basecross {
 		std::shared_ptr<PNTStaticDraw> m_actionComp; //アクションコンポーネント
 
 		Vec3 m_position;
-		Vec3 m_scale = Vec3(1.0f, 0.1f, 1.0f);
+		Vec3 m_scale = Vec3(1.1f, 0.1f, 1.0f);
 
 		Vec3 m_startPos; // 初期位置
 		float m_endPosY; // 移動後の位置
