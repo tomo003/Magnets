@@ -39,7 +39,7 @@ namespace basecross {
 		if (palyerTouch) {
 			m_time++;
 		
-			if (m_time > 50.0f) {
+			if (m_time > 40.0f) {
 				SetUpdateActive(false);
 				SetDrawActive(false);
 			}

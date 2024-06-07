@@ -5,6 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "MagnetArea.h"
 
 namespace basecross {
 
@@ -52,8 +53,6 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
-		std::shared_ptr<GameObject> m_ptrArea;
-
 		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 4.0f;
 
@@ -61,6 +60,7 @@ namespace basecross {
 		Vec3 m_Position;
 		int m_State;
 		std::shared_ptr<EffectPlayer> m_efk;
+		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
 		MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -88,6 +88,8 @@ namespace basecross {
 
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
+
+		void MoveMagnetArea(const Vec3 pos);
 		//void EfkStop();
 	};
 
@@ -115,6 +117,7 @@ namespace basecross {
 		Vec3 m_Position;
 
 		std::shared_ptr<EffectPlayer> m_efk;
+		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
 		MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
@@ -142,6 +145,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
 
+		void MoveMagnetArea(const Vec3 pos);
 		//void EfkStop();
 	};
 

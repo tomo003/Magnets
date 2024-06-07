@@ -154,6 +154,8 @@ namespace basecross {
 				m_ptrMagObjS->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y, magSPos.z));
 				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x + speed, magNPos.y - 1.0f, magNPos.z));
 				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y - 1.0f, magSPos.z));
+				m_ptrMagObjN->MoveMagnetArea(Vec3(magNPos.x + speed, magNPos.y, magNPos.z));
+				m_ptrMagObjS->MoveMagnetArea(Vec3(magSPos.x + speed, magSPos.y, magSPos.z));
 
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
