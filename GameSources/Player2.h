@@ -64,7 +64,7 @@ namespace basecross {
 		bool isRepulsion = false; // 反発してるときtrue
 		bool isEffect = true;
 
-		float m_RespawnPoint;//リスポーンする位置
+		Vec3 m_RespawnPoint;//リスポーンする位置
 
 		wstring m_magDirLR;
 		wstring m_magDirUD;
@@ -115,8 +115,8 @@ namespace basecross {
 			jumpCount = 2;
 		}
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
-		void SetRespawnPoint(float RepawnPoint);
-		float GetRespawnPoint()const {
+		void SetRespawnPoint(Vec3 RepawnPoint);
+		Vec3 GetRespawnPoint()const {
 			return m_RespawnPoint;
 		}
 		void RespawnPlayer();
