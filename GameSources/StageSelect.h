@@ -9,6 +9,7 @@
 namespace basecross {
 	class SelectScreenSprite;
 	class SelectStage : public Stage {
+		int m_score;
 
 		bool stage = false;
 		bool m_CntrolLock = false;
