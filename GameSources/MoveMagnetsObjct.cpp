@@ -51,7 +51,7 @@ namespace basecross {
 		//m_ptrArea->UpdateArea(m_position);
 
 		/*Vec3 position = m_ptrTrans->GetPosition();*/
-		m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
+		//m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
 	}
 
 	// プレイヤーに磁力による力を適用
