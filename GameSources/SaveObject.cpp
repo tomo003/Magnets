@@ -217,8 +217,6 @@ namespace basecross {
 		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 5, m_Scale.z / (float)3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
-		SetAlphaActive(true);
-
 		m_ptrTriangleRed = GetStage()->AddGameObject<SaveTriangleRed>
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
 		m_ptrTriangleBlue = GetStage()->AddGameObject<SaveTriangleBlue>
