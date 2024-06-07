@@ -237,17 +237,16 @@ namespace basecross{
 			m_scene = 2;
 		}
 		else if (event->m_MsgStr == L"ToTitleStage") {
+			m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 2.0f);
 			ResetActiveStage<TitleStage>();
 			m_scene = 0;
 		}
 		else if (event->m_MsgStr == L"ToStandbyStage") {
-			audioPtr->Stop(m_bgm);
-			m_bgm = audioPtr->Start(L"STANDBY_BGM", XAUDIO2_LOOP_INFINITE, 2.0f);
-
 			ResetActiveStage<StandbyStage>();
 			m_scene = 1;
 		}
 		else if (event->m_MsgStr == L"ToSelectStage") {
+			audioPtr->Stop(m_bgm);
 			ResetActiveStage<SelectStage>();
 			m_scene = 3;
 		}

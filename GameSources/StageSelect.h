@@ -23,6 +23,8 @@ namespace basecross {
 		void ChangeSelect(int num);
 		void CreateCursor();
 		void CreateAnimeSprite();
+		void PlayBGM();//BGM�̍쐬
+
 	public:
 		SelectStage() :
 			Stage(), m_SpVec(6)
@@ -32,6 +34,7 @@ namespace basecross {
 
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
+		virtual void OnDestroy()override;
 
 	};
 }
