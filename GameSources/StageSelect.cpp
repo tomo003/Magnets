@@ -174,7 +174,7 @@ namespace basecross {
 						StageNum = 1;
 					}
 					m_CntrolLock = true;
-					PtrScene->SetStageNum(StageNum);
+					//PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 
 				}
@@ -186,7 +186,7 @@ namespace basecross {
 						StageNum = 6;
 					}
 					m_CntrolLock = true;
-					PtrScene->SetStageNum(StageNum);
+					//PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY >= 0.8f) {
@@ -197,7 +197,7 @@ namespace basecross {
 						StageNum += 6;
 					}
 					m_CntrolLock = true;
-					PtrScene->SetStageNum(StageNum);
+					//PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY <= -0.8f) {
@@ -208,7 +208,7 @@ namespace basecross {
 						StageNum -= 6;
 					}
 					m_CntrolLock = true;
-					PtrScene->SetStageNum(StageNum);
+					//PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 			}
@@ -217,6 +217,37 @@ namespace basecross {
 					m_CntrolLock = false;
 				}
 			}
+		}
+		m_score = 0;
+		for (int i = 1; i < 7; i++) {
+			m_score += PtrScene->GetScore(i);
+		}
+		if (m_score >= 13) {
+			if (StageNum == 6) {
+				PtrScene->SetStageNum(6);
+			}
+			else  if (StageNum < 6) {
+				PtrScene->SetStageNum(StageNum);
+			}
+		}
+		else if (m_score >= 10) {
+			if (StageNum == 5) {
+				PtrScene->SetStageNum(5);
+			}
+			else  if (StageNum < 5) {
+				PtrScene->SetStageNum(StageNum);
+			}
+		}
+		else if (m_score >= 7) {
+			if (StageNum == 4) {
+				PtrScene->SetStageNum(4);
+			}
+			else  if (StageNum < 5) {
+				PtrScene->SetStageNum(StageNum);
+			}
+		}
+		else if (StageNum < 4) {
+			PtrScene->SetStageNum(StageNum);
 		}
 		shared_ptr<SelectScreenSprite> shptr = m_SpVec[StageNum - 1].lock();
 		ptrCursor->GetComponent<Transform>()->SetPosition(shptr->GetComponent<Transform>()->GetPosition());
