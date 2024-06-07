@@ -486,12 +486,6 @@ namespace basecross {
 			}
 		}
 
-		//if (ptrGear && (m_eMagPole != EState::eFalse) && (m_emState != magneticState::emGear)) {
-		//	m_gravityComp->SetGravityZero();
-		//	m_ptrTrans->SetParent(ptrGear);
-		//	m_emState = magneticState::emGear;
-		//	GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-		//}
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
@@ -557,8 +551,12 @@ namespace basecross {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
+				m_ptrTrans->SetParent(ptrGearFloor);
 			}
-			m_ptrTrans->SetParent(ptrGearFloor);
+			else if (m_pos.y > m_Scale.y + GearFloorPos.y) {
+				m_ptrTrans->SetParent(ptrGearFloor);
+			}
+			
 		}
 	}
 
@@ -596,7 +594,7 @@ namespace basecross {
 			}
 			if (ptrGearFloor) {
 				auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-				if (m_eMagPole == EState::eFalse && GearFloorPos.y > m_pos.y) {
+				if (m_eMagPole == EState::eFalse && GearFloorPos.y + m_Scale.y/2 > m_pos.y) {
 					m_gravityComp->SetGravity(m_gravity);
 					m_gravityComp->SetGravityVerocityZero();
 					m_ptrTrans->ClearParent();

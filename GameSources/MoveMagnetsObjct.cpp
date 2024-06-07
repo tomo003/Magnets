@@ -51,7 +51,7 @@ namespace basecross {
 		//m_ptrArea->UpdateArea(m_position);
 
 		/*Vec3 position = m_ptrTrans->GetPosition();*/
-		m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
+		//m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
 	}
 
 	// プレイヤーに磁力による力を適用
@@ -94,12 +94,12 @@ namespace basecross {
 		}
 	}
 
-	void MoveMetalObject::EfkStop() {
-		m_efk->StopEffect();
-	}
-	void MoveMetalObject::OnDestroy() {
-		EfkStop();
-	}
+	//void MoveMetalObject::EfkStop() {
+	//	m_efk->StopEffect();
+	//}
+	//void MoveMetalObject::OnDestroy() {
+	//	EfkStop();
+	//}
 
 	void MoveFloorButton::OnCreate() {
 		m_DrawComp = AddComponent<PNTStaticDraw>();

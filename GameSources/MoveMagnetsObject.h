@@ -63,7 +63,7 @@ namespace basecross {
 
 		void OnCreate();
 		void OnUpdate();
-		void OnDestroy()override;
+		//void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
@@ -84,7 +84,7 @@ namespace basecross {
 		// プレイヤーに磁力による力を適用
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
-		void EfkStop();
+		//void EfkStop();
 	};
 
 	//動く床用のボタン
