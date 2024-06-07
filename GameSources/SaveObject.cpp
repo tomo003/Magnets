@@ -264,14 +264,14 @@ namespace basecross {
 		auto ptrPos = GetComponent<Transform>()->GetPosition();
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 
-		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetPosition().x && !isCollPlayer) {
+		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			isCollPlayer = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"RED_TX");
 			m_ptrTriangleRed->ChangeTexture(L"TRIANGLERED_TX");
 			XAPtr->Start(L"SAVE_SE", 0, 3.0f);
 		}
-		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetPosition().x && !isCollPlayer2) {
+		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"BLUE_TX");

@@ -105,6 +105,8 @@ namespace basecross {
 	}
 
 	void DuoCamera::MoveCamera() {
+		auto& app = App::GetApp();
+		float delta = app->GetElapsedTime();
 		auto ptrTarget = GetPlayerObj();
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
@@ -121,7 +123,7 @@ namespace basecross {
 		}
 
 		Vec3 newAt = GetAt();
-		newAt = Vec3((targetPos.x+ secondTargetPos.x)/2, m_Height, 0.0f);
+		newAt = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, 0.0f);
 		Vec3 newEye = GetEye();
 		newEye = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, m_EyeZ);
 

@@ -184,13 +184,13 @@ namespace basecross {
 
 	void Player::PlayerDeath() {
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		float player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
-		if (player2RespawnpPoint >= m_RespawnPoint) {
+		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
+		if (player2RespawnpPoint.x >= m_RespawnPoint.x) {
 			ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
 			ptrPlayer2->RespawnPlayer();
 			RespawnPlayer();
 		}
-		else if (player2RespawnpPoint < m_RespawnPoint) {
+		else if (player2RespawnpPoint.x < m_RespawnPoint.x) {
 			SetRespawnPoint(player2RespawnpPoint);
 			ptrPlayer2->RespawnPlayer();
 			RespawnPlayer();
@@ -200,10 +200,10 @@ namespace basecross {
 	//リスポーン地点を設定する
 	void Player::SetRespawnPoint(shared_ptr<GameObject>& Other) {
 		auto otherPos = Other->GetComponent<Transform>()->GetPosition();
-		m_RespawnPoint = otherPos.x;
+		m_RespawnPoint = otherPos;
 	}
 
-	void Player::SetRespawnPoint(float RespawnPoint) {
+	void Player::SetRespawnPoint(Vec3 RespawnPoint) {
 		m_RespawnPoint = RespawnPoint;
 	}
 
@@ -211,7 +211,7 @@ namespace basecross {
 	void Player::RespawnPlayer() {
 		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 		m_eMagPole = EState::eFalse;
-		m_pos = Vec3(m_RespawnPoint + 2, 0.0f, 0.0f);
+		m_pos = Vec3(m_RespawnPoint.x + 2, m_RespawnPoint.y, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		isGoal = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed", false);
@@ -662,10 +662,10 @@ namespace basecross {
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);
-		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x && m_RespawnPoint < ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
+		if (ptrRespawnPoint && m_pos.x > ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x && m_RespawnPoint.x < ptrRespawnPoint->GetComponent<Transform>()->GetPosition().x)
 		{
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
-			m_RespawnPoint = otherPos.x;
+			m_RespawnPoint = otherPos;
 		}
 
 		if (ptrPlayer2)
