@@ -45,7 +45,7 @@ namespace basecross {
 
 	void SelectStage::CreateKeyLoad(const int scene, const Vec3 pos) {
 		int score = App::GetApp()->GetScene<Scene>()->GetScore(scene);
-		switch (score){
+		switch (score) {
 		case 0:
 			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
 			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
@@ -58,8 +58,8 @@ namespace basecross {
 			break;
 		case 2:
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 50.0f, pos.y , 0.0f));
-			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x+ 100.0f, pos.y , 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
 			break;
 		default:
 			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
@@ -71,7 +71,7 @@ namespace basecross {
 	void SelectStage::CreateKeySprite() {
 		auto scene = App::GetApp()->GetScene<Scene>();
 		int StageNum = scene->GetStageNum();
-		for (int i = 0; i < 7; i++){
+		for (int i = 0; i < 7; i++) {
 			switch (i) {
 			case 1:
 				CreateKeyLoad(1, Vec3(-500.0f, 0.0f, 0.0f));
@@ -151,14 +151,61 @@ namespace basecross {
 		auto& pad = device.GetControlerVec()[0];
 		auto& pad2 = device.GetControlerVec()[1];
 		auto ptrCursor = GetSharedGameObject<CursorSprite>(L"Cursor");
+
+
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
-			if (!stage) {
-				AddGameObject<FadeOut>(L"FADE_WHITE");
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-				stage = true;
-				m_Lock = true;
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			int StageNum = PtrScene->GetStageNum();
+			m_score = 0;
+			for (int i = 1; i < 7; i++) {
+				m_score += PtrScene->GetScore(i);
+			}
+
+			if (StageNum <= 3) {
+				if (!stage) {
+					AddGameObject<FadeOut>(L"FADE_WHITE");
+					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+					stage = true;
+					m_Lock = true;
+				}
+			}
+			else if (StageNum == 4) {
+				if (!stage) {
+					if (m_score >= 7) {
+						AddGameObject<FadeOut>(L"FADE_WHITE");
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						auto XAPtr = App::GetApp()->GetXAudio2Manager();
+						XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+						stage = true;
+						m_Lock = true;
+					}
+				}
+			}
+			else if (StageNum == 5) {
+				if (m_score >= 10) {
+					if (!stage) {
+						AddGameObject<FadeOut>(L"FADE_WHITE");
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						auto XAPtr = App::GetApp()->GetXAudio2Manager();
+						XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+						stage = true;
+						m_Lock = true;
+					}
+				}
+			}
+			else if (StageNum == 6) {
+				if (m_score >= 13) {
+					if (!stage) {
+						AddGameObject<FadeOut>(L"FADE_WHITE");
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						auto XAPtr = App::GetApp()->GetXAudio2Manager();
+						XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+						stage = true;
+						m_Lock = true;
+					}
+				}
 			}
 		}
 
@@ -174,7 +221,7 @@ namespace basecross {
 						StageNum = 1;
 					}
 					m_CntrolLock = true;
-					//PtrScene->SetStageNum(StageNum);
+					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 
 				}
@@ -186,7 +233,7 @@ namespace basecross {
 						StageNum = 6;
 					}
 					m_CntrolLock = true;
-					//PtrScene->SetStageNum(StageNum);
+					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY >= 0.8f) {
@@ -197,7 +244,7 @@ namespace basecross {
 						StageNum += 6;
 					}
 					m_CntrolLock = true;
-					//PtrScene->SetStageNum(StageNum);
+					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 				else if (pad.fThumbLY <= -0.8f) {
@@ -208,7 +255,7 @@ namespace basecross {
 						StageNum -= 6;
 					}
 					m_CntrolLock = true;
-					//PtrScene->SetStageNum(StageNum);
+					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
 			}
@@ -217,37 +264,6 @@ namespace basecross {
 					m_CntrolLock = false;
 				}
 			}
-		}
-		m_score = 0;
-		for (int i = 1; i < 7; i++) {
-			m_score += PtrScene->GetScore(i);
-		}
-		if (m_score >= 13) {
-			if (StageNum == 6) {
-				PtrScene->SetStageNum(6);
-			}
-			else  if (StageNum < 6) {
-				PtrScene->SetStageNum(StageNum);
-			}
-		}
-		else if (m_score >= 10) {
-			if (StageNum == 5) {
-				PtrScene->SetStageNum(5);
-			}
-			else  if (StageNum < 5) {
-				PtrScene->SetStageNum(StageNum);
-			}
-		}
-		else if (m_score >= 7) {
-			if (StageNum == 4) {
-				PtrScene->SetStageNum(4);
-			}
-			else  if (StageNum < 5) {
-				PtrScene->SetStageNum(StageNum);
-			}
-		}
-		else if (StageNum < 4) {
-			PtrScene->SetStageNum(StageNum);
 		}
 		shared_ptr<SelectScreenSprite> shptr = m_SpVec[StageNum - 1].lock();
 		ptrCursor->GetComponent<Transform>()->SetPosition(shptr->GetComponent<Transform>()->GetPosition());
