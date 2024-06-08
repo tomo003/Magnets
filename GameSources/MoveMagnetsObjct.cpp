@@ -185,12 +185,18 @@ namespace basecross {
 	}
 
 	void MoveFloor::OnUpdate() {
-		FloorMovePattern();
-
 		// 初期位置、停止位置を越えるならステートを停止に切り替え
-		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
+		if (eMoveState == EMoveState::eMove && m_position.x < m_endPos.x) {
+			eMoveState = EMoveState::eStop;
+			//ResetAll();
+		}
+
+		if (eMoveState == EMoveState::eReMove && m_position.x > m_startPos.x)
+		{
 			eMoveState = EMoveState::eStop;
 		}
+		FloorMovePattern();
+
 	}
 
 	/**
