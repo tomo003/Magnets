@@ -51,4 +51,25 @@ namespace basecross {
 
 		Sprites::UpdateFlashingSprite(2, 30, m_changeSpeed);	//初期点滅スピード、変更後の点滅スピード
 	}
+
+	UiSprite::UiSprite(const shared_ptr<Stage>& stage, const Vec2& size,const Vec3& pos, const wstring& texkey, const int& layer) :
+		Sprites(stage),
+		m_size(size),
+		m_pos(pos),
+		m_texkey(texkey),
+		m_layer(layer)
+	{
+	}
+	// デストラクタ
+	UiSprite::~UiSprite() {}
+
+	// 初期化
+	void UiSprite::OnCreate()
+	{
+		Sprites::CreateSpriteLayer(m_pos, m_size, m_texkey, m_layer);	//位置座標、初期サイズ、ソース画像
+	}
+
+	// 更新処理
+	void UiSprite::OnUpdate(){
+	}
 }

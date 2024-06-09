@@ -147,6 +147,10 @@ namespace basecross{
 		LoadTexture(L"2P", L"2P.png");
 		LoadTexture(L"KEY", L"key.png");
 		LoadTexture(L"NOKEY", L"NoKey.png");
+		LoadTexture(L"ROCK", L"rock.png");
+		LoadTexture(L"KEY7", L"key7.png");
+		LoadTexture(L"KEY10", L"key10.png");
+		LoadTexture(L"KEY13", L"key13.png");
 
 		LoadStaticModelMesh(L"01", L"Player01_MESH");
 		LoadStaticModelMesh(L"02", L"Player02_MESH");

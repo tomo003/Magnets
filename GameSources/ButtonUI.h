@@ -22,4 +22,20 @@ namespace basecross {
 		void OnUpdate() override;
 
 	};
+
+	class UiSprite : public Sprites {
+		Vec2 m_size;
+		Vec3 m_pos;
+		wstring m_texkey;
+		int m_layer;
+	public:
+		//コンストラクタ
+		UiSprite(const shared_ptr<Stage>& stage , const Vec2& size, const Vec3& pos,const wstring& texkey,const int& layer);
+		//デストラクタ
+		~UiSprite();
+
+		void OnCreate() override;
+		void OnUpdate() override;
+
+	};
 }
