@@ -97,6 +97,32 @@ namespace basecross {
 		}
 	}
 
+	void SelectStage::CreateKeyRock() {
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		int StageNum = PtrScene->GetStageNum();
+		m_score = 0;
+		for (int i = 1; i < 7; i++) {
+			m_score += PtrScene->GetScore(i);
+		}
+
+		if (m_score < 7) {
+			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(-760.0f, -50.0f, 0.0f), L"ROCK" ,2);
+			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(-740.0f, -120.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(-600.0f, -130.0f, 0.0f), L"KEY7", 2);
+		}
+		if (m_score < 10) {
+			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(-200.0f, -50.0f, 0.0f), L"ROCK" ,2);
+			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(-180.0f, -120.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(-40.0f, -130.0f, 0.0f), L"KEY10", 2);
+		}
+		if (m_score < 13) {
+			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(320.0f, -50.0f, 0.0f), L"ROCK" ,2);
+			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(300.0f, -120.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(440.0f, -130.0f, 0.0f), L"KEY13", 2);
+		}
+
+	}
+
 	void SelectStage::CreateAnimeSprite()
 	{
 		auto PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, 180.0f));
@@ -133,6 +159,7 @@ namespace basecross {
 		CreateViewLight();
 		CreateSelectSprite();
 		CreateAnimeSprite();
+		CreateKeyRock();
 		CreateCursor();
 		CreateKeySprite();
 		PlayBGM();
