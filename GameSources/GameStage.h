@@ -30,6 +30,9 @@ namespace basecross {
 
 		vector<weak_ptr<FlashSprite>> m_SpVec;
 
+		int m_score = 0;
+		int m_previousScore = -1;
+
 		bool m_CntrolLock;
 
 		void ChangeSelectMenu(int num);
@@ -54,6 +57,7 @@ namespace basecross {
 		void PlayBGM(wstring sound);
 		void CreateAnimeSprite();
 		void ClearResult();
+		void CreateKeyLoad(const int scene, const Vec3 pos);
 
 		/**
 		* @brief îwåiê∂ê¨ä÷êî
