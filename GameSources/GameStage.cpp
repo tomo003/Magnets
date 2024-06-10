@@ -334,6 +334,33 @@ namespace basecross {
 		}
 	}
 
+	void GameStage::CreateKeyLoad(const int scene, const Vec3 pos) {
+		int score = App::GetApp()->GetScene<Scene>()->GetScore(scene);
+		switch (score) {
+		case 0:
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		case 1:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		case 2:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		default:
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 50.0f, pos.y, 0.0f));
+			AddGameObject<SelectSprite>(L"KEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x + 100.0f, pos.y, 0.0f));
+			break;
+		}
+	}
+
+
 	void GameStage::OnUpdate()
 	{
 		m_InputHandler.PushHandler(GetThis<GameStage>());
@@ -346,6 +373,11 @@ namespace basecross {
 				CreateAnimeSprite();
 			}
 			ClearResult();
+		}
+		m_score = PtrScene->GetScore(PtrScene->GetStageNum());
+		if (m_score > m_previousScore) {
+			m_previousScore = m_score;
+			CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
 		}
 	}
 
