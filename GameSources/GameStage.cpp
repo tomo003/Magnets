@@ -266,12 +266,12 @@ namespace basecross {
 					break;
 
 				case 7://ボタン押したら動く床
-					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(7.5f, 0.9f, 0.9f), Vec3(posX + 4.7, -posY + m_CSVHeight , 0), LEFT_VEC);
+					ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(8.2f, 0.9f, 0.9f), Vec3(posX + 5.0f, -posY + m_CSVHeight, 0), LEFT_VEC);
 					SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
 					break;
 
 				case 8://動く床発動用ボタン
-					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHeight-0.48, 0));
+					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHeight - 0.47, 0));
 					SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
 					break;
 

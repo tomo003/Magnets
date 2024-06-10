@@ -193,7 +193,7 @@ namespace basecross {
 
 		void SetUp() { // スタート位置と停止位置を設定
 			m_startPos = m_position;
-			m_endPos = m_position + (m_scale * m_MoveDir);
+			m_endPos = m_position + (m_scale * 0.9f * m_MoveDir);
 		}
 
 		// 移動床のステート設定用関数
