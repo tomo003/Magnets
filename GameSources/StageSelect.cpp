@@ -183,10 +183,10 @@ namespace basecross {
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int StageNum = PtrScene->GetStageNum();
-			m_score = 0;
-			for (int i = 1; i < 7; i++) {
-				m_score += PtrScene->GetScore(i);
-			}
+			//m_score = 0;
+			//for (int i = 1; i < 7; i++) {
+			//	m_score += PtrScene->GetScore(i);
+			//}
 
 			if (StageNum <= 3) {
 				if (!stage) {
