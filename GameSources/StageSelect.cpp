@@ -107,18 +107,18 @@ namespace basecross {
 
 		if (m_score < 7) {
 			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(-760.0f, -50.0f, 0.0f), L"ROCK" ,2);
-			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(-740.0f, -120.0f, 0.0f), L"KEY", 2);
-			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(-600.0f, -130.0f, 0.0f), L"KEY7", 2);
+			AddGameObject<UiSprite>(Vec2(140.0f, 140.0f), Vec3(-690.0f, -70.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(160.0f, 60.0f), Vec3(-600.0f, -140.0f, 0.0f), L"KEY7", 2);
 		}
 		if (m_score < 10) {
 			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(-200.0f, -50.0f, 0.0f), L"ROCK" ,2);
-			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(-180.0f, -120.0f, 0.0f), L"KEY", 2);
-			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(-40.0f, -130.0f, 0.0f), L"KEY10", 2);
+			AddGameObject<UiSprite>(Vec2(140.0f, 140.0f), Vec3(-130.0f, -70.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(160.0f, 60.0f), Vec3(-40.0f, -140.0f, 0.0f), L"KEY10", 2);
 		}
 		if (m_score < 13) {
 			AddGameObject<UiSprite>(Vec2(400.0f, 250.0f), Vec3(320.0f, -50.0f, 0.0f), L"ROCK" ,2);
-			AddGameObject<UiSprite>(Vec2(150.0f, 150.0f), Vec3(300.0f, -120.0f, 0.0f), L"KEY", 2);
-			AddGameObject<UiSprite>(Vec2(200.0f, 100.0f), Vec3(440.0f, -130.0f, 0.0f), L"KEY13", 2);
+			AddGameObject<UiSprite>(Vec2(140.0f, 140.0f), Vec3(390.0f, -70.0f, 0.0f), L"KEY", 2);
+			AddGameObject<UiSprite>(Vec2(160.0f, 60.0f), Vec3(480.0f, -140.0f, 0.0f), L"KEY13", 2);
 		}
 
 	}
