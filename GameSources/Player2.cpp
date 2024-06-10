@@ -222,7 +222,7 @@ namespace basecross {
 			isRightLimit = true;
 		}
 		//ç∂Ç…ì¸óÕÇ™Ç†Ç¡ÇΩÇÁ
-		else if (padLStick.x < 0 && m_pos.x > playerPos.x)
+		else if (padLStick.x < 0 && m_pos.x > playerPos.x || direction < m_limit)
 		{
 			m_speed = 5;
 			isRightLimit = false;
@@ -234,7 +234,7 @@ namespace basecross {
 			isLeftLimit = true;
 		}
 		//âEÇ…ì¸óÕÇ™Ç†Ç¡ÇΩÇÁ
-		else if (padLStick.x > 0 && m_pos.x < playerPos.x)
+		else if (padLStick.x > 0 && m_pos.x < playerPos.x || direction < m_limit)
 		{
 			m_speed = 5;
 			isLeftLimit = false;
@@ -506,7 +506,7 @@ namespace basecross {
 				if (isEffect) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 					isEffect = false;
-					m_objPos = ptrGearFloor->GetComponent<Transform>()->GetPosition();
+					m_objPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
@@ -608,11 +608,6 @@ namespace basecross {
 		{
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos;
-		}
-
-		if (ptrPlayer)
-		{
-			isPlayerContact = false;
 		}
 	}
 
