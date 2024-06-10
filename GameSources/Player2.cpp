@@ -609,11 +609,6 @@ namespace basecross {
 			auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 			m_RespawnPoint = otherPos;
 		}
-
-		if (ptrPlayer)
-		{
-			isPlayerContact = false;
-		}
 	}
 
 	// ‘¬“x‚ğ§ŒÀ
