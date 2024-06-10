@@ -25,16 +25,14 @@ namespace basecross {
 		// 頂点データ
 		m_vertices = {
 			//  Position,			   Texture(UV座標)
-			{Vec3(-1.0f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
-			{Vec3(+1.0f, +1.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
-			{Vec3(-1.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
-			{Vec3(+1.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
+			{Vec3(-1.05f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
+			{Vec3( -0.05f, +1.0f, 0.0f), Vec2(0.505f, 0.0f)}, // 右上:1
+			{Vec3( -0.05f, -1.0f, 0.0f), Vec2(0.505f, 1.0f)}, // 右下:2
 		};
 
 		// 頂点インデックス
 		m_indices = {
 			0, 1, 2,
-			2, 1, 3,
 		};
 
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -43,10 +41,12 @@ namespace basecross {
 		drawComp->SetTextureResource(L"TENNSENNTRIANGLERED_TX");
 
 		auto transComp = GetComponent<Transform>();
-		transComp->SetPosition(m_Position);
+		transComp->SetPosition(m_Position.x, m_Position.y, m_Position.z);
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		SetDrawLayer(5);
 	}
 
 	void SaveTriangleRed::Rotate()
@@ -91,16 +91,14 @@ namespace basecross {
 		// 頂点データ
 		m_vertices = {
 			//  Position,			   Texture(UV座標)
-			{Vec3(-1.0f, +1.0f, 0.0f), Vec2(0.0f, 0.0f)}, // 左上:0
+			{Vec3( 0.0f, +1.0f, 0.0f), Vec2(0.495f, 0.0f)}, // 左上:0
 			{Vec3(+1.0f, +1.0f, 0.0f), Vec2(1.0f, 0.0f)}, // 右上:1
-			{Vec3(-1.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f)}, // 左下:2
-			{Vec3(+1.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f)}, // 右下:3
+			{Vec3( 0.0f, -1.0f, 0.0f), Vec2(0.495f, 1.0f)}, // 左下:2
 		};
 
 		// 頂点インデックス
 		m_indices = {
 			0, 1, 2,
-			2, 1, 3,
 		};
 
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -109,10 +107,12 @@ namespace basecross {
 		drawComp->SetTextureResource(L"TENNSENNTRIANGLEBLUE_TX");
 
 		auto transComp = GetComponent<Transform>();
-		transComp->SetPosition(m_Position);
+		transComp->SetPosition(m_Position.x, m_Position.y, m_Position.z);
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		SetDrawLayer(5);
 	}
 
 	void SaveTriangleBlue::Rotate()
@@ -175,9 +175,10 @@ namespace basecross {
 		drawComp->SetTextureResource(L"CHECKPOINT_TX");
 
 		auto transComp = GetComponent<Transform>();
-		transComp->SetPosition(m_Position);
+		transComp->SetPosition(m_Position.x, m_Position.y, m_Position.z - 1.0f);
 		transComp->SetScale(m_Scale);
 
+		SetDrawLayer(5);
 		SetAlphaActive(true);
 	}
 
