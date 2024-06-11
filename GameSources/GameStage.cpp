@@ -535,6 +535,9 @@ namespace basecross {
 							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 						}
 					}
+					if (StageNum > 6) {
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+					}
 				}
 
 				if (ResultNum == 2)
