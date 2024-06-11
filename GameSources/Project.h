@@ -48,5 +48,6 @@
 #include "StartMoveObject.h"
 #include "GoalObject.h"
 #include "SaveObject.h"
+#include "PauseSprite.h"
 
 #include "MyCamera.h"

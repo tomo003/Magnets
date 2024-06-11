@@ -88,6 +88,10 @@ namespace basecross{
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
 		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png");
 
+		LoadTexture(L"PAUSE_BACK", L"Pause.png");
+		LoadTexture(L"MENU", L"Menu.png");
+		LoadTexture(L"RETRY", L"Retry.png");
+
 		LoadTexture(L"BACKGROUND1", L"BackA.png");
 		LoadTexture(L"BACKGROUND2", L"BackB.png");
 		LoadTexture(L"BACKGROUND3", L"BackC.png");

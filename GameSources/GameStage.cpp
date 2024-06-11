@@ -379,6 +379,98 @@ namespace basecross {
 			m_previousScore = m_score;
 			CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
 		}
+		if (PtrScene->GetGameState() == GameState::Pause)
+		{
+			Menu();
+		}
+	}
+	void GameStage::OnPushSTART()
+	{
+		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
+		auto ptrPlayer2 = GetSharedGameObject<Player2>(L"Player2");
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		if (PtrScene->GetGameState() == GameState::MainGame)
+		{
+			ptrPlayer->SetUpdateActive(false);
+			ptrPlayer2->SetUpdateActive(false);
+			PtrScene->SetGameState(GameState::Pause);
+
+			CreatePauseSprite();
+		}
+		else if (PtrScene->GetGameState() == GameState::Pause)
+	{
+			ptrPlayer->SetUpdateActive(true);
+			ptrPlayer2->SetUpdateActive(true);
+			PtrScene->SetGameState(GameState::MainGame);
+		}
+	}
+	void GameStage::Menu() {
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		if (PtrScene->GetGameState() == GameState::Pause)
+		{
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			int	 ResultNum = PtrScene->GetResultNum();
+			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+
+			if (CntlVec[0].bConnected) {
+				if (!m_CntrolLock) {
+					if (CntlVec[0].fThumbLY >= 0.8) {
+						ResultNum--;
+						if (ResultNum < 0)
+						{
+							ResultNum = 2;
+						}
+						m_CntrolLock = true;
+						PtrScene->SetResultNum(ResultNum);
+						ChangeSelectPauseMenu(ResultNum);
+					}
+					else if (CntlVec[0].fThumbLY <= -0.8f) {
+						ResultNum++;
+						if (ResultNum > 2) {
+							ResultNum = 0;
+						}
+						m_CntrolLock = true;
+						PtrScene->SetResultNum(ResultNum);
+						ChangeSelectPauseMenu(ResultNum);
+					}
+				}
+				else {
+					if (CntlVec[0].fThumbLY == 0.0f && !m_pushButton) {
+						m_CntrolLock = false;
+					}
+				}
+			}
+		}
+	}
+
+	void GameStage::CreatePauseSprite() {
+		auto PtrSp = AddGameObject<FlashSprite>(
+			Vec3(-400.0f,500.0f,0.0f), Vec2(800.0f, 750.0f), L"BACKTOSTAGESELECT", false);
+		m_SpVec[0] = PtrSp;
+		PtrSp->SetSelect(true);
+		PtrSp = AddGameObject<FlashSprite>(
+			Vec3(-400.0f,300.0f,0.0f), Vec2(800.0f, 750.0f), L"RETRY", false);
+		m_SpVec[1] = PtrSp;
+		PtrSp = AddGameObject<FlashSprite>(
+			Vec3(-400.0f,70.0f,0.0f), Vec2(800.0f, 750.0f), L"BACKTOTITLE", false);
+		m_SpVec[2] = PtrSp;
+		AddGameObject<PauseSprite>(L"PAUSE_BACK", true, Vec2(700.0f, 750.0f), Vec3(0.0f),Col4(1.0f),true);
+		AddGameObject<PauseSprite>(L"MENU", true, Vec2(700.0f, 500.0f), Vec3(0.0f, 300.0f, 0.0f), Col4(1.0f), true);
+	}
+
+	void GameStage::ChangeSelectPauseMenu(int num) {
+
+		for (int i = 0; i < 3; i++) {
+			shared_ptr<FlashSprite> shptr = m_SpVec[i].lock();
+			if (shptr) {
+				if ((i) == num) {
+					shptr->SetSelect(true);
+				}
+				else {
+					shptr->SetSelect(false);
+				}
+			}
+		}
 	}
 
 	void GameStage::OnPushB()
@@ -450,6 +542,33 @@ namespace basecross {
 
 			}
 		}
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		if (PtrScene->GetGameState() == GameState::Pause)
+		{
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+			AddGameObject<FadeOut>(L"FADE_WHITE");
+			int	 ResultNum = PtrScene->GetResultNum();
+			m_pushButton = true;
+			m_CntrolLock = true;
+
+			//PtrScene->SetGameState(GameState::IsSelect);
+
+			if (ResultNum == 0)
+			{
+				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+			}
+			if (ResultNum == 1)
+			{
+				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+
+			}
+			if (ResultNum == 2)
+			{
+				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			}
+		}
+
 	}
 }
 //end basecross

@@ -16,6 +16,11 @@ namespace basecross {
 					Obj->OnPushB();
 				}
 			}
+			if (cntlVec[0].bConnected) {
+				if (cntlVec[0].wPressedButtons & XINPUT_GAMEPAD_START) {
+					Obj->OnPushSTART();
+				}
+			}
 		}
 	};
 }
