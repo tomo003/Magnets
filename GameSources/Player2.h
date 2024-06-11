@@ -63,6 +63,7 @@ namespace basecross {
 		bool isPlayerContact;
 		bool isRepulsion = false; // 反発してるときtrue
 		bool isEffect = true;
+		bool isBelt = false;
 
 		Vec3 m_RespawnPoint;//リスポーンする位置
 

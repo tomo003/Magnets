@@ -206,7 +206,7 @@ namespace basecross {
 	void Player2::PlayerLimit() {
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();//コントローラー座標の取得
-		auto pad = device.GetControlerVec()[0];
+		auto pad = device.GetControlerVec()[1];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
@@ -222,10 +222,17 @@ namespace basecross {
 			isRightLimit = true;
 		}
 		//左に入力があったら
-		else if (padLStick.x < 0 && m_pos.x > playerPos.x || direction < m_limit)
+		else if ((padLStick.x < 0 && m_pos.x > playerPos.x) || direction < m_limit)
 		{
-			m_speed = 5;
 			isRightLimit = false;
+			if (!isBelt)
+			{
+				m_speed = 5;
+			}
+			else
+			{
+				m_speed = 6;
+			}
 		}
 		//プレイヤーが左に一定距離離れた時
 		if (direction > m_limit && m_pos.x < playerPos.x && padLStick.x <= 0)
@@ -234,12 +241,18 @@ namespace basecross {
 			isLeftLimit = true;
 		}
 		//右に入力があったら
-		else if (padLStick.x > 0 && m_pos.x < playerPos.x || direction < m_limit)
+		else if ((padLStick.x > 0 && m_pos.x < playerPos.x) || direction < m_limit)
 		{
-			m_speed = 5;
 			isLeftLimit = false;
+			if (!isBelt)
+			{
+				m_speed = 5;
+			}
+			else
+			{
+				m_speed = 6;
+			}
 		}
-
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
@@ -466,6 +479,7 @@ namespace basecross {
 		if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isRightLimit && !isLeftLimit) {
 			m_speed = 5.0f;
 			m_attribute = 1;
+			isBelt = false;
 		}
 
 		if (ptrBeltConLeft && !isLeftLimit) {
@@ -473,6 +487,7 @@ namespace basecross {
 			if (beltConLeftPos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
+				isBelt = true;
 			}
 		}
 		else if (ptrBeltConSideLeft && !isLeftLimit) {
@@ -480,23 +495,27 @@ namespace basecross {
 			if (beltConLeftSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
 				m_attribute = -1;
+				isBelt = true;
 			}
 		}
 		else if (ptrBeltConRight && !isRightLimit) {
 			Vec3 beltConRightPos = ptrBeltConRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightPos.y < m_pos.y) {
 				m_speed = 6.0f;
+				isBelt = true;
 			}
 		}
 		else if (ptrBeltConSideRight && !isRightLimit) {
 			Vec3 beltConRightSidePos = ptrBeltConSideRight->GetComponent<Transform>()->GetPosition();
 			if (beltConRightSidePos.y < m_pos.y) {
 				m_speed = 6.0f;
+				isBelt = true;
 			}
 		}
 		else if ((!ptrBeltConLeft || !ptrBeltConSideLeft || !ptrBeltConRight || !ptrBeltConSideRight) && !isRightLimit && !isLeftLimit) {
 			m_speed = 5.0f;
 			m_attribute = 1;
+			isBelt = false;
 		}
 
 		if (ptrGearFloor) {
