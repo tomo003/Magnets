@@ -25,6 +25,7 @@ namespace basecross{
 		shared_ptr<SoundItem> m_bgm;
 		GameState m_GameState;
 		int m_ResultNum;
+		int m_PauseNum;
 
 	public:
 
@@ -89,7 +90,13 @@ namespace basecross{
 		{
 			m_ResultNum = s;
 		}
-
+		int GetPauseNum() const {
+			return m_PauseNum;
+		}
+		void SetPauseNum(int s)
+		{
+			m_PauseNum = s;
+		}
 
 		GameState GetGameState() const {
 			return m_GameState;

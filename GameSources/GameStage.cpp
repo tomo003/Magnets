@@ -47,6 +47,8 @@ namespace basecross {
 		try {
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			PtrScene ->SetGameState(GameState::MainGame);
+			PtrScene->SetPauseNum(0);
+			PtrScene->SetResultNum(0);
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
@@ -409,29 +411,29 @@ namespace basecross {
 		if (PtrScene->GetGameState() == GameState::Pause)
 		{
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			int	 ResultNum = PtrScene->GetResultNum();
+			int	 PauseNum = PtrScene->GetPauseNum();
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 
 			if (CntlVec[0].bConnected) {
 				if (!m_CntrolLock) {
 					if (CntlVec[0].fThumbLY >= 0.8) {
-						ResultNum--;
-						if (ResultNum < 0)
+						PauseNum--;
+						if (PauseNum < 0)
 						{
-							ResultNum = 2;
+							PauseNum = 2;
 						}
 						m_CntrolLock = true;
-						PtrScene->SetResultNum(ResultNum);
-						ChangeSelectPauseMenu(ResultNum);
+						PtrScene->SetPauseNum(PauseNum);
+						ChangeSelectPauseMenu(PauseNum);
 					}
 					else if (CntlVec[0].fThumbLY <= -0.8f) {
-						ResultNum++;
-						if (ResultNum > 2) {
-							ResultNum = 0;
+						PauseNum++;
+						if (PauseNum > 2) {
+							PauseNum = 0;
 						}
 						m_CntrolLock = true;
-						PtrScene->SetResultNum(ResultNum);
-						ChangeSelectPauseMenu(ResultNum);
+						PtrScene->SetPauseNum(PauseNum);
+						ChangeSelectPauseMenu(PauseNum);
 					}
 				}
 				else {
@@ -548,22 +550,22 @@ namespace basecross {
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 			AddGameObject<FadeOut>(L"FADE_WHITE");
-			int	 ResultNum = PtrScene->GetResultNum();
+			int	 PauseNum = PtrScene->GetPauseNum();
 			m_pushButton = true;
 			m_CntrolLock = true;
 
 			//PtrScene->SetGameState(GameState::IsSelect);
 
-			if (ResultNum == 0)
+			if (PauseNum == 0)
 			{
 				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 			}
-			if (ResultNum == 1)
+			if (PauseNum == 1)
 			{
 				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 
 			}
-			if (ResultNum == 2)
+			if (PauseNum == 2)
 			{
 				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 			}
