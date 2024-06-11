@@ -22,6 +22,7 @@ namespace basecross {
 	void FlashSprite::OnCreate()
 	{
 		Flash::CreateSprite(m_FsPosition, m_defaultsize, m_texturekey);	
+		SetDrawLayer(11);
 	}
 
 	void FlashSprite::OnUpdate()

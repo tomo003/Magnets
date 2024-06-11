@@ -25,6 +25,7 @@ namespace basecross {
 	{
 		// 初期値の設定(縦、高さ、横)
 		Sprites::CreateFadeSprite(Vec3(-m_DefaultSize.x / 2, m_DefaultSize.y / 2, 0.0f), m_DefaultSize, m_texKey, FadeType::FadeOut);
+		SetDrawLayer(12);
 	}
 
 	// 更新処理

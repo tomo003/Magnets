@@ -21,6 +21,11 @@ namespace basecross {
 
 		bool isCreateMaagnets = true;
 
+		//スプライトWeak_ptrの配列
+		vector<weak_ptr<FlashSprite>> m_SpVec;
+		std::shared_ptr<FlashSprite> m_Flash;
+		vector<weak_ptr<FlashSprite>> m_PsVec;
+
 		//ビューの作成
 		void CreateViewLight();
 
@@ -28,14 +33,15 @@ namespace basecross {
 
 		float m_CSVHeight = +42;
 
-		vector<weak_ptr<FlashSprite>> m_SpVec;
-
 		int m_score = 0;
 		int m_previousScore = -1;
 
 		bool m_CntrolLock;
 
+		void Menu();
 		void ChangeSelectMenu(int num);
+		void ChangeSelectPauseMenu(int num);
+
 
 		bool m_Clear;
 		bool m_pushButton;
@@ -44,7 +50,7 @@ namespace basecross {
 
 
 		//構築と破棄
-		GameStage() :Stage(),m_CntrolLock(false), m_SpVec(3) {}
+		GameStage() :Stage(),m_CntrolLock(false), m_SpVec(3),m_PsVec(3) {}
 		virtual ~GameStage() {}
 
 
@@ -66,7 +72,8 @@ namespace basecross {
 		* @details forループで複数の背景を表示させる
 		*/
 		void CreateBackGround(const wstring& texkey);
-
+		void CreatePauseSprite();
+		void OnPushSTART();
 		void OnPushB();
 	};
 

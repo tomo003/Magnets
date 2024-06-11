@@ -38,7 +38,6 @@ namespace basecross {
 	}
 
 	void SelectSprite::OnUpdate() {
-
 	}
 
 	void SelectSprite::Flashing() {

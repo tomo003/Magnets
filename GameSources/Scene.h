@@ -11,6 +11,7 @@ namespace basecross{
 		MainGame,
 		GameOver,
 		GameClear,
+		Pause,
 	};
 
 	//--------------------------------------------------------------------------------------
