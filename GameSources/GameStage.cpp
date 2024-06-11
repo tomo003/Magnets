@@ -419,11 +419,17 @@ namespace basecross {
 							PtrScene->SetStageNum(StageNum);
 							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 						}
+						else {
+							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+						}
 					}
 					if (StageNum == 5) {
 						if (m_score >= 10) {
 							PtrScene->SetStageNum(StageNum);
 							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						}
+						else {
+							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 						}
 					}
 					if (StageNum == 6) {
@@ -431,10 +437,10 @@ namespace basecross {
 							PtrScene->SetStageNum(StageNum);
 							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 						}
+						else {
+							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+						}
 					}
-				}
-				else {
-					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 				}
 
 				if (ResultNum == 2)
