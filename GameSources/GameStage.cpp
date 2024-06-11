@@ -94,7 +94,7 @@ namespace basecross {
 				break;
 			}
 			m_GameStageCsv.ReadCsv();
-
+			PtrScene->ResetScore(PtrScene->GetStageNum());
 
 			// 地面のオブジェクトを追加
 			//AddGameObject<Ground>(Vec3(1),Vec3(0));

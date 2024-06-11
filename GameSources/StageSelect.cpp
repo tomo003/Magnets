@@ -294,7 +294,6 @@ namespace basecross {
 		}
 		shared_ptr<SelectScreenSprite> shptr = m_SpVec[StageNum - 1].lock();
 		ptrCursor->GetComponent<Transform>()->SetPosition(shptr->GetComponent<Transform>()->GetPosition());
-		PtrScene->ResetScore(StageNum);
 	}
 }
 //end basecross
