@@ -79,6 +79,7 @@ namespace basecross {
 		bool isEffect = true;
 		bool isGround; // 着地しているかの判定
 		bool isRepulsion = false; // 反発してるときtrue
+		bool isBelt = false;
 
 		Vec3 m_RespawnPoint;//リスポーンする位置
 
