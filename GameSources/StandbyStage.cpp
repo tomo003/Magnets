@@ -41,9 +41,12 @@ namespace basecross {
 			//AddGameObject<BackGroundSprite>();
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 
-			// 地面のオブジェクトを追加
-			AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
-			
+			for (int i; i < 24; i++)
+			{
+				// 地面のオブジェクトを追加
+				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f));
+			}
+
 			//プレイヤーオブジェクトを追加
 			m_ptrPlayer = AddGameObject<Player>();
 			SetSharedGameObject(L"Player", m_ptrPlayer);
@@ -85,7 +88,7 @@ namespace basecross {
 		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();//|| KeyState.m_bPressedKeyTbl[VK_SPACE]
 		//プレイヤー１
 		if (!playerReady) {
-			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, -1.5f, 0.0f));
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, -0.5f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->SetPlayerMagPole(3);
 		}
@@ -110,7 +113,7 @@ namespace basecross {
 		}
 		//プレイヤー２
 		if (!player2Ready) {
-			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -1.5f, 0.0f));
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -0.5f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 		}
