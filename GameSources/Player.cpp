@@ -429,7 +429,7 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
-		//auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -512,13 +512,13 @@ namespace basecross {
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
-		//if (ptrGround) {
-			//isGround = true;
-			//isEffect = true;
+		if (ptrGround) {
+			isGround = true;
+			isEffect = true;
 			isInertia = false;
 			isRepulsion = false;
 			isAttration = false;
-		//}
+		}
 
 		// ’…’n‚Ì”»’è
 		LandingJadge(Other);

@@ -47,7 +47,7 @@ namespace basecross {
 		switch (m_eMagPole)
 		{
 		case EState::eFalse:
-			m_ptrDraw->SetTextureResource(L"CONCRETE_TX");
+			m_ptrDraw->SetTextureResource(L"GROUND_TX");
 			break;
 		case EState::eMetal:
 			m_ptrDraw->SetTextureResource(L"METAL_TX");
