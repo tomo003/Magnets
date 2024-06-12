@@ -126,7 +126,7 @@ namespace basecross{
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		LoadTexture(L"CONCRETE_TX", L"Tile_Concrete1.png");
+		LoadTexture(L"GROUND_TX", L"Ground.png");
 		LoadTexture(L"METAL_TX", L"Tile_Metal.png");
 		LoadTexture(L"START_TX", L"Tile_Start.png");
 		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
