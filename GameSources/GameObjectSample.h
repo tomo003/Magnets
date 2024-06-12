@@ -26,14 +26,15 @@ namespace basecross {
 	class ChangeTextureBox : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
+		wstring m_Texture;
 	public:
 		ChangeTextureBox(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
-			const Vec3& Position
+			const Vec3& Position,
+			const wstring& Texture
 		);
 		virtual ~ChangeTextureBox();
 		virtual void OnCreate() override;
-		virtual void ChangeTexture(wstring Texture);
 	};
 
 	//N極のオブジェクト
