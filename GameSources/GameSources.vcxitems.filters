@@ -45,6 +45,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GoalObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PauseSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Guide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -92,5 +93,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GoalObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PauseSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Guide.h" />
   </ItemGroup>
 </Project>

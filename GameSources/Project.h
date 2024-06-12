@@ -49,5 +49,6 @@
 #include "GoalObject.h"
 #include "SaveObject.h"
 #include "PauseSprite.h"
+#include "Guide.h"
 
 #include "MyCamera.h"
