@@ -38,11 +38,13 @@ namespace basecross {
 	//テクスチャが変更できる四角いオブジェクト
 	ChangeTextureBox::ChangeTextureBox(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
-		const Vec3& Position
+		const Vec3& Position,
+		const wstring& Texture
 	) :
 		GameObject(StagePtr),
 		m_Scale(Scale),
-		m_Position(Position)
+		m_Position(Position),
+		m_Texture(Texture)
 	{
 	}
 	ChangeTextureBox::~ChangeTextureBox() {}
@@ -51,6 +53,7 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		drawComp->SetTextureResource(m_Texture);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);
@@ -58,12 +61,6 @@ namespace basecross {
 		auto transComp = GetComponent<Transform>();
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
-	}
-
-	void ChangeTextureBox::ChangeTexture(wstring Texture)
-	{
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetTextureResource(Texture);
 	}
 
 	//ステージのN極マグネットプロックの仮設置

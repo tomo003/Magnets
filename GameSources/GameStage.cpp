@@ -329,6 +329,14 @@ namespace basecross {
 					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
+				case 20:
+					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
+					break;
+
+				case 21:
+					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1, -posY + m_CSVHeight-1, 0),L"CONCRETE3_TX");
+					break;
+
 				default:
 					break;
 				}
