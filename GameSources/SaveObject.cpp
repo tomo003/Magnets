@@ -248,7 +248,7 @@ namespace basecross {
 		if (!isCollPlayer || !isCollPlayer2)
 		{
 			auto drawComp = AddComponent<PNTStaticDraw>();
-			drawComp->SetTextureResource(L"SAVEPOINT_TX");
+			drawComp->SetTextureResource(L"GREEN_TX");
 			m_ptrTriangleRed->ChangeTexture(L"TENNSENNTRIANGLERED_TX");
 			m_ptrTriangleBlue->ChangeTexture(L"TENNSENNTRIANGLEBLUE_TX");
 			isCollPlayer = false;
