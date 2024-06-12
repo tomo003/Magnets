@@ -79,6 +79,7 @@ namespace basecross {
 		bool isEffect = true;
 		bool isGround; // 着地しているかの判定
 		bool isRepulsion = false; // 反発してるときtrue
+		bool isAttration = false;
 
 		Vec3 m_RespawnPoint;//リスポーンする位置
 
@@ -94,6 +95,7 @@ namespace basecross {
 		std::shared_ptr<PlayerBanner> m_playerBanner;
 
 		bool isCollRing = false; // リングと接触しているか(初期値はfalse)
+		bool isGearFloor = true;
 		bool isGoal = false;
 
 		enum eMotion {
@@ -202,10 +204,6 @@ namespace basecross {
 			}
 		}
 
-		Vec3 CycloidPos() {
-
-		}
-
 		/**
 		* @brief 反発状態かどうかを他クラスに渡すための関数
 		* @param 引数なし
@@ -226,6 +224,11 @@ namespace basecross {
 		// ゴール判定
 		bool IsGoal() {
 			return isGoal;
+		}
+
+		// GearFloorに接触しているかどうかを渡す関数
+		bool IsGearFloor() {
+			return isGearFloor;
 		}
 	};
 
