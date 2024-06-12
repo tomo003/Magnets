@@ -13,8 +13,7 @@ namespace basecross {
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		m_ptrColl = AddComponent<CollisionObb>();
-		//ptrColl->SetFixed(true);
-		//ptrColl->SetDrawActive(true);
+		//m_ptrColl->SetDrawActive(true);
 		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
@@ -125,7 +124,7 @@ namespace basecross {
 		//ジャンプ処理
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				//JumpPlayer();
+				JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -278,7 +277,7 @@ namespace basecross {
 			}
 		}
 
-		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+		//m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	void Player::SetPlayerMagPole(int i) {
@@ -338,6 +337,8 @@ namespace basecross {
 
 		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
+
+		isAttration = true;
 	}
 	void Player::PlayerApplyAttraction() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -428,7 +429,7 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
-		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		//auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -511,12 +512,13 @@ namespace basecross {
 		if (ptrMoveFloor) {
 			m_ptrTrans->SetParent(ptrMoveFloor);
 		}
-		if (ptrGround) {
+		//if (ptrGround) {
 			//isGround = true;
 			//isEffect = true;
 			isInertia = false;
 			isRepulsion = false;
-		}
+			isAttration = false;
+		//}
 
 		// 着地の判定
 		LandingJadge(Other);
@@ -570,19 +572,20 @@ namespace basecross {
 		}
 
 		if (ptrGearFloor) {
+			isGearFloor = true;
 			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
 			if (m_eMagPole == EState::eN) {
 				m_gravityComp->SetGravityZero();
-				if (isEffect) {
+				m_ptrTrans->SetParent(ptrGearFloor);
+				if (isEffect && isAttration) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 					isEffect = false;
 					m_objPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
-				m_ptrTrans->SetParent(ptrGearFloor);
 			}
-			else if (m_pos.y > m_Scale.y + GearFloorPos.y) {
+			if (m_eMagPole == EState::eFalse && (m_pos.y > 0.5f + GearFloorPos.y)) {
 				m_ptrTrans->SetParent(ptrGearFloor);
 			}
 			
@@ -623,9 +626,11 @@ namespace basecross {
 			}
 			if (ptrGearFloor) {
 				auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-				if (m_eMagPole == EState::eFalse && GearFloorPos.y + m_Scale.y/2 > m_pos.y) {
+				if (m_eMagPole == EState::eFalse) {
 					m_gravityComp->SetGravity(m_gravity);
 					m_gravityComp->SetGravityVerocityZero();
+				}
+				if (GearFloorPos.y + m_Scale.y / 2 > m_pos.y) {
 					m_ptrTrans->ClearParent();
 				}
 			}
@@ -644,15 +649,22 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		auto ptrGearFloor = dynamic_pointer_cast<GearObjFloor>(Other);
-		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		//auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing || ptrMoveFloor || ptrGearFloor) // チェック
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrRing || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 			m_emState = magneticState::emNone;
+			isAttration = false;
+		}
+		if (ptrGearFloor) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+			isGearFloor = false;
 		}
 
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -701,7 +713,6 @@ namespace basecross {
 			m_Velocity = (m_Velocity / speed) * LIMIT_MAX_SPEED;
 		}
 	}
-
 
 
 	void Player::OnUpdate2() {

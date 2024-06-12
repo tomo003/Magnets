@@ -103,10 +103,10 @@ namespace basecross {
 			//AddGameObject<Ground>(Vec3(50.0f, 1.0f, 1.0f), Vec3(0.0f, -1.5f, 0.0f));
 
 			//プレイヤーオブジェクトを追加
-			auto ptrPlayer = AddGameObject<Player>();
-			SetSharedGameObject(L"Player", ptrPlayer);
-			auto ptrPlayer2 = AddGameObject<Player2>();
-			SetSharedGameObject(L"Player2", ptrPlayer2);
+			m_ptrPlayer1 = AddGameObject<Player>();
+			SetSharedGameObject(L"Player", m_ptrPlayer1);
+			m_ptrPlayer2 = AddGameObject<Player2>();
+			SetSharedGameObject(L"Player2", m_ptrPlayer2);
 
 			CreateCsvObjects();
 
@@ -209,14 +209,19 @@ namespace basecross {
 
 	void GameStage::CreateCsvObjects() {
 		auto SavePointGroup = CreateSharedObjectGroup(L"SavePoint");
-
-		std::shared_ptr<GameObject> ptrMoveMetal;
+		auto GroundObjGroup = CreateSharedObjectGroup(L"Ground"); // 床オブジェクトグループ
+		auto MagAreaGroup = CreateSharedObjectGroup(L"MagnetAreas"); // マグネットエリアグループ
+		auto NMagObjGroup = CreateSharedObjectGroup(L"NMagnets"); // Nマグネットグループ
+		auto SMagObjGroup = CreateSharedObjectGroup(L"SMagnets"); // Sマグネットグループ
+		auto MetalObjGroup = CreateSharedObjectGroup(L"MetalObj"); // 金属オブジェクト(不動)グループ
 
 		float size = 1;
 		Vec3 objScale = Vec3(1.0f) / size;
 
 		std::shared_ptr<GameObject> ptrGround;
 		std::shared_ptr<GameObject> ptrMag;
+		std::shared_ptr<GameObject> ptrMetal;
+		std::shared_ptr<GameObject> ptrMoveMetal;
 		std::shared_ptr<GameObject> ptrStart;
 		std::shared_ptr<GameObject> ptrSavePoint;
 		std::shared_ptr<GameObject> ptrGoal;
@@ -238,19 +243,23 @@ namespace basecross {
 				switch (TokensNum) {
 				case 0: //通常地面
 					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					GroundObjGroup->IntoGroup(ptrGround);
 					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
-					AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					ptrMag = AddGameObject<MagnetN>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					NMagObjGroup->IntoGroup(ptrMag);
 					break;
 
 				case 2: //磁石S極
-					AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					ptrMag = AddGameObject<MagnetS>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					SMagObjGroup->IntoGroup(ptrMag);
 					break;
 
 				case 3: //金属
-					ptrMoveMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					ptrMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					MetalObjGroup->IntoGroup(ptrMetal);
 					break;
 
 				case 4: //金属動くやつ
@@ -393,6 +402,7 @@ namespace basecross {
 		{
 			Menu();
 		}
+		CollisionSwitch();
 	}
 	void GameStage::OnPushSTART()
 	{
@@ -583,5 +593,41 @@ namespace basecross {
 		}
 
 	}
+
+	void GameStage::CollisionSwitch() {
+		GroupCollisionSwitch(L"Ground");
+	}
+
+	void GameStage::GroupCollisionSwitch(wstring groupStr) {
+		Vec3 player1Pos = m_ptrPlayer1->GetComponent<Transform>()->GetWorldPosition();
+		Vec3 player2Pos = m_ptrPlayer2->GetComponent<Transform>()->GetWorldPosition();
+
+		auto ptrGroup = GetSharedObjectGroup(groupStr);
+		auto& GroupVec = ptrGroup->GetGroupVector();
+		for (auto& v : GroupVec) {
+			auto shObj = v.lock();
+			if (shObj) {
+				auto shGround = dynamic_pointer_cast<GameObject>(shObj);
+				if (shGround) {
+					auto shGroundPos = shGround->GetComponent<Transform>()->GetWorldPosition();
+					auto shaGroundColl = shGround->GetComponent<CollisionObb>();
+					if (length(player1Pos - shGroundPos) <= 1.5f) {
+						//shaGroundColl->SetDrawActive(true);
+						shaGroundColl->SetUpdateActive(true);
+					}
+					else if (shaGroundColl->IsUpdateActive()) {
+						//shaGroundColl->SetDrawActive(false);
+						shaGroundColl->SetUpdateActive(false);
+					}
+
+					if (length(player2Pos - shGroundPos) <= 1.5f) {
+						//shaGroundColl->SetDrawActive(true);
+						shaGroundColl->SetUpdateActive(true);
+					}
+				}
+			}
+		}
+	}
+
 }
 //end basecross

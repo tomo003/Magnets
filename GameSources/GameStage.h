@@ -46,6 +46,10 @@ namespace basecross {
 		bool m_Clear;
 		bool m_pushButton;
 		bool m_Lock = false;
+
+		shared_ptr<GameObject> m_ptrPlayer1;
+		shared_ptr<GameObject> m_ptrPlayer2;
+
 	public:
 
 
@@ -75,8 +79,21 @@ namespace basecross {
 		void CreatePauseSprite();
 		void OnPushSTART();
 		void OnPushB();
-	};
 
+		/*!
+		@brief コリジョンをON/OFFする関数
+		@param 引数なし
+		@return 戻り値なし
+		*/
+		void CollisionSwitch();
+
+		/*!
+		@brief コリジョンをON/OFFする関数(グループ)
+		@param wstring groupStr グループ名
+		@return 戻り値なし
+		*/
+		void GroupCollisionSwitch(wstring groupStr);
+	};
 
 }
 //end basecross

@@ -27,7 +27,6 @@ namespace basecross {
 		// コンポーネント取得省略用
 		shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
-		shared_ptr<EffectPlayer> m_efk;
 
 		float m_ObjMass = 1.0f; // オブジェクトの重さ(引力で使用)
 		float m_MagAreaRadius = 3.0f; // 磁力を適用する範囲

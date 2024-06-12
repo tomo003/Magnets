@@ -35,6 +35,9 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 	}
 
+	void GameObjectSample::OnUpdate() {
+	}
+
 	//テクスチャが変更できる四角いオブジェクト
 	ChangeTextureBox::ChangeTextureBox(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -92,13 +95,10 @@ namespace basecross {
 
 		m_eMagPole = EState::eN;
 
-		//auto magnetsGroup = GetStage()->GetSharedObjectGroup(L"MagnetsObjects");
-		//magnetsGroup->IntoGroup(GetThis<MagnetN>());
-
-		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
-		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
-		//m_efk->SetDrawLayer(-1);
-
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
+		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
+		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void MagnetN::OnUpdate()
@@ -153,7 +153,7 @@ namespace basecross {
 			}
 			else if (playerMagPole != objMagPole) {
 				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttraction();
+			}
 
 		}
 	}
@@ -197,9 +197,11 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		m_eMagPole = EState::eS;
-		
-		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
-		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.5f), L"MagneticRange");
+
+		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
+		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
+		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
+		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void MagnetS::OnUpdate()
@@ -248,7 +250,7 @@ namespace basecross {
 			}
 			else if (playerMagPole != objMagPole) {
 				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttraction();
+			}
 
 		}
 	}
@@ -256,13 +258,6 @@ namespace basecross {
 	void MagnetS::MoveMagnetArea(const Vec3 pos) {
 		m_ptrArea->AddComponent<Transform>()->SetPosition(pos);
 	}
-
-	//void MagnetS::EfkStop(){
-	//	m_efk->StopEffect();
-	//}
-	//void MagnetS::OnDestroy() {
-	//	EfkStop();
-	//}
 
 	//ステージの鉄ブロックの仮設置
 	Metal::Metal(const std::shared_ptr<Stage>& StagePtr,
@@ -294,7 +289,8 @@ namespace basecross {
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
 		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
-		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_Position.x, m_Position.y, m_Position.z + (m_Scale.z / 2)), Vec3(1.0f), L"MagneticRange");
+		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
+		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void Metal::OnUpdate()
@@ -339,13 +335,6 @@ namespace basecross {
 			}
 		}
 	}
-
-	//void Metal::EfkStop() {
-	//	m_efk->StopEffect();
-	//}
-	//void Metal::OnDestroy() {
-	//	EfkStop();
-	//}
 
 	//ステージのスタートオブジェクトの仮設置
 	Start::Start(const std::shared_ptr<Stage>& StagePtr,

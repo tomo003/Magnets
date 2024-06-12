@@ -10,7 +10,7 @@ namespace basecross {
 	{
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		m_ptrDraw->SetTextureResource(L"GRAY_TX");
+		m_ptrDraw->SetTextureResource(L"METAL_TX");
 		m_ptrDraw->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -23,7 +23,6 @@ namespace basecross {
 		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 		auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
 		m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
-		//m_efk = GetStage()->AddGameObject<EffectPlayer>(Vec3(m_position.x, m_position.y, m_position.z + (m_ptrTrans->GetScale().z / 2)), Vec3(1.0f), L"MagneticRange");
 	}
 
 	void MoveMetalObject::OnUpdate() {
@@ -50,8 +49,6 @@ namespace basecross {
 		ApplyForceSecondPlayer();
 		//m_ptrArea->UpdateArea(m_position);
 
-		/*Vec3 position = m_ptrTrans->GetPosition();*/
-		//m_efk->SetLocation(Vec3(pos.x, pos.y, pos.z + (m_ptrTrans->GetScale().z / 2)));
 	}
 
 	// プレイヤーに磁力による力を適用
@@ -93,13 +90,6 @@ namespace basecross {
 			}
 		}
 	}
-
-	//void MoveMetalObject::EfkStop() {
-	//	m_efk->StopEffect();
-	//}
-	//void MoveMetalObject::OnDestroy() {
-	//	EfkStop();
-	//}
 
 	void MoveFloorButton::OnCreate() {
 		m_DrawComp = AddComponent<PNTStaticDraw>();
@@ -185,12 +175,18 @@ namespace basecross {
 	}
 
 	void MoveFloor::OnUpdate() {
-		FloorMovePattern();
-
 		// 初期位置、停止位置を越えるならステートを停止に切り替え
-		if (m_position.x < m_endPos.x || m_position.x > m_startPos.x) {
+		if (eMoveState == EMoveState::eMove && m_position.x < m_endPos.x) {
+			eMoveState = EMoveState::eStop;
+			//ResetAll();
+		}
+
+		if (eMoveState == EMoveState::eReMove && m_position.x > m_startPos.x)
+		{
 			eMoveState = EMoveState::eStop;
 		}
+		FloorMovePattern();
+
 	}
 
 	/**
