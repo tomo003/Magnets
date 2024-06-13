@@ -208,7 +208,7 @@ namespace basecross {
 	}
 
 	void GameStage::CreateCsvObjects() {
-		auto SavePointGroup = CreateSharedObjectGroup(L"SavePoint");
+		auto SavePointGroup = CreateSharedObjectGroup(L"SavePoint"); // セーブポイントグループ
 		auto GroundObjGroup = CreateSharedObjectGroup(L"Ground"); // 床オブジェクトグループ
 		auto MagAreaGroup = CreateSharedObjectGroup(L"MagnetAreas"); // マグネットエリアグループ
 		auto NMagObjGroup = CreateSharedObjectGroup(L"NMagnets"); // Nマグネットグループ
@@ -225,8 +225,6 @@ namespace basecross {
 		std::shared_ptr<GameObject> ptrStart;
 		std::shared_ptr<GameObject> ptrSavePoint;
 		std::shared_ptr<GameObject> ptrGoal;
-		std::shared_ptr<GameObject> ptrGoalSquareRed;
-		std::shared_ptr<GameObject> ptrGoalSquareBlue;
 		std::shared_ptr<GameObject> ptrMoveFloor;
 		std::shared_ptr<GameObject> ptrMoveFloorButton;
 
@@ -244,7 +242,6 @@ namespace basecross {
 				case 0: //通常地面
 					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
 					GroundObjGroup->IntoGroup(ptrGround);
-					isCreateMaagnets = false;
 					break;
 
 				case 1: //磁石N極
@@ -314,16 +311,10 @@ namespace basecross {
 				case 14: //セーブポイント
 					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
 					SavePointGroup->IntoGroup(ptrSavePoint);
-					isCreateMaagnets = false;
 					break;
 
 				case 15: //ゴール
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
-					ptrGoalSquareRed = AddGameObject<GoalSquareRed>(Vec3(1.0f) / size, Vec3(posX -1, -posY + m_CSVHeight + 7, 0));
-					SetSharedGameObject(L"GoalSquareRed", ptrGoalSquareRed);
-					ptrGoalSquareBlue = AddGameObject<GoalSquareBlue>(Vec3(1.0f) / size, Vec3(posX + 1, -posY + m_CSVHeight + 7, 0));
-					SetSharedGameObject(L"GoalSquareBlue", ptrGoalSquareBlue);
-					isCreateMaagnets = false;
 					break;
 
 				case 16: //歯車右回り
@@ -338,12 +329,36 @@ namespace basecross {
 					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
-				case 20:
+				case 20: //2*2の地面オブジェクト
 					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
 					break;
 
-				case 21:
+				case 21: //3*3の地面王ジェクト
 					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1, -posY + m_CSVHeight-1, 0),L"CONCRETE3_TX");
+					break;
+
+				case 22: //1Pが上に行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight,0.5), 1);
+					break;
+
+				case 23: //1Pが下に行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 2);
+					break;
+
+				case 24: //1Pが真っすぐに行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 3);
+					break;
+
+				case 25: //2Pが上に行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 4);
+					break;
+
+				case 26: //2Pが下に行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 5);
+					break;
+
+				case 27: //2Pが真っすぐに行くガイド
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 6);
 					break;
 
 				default:
