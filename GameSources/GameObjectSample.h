@@ -13,10 +13,12 @@ namespace basecross {
 	class GameObjectSample : public GameObject{
 		Vec3 m_Scale;
 		Vec3 m_Position;
+		wstring m_Texture;
 	public:
 		GameObjectSample(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
-			const Vec3& Position
+			const Vec3& Position,
+			const wstring& Texture
 		);
 		virtual ~GameObjectSample();
 		virtual void OnCreate() override;

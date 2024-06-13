@@ -44,7 +44,7 @@ namespace basecross {
 			for (int i; i < 24; i++)
 			{
 				// 地面のオブジェクトを追加
-				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f));
+				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f), L"GROUND_TX");
 			}
 
 			//プレイヤーオブジェクトを追加
