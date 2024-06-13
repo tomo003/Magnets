@@ -216,6 +216,7 @@ namespace basecross{
 		LoadSound(L"KADOU_SE", L"Kadouonn.wav");
 		LoadSound(L"SAVE_SE", L"Save.wav");
 		LoadSound(L"GOAL_SE", L"Goal.wav");
+		LoadSound(L"GET_SE", L"Get.wav");
 
 	}
 
