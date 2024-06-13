@@ -8,105 +8,6 @@
 
 namespace basecross {
 
-	//ステージのゴールオブジェクト
-	Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	Goal::~Goal() {}
-
-	void Goal::OnCreate()
-	{
-		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
-		spanMat.affineTransformation(
-			Vec3(0.15f, 0.15f, 0.7f),
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f)
-		);
-
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"RingObject_MESH");
-		drawComp->SetTextureResource(L"RED_TX");
-		drawComp->SetMeshToTransformMatrix(spanMat);
-
-		auto ptrColl = AddComponent<CollisionObb>();
-		ptrColl->SetAfterCollision(AfterCollision::None);
-		//ptrColl->SetDrawActive(true);
-
-		auto transComp = GetComponent<Transform>();
-		transComp->SetPosition(m_Position);
-		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / (float)3);
-		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
-
-		SetAlphaActive(true);
-
-		AddTag(L"Goal");
-	}
-
-	void Goal::OnUpdate()
-	{
-		//両方のプレイヤーに触れたら
-		if (isCollPlayer && isCollPlayer2)
-		{
-			PlayerGoal();
-		}
-	}
-
-	void Goal::PlayerGoal()
-	{
-		auto& app = App::GetApp();
-		auto device = app->GetInputDevice();
-		auto& pad = device.GetControlerVec()[0];
-		auto& pad2 = device.GetControlerVec()[1];
-
-		//スプライトの表示
-		if (!isDisplaySprite)
-		{
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"GOAL_SE", 0, 3.5f);
-
-			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
-			//GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BACKTOTITLE");
-			isDisplaySprite = true;
-
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			PtrScene->SetGameState(GameState::GameClear);
-		}
-
-		//カメラのゴール後にズーム演出
-		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		//ptrCamera->ZoomCamera();
-
-		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
-		ptrDuoCamera->ZoomCamera();
-
-		//Ｂボタンを押したらタイトルへ
-		/*if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
-			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-		}*/
-	}
-
-	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)
-	{
-		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
-		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
-
-		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x) {
-			isCollPlayer = true;
-		}
-		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x) {
-			isCollPlayer2 = true;
-		}
-	}
-
 	//ゴールの上の四角赤仮設置
 	GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -205,5 +106,115 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
+	//ステージのゴールオブジェクト
+	Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Position
+	) :
+		GameObject(StagePtr),
+		m_Scale(Scale),
+		m_Position(Position)
+	{
+	}
+	Goal::~Goal() {}
+
+	void Goal::OnCreate()
+	{
+		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
+		spanMat.affineTransformation(
+			Vec3(0.15f, 0.15f, 0.7f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f)
+		);
+
+		auto drawComp = AddComponent<PNTStaticDraw>();
+		drawComp->SetMeshResource(L"RingObject_MESH");
+		drawComp->SetTextureResource(L"RED_TX");
+		drawComp->SetMeshToTransformMatrix(spanMat);
+
+		auto ptrColl = AddComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::None);
+		//ptrColl->SetDrawActive(true);
+
+		auto transComp = GetComponent<Transform>();
+		transComp->SetPosition(m_Position);
+		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / (float)3);
+		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
+
+		SetAlphaActive(true);
+
+		AddTag(L"Goal");
+
+		m_ptrSquareRed = GetStage()->AddGameObject<GoalSquareRed>(Vec3(1.0f), Vec3(m_Position.x - 1, m_Position.y + 7, 0));
+		GetStage()->SetSharedGameObject(L"GoalSquareRed", m_ptrSquareRed);
+		m_ptrSquareBlue = GetStage()->AddGameObject<GoalSquareBlue>(Vec3(1.0f), Vec3(m_Position.x + 1, m_Position.y + 7, 0));
+		GetStage()->SetSharedGameObject(L"GoalSquareBlue", m_ptrSquareBlue);
+
+	}
+
+	void Goal::OnUpdate()
+	{
+		//両方のプレイヤーに触れたら
+		if (isCollPlayer && isCollPlayer2)
+		{
+			PlayerGoal();
+		}
+	}
+
+	void Goal::PlayerGoal()
+	{
+		auto& app = App::GetApp();
+		auto device = app->GetInputDevice();
+		auto& pad = device.GetControlerVec()[0];
+		auto& pad2 = device.GetControlerVec()[1];
+
+		//スプライトの表示
+		if (!isDisplaySprite)
+		{
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"GOAL_SE", 0, 3.5f);
+
+			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
+			//GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BACKTOTITLE");
+			isDisplaySprite = true;
+
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			PtrScene->SetGameState(GameState::GameClear);
+		}
+
+		//カメラのゴール後にズーム演出
+		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
+		//ptrCamera->ZoomCamera();
+
+		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
+		ptrDuoCamera->ZoomCamera();
+
+		//Ｂボタンを押したらタイトルへ
+		/*if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+		}*/
+	}
+
+	void Goal::GoalReset()
+	{
+		isCollPlayer = false;
+		isCollPlayer2 = false;
+	}
+
+	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)
+	{
+		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
+		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
+
+		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x) {
+			isCollPlayer = true;
+		}
+		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x) {
+			isCollPlayer2 = true;
+		}
+	}
 }
 

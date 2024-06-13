@@ -11,11 +11,13 @@ namespace basecross {
 	//ステージの通常ブロックの仮設置
 	GameObjectSample::GameObjectSample(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
-		const Vec3& Position
+		const Vec3& Position,
+		const wstring& Texture
 	) :
 		GameObject(StagePtr),
 		m_Scale(Scale),
-		m_Position(Position)
+		m_Position(Position),
+		m_Texture(Texture)
 	{
 	}
 	GameObjectSample::~GameObjectSample(){}
@@ -24,7 +26,7 @@ namespace basecross {
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
-		drawComp->SetTextureResource(L"GROUND_TX");
+		drawComp->SetTextureResource(m_Texture);
 		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
@@ -57,6 +59,7 @@ namespace basecross {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");
 		drawComp->SetTextureResource(m_Texture);
+		drawComp->SetOwnShadowActive(true);
 
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetFixed(true);

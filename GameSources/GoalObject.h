@@ -8,26 +8,6 @@
 
 namespace basecross {
 
-	//ゴールオブジェクト
-	class Goal : public GameObject {
-		Vec3 m_Scale;
-		Vec3 m_Position;
-
-		bool isCollPlayer = false;
-		bool isCollPlayer2 = false;
-		bool isDisplaySprite = false;
-	public:
-		Goal(const std::shared_ptr<Stage>& StagePtr,
-			const Vec3& Scale,
-			const Vec3& Position
-		);
-		virtual ~Goal();
-		virtual void OnCreate() override;
-		virtual void OnUpdate() override;
-		void PlayerGoal();
-		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
-	};
-
 	//ゴール、リスポーン地点の上の四角赤
 	class GoalSquareRed : public GameObject {
 		Vec3 m_Scale;
@@ -61,5 +41,30 @@ namespace basecross {
 		virtual void OnCreate() override;
 		void ChangeTexture(wstring Texture);
 	};
+
+	//ゴールオブジェクト
+	class Goal : public GameObject {
+		Vec3 m_Scale;
+		Vec3 m_Position;
+
+		std::shared_ptr<GoalSquareRed> m_ptrSquareRed;
+		std::shared_ptr<GoalSquareBlue> m_ptrSquareBlue;
+
+		bool isCollPlayer = false;
+		bool isCollPlayer2 = false;
+		bool isDisplaySprite = false;
+	public:
+		Goal(const std::shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
+			const Vec3& Position
+		);
+		virtual ~Goal();
+		virtual void OnCreate() override;
+		virtual void OnUpdate() override;
+		void PlayerGoal();
+		void GoalReset();
+		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
+	};
+
 
 }

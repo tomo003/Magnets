@@ -56,6 +56,7 @@ namespace basecross {
 			int sceneNum = scene->GetStageNum();
 			scene->SetScore(sceneNum);
 			m_ptrColl->SetUpdateActive(false);
+			App::GetApp()->GetXAudio2Manager()->Start(L"GET_SE", 0, 2.0f);
 			palyerTouch = true;
 		}
 	}

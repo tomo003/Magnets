@@ -126,7 +126,6 @@ namespace basecross{
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		LoadTexture(L"CONCRETE_TX", L"Ground.png");
 		LoadTexture(L"CONCRETE2_TX", L"Ground2.png");
 		LoadTexture(L"CONCRETE3_TX", L"Ground3.png");
 		LoadTexture(L"GROUND_TX", L"Ground.png");
@@ -158,6 +157,14 @@ namespace basecross{
 		LoadTexture(L"KEY7", L"key7.png");
 		LoadTexture(L"KEY10", L"key10.png");
 		LoadTexture(L"KEY13", L"key13.png");
+
+		//ƒKƒCƒh‚Ì‰æ‘œ
+		LoadTexture(L"GUIDEREDUP_TX", L"GuideRedUp.png");
+		LoadTexture(L"GUIDEREDDOWM_TX", L"GuideRedDown.png");
+		LoadTexture(L"GUIDEREDCENTER_TX", L"GuideRedCenter.png");
+		LoadTexture(L"GUIDEBLUEUP_TX", L"GuideBlueUp.png");
+		LoadTexture(L"GUIDEBLUEDOWM_TX", L"GuideBlueDown.png");
+		LoadTexture(L"GUIDEBLUECENTER_TX", L"GuideBlueCenter.png");
 
 		LoadStaticModelMesh(L"01", L"Player01_MESH");
 		LoadStaticModelMesh(L"02", L"Player02_MESH");
@@ -212,6 +219,7 @@ namespace basecross{
 		LoadSound(L"KADOU_SE", L"Kadouonn.wav");
 		LoadSound(L"SAVE_SE", L"Save.wav");
 		LoadSound(L"GOAL_SE", L"Goal.wav");
+		LoadSound(L"GET_SE", L"Get.wav");
 
 	}
 

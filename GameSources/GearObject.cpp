@@ -44,7 +44,7 @@ namespace basecross {
 		switch (m_eMagPole)
 		{
 		case EState::eFalse:
-			m_ptrDraw->SetTextureResource(L"CONCRETE_TX");
+			m_ptrDraw->SetTextureResource(L"GROUND_TX");
 			break;
 		case EState::eMetal:
 			m_ptrDraw->SetTextureResource(L"METAL_TX");
@@ -83,6 +83,9 @@ namespace basecross {
 		// eŽq•t‚¯‚µ‚Ä‚é‚Æ‰ñ“]‚àe‚É‰e‹¿‚³‚ê‚é‚½‚ß“¯‚¶‰ñ“]—Ê‚Åe‚Ì”½‘ÎŒü‚«‚É‰ñ‚·
 		float delta = App::GetApp()->GetElapsedTime();
 		m_Rotation.z -= Utility::DegToRad(m_RotSpeed) * delta * m_RotDir;
+		if (m_Rotation.z <= -XM_2PI) {
+			m_Rotation.z += XM_2PI;
+		}
 		m_ptrTrans->SetRotation(m_Rotation);
 	}
 
