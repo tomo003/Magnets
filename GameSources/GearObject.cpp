@@ -34,9 +34,6 @@ namespace basecross {
 		// ‰ñ“]‚³‚¹‚é
 		float delta = App::GetApp()->GetElapsedTime();
 		m_Rotation.z += Utility::DegToRad(m_RotSpeed) * delta * m_RotDir;
-		if (m_Rotation.z >= XM_2PI) {
-			m_Rotation.z -= XM_2PI;
-		}
 		m_TransComp->SetRotation(m_Rotation);
 	}
 

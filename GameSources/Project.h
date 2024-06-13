@@ -50,5 +50,6 @@
 #include "SaveObject.h"
 #include "PauseSprite.h"
 #include "Guide.h"
+#include "HammerObject.h"
 
 #include "MyCamera.h"

@@ -197,6 +197,9 @@ namespace basecross{
 		LoadStaticModelMesh(L"GearObj", L"GearObject_MESH");
 		// âÛÇÍÇÈï«
 		LoadBoneModel(L"BreakWall", L"BreakWall_MESH", L"BreakWall_MESH_TAN");
+		// ÉnÉìÉ}Å[(ê‘Åïê¬)
+		LoadBoneModel(L"Hammer_Red", L"Hammer_Red_MESH", L"Hammer_Red_MESHTAN");
+		LoadBoneModel(L"Hammer_Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
 
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");

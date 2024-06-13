@@ -26,7 +26,8 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // –³
 			eN = 1, // ‚m‹É
-			eS = 2 // ‚r‹É
+			eS = 2, // ‚r‹É
+			eMetal = 3 // ‹à‘®
 		};
 
 		enum class magneticState {
@@ -96,7 +97,7 @@ namespace basecross {
 		std::shared_ptr<PlayerBanner> m_playerBanner;
 
 		bool isCollRing = false; // ƒŠƒ“ƒO‚ÆÚG‚µ‚Ä‚¢‚é‚©(‰Šú’l‚Ífalse)
-		bool isGearFloor = true;
+		bool isGearFloor = false;
 		bool isGoal = false;
 
 		enum eMotion {

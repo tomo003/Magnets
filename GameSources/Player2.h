@@ -22,12 +22,14 @@ namespace basecross {
 		enum class EState {
 			eFalse = -1, // ñ≥
 			eN = 1, // Çmã…
-			eS = 2 // Çrã…
+			eS = 2, // Çrã…
+			eMetal = 3 // ã‡ëÆ
 		};
 
 	private:
 		enum EState m_eMagPole = EState::eS; // é•ã…ÇÃèÛë‘
 
+		Vec3 m_Scale = Vec3(1.0f);
 		Vec3 m_pos;
 		float m_speed;
 		int m_attribute;
@@ -78,6 +80,7 @@ namespace basecross {
 		std::shared_ptr<PlayerBanner> m_playerBanner;
 
 		bool isGoal = false;
+		bool isGearFloor = false;
 
 		enum eMotion {
 			RIGHT,
