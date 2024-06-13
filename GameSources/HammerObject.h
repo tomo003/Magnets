@@ -10,5 +10,14 @@
 #include "stdafx.h"
 
 namespace basecross {
-	
+	class HammerObject : public GameObject
+	{
+		enum class EState {
+			eFalse = -1, // –³
+			eN = 1, // ‚m‹É
+			eS = 2, // ‚r‹É
+			eMetal = 3
+		};
+
+	};
 }

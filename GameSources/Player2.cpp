@@ -519,9 +519,12 @@ namespace basecross {
 		}
 
 		if (ptrGearFloor) {
+			isGearFloor = true;
 			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-			if (m_eMagPole == EState::eS) {
+			int GesrFloorState = ptrGearFloor->GetState();
+			if (m_eMagPole == EState::eS && GesrFloorState == (int)EState::eMetal) {
 				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrGearFloor);
 				if (isEffect) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 					isEffect = false;
@@ -530,7 +533,9 @@ namespace basecross {
 					XAPtr->Start(L"UNION_SE", 0, 2.0f);
 				}
 			}
-			m_ptrTrans->SetParent(ptrGearFloor);
+			if (m_eMagPole == EState::eFalse && (m_pos.y > 0.5f + GearFloorPos.y)) {
+				m_ptrTrans->SetParent(ptrGearFloor);
+			}
 		}
 	}
 
@@ -568,9 +573,11 @@ namespace basecross {
 		}
 		if (ptrGearFloor) {
 			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-			if (m_eMagPole == EState::eFalse && GearFloorPos.y > m_pos.y) {
+			if (m_eMagPole == EState::eFalse) {
 				m_gravityComp->SetGravity(m_gravity);
 				m_gravityComp->SetGravityVerocityZero();
+			}
+			if (GearFloorPos.y + m_Scale.y / 2 > m_pos.y) {
 				m_ptrTrans->ClearParent();
 			}
 		}
@@ -590,11 +597,17 @@ namespace basecross {
 		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
-		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrMoveFloor || ptrGearFloor) // チェック
+		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrMoveFloor) // チェック
 		{
 			m_gravityComp->SetGravity(m_gravity);
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
+		}
+		if (ptrGearFloor) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+			isGearFloor = false;
 		}
 
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
