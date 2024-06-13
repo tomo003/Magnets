@@ -262,6 +262,10 @@ namespace basecross{
 			m_scene = 2;
 		}
 		else if (event->m_MsgStr == L"ToTitleStage") {
+			for (int i = 1; i < 7; i++) {
+				ResetScore(i);
+			}
+
 			m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 2.0f);
 			ResetActiveStage<TitleStage>();
 			m_scene = 0;

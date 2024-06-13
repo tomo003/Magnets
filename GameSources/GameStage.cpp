@@ -449,6 +449,7 @@ namespace basecross {
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 
 			if (CntlVec[0].bConnected) {
+				PtrScene->ResetScore(PtrScene->GetStageNum());
 				if (!m_CntrolLock) {
 					if (CntlVec[0].fThumbLY >= 0.8) {
 						PauseNum--;
@@ -576,6 +577,7 @@ namespace basecross {
 
 				if (ResultNum == 2)
 				{
+
 					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 				}
 
