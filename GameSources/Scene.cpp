@@ -126,7 +126,7 @@ namespace basecross{
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
 		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		LoadTexture(L"CONCRETE_TX", L"Tile_Concrete1.png");
+		LoadTexture(L"CONCRETE_TX", L"Ground.png");
 		LoadTexture(L"CONCRETE2_TX", L"Ground2.png");
 		LoadTexture(L"CONCRETE3_TX", L"Ground3.png");
 		LoadTexture(L"GROUND_TX", L"Ground.png");
@@ -190,6 +190,9 @@ namespace basecross{
 		LoadStaticModelMesh(L"GearObj", L"GearObject_MESH");
 		// 壊れる壁
 		LoadBoneModel(L"BreakWall", L"BreakWall_MESH", L"BreakWall_MESH_TAN");
+		// ハンマー(赤＆青)
+		LoadBoneModel(L"Hammer_Red", L"Hammer_Red_MESH", L"Hammer_Red_MESHTAN");
+		LoadBoneModel(L"Hammer_Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
 
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");
@@ -222,7 +225,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToSelectStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

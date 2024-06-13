@@ -13,6 +13,8 @@
 #define STATE_NONE -1
 #define STATE_METAL 3
 
+#define MAG_N L"RED"
+#define MAG_S L"BLUE"
 
 namespace Utility
 {
