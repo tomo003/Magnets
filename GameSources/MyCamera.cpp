@@ -111,7 +111,7 @@ namespace basecross {
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
-		auto targetBetween = abs(targetPos.x - secondTargetPos.x);
+		auto targetBetween = abs(targetPos.x - secondTargetPos.x)*0.3;
 		auto maxBetween =  abs(m_minEyeZ- m_maxEyeZ);
 		float eyeZ = GetEye().z;
 		if (!isZoomCamera && targetBetween < maxBetween)
@@ -134,11 +134,17 @@ namespace basecross {
 	}
 
 	void DuoCamera::StartCamera() {
-		auto ptrTarget = GetStartObj();
+		auto ptrTarget = GetPlayerObj();
+		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
+		auto ptrSecondTarget = GetSecondPlayerObj();
+		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
+		auto targetBetween = abs(targetPos.x - secondTargetPos.x);
+		auto ptrStart = GetStartObj();
+		m_EyeZ = m_minEyeZ - targetBetween;
 		Vec3 newAt = GetAt();
-		newAt = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, m_Height, 0.0f);
+		newAt = Vec3(ptrStart->GetComponent<Transform>()->GetWorldPosition().x, m_Height, 0.0f);
 		Vec3 newEye = GetEye();
-		newEye = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, m_Height, m_EyeZ);
+		newEye = Vec3(ptrStart->GetComponent<Transform>()->GetWorldPosition().x, m_Height, m_EyeZ);
 
 		SetAt(newAt);
 		SetEye(newEye);
