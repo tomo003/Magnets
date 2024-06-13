@@ -44,7 +44,7 @@ namespace basecross {
 			for (int i; i < 24; i++)
 			{
 				// 地面のオブジェクトを追加
-				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f));
+				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f), L"GROUND_TX");
 			}
 
 			//プレイヤーオブジェクトを追加
@@ -157,8 +157,6 @@ namespace basecross {
 				m_ptrMagObjS->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y, magSPos.z));
 				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(magNPos.x + speed, magNPos.y - 1.0f, magNPos.z));
 				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(magSPos.x + speed, magSPos.y - 1.0f, magSPos.z));
-				//m_ptrMagObjN->MoveMagnetArea(Vec3(magNPos.x + speed, magNPos.y, magNPos.z));
-				//m_ptrMagObjS->MoveMagnetArea(Vec3(magSPos.x + speed, magSPos.y, magSPos.z));
 
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
