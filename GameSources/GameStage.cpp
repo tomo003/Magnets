@@ -240,7 +240,7 @@ namespace basecross {
 
 				switch (TokensNum) {
 				case 0: //通常地面
-					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
+					ptrGround = AddGameObject<GameObjectSample>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0), L"GROUND_TX");
 					GroundObjGroup->IntoGroup(ptrGround);
 					break;
 
@@ -315,6 +315,7 @@ namespace basecross {
 
 				case 15: //ゴール
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
+					SetSharedGameObject(L"Goal", ptrGround);
 					break;
 
 				case 16: //歯車右回り
@@ -330,11 +331,11 @@ namespace basecross {
 					break;
 
 				case 20: //2*2の地面オブジェクト
-					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
+					ptrGround = AddGameObject<GameObjectSample>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
 					break;
 
 				case 21: //3*3の地面王ジェクト
-					ptrGround = AddGameObject<ChangeTextureBox>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1, -posY + m_CSVHeight-1, 0),L"CONCRETE3_TX");
+					ptrGround = AddGameObject<GameObjectSample>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1, -posY + m_CSVHeight-1, 0),L"CONCRETE3_TX");
 					break;
 
 				case 22: //1Pが上に行くガイド
