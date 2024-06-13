@@ -198,6 +198,12 @@ namespace basecross {
 		}*/
 	}
 
+	void Goal::GoalReset()
+	{
+		isCollPlayer = false;
+		isCollPlayer2 = false;
+	}
+
 	void Goal::OnCollisionExit(shared_ptr<GameObject>& Other)
 	{
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);

@@ -124,7 +124,7 @@ namespace basecross {
 		//ƒWƒƒƒ“ƒvˆ—
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_A) {
 			if (jumpCount > 0) {
-				JumpPlayer();
+				//JumpPlayer();
 				//jumpCount--;
 			}
 		}
@@ -212,6 +212,8 @@ namespace basecross {
 		m_eMagPole = EState::eFalse;
 		m_pos = Vec3(m_RespawnPoint.x + 2, m_RespawnPoint.y, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+		auto ptrGoal = GetStage()->GetSharedGameObject<Goal>(L"Goal");
+		ptrGoal->GoalReset();
 		isGoal = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed", false);
 		if (!ptrSquareRed) return;

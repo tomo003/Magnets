@@ -62,6 +62,7 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 		void PlayerGoal();
+		void GoalReset();
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
 

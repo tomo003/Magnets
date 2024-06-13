@@ -315,6 +315,7 @@ namespace basecross {
 
 				case 15: //ƒS[ƒ‹
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
+					SetSharedGameObject(L"Goal", ptrGround);
 					break;
 
 				case 16: //•Ô‰E‰ñ‚è
