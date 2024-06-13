@@ -97,8 +97,6 @@ namespace basecross {
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
 		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
-		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
-		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void MagnetN::OnUpdate()
@@ -200,8 +198,6 @@ namespace basecross {
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
 		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
-		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
-		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void MagnetS::OnUpdate()
@@ -289,8 +285,6 @@ namespace basecross {
 
 		auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_Position, m_MagAreaRadius);
 		ptrArea->GetComponent<Transform>()->SetParent(GetThis<GameObject>());
-		auto ptrMagArea = GetStage()->GetSharedObjectGroup(L"MagnetAreas");
-		ptrMagArea->IntoGroup(ptrArea);
 	}
 
 	void Metal::OnUpdate()

@@ -318,11 +318,11 @@ namespace basecross {
 					break;
 
 				case 16: //éïé‘âEâÒÇË
-					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_RIGHT, 50.0f, STATE_METAL, STATE_NONE);
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_RIGHT, 60.0f, STATE_METAL, STATE_NONE);
 					break;
 
 				case 17: //éïé‘ç∂âÒÇË
-					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_LEFT, 60.0f, STATE_NONE, STATE_METAL);
+					AddGameObject<GearObject>(Vec3(posX, -posY + m_CSVHeight, 0), ROT_LEFT, 80.0f, STATE_NONE, STATE_METAL);
 					break;
 
 				case 18: //åÆ
