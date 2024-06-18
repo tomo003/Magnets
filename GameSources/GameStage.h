@@ -13,6 +13,8 @@ namespace basecross {
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class GameStage : public Stage {
+		shared_ptr<SingleView> m_View;
+
 		CsvFile m_GameStageCsv;
 
 		InputHandler<GameStage> m_InputHandler;
@@ -30,6 +32,14 @@ namespace basecross {
 		void CreateViewLight();
 
 		void CreateCsvObjects();
+
+		//ステージごとのカメラの高さ設定
+		float m_firstStageHeight = 0;  //ステージ1
+		float m_secondStageHeight = 0; //ステージ2
+		float m_thirdStageHeight = 0;  //ステージ3
+		float m_fourthStageHeight = 2; //ステージ4
+		float m_fifthStageHeight = 0;  //ステージ5
+		float m_sixthStageHeight = 0;  //ステージ6
 
 		float m_CSVHeight = +42;
 

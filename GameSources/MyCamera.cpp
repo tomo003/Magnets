@@ -92,6 +92,10 @@ namespace basecross {
 		m_StartObj = Obj;
 	}
 
+	void DuoCamera::SetCameraHeight(const float Height) {
+		m_Height = Height;
+	}
+
 	void DuoCamera::SetAt(const bsm::Vec3& At) {
 		Camera::SetAt(At);
 	}
@@ -161,22 +165,29 @@ namespace basecross {
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
-		auto targetBetween = abs((targetPos.x - secondTargetPos.x) * 0.3f);
+		auto targetBetween = abs(targetPos.x - secondTargetPos.x) * 0.3;
 
 		Vec3 newAt = GetAt();
 		Vec3 newEye = GetEye();
 		if (!isZoomCamera)
 		{
-			m_start = m_minEyeZ - targetBetween;
+			m_startEye = m_minEyeZ - targetBetween;
+			m_startHeight = m_Height;
 		}
-		m_EyeZ = Utility::Lerp(m_start, m_zoomEyeZ, m_ratio);
-		m_Height = Utility::Lerp(0.0f, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
+		m_EyeZ = Utility::Lerp(m_startEye, m_zoomEyeZ, m_ratio);
+		m_Height = Utility::Lerp(m_startHeight, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
 		if (m_ratio < 1)
 		{
 			m_ratio += 0.01;
 		}
+		newAt = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, 0.0f);
+		newEye = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, m_EyeZ);
 
 		isZoomCamera = true;
+
+		SetAt(newAt);
+		SetEye(newEye);
+		Camera::OnUpdate();
 	}
 }
 //end basecross
