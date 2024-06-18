@@ -173,6 +173,7 @@ namespace basecross {
 		{
 			m_startEye = m_minEyeZ - targetBetween;
 			m_startHeight = m_Height;
+			isZoomCamera = true;
 		}
 		m_EyeZ = Utility::Lerp(m_startEye, m_zoomEyeZ, m_ratio);
 		m_Height = Utility::Lerp(m_startHeight, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
@@ -182,8 +183,6 @@ namespace basecross {
 		}
 		newAt = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, 0.0f);
 		newEye = Vec3((targetPos.x + secondTargetPos.x) / 2, m_Height, m_EyeZ);
-
-		isZoomCamera = true;
 
 		SetAt(newAt);
 		SetEye(newEye);
