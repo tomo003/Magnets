@@ -122,6 +122,8 @@ namespace basecross{
 
 		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
 		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
+		LoadTexture(L"SFADE", L"SFade.png");
+		LoadTexture(L"NFADE", L"NFade.png");
 
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
 		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
@@ -220,6 +222,9 @@ namespace basecross{
 		LoadSound(L"SAVE_SE", L"Save.wav");
 		LoadSound(L"GOAL_SE", L"Goal.wav");
 		LoadSound(L"GET_SE", L"Get.wav");
+		LoadSound(L"SHUTTER_SE", L"Shutter.wav");
+		LoadSound(L"SHUTTER2_SE", L"Shutter2.wav");
+
 
 	}
 
@@ -266,7 +271,7 @@ namespace basecross{
 				ResetScore(i);
 			}
 
-			m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 2.0f);
+			m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 0.5f);
 			ResetActiveStage<TitleStage>();
 			m_scene = 0;
 		}

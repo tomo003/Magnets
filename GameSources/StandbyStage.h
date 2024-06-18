@@ -5,7 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
-
+#include "ShutterSprite.h"
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
@@ -13,7 +13,9 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	class StandbyStage : public Stage {
 		float m_time = 2.0f;
-
+		float m_Totaltime = 0.0f;
+		shared_ptr<ShutterSprite> m_sFade;
+		shared_ptr<ShutterSprite> m_nFade;
 		shared_ptr<SoundItem> m_bgm;
 		shared_ptr<SoundItem> m_kadouonn;
 		//ÉvÉåÉCÉÑÅ[

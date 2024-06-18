@@ -38,10 +38,13 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			//BGMの再生
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"SHUTTER2_SE", 0, 5.0f);
+
 			//AddGameObject<BackGroundSprite>();
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 
-			for (int i; i < 24; i++)
+			for (int i = 0; i < 24; i++)
 			{
 				// 地面のオブジェクトを追加
 				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f), L"GROUND_TX");
@@ -71,6 +74,9 @@ namespace basecross {
 			magnetsGroup->IntoGroup(m_ptrMagObjN);
 			magnetsGroup->IntoGroup(m_ptrMagObjS);
 
+			m_sFade = AddGameObject<ShutterSprite>(Vec3(-20, (float)App::GetApp()->GetGameHeight() / 2, 0.0f), L"NFADE");
+			m_nFade = AddGameObject<ShutterSprite>(Vec3(-810, (float)App::GetApp()->GetGameHeight() / 2, 0.0f), L"NFADE");
+
 		}
 		catch (...) {
 			throw;
@@ -78,6 +84,24 @@ namespace basecross {
 	}
 
 	void StandbyStage::OnUpdate() {
+		const Vec3& mLPos = m_nFade->GetPosition();
+		const Vec3& mRPos = m_sFade->GetPosition();
+		auto delta = App::GetApp()->GetElapsedTime();
+		m_Totaltime += delta;
+
+		if (m_Totaltime >= 0.5f && mRPos.x <= 780)
+		{
+			m_sFade->SetPosition(mRPos + Vec3(delta * 1550.0f, 0.0f, 0.0f));
+			m_nFade->SetPosition(mLPos + Vec3(-delta * 1550.0f, 0.0f, 0.0f));
+		}
+
+	/*	if (stage && mRPos.x >= 0.0f)
+		{
+			auto delta = App::GetApp()->GetElapsedTime();
+			m_sFade->SetPosition(mRPos - Vec3(delta * 1550.0f, 0.0f, 0.0f));
+			m_nFade->SetPosition(mLPos - Vec3(-delta * 1550.0f, 0.0f, 0.0f));
+		}*/
+
 		//プレイヤーの重力を0に変更
 		m_ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
 		m_ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
@@ -92,7 +116,7 @@ namespace basecross {
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->SetPlayerMagPole(3);
 		}
-		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+		if (m_Totaltime >= 0.8f && firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!playerReady) {
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 				m_ptrPlayer->SetPlayerMagPole(1);
@@ -117,7 +141,7 @@ namespace basecross {
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 		}
-		if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
+		if (m_Totaltime >= 0.8f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
 			if (!player2Ready) {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer2->SetPlayerMagPole(2);

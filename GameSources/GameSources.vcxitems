@@ -50,6 +50,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SelectScreenSprite.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ShutterSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StageSelectSprite.h" />
@@ -95,6 +96,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SelectScreenSprite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ShutterSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StageSelectSprite.cpp" />

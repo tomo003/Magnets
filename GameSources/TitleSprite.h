@@ -10,7 +10,7 @@
 namespace basecross {
 	class TitleSprite : public Sprites {
 		const Vec2 m_DefaultSize; // 初期サイズ
-
+		
 	public:
 		// コンストラクタ
 		TitleSprite(const shared_ptr<Stage>& stage);
