@@ -36,6 +36,8 @@ namespace basecross {
 	void TitleStage::OnCreate() {
 		CreateViewLight();
 		CreateTitleSprite();
+		m_sFade = AddGameObject<ShutterSprite>(Vec3(780, (float)App::GetApp()->GetGameHeight() / 2, 0.0f), L"SFADE");
+		m_nFade = AddGameObject<ShutterSprite>(Vec3(-1610, (float)App::GetApp()->GetGameHeight() / 2, 0.0f), L"NFADE");
 		//PlayBGM();
 	}
 
@@ -51,14 +53,37 @@ namespace basecross {
 		auto device = app->GetInputDevice();
 		auto& pad = device.GetControlerVec()[0];
 		auto& pad2 = device.GetControlerVec()[1];
-
+		const Vec3& mLPos = m_nFade->GetPosition();
+		const Vec3& mRPos = m_sFade->GetPosition();
+		auto delta = App::GetApp()->GetElapsedTime();
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B|| pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+
 			if (!stage) {
-				AddGameObject<FadeOut>(L"FADE_WHITE");
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");
+				PostEvent(1.5f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+				XAPtr->Start(L"SHUTTER_SE", 0, 5.0f);
 				stage = true;
+			}
+		}
+
+		if (stage)
+		{
+			if (mRPos.x > -20.0f)
+			{
+				m_sFade->SetPosition(mRPos - Vec3(delta * 1550.0f, 0.0f, 0.0f));
+			}
+			else
+			{
+				m_sFade->SetPosition(Vec3(-20.0f, (float)App::GetApp()->GetGameHeight() / 2, 0.0f));
+			}
+			if (mLPos.x < -810.0f)
+			{
+				m_nFade->SetPosition(mLPos - Vec3(-delta * 1550.0f, 0.0f, 0.0f));
+			}
+			else
+			{
+				m_nFade->SetPosition(Vec3(-810.0f, (float)App::GetApp()->GetGameHeight() / 2, 0.0f));
 			}
 		}
 	}

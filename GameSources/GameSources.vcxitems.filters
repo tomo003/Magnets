@@ -47,6 +47,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PauseSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Guide.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HammerObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ShutterSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -96,5 +97,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PauseSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Guide.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HammerObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ShutterSprite.h" />
   </ItemGroup>
 </Project>

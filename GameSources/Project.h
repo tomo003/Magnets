@@ -51,5 +51,5 @@
 #include "PauseSprite.h"
 #include "Guide.h"
 #include "HammerObject.h"
-
+#include "ShutterSprite.h"
 #include "MyCamera.h"
