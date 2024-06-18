@@ -14,10 +14,10 @@ namespace basecross {
 	void GameStage::CreateViewLight() {
 		const Vec3 eye(0.0f, 0.0f, -10.0f);
 		const Vec3 at(0.0f);
-		auto PtrView = CreateView<SingleView>();
+		m_View = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<DuoCamera>();
-		PtrView->SetCamera(PtrCamera);
+		m_View->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
 		//マルチライトの作成
@@ -57,40 +57,71 @@ namespace basecross {
 			App::GetApp()->GetDataDirectory(DataDir);
 			//wstring strMap = DataDir + L"Maps";
 
+			auto ptrCamera = dynamic_pointer_cast<DuoCamera>(m_View->GetCamera());
+
 			switch (PtrScene->GetStageNum()) {
 			case 1:
 				CreateBackGround(L"BACKGROUND1");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				PlayBGM(L"GAMESTAGE1_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_firstStageHeight);
+				}
+
 				break;
 			case 2:
 				CreateBackGround(L"BACKGROUND2");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage2.csv");
 				PlayBGM(L"GAMESTAGE2_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_secondStageHeight);
+				}
 				break;
 			case 3:
 				CreateBackGround(L"BACKGROUND3");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage3.csv");
 				PlayBGM(L"GAMESTAGE3_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_thirdStageHeight);
+				}
 				break;
 			case 4:
 				CreateBackGround(L"BACKGROUND4");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage4.csv");
 				PlayBGM(L"GAMESTAGE4_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_fourthStageHeight);
+				}
 				break;
 			case 5:
 				CreateBackGround(L"BACKGROUND5");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage5.csv");
 				PlayBGM(L"GAMESTAGE5_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_fifthStageHeight);
+				}
 				break;
 			case 6:
 				CreateBackGround(L"BACKGROUND6");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage6.csv");
 				PlayBGM(L"GAMESTAGE6_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_sixthStageHeight);
+				}
 				break;
 			default:
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
 				PlayBGM(L"GAMESTAGE1_BGM");
+				if (ptrCamera) {
+					//カメラのステージごとの高さの設定
+					ptrCamera->SetCameraHeight(m_firstStageHeight);
+				}
 				break;
 			}
 			m_GameStageCsv.ReadCsv();

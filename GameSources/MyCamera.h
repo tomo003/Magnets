@@ -58,15 +58,17 @@ namespace basecross {
 
 		float m_EyeZ = -20.0f;
 		float m_zoomEyeZ = -10.0f;
-		float m_Height = 0.0f;
+		float m_Height = 0.0f; 
+		float m_PulusHeight = 3.0f;// 高さ上げる
 		float m_ratio = 0.0f;
-		float m_start = 0.0f;
+		float m_startEye = 0.0f;
+		float m_startHeight = 0.0f;
 
 		bool isZoomCamera = false;
 	public:
 		DuoCamera() :
-			m_minEyeZ(-20),
-			m_maxEyeZ(-25)
+			m_minEyeZ(-22),
+			m_maxEyeZ(-27)
 		{}
 
 		//デストラクタ
@@ -89,6 +91,8 @@ namespace basecross {
 
 		//目標オブジェクトを設定する(スタートオブジェクト)
 		virtual void SetStartObj(const shared_ptr<GameObject>& Obj);
+
+		virtual void SetCameraHeight(const float Height);
 
 		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
