@@ -37,7 +37,7 @@ namespace basecross {
 
 		auto scene = app->GetScene<Scene>()->GetSecen();
 		if (scene == 0 || scene == 2) {
-			if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B)
+			if (pad.wPressedButtons & XINPUT_GAMEPAD_B)
 			{
 				m_changeSpeed = true;	//点滅スピードの変更をtrueにする
 			}

@@ -121,7 +121,7 @@ namespace basecross {
 				}
 			}
 
-			if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+			if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 				if (!leavePlayer2) {
 					leavePlayer2 = true;
 					ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
