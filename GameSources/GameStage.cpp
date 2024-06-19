@@ -186,18 +186,7 @@ namespace basecross {
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
-	
-		auto PtrScene = App::GetApp()->GetScene<Scene>();
-		int score = PtrScene->GetScore(PtrScene->GetSecen());
-		if (score >= 1) {
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
-		}
-		if (score >= 2) {
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
-		}
-		if (score >= 3) {
-			AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
-		}
+		isGoal = true;
 	}
 
 	void GameStage::ClearResult() {
@@ -467,6 +456,29 @@ namespace basecross {
 			Menu();
 		}
 		CollisionSwitch();
+
+		if (isGoal) {
+			m_time--;
+
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			int score = PtrScene->GetScore(PtrScene->GetSecen());
+			if (score >= 1) {
+				if (m_time <= 90.0f) {
+					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
+				}
+			}
+			if (score >= 2) {
+				if (m_time <= 50.0f) {
+					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
+				}
+			}
+			if (score >= 3) {
+				if (m_time <= 10.0f) {
+					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+				}
+			}
+
+		}
 	}
 	void GameStage::OnPushSTART()
 	{
