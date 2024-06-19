@@ -167,21 +167,23 @@ namespace basecross {
 		}
 	}
 
+	//ステージクリア時に使用するUI（ステージセレクトに戻る、次のステージへ、タイトルに戻る）
 	void GameStage::CreateAnimeSprite() {
 		auto PtrSp = AddGameObject<FlashSprite>(
-			Vec3(-850.0f, -50.0f,0.0f), Vec2(670.0f, 500.0f), L"BACKTOSTAGESELECT", false);
+			Vec3(-850.0f, -50.0f,0.0f), Vec2(670.0f, 500.0f), L"BACKTOSTAGESELECT", false);//ステージセレクトへ
 		PtrSp->SetSelect(true);
 		m_SpVec[0] = PtrSp;
 
 		PtrSp = AddGameObject<FlashSprite>(
-			Vec3(-300.0f, -50.0f, 0.0f), Vec2(650.0f, 500.0f), L"NEXTSTAGE", false);
+			Vec3(-300.0f, -50.0f, 0.0f), Vec2(650.0f, 500.0f), L"NEXTSTAGE", false);//次のステージへ
 		m_SpVec[1] = PtrSp;
 
 		PtrSp = AddGameObject<FlashSprite>(
-			Vec3(220.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);
+			Vec3(220.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);//タイトルに戻る
 		m_SpVec[2] = PtrSp;
 	}
 
+	//コントローラー左スティックのの操作を取得して選択肢に応じたシーン移行を行う
 	void GameStage::ClearResult() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		if (PtrScene->GetGameState() == GameState::GameClear)
@@ -442,7 +444,7 @@ namespace basecross {
 		m_score = PtrScene->GetScore(PtrScene->GetStageNum());
 		if (m_score > m_previousScore) {
 			m_previousScore = m_score;
-			CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
+			//CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
 		}
 		if (PtrScene->GetGameState() == GameState::Pause)
 		{
@@ -470,6 +472,7 @@ namespace basecross {
 			PtrScene->SetGameState(GameState::MainGame);
 		}
 	}
+	//オプションボタンを押すとポーズして操作する機能
 	void GameStage::Menu() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		if (PtrScene->GetGameState() == GameState::Pause)
@@ -510,6 +513,7 @@ namespace basecross {
 		}
 	}
 
+	//ポーズメニューで使用するスプライト処理
 	void GameStage::CreatePauseSprite() {
 		auto PtrSp = AddGameObject<FlashSprite>(
 			Vec3(-400.0f,500.0f,0.0f), Vec2(800.0f, 750.0f), L"BACKTOSTAGESELECT", false);

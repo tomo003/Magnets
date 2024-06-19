@@ -180,7 +180,7 @@ namespace basecross {
 		auto ptrCursor = GetSharedGameObject<CursorSprite>(L"Cursor");
 
 
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int StageNum = PtrScene->GetStageNum();
 			//m_score = 0;

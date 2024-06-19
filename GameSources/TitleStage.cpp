@@ -56,7 +56,7 @@ namespace basecross {
 		const Vec3& mLPos = m_nFade->GetPosition();
 		const Vec3& mRPos = m_sFade->GetPosition();
 		auto delta = App::GetApp()->GetElapsedTime();
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B|| pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
 
 			if (!stage) {
 				PostEvent(1.5f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToStandbyStage");

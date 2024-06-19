@@ -38,7 +38,7 @@ namespace basecross {
 		float m_secondStageHeight = 0; //ステージ2
 		float m_thirdStageHeight = 0;  //ステージ3
 		float m_fourthStageHeight = 2; //ステージ4
-		float m_fifthStageHeight = 0;  //ステージ5
+		float m_fifthStageHeight = 2;  //ステージ5
 		float m_sixthStageHeight = 0;  //ステージ6
 
 		float m_CSVHeight = +42;
