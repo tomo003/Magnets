@@ -6,6 +6,8 @@
 #pragma once
 #include "stdafx.h"
 #include"FlashSprite.h"
+#include "StageSelectSprite.h"
+
 namespace basecross {
 	class FlashSprite;
 
@@ -27,6 +29,10 @@ namespace basecross {
 		vector<weak_ptr<FlashSprite>> m_SpVec;
 		std::shared_ptr<FlashSprite> m_Flash;
 		vector<weak_ptr<FlashSprite>> m_PsVec;
+
+		std::shared_ptr<SelectSprite> m_key1;
+		std::shared_ptr<SelectSprite> m_key2;
+		std::shared_ptr<SelectSprite> m_key3;
 
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
