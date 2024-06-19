@@ -92,9 +92,9 @@ namespace basecross {
 		//目標オブジェクトを設定する(スタートオブジェクト)
 		virtual void SetStartObj(const shared_ptr<GameObject>& Obj);
 
+		//カメらの高さを設定する
 		virtual void SetCameraHeight(const float Height);
 
-		//カメラの視点を設定する
 		virtual void SetAt(const bsm::Vec3& At)override;
 
 		virtual void SetEye(const bsm::Vec3& Eye)override;
@@ -103,8 +103,10 @@ namespace basecross {
 
 		virtual void MoveCamera();
 
+		//ステージ開始時のカメラ
 		virtual void StartCamera();
 
+		//ゴール字の演出カメラ
 		virtual void ZoomCamera();
 	};
 
