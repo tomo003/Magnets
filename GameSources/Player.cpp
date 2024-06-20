@@ -689,6 +689,12 @@ namespace basecross {
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 			ptrSquareRed->ChangeTexture(L"RED_TX");
+			if (m_eMagPole == EState::eFalse) {
+				m_ptrDraw->SetMeshResource(L"PlayerBrackSmile_MESH");//ÎŠç
+			}
+			else if (m_eMagPole == EState::eN) {
+				m_ptrDraw->SetMeshResource(L"PlayerRedSmile_MESH");//ÎŠç
+			}
 			AnimationPlayer(FRONT);
 			isGoal = true;
 		}
