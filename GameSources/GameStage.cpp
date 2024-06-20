@@ -187,6 +187,9 @@ namespace basecross {
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		int scene = PtrScene->GetSecen();
+		m_resultScore = PtrScene->GetScore(scene);
 		isGoal = true;
 	}
 
@@ -410,6 +413,15 @@ namespace basecross {
 
 	void GameStage::CreateKeyLoad(const int scene, const Vec3 pos) {
 		int score = App::GetApp()->GetScene<Scene>()->GetScore(scene);
+		if (m_key1 != NULL) {
+			m_key1->SetDrawActive(false);
+		}
+		if (m_key2 != NULL) {
+			m_key2->SetDrawActive(false);
+		}
+		if (m_key3 != NULL) {
+			m_key3->SetDrawActive(false);
+		}
 		switch (score) {
 		case 0:
 			m_key1 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(100.0f, 100.0f), Vec3(pos.x, pos.y, 0.0f));
@@ -462,19 +474,19 @@ namespace basecross {
 		if (isGoal) {
 			m_time--;
 
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			int score = PtrScene->GetScore(PtrScene->GetSecen());
-			if (score >= 1) {
+			//auto PtrScene = App::GetApp()->GetScene<Scene>();
+			//m_resultScore = PtrScene->GetScore(PtrScene->GetSecen());
+			if (m_resultScore >= 1) {
 				if (m_time <= 90.0f) {
 					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 				}
 			}
-			if (score >= 2) {
+			if (m_resultScore >= 2) {
 				if (m_time <= 50.0f) {
 					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 				}
 			}
-			if (score >= 3) {
+			if (m_resultScore >= 3) {
 				if (m_time <= 10.0f) {
 					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 				}

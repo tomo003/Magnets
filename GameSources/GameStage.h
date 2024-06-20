@@ -35,6 +35,7 @@ namespace basecross {
 		std::shared_ptr<SelectSprite> m_key3;
 		bool isGoal = false;
 		float m_time = 100;
+		int m_resultScore = 0;
 
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
