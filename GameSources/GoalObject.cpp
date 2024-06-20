@@ -211,11 +211,17 @@ namespace basecross {
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
 		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
-			XAPtr->Start(L"SAVE_SE", 0, 3.5f);
+			if (!isCollPlayer2)
+			{
+				XAPtr->Start(L"SAVE_SE", 0, 3.5f);
+			}
 			isCollPlayer = true;
 		}
 		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
-			XAPtr->Start(L"SAVE_SE", 0, 3.5f);
+			if (!isCollPlayer)
+			{
+				XAPtr->Start(L"SAVE_SE", 0, 3.5f);
+			}
 			isCollPlayer2 = true;
 		}
 	}
