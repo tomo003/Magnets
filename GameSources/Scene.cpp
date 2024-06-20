@@ -179,12 +179,16 @@ namespace basecross{
 		LoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
 		LoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
 		LoadBoneModel(L"Redanger", L"PlayerRedanger_MESH", L"PlayerRedanger_MESH_TAN");//N極
+		LoadBoneModel(L"blacksmile", L"PlayerBrackSmile_MESH", L"PlayerBrackSmile_MESH_TAN");//無極
+		LoadBoneModel(L"Redsmile", L"PlayerRedSmile_MESH", L"PlayerRedSmile_MESH_TAN");//N極
 
 		//Player2
 		LoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
 		LoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
 		LoadBoneModel(L"Blueanger", L"Player2Blueanger_MESH", L"Player2Blueanger_MESH_TAN");
 		LoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
+		LoadBoneModel(L"blacksmile", L"Player2BrackSmile_MESH", L"Player2BrackSmile_MESH_TAN");
+		LoadBoneModel(L"Greensmile", L"Player2BlueSmile_MESH", L"Player2BlueSmile_MESH_TAN");
 
 		//ベルトコンベア
 		wstring dataDir = App::GetApp()->GetDataDirWString();
