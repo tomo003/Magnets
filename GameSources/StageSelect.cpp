@@ -100,7 +100,7 @@ namespace basecross {
 	void SelectStage::CreateKeyRock() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		int StageNum = PtrScene->GetStageNum();
-		m_score = 10;
+		m_score = 0;
 		for (int i = 1; i < 7; i++) {
 			m_score += PtrScene->GetScore(i);
 		}
