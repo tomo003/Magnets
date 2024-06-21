@@ -26,8 +26,8 @@ namespace basecross {
 		auto ptrStartPos = ptrStart->GetComponent<Transform>()->GetPosition();
 
 		// 磁石オブジェクトを追加
-		m_ptrMagObjS = GetStage()->AddGameObject<ChangeTextureBox>(Vec3(1.0f), Vec3(ptrStartPos.x-15, ptrStartPos.y + 5, 0.0f), L"MGNETS_TX");
-		m_ptrMagObjN = GetStage()->AddGameObject<ChangeTextureBox>(Vec3(1.0f), Vec3(ptrStartPos.x-10, ptrStartPos.y + 5, 0.0f), L"MGNETN_TX");
+		m_ptrMagObjS = GetStage()->AddGameObject<ChangeTextureBlock>(Vec3(1.0f), Vec3(ptrStartPos.x-15, ptrStartPos.y + 5, 0.0f), L"MGNETS_TX");
+		m_ptrMagObjN = GetStage()->AddGameObject<ChangeTextureBlock>(Vec3(1.0f), Vec3(ptrStartPos.x-10, ptrStartPos.y + 5, 0.0f), L"MGNETN_TX");
 
 		auto ptrMagenetPosS = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();
 		auto ptrMagenetPosN = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();

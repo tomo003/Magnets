@@ -44,9 +44,9 @@ namespace basecross {
 			CreateBackGround(L"BACKGROUND4");
 
 			// 地面のオブジェクトを追加
-			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.0f, 0.0f), L"GROUND_TX");
-			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(18.0f, -3.0f, 0.0f), L"GROUND_TX");
-			AddGameObject<GameObjectSample>(Vec3(10.0f, 1.0f, 1.0f), Vec3(-18.0f, -3.0f, 0.0f), L"GROUND_TX");
+			AddGameObject<Block>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.0f, 0.0f), L"GROUND_TX");
+			AddGameObject<Block>(Vec3(10.0f, 1.0f, 1.0f), Vec3(18.0f, -3.0f, 0.0f), L"GROUND_TX");
+			AddGameObject<Block>(Vec3(10.0f, 1.0f, 1.0f), Vec3(-18.0f, -3.0f, 0.0f), L"GROUND_TX");
 
 			//プレイヤーオブジェクトを追加
 			auto ptrPlayer = AddGameObject<Player>();

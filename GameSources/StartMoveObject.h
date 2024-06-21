@@ -18,8 +18,8 @@ namespace basecross {
 		shared_ptr<SoundItem> m_kadouonn;
 
 		//¥Î
-		std::shared_ptr<ChangeTextureBox> m_ptrMagObjS;
-		std::shared_ptr<ChangeTextureBox> m_ptrMagObjN;
+		std::shared_ptr<ChangeTextureBlock> m_ptrMagObjS;
+		std::shared_ptr<ChangeTextureBlock> m_ptrMagObjN;
 
 		//ƒvƒŒƒCƒ„[‚ª—£‚ê‚Ä‚¢‚é‚©
 		bool leavePlayer = false;
