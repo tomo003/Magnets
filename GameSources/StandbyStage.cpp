@@ -67,8 +67,8 @@ namespace basecross {
 
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
-			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, -30.0f, 0.0f),L"RBPUSH");
-			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, -30.0f, 0.0f), L"RBPUSH");
+			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, 50.0f, 0.0f),L"RBPUSH");
+			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, 50.0f, 0.0f), L"RBPUSH");
 
 			// 磁石オブジェクトを追加
 			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-4.0f, 4.8f, 0.0f));
@@ -124,7 +124,7 @@ namespace basecross {
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 				m_ptrPlayer->SetPlayerMagPole(1);
 				m_ptrBbuttonSprite->SetDrawActive(false);
-				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, -30.0f, 0.0f), L"READY");
+				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, 50.0f, 0.0f), L"READY");
 				playerReady = true;
 			}
 		}
@@ -149,7 +149,7 @@ namespace basecross {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer2->SetPlayerMagPole(2);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
-				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, -30.0f, 0.0f), L"READY");
+				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, 50.0f, 0.0f), L"READY");
 				player2Ready = true;
 			}
 		}
