@@ -85,44 +85,44 @@ namespace basecross{
 		LoadTexture(L"RBPUSH", L"PushRB.png");
 		LoadTexture(L"READY", L"StandBy.png");
 		LoadTexture(L"CLEAR", L"StageClear.png");
-		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");
+		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");//タイトルに戻る文字UI
 		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png");
 
-		LoadTexture(L"PAUSE_BACK", L"Pause.png");
-		LoadTexture(L"MENU", L"Menu.png");
-		LoadTexture(L"RETRY", L"Retry.png");
+		LoadTexture(L"PAUSE_BACK", L"Pause.png");//ポーズメニューのウィンドウ背景
+		LoadTexture(L"MENU", L"Menu.png");//ポーズメニューで表示されるメニュー文字UI
+		LoadTexture(L"RETRY", L"Retry.png");//ポーズメニューで表示されるリトライ文字UI
 
-		LoadTexture(L"BACKGROUND1", L"BackA.png");
-		LoadTexture(L"BACKGROUND2", L"BackB.png");
-		LoadTexture(L"BACKGROUND3", L"BackC.png");
-		LoadTexture(L"BACKGROUND4", L"BackD.png");
-		LoadTexture(L"BACKGROUND5", L"BackE.png");
-		LoadTexture(L"BACKGROUND6", L"BackF.png");
+		LoadTexture(L"BACKGROUND1", L"BackA.png");//ステージ1の背景
+		LoadTexture(L"BACKGROUND2", L"BackB.png");//ステージ2の背景
+		LoadTexture(L"BACKGROUND3", L"BackC.png");//ステージ3の背景
+		LoadTexture(L"BACKGROUND4", L"BackD.png");//ステージ4の背景
+		LoadTexture(L"BACKGROUND5", L"BackE.png");//ステージ5の背景
+		LoadTexture(L"BACKGROUND6", L"BackF.png");//ステージ6の背景
 
-		LoadTexture(L"TITLE", L"title.png");
+		LoadTexture(L"TITLE", L"title.png");//タイトルロゴ
 
-		LoadTexture(L"STAGE1", L"Stage1.png");
+		LoadTexture(L"STAGE1", L"Stage1.png");//ステージセレクトシーンに使う「ステージ1～6」のスクショスプライト
 		LoadTexture(L"STAGE2", L"Stage2.png");
 		LoadTexture(L"STAGE3", L"Stage3.png");
 		LoadTexture(L"STAGE4", L"Stage4.png");
 		LoadTexture(L"STAGE5", L"Stage5.png");
 		LoadTexture(L"STAGE6", L"Stage6.png");
 
-		LoadTexture(L"STAGE1UI", L"Stage1UI.png");
+		LoadTexture(L"STAGE1UI", L"Stage1UI.png");//ステージセレクトシーンに使う「ステージ1～6」までの文字UI
 		LoadTexture(L"STAGE2UI", L"Stage2UI.png");
 		LoadTexture(L"STAGE3UI", L"Stage3UI.png");
 		LoadTexture(L"STAGE4UI", L"Stage4UI.png");
 		LoadTexture(L"STAGE5UI", L"Stage5UI.png");
 		LoadTexture(L"STAGE6UI", L"Stage6UI.png");
-		LoadTexture(L"STAGESELECT", L"StageSelect.png");
-		LoadTexture(L"CURSOR", L"Cursor.png");
+		LoadTexture(L"STAGESELECT", L"StageSelect.png");//ステージセレクトシーンに使う左上のステージセレクト文字
+		LoadTexture(L"CURSOR", L"Cursor.png");//ステージセレクトシーンに使う黄色カーソルスプライト
 
-		LoadTexture(L"BACKTOSTAGESELECT", L"BackToStageSelect.png");
-		LoadTexture(L"NEXTSTAGE", L"NextStage.png");
+		LoadTexture(L"BACKTOSTAGESELECT", L"BackToStageSelect.png");//ステージセレクトシーンに戻る文字UI
+		LoadTexture(L"NEXTSTAGE", L"NextStage.png");//次のステージへ文字UI
 
 		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
 		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
-		LoadTexture(L"SFADE", L"SFade.png");
+		LoadTexture(L"SFADE", L"SFade.png");//シーン切り替えでつかうシャッターみたいに閉じる用のスプライト（S極、N極）
 		LoadTexture(L"NFADE", L"NFade.png");
 
 		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
@@ -208,9 +208,9 @@ namespace basecross{
 		LoadBoneModel(L"Hammer_Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
 
 		//BGM
-		LoadSound(L"TITLE_BGM",L"Title.wav");
-		LoadSound(L"STANDBY_BGM",L"StandBy.wav");
-		LoadSound(L"GAMESTAGE1_BGM",L"GameStage1.wav");
+		LoadSound(L"TITLE_BGM",L"Title.wav");//タイトルシーン
+		LoadSound(L"STANDBY_BGM",L"StandBy.wav");//準備完了シーン
+		LoadSound(L"GAMESTAGE1_BGM",L"GameStage1.wav");//ステージ1~6
 		LoadSound(L"GAMESTAGE2_BGM", L"GameStage2.wav");
 		LoadSound(L"GAMESTAGE3_BGM", L"GameStage3.wav");
 		LoadSound(L"GAMESTAGE4_BGM", L"GameStage4.wav");
@@ -218,16 +218,16 @@ namespace basecross{
 		LoadSound(L"GAMESTAGE6_BGM", L"GameStage6.wav");
 
 		//効果音
-		LoadSound(L"JUMP_SE", L"Jump.wav");
-		LoadSound(L"UNION_SE", L"Union.wav");
-		LoadSound(L"BUTTON_SE", L"Decition.wav");
-		LoadSound(L"STOP_SE", L"Gachan.wav");
-		LoadSound(L"KADOU_SE", L"Kadouonn.wav");
+		LoadSound(L"JUMP_SE", L"Jump.wav");//ジャンプ
+		LoadSound(L"UNION_SE", L"Union.wav");//磁石でくっついたとき
+		LoadSound(L"BUTTON_SE", L"Decition.wav");//ボタン押したときの決定音
+		LoadSound(L"STOP_SE", L"Gachan.wav");//スタート地点に運ばれてきて停止したときの音
+		LoadSound(L"KADOU_SE", L"Kadouonn.wav");//スタート地点に運ばれてきたときの音
 		LoadSound(L"SAVE_SE", L"Save.wav");
 		LoadSound(L"GOAL_SE", L"Goal.wav");
 		LoadSound(L"GET_SE", L"Get.wav");
-		LoadSound(L"SHUTTER_SE", L"Shutter.wav");
-		LoadSound(L"SHUTTER2_SE", L"Shutter2.wav");
+		LoadSound(L"SHUTTER_SE", L"Shutter.wav");//シャッター閉まるときの音
+		LoadSound(L"SHUTTER2_SE", L"Shutter2.wav");//シャッター開く時の音
 
 
 	}

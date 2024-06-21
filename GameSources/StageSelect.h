@@ -23,7 +23,7 @@ namespace basecross {
 		void CreateKeyLoad(const int scene ,const Vec3 pos);
 		void CreateKeyRock();
 		void ChangeSelect(int num);
-		void CreateCursor();
+		void CreateCursor();//黄色カーソルスプライト
 		void CreateAnimeSprite();
 		void PlayBGM();//BGMの作成
 

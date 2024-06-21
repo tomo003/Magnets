@@ -1,6 +1,6 @@
 /*!
 *
-@file Arrow.h
+@file PauseSprite.cpp
 @brief スプライト実体
 */
 
@@ -9,7 +9,7 @@
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	///	スプライト
+	///	ポーズ画面に使うスプライト
 	//--------------------------------------------------------------------------------------
 	PauseSprite::PauseSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 		const Vec2& StartScale, const Vec3& StartPos, Col4 Color, float Alpha) :
@@ -73,6 +73,7 @@ namespace basecross {
 		//描画コンポーネントの設定
 		auto ptrDraw = AddComponent<PNTBoneModelDraw>();
 		auto delta = App::GetApp()->GetElapsedTime();
+		//文字の点滅処理
 		if (m_alpha <= 0.0f) {
 			n = +1.0f;
 		}
