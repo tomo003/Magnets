@@ -403,7 +403,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
-		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrGround = dynamic_pointer_cast<Block>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
 		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
@@ -596,7 +596,7 @@ namespace basecross {
 		auto ptrMagnetN = dynamic_pointer_cast<MagnetN>(Other);
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrGearFloor = dynamic_pointer_cast<GearObjFloor>(Other);
-		auto ptrGround = dynamic_pointer_cast<GameObjectSample>(Other);
+		auto ptrGround = dynamic_pointer_cast<Block>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		if (ptrMoveMetal || ptrMetal || ptrMagnetN || ptrMagnetS || ptrMoveFloor) // チェック

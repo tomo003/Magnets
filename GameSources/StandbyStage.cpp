@@ -49,7 +49,7 @@ namespace basecross {
 				for (int i = 0; i < 24; i++)
 				{
 					// 地面のオブジェクトを追加
-					AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12,j , 0.0f), L"GROUND_TX");
+					AddGameObject<Block>(Vec3(1.0f), Vec3(i - 12,j , 0.0f), L"GROUND_TX");
 				}
 			}
 
