@@ -12,7 +12,7 @@ namespace basecross {
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	void StandbyStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 4.0f, -15.0f);
+		const Vec3 eye(0.0f, 4.0f, -12.0f);
 		const Vec3 at(0.0f, 4.0f, 0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
@@ -44,32 +44,35 @@ namespace basecross {
 			//AddGameObject<BackGroundSprite>();
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 
-			for (int i = 0; i < 24; i++)
+			for (int j = 0;j < 2;j++)
 			{
-				// 地面のオブジェクトを追加
-				AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12, -1.5f, 0.0f), L"GROUND_TX");
+				for (int i = 0; i < 24; i++)
+				{
+					// 地面のオブジェクトを追加
+					AddGameObject<GameObjectSample>(Vec3(1.0f), Vec3(i - 12,j , 0.0f), L"GROUND_TX");
+				}
 			}
 
 			//プレイヤーオブジェクトを追加
 			m_ptrPlayer = AddGameObject<Player>();
 			SetSharedGameObject(L"Player", m_ptrPlayer);
-			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, 0.0f, 0.0f));
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-4.0f, 1.0f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->SetPlayerMagPole(3);
 			m_ptrPlayer2 = AddGameObject<Player2>();
 			SetSharedGameObject(L"Player2", m_ptrPlayer2);
-			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, 0.0f, 0.0f));
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(4.0f, 1.0f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
-			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, 50.0f, 0.0f),L"RBPUSH");
-			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, 50.0f, 0.0f), L"RBPUSH");
+			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, -30.0f, 0.0f),L"RBPUSH");
+			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, -30.0f, 0.0f), L"RBPUSH");
 
 			// 磁石オブジェクトを追加
-			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-3.0f, 1.8f, 0.0f));
-			m_ptrMagObjN = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(3.0f, 1.8f, 0.0f));
+			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-4.0f, 4.8f, 0.0f));
+			m_ptrMagObjN = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(4.0f, 4.8f, 0.0f));
 
 			magnetsGroup->IntoGroup(m_ptrMagObjN);
 			magnetsGroup->IntoGroup(m_ptrMagObjS);
@@ -112,16 +115,16 @@ namespace basecross {
 		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();//|| KeyState.m_bPressedKeyTbl[VK_SPACE]
 		//プレイヤー１
 		if (!playerReady) {
-			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, -0.5f, 0.0f));
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-4.0f, 2.0f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->SetPlayerMagPole(3);
 		}
-		if (m_Totaltime >= 0.8f && firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+		if (m_Totaltime >= 1.2f && firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!playerReady) {
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
 				m_ptrPlayer->SetPlayerMagPole(1);
 				m_ptrBbuttonSprite->SetDrawActive(false);
-				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f), L"READY");
+				m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, -30.0f, 0.0f), L"READY");
 				playerReady = true;
 			}
 		}
@@ -132,21 +135,21 @@ namespace basecross {
 			playerPositionFixed = true;
 		}
 		if (playerReady && playerPositionFixed) {
-			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-3.0f, 0.8f, 0.0f));
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-4.0f, 3.8f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");
 		}
 		//プレイヤー２
 		if (!player2Ready) {
-			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, -0.5f, 0.0f));
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(4.0f, 2.0f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 		}
-		if (m_Totaltime >= 0.8f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER|| firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
+		if (m_Totaltime >= 1.2f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER||m_Totaltime >= 1.2f && firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
 			if (!player2Ready) {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer2->SetPlayerMagPole(2);
 				m_ptrBbuttonSprite2->SetDrawActive(false);
-				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"READY");
+				m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, -30.0f, 0.0f), L"READY");
 				player2Ready = true;
 			}
 		}
@@ -157,7 +160,7 @@ namespace basecross {
 			player2PositionFixed = true;
 		}
 		if (player2Ready && player2PositionFixed) {
-			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(3.0f, 0.8f, 0.0f));
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(4.0f, 3.8f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 		}
 
