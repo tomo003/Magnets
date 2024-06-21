@@ -64,8 +64,8 @@ namespace basecross {
 
 			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 
-			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, -50.0f, 0.0f),L"RBPUSH");
-			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, -50.0f, 0.0f), L"RBPUSH");
+			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-600.0f, 50.0f, 0.0f),L"RBPUSH");
+			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-200.0f, 50.0f, 0.0f), L"RBPUSH");
 
 			// 磁石オブジェクトを追加
 			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-3.0f, 1.8f, 0.0f));

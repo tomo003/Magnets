@@ -13,7 +13,7 @@ namespace basecross {
 		Sprites(stage),
 		m_pos(pos),
 		m_texkey(texkey),
-		m_DefaultSize(Vec2(800.0f, 600.0f)),
+		m_DefaultSize(Vec2(800.0f, 800.0f)),
 		m_changeSpeed(false)
 	{
 	}
