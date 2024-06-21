@@ -1,6 +1,6 @@
 /* !
-@file TitleSprite.h
-@brief タイトルシーンの背景の実装
+@file ShutterSprite.cpp
+@brief タイトルシーンからスタンバイシーンに移行する時のシャッター実装
 */
 
 #pragma once

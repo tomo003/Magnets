@@ -1,6 +1,6 @@
 ﻿/*!
 @file StageSelect.cpp
-@brief タイトル画面
+@brief ステージセレクトシーン
 */
 
 #include "stdafx.h"
@@ -19,20 +19,29 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 	}
+	//曲
 	void SelectStage::PlayBGM() {
 		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(L"STANDBY_BGM", XAUDIO2_LOOP_INFINITE, 3.0f);
 	}
 
 	void SelectStage::CreateCursor()
 	{
+		//黄色カーソルの生成処理　Vec2（サイズ）、Vec3（生成座標）
 		auto PtrCursor = AddGameObject<CursorSprite>(
 			L"CURSOR", true, Vec2(420.0f, 270.0f), Vec3(-560.0f, 180.0f, 0.0f));
 
 		SetSharedGameObject(L"Cursor", PtrCursor);
 	}
+	//ステージセレクトシーンに生成されるカーソル以外のスプライト
 	void SelectStage::CreateSelectSprite() {
+
+		//背景
 		AddGameObject<BackGroundSprite2>(Vec3(95, 60, 1.0f), Vec3(0, 0, 50), L"BACKGROUND1");
+
+		//左上のステージセレクトの文字
 		AddGameObject<SelectSprite>(L"STAGESELECT", true, Vec2(370.0f, 150.0f), Vec3(-590.0f, 390.0f, 0.0f));
+
+		//ステージ内の画面のスクショスプライト
 		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(230.0f, 70.0f), Vec3(-650.0f, 0.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(230.0f, 70.0f), Vec3(-100.0f, 0.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"STAGE3UI", true, Vec2(230.0f, 70.0f), Vec3(420.0f, 0.0f, 0.0f));

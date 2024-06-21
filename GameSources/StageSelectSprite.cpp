@@ -1,6 +1,7 @@
 /*!
 *
 @file StageSelect.cpp
+ステージセレクトシーンに使うスプライト
 */
 
 #include "stdafx.h"
@@ -40,9 +41,11 @@ namespace basecross {
 	void SelectSprite::OnUpdate() {
 	}
 
+	//選択されているスプライトの点滅処理
 	void SelectSprite::Flashing() {
 		auto ptrDraw = AddComponent<PNTBoneModelDraw>();
 		auto delta = App::GetApp()->GetElapsedTime();
+		//透明度の変更処理
 		if (m_alpha <= 0.0f) {
 			n = +1.0f;
 		}
@@ -53,6 +56,7 @@ namespace basecross {
 		ptrDraw->SetDiffuse(Col4(1.0, 1.0f, 1.0f, m_alpha));
 	}
 
+	//ステージセレクトに使用する黄色カーソルのスプライト
 	CursorSprite::CursorSprite(const shared_ptr<Stage>& StagePtr, const wstring& TextureKey, bool Trace,
 		const Vec2& StartScale, const Vec3& StartPos) :
 		GameObject(StagePtr),
@@ -95,6 +99,7 @@ namespace basecross {
 		PtrDraw->SetDiffuse(col);
 	}
 
+	//透明度の変更処理
 	void CursorSprite::Flashing() {
 		auto ptrDraw = AddComponent<PNTBoneModelDraw>();
 		auto delta = App::GetApp()->GetElapsedTime();
