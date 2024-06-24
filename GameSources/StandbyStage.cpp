@@ -39,7 +39,7 @@ namespace basecross {
 			CreateViewLight();
 			//BGMの再生
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"SHUTTER2_SE", 0, 5.0f);
+			XAPtr->Start(L"SHUTTER2_SE", 0, 5.0f);//シャッターが開く音
 
 			//AddGameObject<BackGroundSprite>();
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
@@ -90,8 +90,8 @@ namespace basecross {
 		const Vec3& mLPos = m_nFade->GetPosition();
 		const Vec3& mRPos = m_sFade->GetPosition();
 		auto delta = App::GetApp()->GetElapsedTime();
-		m_Totaltime += delta;
-
+		m_Totaltime += delta;//経過時間を取得
+		//スタンバイシーンに移行して0.5秒経過してからからシャッタースプライトを生成し今度はシャッターが開く処理
 		if (m_Totaltime >= 0.5f && mRPos.x <= 780)
 		{
 			m_sFade->SetPosition(mRPos + Vec3(delta * 1550.0f, 0.0f, 0.0f));
@@ -129,7 +129,7 @@ namespace basecross {
 			}
 		}
 		Vec3 playerPos = m_ptrPlayer->GetComponent<Transform>()->GetPosition();
-		if (playerPos.y > 0.80f && playerReady&& !playerPositionFixed) {
+		if (playerPos.y > 3.8f && playerReady&& !playerPositionFixed) {
 			AddGameObject<EffectPlayer>(playerPos, Vec3(1.0f), L"impact");
 			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			playerPositionFixed = true;
@@ -154,7 +154,7 @@ namespace basecross {
 			}
 		}
 		Vec3 player2Pos = m_ptrPlayer2->GetComponent<Transform>()->GetPosition();
-		if (player2Pos.y >= 0.8f && player2Ready&& !player2PositionFixed) {
+		if (player2Pos.y >3.8f && player2Ready&& !player2PositionFixed) {
 			AddGameObject<EffectPlayer>(player2Pos, Vec3(1.0f), L"impact");
 			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			player2PositionFixed = true;
