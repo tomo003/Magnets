@@ -369,7 +369,7 @@ namespace basecross {
 					break;
 
 				case 19:
-					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f),STATE_NONE);
+					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0),STATE_NONE);
 					break;
 
 				case 20: //2*2の地面オブジェクト
@@ -405,11 +405,11 @@ namespace basecross {
 					break;
 
 				case 28://N極のハンマー
-					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f), STATE_MAG_N);
+					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_N);
 					break;
 
 				case 29://S極のハンマー
-					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f), STATE_MAG_S);
+					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_S);
 					break;
 
 				default:
