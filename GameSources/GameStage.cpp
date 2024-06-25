@@ -187,9 +187,7 @@ namespace basecross {
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
-		auto PtrScene = App::GetApp()->GetScene<Scene>();
-		int scene = PtrScene->GetSecen();
-		m_resultScore = PtrScene->GetScore(scene);
+		m_resultScore = m_score;
 		isGoal = true;
 	}
 
