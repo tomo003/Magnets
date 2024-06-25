@@ -76,15 +76,16 @@ namespace basecross {
 		HammerMoveState m_lastMoveState; // 一個前のステート
 
 		// コンポーネント取得省略用
-		std::shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
-		std::shared_ptr<PNTBoneModelDraw> m_DrawComp; // ドローコンポーネント
-		std::shared_ptr<CollisionObb> m_CollComp; // コリジョンコンポーネント
+		shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
+		shared_ptr<PNTBoneModelDraw> m_DrawComp; // ドローコンポーネント
+		shared_ptr<CollisionObb> m_CollComp; // コリジョンコンポーネント
 
 		Vec3 m_position; // 差分加算後の位置
 		Vec3 m_CreatePos; // 生成時に入力された位置
 		Vec3 m_posDiff = Vec3(0.0f, 4.625f, 4.625f); // 入力された位置と正規の位置の差分
 		Vec3 m_Rotation; // 回転
 		Vec3 m_Scale = Vec3(1.5f, 1.5f, 3.0f); // サイズ
+		const float m_PivotLength = 3.625f; // 回転の中心(ピボット)を変える
 
 		float m_SwingVal = 90.0f; // 回転角度
 		float m_SwingSpeed = 5.0f; // 回転速度(角度に掛ける)
@@ -104,12 +105,17 @@ namespace basecross {
 		Vec3 m_PlayerSPos; // Player2の座標
 
 		// エリアのポインタ
-		shared_ptr<HammerPressArea> m_ptrArea;
+		shared_ptr<HammerPressArea> m_ptrPressArea; // つぶされる範囲のエリア
+		shared_ptr<MagnetArea> m_MagArea; // 磁力エリア
+		float m_MagAreaRadius = 3.5f;
 
 		float m_TrembleRightX; // 振れ幅(右)
 		float m_TrembleLeftX; // 振れ幅(左)
 		int m_TrembleDir = 1; // 震えるときの方向(初期は正の値)
 		int m_TrembleSpeed = 10; // 震えるときの速度
+
+		shared_ptr<XAudio2Manager> m_ptrAudio; // SE再生用AudioManagerのポインタ
+		bool isSEActive = false; // 振り下ろしのときのSEが再生中かどうか
 
 	public:
 		HammerObject(
@@ -122,8 +128,8 @@ namespace basecross {
 			m_eMagPole(EState(MagPole)),
 			m_MoveState(HammerMoveState::Stop), // 初期値は停止
 			m_lastMoveState(HammerMoveState::Remove), // 初期値は戻る(停止時間を３秒にしたいため)
-			m_TrembleRightX(m_position.x + 2.5f),
-			m_TrembleLeftX(m_position.x - 2.5f)
+			m_TrembleRightX(m_position.x + 0.5f),
+			m_TrembleLeftX(m_position.x - 0.5f)
 		{
 		}
 
@@ -193,5 +199,10 @@ namespace basecross {
 		*/
 		void SwingingPlayerCheck();
 
+		/** @brief 振り下ろし中に磁力エリアオブジェクトを補正する関数
+		*   @param 引数なし
+		*   @return 戻り値なし
+		*/
+		void MagAreaCorrection();
 	};
 }

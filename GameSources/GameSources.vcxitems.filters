@@ -46,9 +46,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SaveObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PauseSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HammerObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ShutterSprite.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Metal.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Guide.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Metal.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ShutterSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -97,8 +97,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SaveObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PauseSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HammerObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ShutterSprite.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Metal.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Guide.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Metal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ShutterSprite.h" />
   </ItemGroup>
 </Project>

@@ -234,7 +234,7 @@ namespace basecross{
 		LoadSound(L"GET_SE", L"Get.wav");
 		LoadSound(L"SHUTTER_SE", L"Shutter.wav");//シャッター閉まるときの音
 		LoadSound(L"SHUTTER2_SE", L"Shutter2.wav");//シャッター開く時の音
-
+		LoadSound(L"HAMMER_SE", L"hammer.wav");//ハンマーが振り落とされる時の音
 
 	}
 
@@ -248,7 +248,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;

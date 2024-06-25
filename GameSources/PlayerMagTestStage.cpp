@@ -41,7 +41,7 @@ namespace basecross {
 			CreateViewLight();
 			CreateObjGroup();
 
-			//CreateBackGround(L"BACKGROUND4");
+			CreateBackGround(L"BACKGROUND4");
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Block>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.0f, 0.0f), L"GROUND_TX");
