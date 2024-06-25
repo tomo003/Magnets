@@ -11,6 +11,8 @@
 #define ROT_LEFT 1
 
 #define STATE_NONE -1
+#define STATE_MAG_N 1
+#define STATE_MAG_S 2
 #define STATE_METAL 3
 
 #define MAG_N L"RED"

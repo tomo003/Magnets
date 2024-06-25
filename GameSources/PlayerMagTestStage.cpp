@@ -41,7 +41,7 @@ namespace basecross {
 			CreateViewLight();
 			CreateObjGroup();
 
-			CreateBackGround(L"BACKGROUND4");
+			//CreateBackGround(L"BACKGROUND4");
 
 			// 地面のオブジェクトを追加
 			AddGameObject<Block>(Vec3(10.0f, 1.0f, 1.0f), Vec3(0.0f, -3.0f, 0.0f), L"GROUND_TX");
@@ -71,16 +71,24 @@ namespace basecross {
 			//auto ptrMagObj = AddGameObject<MoveMetalObject>(Vec3(3.5f, 2.0f, 0.0f));
 			//auto ptrMagObj = AddGameObject<RingObject>(Vec3(0.0f, 2.0f, 0.0f));
 
-			AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
+			//AddGameObject<Metal>(Vec3(1.0f), Vec3(5.0f, 0.0f, 0.0f));
 
-			AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), ROT_LEFT, 50.0f, STATE_METAL, STATE_NONE);
+			//AddGameObject<GearObject>(Vec3(-9.0f, 1.0f, 0.0f), ROT_LEFT, 50.0f, STATE_METAL, STATE_NONE);
 
-			AddGameObject<BreakWall>(Vec3(17.0f, -2.0f, 0.0f), Vec3(0.0f));
+			//AddGameObject<BreakWall>(Vec3(3.0f, -2.0f, 0.0f), Vec3(0.0f));
 
-			auto ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(8.0f, 0.99f, 0.9f), Vec3(17.0f, -3.0f, 0.0f), Vec3(-1.0f, 0.0f, 0.0f));
-			SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
-			auto ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(15.0f, -2.5f, 0.0f));
-			SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
+			//auto ptrMoveFloor = AddGameObject<MoveFloor>(Vec3(8.0f, 0.99f, 0.9f), Vec3(17.0f, -3.0f, 0.0f), Vec3(-1.0f, 0.0f, 0.0f));
+			//SetSharedGameObject(L"MoveFloor", ptrMoveFloor);
+			//auto ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(15.0f, -2.5f, 0.0f));
+			//SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
+
+			AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f), STATE_MAG_N);
+
+			auto SavePointGroup = CreateSharedObjectGroup(L"SavePoint"); // セーブポイントグループ
+			auto ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f), Vec3(0.0f, 5.0f, 0.0f));
+			SavePointGroup->IntoGroup(ptrSavePoint);
+			auto ptrGround = AddGameObject<Goal>(Vec3(1.0f), Vec3(0.0f, 5.0f, 0.0f));
+			SetSharedGameObject(L"Goal", ptrGround);
 		}
 		catch (...) {
 			throw;

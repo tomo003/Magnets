@@ -58,6 +58,11 @@ namespace basecross {
 			MovePlayer();
 			ApplyForcePlayer();
 			PlayerLimit();
+
+			// y座標が-10以下になると死亡(リスポーン)
+			if (m_pos.y < -10.0f) {
+				PlayerDeath();
+			}
 		}
 	}
 
@@ -105,21 +110,6 @@ namespace basecross {
 		}
 		else if (m_pos.y <= 5.0f) {
 			jumpCount = 1;
-		}
-
-		if (m_pos.y < -10.0f) {
-			auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-			Vec3 playerRespawnpPoint = ptrPlayer->GetRespawnPoint();
-			if (playerRespawnpPoint.x >= m_RespawnPoint.x) {
-				ptrPlayer->SetRespawnPoint(m_RespawnPoint);
-				ptrPlayer->RespawnPlayer();
-				RespawnPlayer();
-			}
-			else if (playerRespawnpPoint.x < m_RespawnPoint.x) {
-				m_RespawnPoint = playerRespawnpPoint;
-				ptrPlayer->RespawnPlayer();
-				RespawnPlayer();
-			}
 		}
 
 		//属性切り替え
@@ -171,6 +161,22 @@ namespace basecross {
 		}
 		m_speed = 5.0f;
 		m_attribute = 1;
+	}
+
+	void Player2::PlayerDeath() {
+		auto ptrPlayer1 = GetStage()->GetSharedGameObject<Player>(L"Player");
+		Vec3 player1RespawnpPoint = ptrPlayer1->GetRespawnPoint();
+
+		if (player1RespawnpPoint.x >= m_RespawnPoint.x) {
+			ptrPlayer1->SetRespawnPoint(m_RespawnPoint);
+			ptrPlayer1->RespawnPlayer();
+			RespawnPlayer();
+		}
+		else if (player1RespawnpPoint.x < m_RespawnPoint.x) {
+			SetRespawnPoint(player1RespawnpPoint);
+			ptrPlayer1->RespawnPlayer();
+			RespawnPlayer();
+		}
 	}
 
 	//リスポーン地点を設定する
