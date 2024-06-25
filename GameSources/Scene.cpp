@@ -197,9 +197,15 @@ namespace basecross{
 		LoadStaticModelMesh(L"GearObj", L"GearObject_MESH");
 		// 壊れる壁
 		LoadBoneModel(L"BreakWall", L"BreakWall_MESH", L"BreakWall_MESH_TAN");
+		LoadTexture(L"BREAK_TX", L"BreakWallTex.png");
 		// ハンマー(赤＆青)
-		LoadBoneModel(L"Hammer_Red", L"Hammer_Red_MESH", L"Hammer_Red_MESHTAN");
-		LoadBoneModel(L"Hammer_Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
+		LoadBoneModel(L"Hammer Red", L"Hammer_Red_MESH", L"Hammer_Red_MESHTAN");
+		LoadBoneModel(L"Hammer Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
+		LoadBoneModel(L"Hammer Black", L"Hammer_Black_MESH", L"Hammer_Black_MESHTAN");
+		// ハンマーエリア(Ｎ＆Ｓ＆無)
+		LoadTexture(L"REDAREA_TX", L"HummerArea_Red.png");
+		LoadTexture(L"BULEAREA_TX", L"HummerArea_Bule.png");
+		LoadTexture(L"WHITEAREA_TX", L"HummerArea_White.png");
 
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");
@@ -233,7 +239,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToMagTestStage");
 		}
 		catch (...) {
 			throw;

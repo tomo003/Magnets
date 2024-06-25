@@ -184,6 +184,7 @@ namespace basecross {
 	void Player::PlayerDeath() {
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
+
 		if (player2RespawnpPoint.x >= m_RespawnPoint.x) {
 			ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
 			ptrPlayer2->RespawnPlayer();
