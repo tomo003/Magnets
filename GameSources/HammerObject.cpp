@@ -69,7 +69,7 @@ namespace basecross {
 		m_TransComp->SetScale(m_Scale);
 		m_position = m_CreatePos + m_posDiff;
 		m_TransComp->SetPosition(m_position);
-		m_TransComp->SetPivot(0.0f, -3.625f, 0.0f);
+		m_TransComp->SetPivot(0.0f, -m_PivotLength, 0.0f);
 		m_TransComp->SetRotation(Vec3(0.0f, 0.0f, 0.0f));
 
 		m_CollComp = AddComponent<CollisionObb>();
@@ -105,10 +105,15 @@ namespace basecross {
 		}
 		m_DrawComp->SetMeshToTransformMatrix(spanMat);
 
-		m_ptrArea = GetStage()->AddGameObject<HammerPressArea>(m_CreatePos, m_eMagPole);
+		m_ptrPressArea = GetStage()->AddGameObject<HammerPressArea>(m_CreatePos, m_eMagPole);
+		m_MagArea = GetStage()->AddGameObject<MagnetArea>(Vec3(m_position.x, m_position.y, m_position.z + m_Scale.z/2), m_MagAreaRadius);
+		//m_MagArea->GetComponent<Transform>()->SetParent(GetThis<HammerObject>());
+		
 
 		m_ptrPlayerF = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_ptrPlayerS = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+
+		m_ptrAudio = App::GetApp()->GetXAudio2Manager();
 	}
 
 	void HammerObject::OnUpdate() {
@@ -134,6 +139,7 @@ namespace basecross {
 		default:
 			break;
 		}
+		MagAreaCorrection();
 	}
 
 	// 巻き戻し
@@ -157,6 +163,12 @@ namespace basecross {
 		auto& app = App::GetApp();
 		auto delta = app->GetElapsedTime();	// 時間の取得
 		m_CurrentTime += delta;
+
+		if ((!isSEActive) && (m_lastMoveState == HammerMoveState::Swing))
+		{
+			m_ptrAudio->Start(L"HAMMER_SE", 0, 2.0f);
+			isSEActive = true;
+		}
 
 		// 経過時間が設定した時間を越えたら
 		if (m_CurrentTime >= m_StopTime)
@@ -189,6 +201,7 @@ namespace basecross {
 			default:
 				break;
 			}
+			isSEActive = false;
 		}
 		return;
 	}
@@ -251,7 +264,7 @@ namespace basecross {
 	}
 	// 振り下ろしの時にPlayerがいたら
 	void HammerObject::SwingingPlayerCheck(){
-		if (m_ptrArea->AreaInPlayerF()) // エリア内にPlayer1がいるとき
+		if (m_ptrPressArea->AreaInPlayerF()) // エリア内にPlayer1がいるとき
 		{
 			int playerFMag = int(m_ptrPlayerF->GetPlayerMagPole());
 			if (int(m_eMagPole) == playerFMag) { // 自分の磁極と範囲内のplayerの磁極が同じなら
@@ -262,14 +275,13 @@ namespace basecross {
 			}
 		}
 
-		if (m_ptrArea->AreaInPlayerS()) // エリア内にPlayer2がいるとき
+		if (m_ptrPressArea->AreaInPlayerS()) // エリア内にPlayer2がいるとき
 		{
 			int playerSMag = int(m_ptrPlayerS->GetPlayerMagPole());
 			if (int(m_eMagPole) == playerSMag) { // 自分の磁極と範囲内のplayerの磁極が同じなら
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Remove; // 跳ね返し(戻る)
 				SetStopTime(m_SwingStopTime * 1.5f); // 跳ね返した時のみ時間を1.5倍に
-
 				return;
 			}
 		}
@@ -284,7 +296,14 @@ namespace basecross {
 			m_ptrPlayerF->PlayerDeath();
 		}
 		if (ptrPlayerS) {
-			//m_ptrPlayerS->PlayerDeath();
+			m_ptrPlayerS->PlayerDeath();
 		}
+	}
+
+	void HammerObject::MagAreaCorrection() {
+		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
+		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
+		float diff = sinf(m_Rotation.x) * m_PivotLength;
+		MagAreaTrans->SetPosition(MagAreaPos.x, diff, MagAreaPos.z);
 	}
 }
