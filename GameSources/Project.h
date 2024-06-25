@@ -54,3 +54,4 @@
 #include "HammerObject.h"
 #include "ShutterSprite.h"
 #include "MyCamera.h"
+#include "DeathEffect.h"

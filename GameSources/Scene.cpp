@@ -160,6 +160,8 @@ namespace basecross{
 		LoadTexture(L"KEY10", L"key10.png");
 		LoadTexture(L"KEY13", L"key13.png");
 
+		LoadTexture(L"DEATHEFFECT", L"DeathEffect.png");
+
 		//ƒKƒCƒh‚Ì‰æ‘œ
 		LoadTexture(L"GUIDEREDUP_TX", L"GuideRedUp.png");
 		LoadTexture(L"GUIDEREDDOWM_TX", L"GuideRedDown.png");

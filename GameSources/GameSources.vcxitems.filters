@@ -49,6 +49,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HammerObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ShutterSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Metal.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DeathEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -100,5 +101,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HammerObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ShutterSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Metal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DeathEffect.h" />
   </ItemGroup>
 </Project>
