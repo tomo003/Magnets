@@ -144,7 +144,6 @@ namespace basecross {
 				m_eMagPole = EState::eFalse;
 				break;
 			}
-
 		}
 
 		limitSpeed();
@@ -182,6 +181,7 @@ namespace basecross {
 	}
 
 	void Player::PlayerDeath() {
+		GetStage()->AddGameObject<DeathEffect>(GetThis<Player>());
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
 

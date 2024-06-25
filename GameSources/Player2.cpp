@@ -164,6 +164,7 @@ namespace basecross {
 	}
 
 	void Player2::PlayerDeath() {
+		GetStage()->AddGameObject<DeathEffect>(GetThis<Player2>());
 		auto ptrPlayer1 = GetStage()->GetSharedGameObject<Player>(L"Player");
 		Vec3 player1RespawnpPoint = ptrPlayer1->GetRespawnPoint();
 

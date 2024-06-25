@@ -368,6 +368,10 @@ namespace basecross {
 					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
+				case 19:
+					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f),STATE_NONE);
+					break;
+
 				case 20: //2*2の地面オブジェクト
 					ptrGround = AddGameObject<Block>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
 					break;
@@ -398,6 +402,14 @@ namespace basecross {
 
 				case 27: //2Pが真っすぐに行くガイド
 					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 6);
+					break;
+
+				case 28://N極のハンマー
+					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f), STATE_MAG_N);
+					break;
+
+				case 29://S極のハンマー
+					AddGameObject<HammerObject>(Vec3(-3.0f, -2.0f, 0.0f), STATE_MAG_S);
 					break;
 
 				default:
