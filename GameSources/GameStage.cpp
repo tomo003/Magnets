@@ -404,12 +404,12 @@ namespace basecross {
 					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 6);
 					break;
 
-				case 28://N極のハンマー
-					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_N);
+				case 28://S極のハンマー
+					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_S);
 					break;
 
-				case 29://S極のハンマー
-					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_S);
+				case 29://N極のハンマー
+					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0), STATE_MAG_N);
 					break;
 
 				default:
