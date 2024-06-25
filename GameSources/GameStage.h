@@ -37,6 +37,10 @@ namespace basecross {
 		float m_time = 100;
 		int m_resultScore = 0;
 
+		bool isScore1 = false;
+		bool isScore2 = false;
+		bool isScore3 = false;
+
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 

@@ -474,21 +474,33 @@ namespace basecross {
 		if (isGoal) {
 			m_time--;
 
-			//auto PtrScene = App::GetApp()->GetScene<Scene>();
-			//m_resultScore = PtrScene->GetScore(PtrScene->GetSecen());
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+
 			if (m_resultScore >= 1) {
-				if (m_time <= 90.0f) {
-					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
+				if (!isScore1) {
+					if (m_time <= 90.0f) {
+						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
+						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						isScore1 = true;
+					}
 				}
 			}
 			if (m_resultScore >= 2) {
 				if (m_time <= 50.0f) {
-					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
+					if (!isScore2) {
+						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
+						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						isScore2 = true;
+					}
 				}
 			}
 			if (m_resultScore >= 3) {
 				if (m_time <= 10.0f) {
-					AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+					if (!isScore3) {
+						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						isScore3 = true;
+					}
 				}
 			}
 
