@@ -34,7 +34,7 @@ namespace basecross {
 	}
 
 	void GameStage::PlayBGM(wstring sound) {
-		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(sound, XAUDIO2_LOOP_INFINITE, 1.0f);
+		m_bgm = App::GetApp()->GetXAudio2Manager()->Start(sound, XAUDIO2_LOOP_INFINITE, 0.8f);
 	}
 
 	void GameStage::OnDestroy() {
@@ -190,7 +190,7 @@ namespace basecross {
 		m_resultScore = m_score;
 		isGoal = true;
 	}
-
+	//クリア時の次のステージへとかの処理
 	//コントローラー左スティックのの操作を取得して選択肢に応じたシーン移行を行う
 	void GameStage::ClearResult() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
@@ -199,9 +199,7 @@ namespace basecross {
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int ResultNum = PtrScene->GetResultNum();
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
-
 			if (CntlVec[0].bConnected) {
-				
 				if (!m_CntrolLock) {
 					if (CntlVec[0].fThumbLX >= 0.8) {
 						ResultNum++;
@@ -478,7 +476,7 @@ namespace basecross {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
-						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						isScore1 = true;
 					}
 				}
@@ -487,7 +485,7 @@ namespace basecross {
 				if (m_time <= 50.0f) {
 					if (!isScore2) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
-						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						isScore2 = true;
 					}
 				}
@@ -496,7 +494,7 @@ namespace basecross {
 				if (m_time <= 10.0f) {
 					if (!isScore3) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
-						XAPtr->Start(L"GET_SE", 0, 3.0f);
+						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						isScore3 = true;
 					}
 				}
@@ -600,102 +598,106 @@ namespace basecross {
 	{
 		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
 		auto ptrPlayer2 = GetSharedGameObject<Player2>(L"Player2");
-		if (ptrPlayer->IsGoal() && ptrPlayer2->IsGoal()) {
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			if (PtrScene->GetGameState() == GameState::GameClear)
-				AddGameObject<FadeOut>(L"FADE_WHITE");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-			{
-				m_pushButton = true;
-				int ResultNum = PtrScene->GetResultNum();
-				m_Lock = true;
-				m_CntrolLock = true;
-				int StageNum = PtrScene->GetStageNum();
-
-				if (ResultNum == 0)
+		if (!m_pushButton)
+		{
+			m_pushButton = true;
+			if (ptrPlayer->IsGoal() && ptrPlayer2->IsGoal()) {
+				auto PtrScene = App::GetApp()->GetScene<Scene>();
+				if (PtrScene->GetGameState() == GameState::GameClear)
+					AddGameObject<FadeOut>(L"FADE_WHITE");
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 				{
-					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-				}
-				if (ResultNum == 1)
-				{
-					StageNum++;
 
-					int m_score = 0;
-					for (int i = 1; i < 7; i++) {
-						m_score += PtrScene->GetScore(i);
-					}
-					if (StageNum <= 3) {
-						PtrScene->SetStageNum(StageNum);
-						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-					}
-					if (StageNum == 4) {
-						if (m_score >= 7) {
-							PtrScene->SetStageNum(StageNum);
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-						}
-						else {
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-						}
-					}
-					if (StageNum == 5) {
-						if (m_score >= 10) {
-							PtrScene->SetStageNum(StageNum);
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-						}
-						else {
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-						}
-					}
-					if (StageNum == 6) {
-						if (m_score >= 13) {
-							PtrScene->SetStageNum(StageNum);
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-						}
-						else {
-							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-						}
-					}
-					if (StageNum > 6) {
+					int ResultNum = PtrScene->GetResultNum();
+					m_Lock = true;
+					m_CntrolLock = true;
+					int StageNum = PtrScene->GetStageNum();
+
+					if (ResultNum == 0)
+					{
 						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 					}
-				}
+					if (ResultNum == 1)
+					{
+						StageNum++;
 
-				if (ResultNum == 2)
+						int m_score = 0;
+						for (int i = 1; i < 7; i++) {
+							m_score += PtrScene->GetScore(i);
+						}
+						if (StageNum <= 3) {
+							PtrScene->SetStageNum(StageNum);
+							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+						}
+						if (StageNum == 4) {
+							if (m_score >= 7) {
+								PtrScene->SetStageNum(StageNum);
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+							}
+							else {
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+							}
+						}
+						if (StageNum == 5) {
+							if (m_score >= 10) {
+								PtrScene->SetStageNum(StageNum);
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+							}
+							else {
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+							}
+						}
+						if (StageNum == 6) {
+							if (m_score >= 13) {
+								PtrScene->SetStageNum(StageNum);
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+							}
+							else {
+								PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+							}
+						}
+						if (StageNum > 6) {
+							PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
+						}
+					}
+
+					if (ResultNum == 2)
+					{
+
+						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+					}
+
+				}
+			}
+
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			if (PtrScene->GetGameState() == GameState::Pause)
+			{
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
+				AddGameObject<FadeOut>(L"FADE_WHITE");
+				int	 PauseNum = PtrScene->GetPauseNum();
+				m_pushButton = true;
+				m_CntrolLock = true;
+
+				//PtrScene->SetGameState(GameState::IsSelect);
+
+				if (PauseNum == 0)
 				{
-
-					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 				}
+				if (PauseNum == 1)
+				{
+					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 
+				}
+				if (PauseNum == 2)
+				{
+					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+				}
 			}
 		}
-		auto PtrScene = App::GetApp()->GetScene<Scene>();
-		if (PtrScene->GetGameState() == GameState::Pause)
-		{
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-			AddGameObject<FadeOut>(L"FADE_WHITE");
-			int	 PauseNum = PtrScene->GetPauseNum();
-			m_pushButton = true;
-			m_CntrolLock = true;
-
-			//PtrScene->SetGameState(GameState::IsSelect);
-
-			if (PauseNum == 0)
-			{
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
-			}
-			if (PauseNum == 1)
-			{
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-
-			}
-			if (PauseNum == 2)
-			{
-				PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			}
-		}
-
 	}
 
 	void GameStage::CollisionSwitch() {

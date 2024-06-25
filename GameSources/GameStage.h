@@ -60,7 +60,6 @@ namespace basecross {
 		int m_previousScore = -1;
 
 		bool m_CntrolLock;
-
 		void Menu();
 		void ChangeSelectMenu(int num);
 		void ChangeSelectPauseMenu(int num);
