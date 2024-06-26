@@ -1,13 +1,14 @@
 /*!
 * @file MagnetsObject.h
 * @brief 磁石オブジェクト
-* @author 穴澤委也
+* @author 吉田鈴
 */
 
 #pragma once
 #include "stdafx.h"
 
 namespace basecross {
+	// 磁石オブジェクトのベース(試作)
 	class MagnetsObject : public GameObject
 	{
 	public:

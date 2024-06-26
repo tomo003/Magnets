@@ -75,7 +75,7 @@ namespace basecross {
 		m_CollComp = AddComponent<CollisionObb>();
 		m_CollComp->SetAfterCollision(AfterCollision::None);
 		//m_CollComp->SetFixed(true);
-		m_CollComp->SetDrawActive(true);
+		//m_CollComp->SetDrawActive(true);
 		
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
 		spanMat.affineTransformation(
@@ -122,6 +122,7 @@ namespace basecross {
 		{
 		case HammerMoveState::Remove:
 			RemoveHammer();
+			MagAreaCorrection();
 			break;
 
 		case HammerMoveState::Stop:
@@ -134,12 +135,12 @@ namespace basecross {
 
 		case HammerMoveState::Swing:
 			SwingHammer();
+			MagAreaCorrection();
 			break;
 
 		default:
 			break;
 		}
-		MagAreaCorrection();
 	}
 
 	// 巻き戻し
@@ -306,6 +307,10 @@ namespace basecross {
 
 	// 磁力エリアの位置補正
 	void HammerObject::MagAreaCorrection() {
+
+		// 磁極が無ければこれ以降は無視
+		if (m_eMagPole == EState::eFalse) return;
+
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
 		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
 		float diff = cosf(m_Rotation.x);//  * m_PivotLength

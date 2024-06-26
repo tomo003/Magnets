@@ -61,7 +61,7 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(m_Scale);
 
-		if ((int)m_eMagPole > 0) {
+		if (m_eMagPole != EState::eFalse) {
 			auto ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 			auto m_AreaTransComp = ptrArea->GetComponent<Transform>();
 			m_AreaTransComp->SetParent(GetThis<GearObjFloor>());
@@ -73,7 +73,7 @@ namespace basecross {
 
 		m_position = m_ptrTrans->GetWorldPosition();
 
-		if ((int)m_eMagPole > 0) {
+		if (m_eMagPole != EState::eFalse) {
 			ApplyForcePlayer();
 			ApplyForceSecondPlayer();
 		}

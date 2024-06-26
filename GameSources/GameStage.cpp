@@ -471,7 +471,7 @@ namespace basecross {
 		m_score = PtrScene->GetScore(PtrScene->GetStageNum());
 		if (m_score > m_previousScore) {
 			m_previousScore = m_score;
-			//CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
+			CreateKeyLoad(PtrScene->GetStageNum(), Vec3(-740.0f, 400.0f, 0.0f));
 		}
 		if (PtrScene->GetGameState() == GameState::Pause)
 		{
