@@ -99,7 +99,7 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-			if (playerMagPole == -1) {
+			if (playerMagPole == STATE_NONE) {
 				return;
 			}
 			else {
@@ -118,7 +118,7 @@ namespace basecross {
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
 		if (distance < m_MagAreaRadius) {
-			if (playerMagPole == -1) {
+			if (playerMagPole == STATE_NONE) {
 				return;
 			}
 			else {

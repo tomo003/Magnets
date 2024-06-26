@@ -106,9 +106,9 @@ namespace basecross {
 		m_DrawComp->SetMeshToTransformMatrix(spanMat);
 
 		m_ptrPressArea = GetStage()->AddGameObject<HammerPressArea>(m_CreatePos, m_eMagPole);
-		m_MagArea = GetStage()->AddGameObject<MagnetArea>(Vec3(m_position.x, m_position.y, m_position.z + m_Scale.z/2), m_MagAreaRadius);
-		//m_MagArea->GetComponent<Transform>()->SetParent(GetThis<HammerObject>());
-		
+		if (m_eMagPole != EState::eFalse) {
+			m_MagArea = GetStage()->AddGameObject<MagnetArea>(Vec3(m_position.x, m_position.y, m_position.z + m_Scale.z / 2), m_MagAreaRadius);
+		}
 
 		m_ptrPlayerF = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_ptrPlayerS = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -229,6 +229,7 @@ namespace basecross {
 			ResetCurrentTime();
 			m_lastMoveState = m_MoveState;
 			m_MoveState = HammerMoveState::Swing; // U‚è‰º‚ë‚µ‚Ö
+			ChangeFixed(false);
 		}
 	}
 	// —\”õ“®ì‚ÌU“®
@@ -260,6 +261,7 @@ namespace basecross {
 			m_lastMoveState = m_MoveState;
 			m_MoveState = HammerMoveState::Stop;
 			SetStopTime(m_SwingStopTime);
+			ChangeFixed(true);
 		}
 	}
 	// U‚è‰º‚ë‚µ‚ÌŽž‚ÉPlayer‚ª‚¢‚½‚ç
@@ -271,6 +273,7 @@ namespace basecross {
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Remove; // ’µ‚Ë•Ô‚µ(–ß‚é)
 				SetStopTime(m_SwingStopTime * 1.5f); // ’µ‚Ë•Ô‚µ‚½Žž‚Ì‚ÝŽžŠÔ‚ð1.5”{‚É
+				ChangeFixed(true);
 				return;
 			}
 		}
@@ -282,6 +285,7 @@ namespace basecross {
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Remove; // ’µ‚Ë•Ô‚µ(–ß‚é)
 				SetStopTime(m_SwingStopTime * 1.5f); // ’µ‚Ë•Ô‚µ‚½Žž‚Ì‚ÝŽžŠÔ‚ð1.5”{‚É
+				ChangeFixed(true);
 				return;
 			}
 		}
@@ -304,7 +308,7 @@ namespace basecross {
 	void HammerObject::MagAreaCorrection() {
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
 		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
-		float diff = cosf(m_Rotation.x) * m_PivotLength;
-		MagAreaTrans->SetPosition(MagAreaPos.x, diff, MagAreaPos.z);
+		float diff = cosf(m_Rotation.x);//  * m_PivotLength
+		MagAreaTrans->SetPosition(MagAreaPos.x, m_position.y * diff, MagAreaPos.z);
 	}
 }

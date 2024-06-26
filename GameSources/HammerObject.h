@@ -82,7 +82,7 @@ namespace basecross {
 
 		Vec3 m_position; // 差分加算後の位置
 		Vec3 m_CreatePos; // 生成時に入力された位置
-		Vec3 m_posDiff = Vec3(0.0f, 4.625f, 4.625f); // 入力された位置と正規の位置の差分
+		Vec3 m_posDiff = Vec3(0.0f, 5.0f, 3.8f); // 入力された位置と正規の位置の差分
 		Vec3 m_Rotation; // 回転
 		Vec3 m_Scale = Vec3(1.5f, 1.5f, 3.0f); // サイズ
 		const float m_PivotLength = 3.625f; // 回転の中心(ピボット)を変える
@@ -137,6 +137,16 @@ namespace basecross {
 		void OnUpdate() override;
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
+
+		void ChangeFixed(bool fix) {
+			m_CollComp->SetFixed(fix);
+			if (fix) {
+				m_CollComp->SetAfterCollision(AfterCollision::Auto);
+			}
+			else {
+				m_CollComp->SetAfterCollision(AfterCollision::None);
+			}
+		}
 
 		/** @brief ハンマーのステートを渡す
 		*   @param 引数なし
