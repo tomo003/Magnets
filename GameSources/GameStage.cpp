@@ -181,9 +181,11 @@ namespace basecross {
 		PtrSp = AddGameObject<FlashSprite>(
 			Vec3(220.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);//タイトルに戻る
 		m_SpVec[2] = PtrSp;
-		m_key1->SetDrawActive(false);
-		m_key2->SetDrawActive(false);
-		m_key3->SetDrawActive(false);
+		if (m_key1 != NULL) {
+			m_key1->SetDrawActive(false);
+			m_key2->SetDrawActive(false);
+			m_key3->SetDrawActive(false);
+		}
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
@@ -354,6 +356,7 @@ namespace basecross {
 				case 15: //ゴール
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
 					SetSharedGameObject(L"Goal", ptrGround);
+					m_goalPos = Vec3(posX, -posY + m_CSVHeight + 1, 0);
 					break;
 
 				case 16: //歯車右回り
@@ -483,12 +486,14 @@ namespace basecross {
 			m_time--;
 
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-
+			const Vec3 goalPos = m_goalPos;
+			m_resultScore = 3;
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore1 = true;
 					}
 				}
@@ -498,6 +503,7 @@ namespace basecross {
 					if (!isScore2) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore2 = true;
 					}
 				}
@@ -507,6 +513,8 @@ namespace basecross {
 					if (!isScore3) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x + 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x - 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore3 = true;
 					}
 				}
