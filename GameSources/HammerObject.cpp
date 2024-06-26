@@ -309,7 +309,7 @@ namespace basecross {
 	void HammerObject::MagAreaCorrection() {
 
 		// Ž¥‹É‚ª–³‚¯‚ê‚Î‚±‚êˆÈ~‚Í–³Ž‹
-		if (m_eMagPole == EState::eFalse) return;
+		if (!m_MagArea) return;
 
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
 		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
