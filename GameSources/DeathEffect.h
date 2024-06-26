@@ -39,7 +39,7 @@ namespace basecross {
 		std::shared_ptr<GameObject> m_owner;
 
 		float m_time = 5.0f;
-		float m_removeDistance = 7.0f;//エフェクトを削除する距離
+		float m_removeDistance = 13.0f;//エフェクトを削除する距離
 	public:
 		DeathEffect(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
 			GameObject(stage),
@@ -47,7 +47,6 @@ namespace basecross {
 			m_owner(owner)
 		{
 		}
-
 		void OnCreate() override;
 		void OnUpdate() override;
 	};
