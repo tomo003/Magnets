@@ -181,9 +181,11 @@ namespace basecross {
 		PtrSp = AddGameObject<FlashSprite>(
 			Vec3(220.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);//ƒ^ƒCƒgƒ‹‚É–ß‚é
 		m_SpVec[2] = PtrSp;
-		m_key1->SetDrawActive(false);
-		m_key2->SetDrawActive(false);
-		m_key3->SetDrawActive(false);
+		if (m_key1 != NULL) {
+			m_key1->SetDrawActive(false);
+			m_key2->SetDrawActive(false);
+			m_key3->SetDrawActive(false);
+		}
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
@@ -483,12 +485,14 @@ namespace basecross {
 			m_time--;
 
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-
+			auto pos = m_ptrPlayer1->GetComponent<Transform>()->GetPosition();
+			
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore1 = true;
 					}
 				}
@@ -498,6 +502,7 @@ namespace basecross {
 					if (!isScore2) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore2 = true;
 					}
 				}
@@ -507,6 +512,8 @@ namespace basecross {
 					if (!isScore3) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
+						AddGameObject<EffectPlayer>(Vec3(pos.x + 5.0f, pos.y -2.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(pos.x - 5.0f, pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore3 = true;
 					}
 				}
