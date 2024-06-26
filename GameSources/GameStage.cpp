@@ -356,7 +356,6 @@ namespace basecross {
 				case 15: //ÉSÅ[Éã
 					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
 					SetSharedGameObject(L"Goal", ptrGround);
-					m_goalPos = Vec3(posX, -posY + m_CSVHeight + 1, 0);
 					break;
 
 				case 16: //éïé‘âEâÒÇË
@@ -486,14 +485,14 @@ namespace basecross {
 			m_time--;
 
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			const Vec3 goalPos = m_goalPos;
+			auto pos = m_ptrPlayer1->GetComponent<Transform>()->GetPosition();
 			
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore1 = true;
 					}
 				}
@@ -503,7 +502,7 @@ namespace basecross {
 					if (!isScore2) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore2 = true;
 					}
 				}
@@ -513,8 +512,8 @@ namespace basecross {
 					if (!isScore3) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x + 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x - 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(pos.x + 5.0f, pos.y -2.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(pos.x - 5.0f, pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore3 = true;
 					}
 				}

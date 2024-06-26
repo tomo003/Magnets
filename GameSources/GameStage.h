@@ -36,7 +36,6 @@ namespace basecross {
 		bool isGoal = false;
 		float m_time = 100;
 		int m_resultScore = 0;
-		Vec3 m_goalPos;
 
 		bool isScore1 = false;
 		bool isScore2 = false;
