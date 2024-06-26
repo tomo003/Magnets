@@ -487,7 +487,7 @@ namespace basecross {
 
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			const Vec3 goalPos = m_goalPos;
-			m_resultScore = 3;
+			
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
