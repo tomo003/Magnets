@@ -487,13 +487,13 @@ namespace basecross {
 
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			const Vec3 goalPos = m_goalPos;
-			//m_resultScore = 3;
+			m_resultScore = 3;
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x - 10.0f,  5.0f , 0.0f), Vec3(1.0f), L"impact");
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore1 = true;
 					}
 				}
@@ -503,7 +503,7 @@ namespace basecross {
 					if (!isScore2) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x + 1.0f, 3.0f, 0.0f), Vec3(1.0f), L"impact");
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x , -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore2 = true;
 					}
 				}
@@ -513,7 +513,8 @@ namespace basecross {
 					if (!isScore3) {
 						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
-						AddGameObject<EffectPlayer>(Vec3(goalPos.x + 7.0f, 0.0f, 0.0f), Vec3(1.0f), L"impact");
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x + 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
+						AddGameObject<EffectPlayer>(Vec3(goalPos.x - 5.0f, -4.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore3 = true;
 					}
 				}
