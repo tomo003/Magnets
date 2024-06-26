@@ -7,8 +7,8 @@ namespace basecross {
 	void HammerPressArea::OnCreate()
 	{
 		m_TransComp = GetComponent<Transform>();
-		m_TransComp->SetScale(3.0f, 0.5f, 1.0f);
-		m_TransComp->SetPosition(m_position.x, m_position.y - 0.25f, m_position.z);
+		m_TransComp->SetScale(2.0f, 0.5f, 0.25f);
+		m_TransComp->SetPosition(m_position.x, m_position.y - 0.25f, m_position.z-0.375f);
 		
 		m_ptrPlayerF = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_PlayerFScaleHelf = m_ptrPlayerF->GetComponent<Transform>()->GetScale() / 2;
@@ -166,7 +166,7 @@ namespace basecross {
 
 		if ((!isSEActive) && (m_lastMoveState == HammerMoveState::Swing))
 		{
-			m_ptrAudio->Start(L"HAMMER_SE", 0, 2.0f);
+			m_ptrAudio->Start(L"HAMMER_SE", 0, 1.0f);
 			isSEActive = true;
 		}
 
@@ -267,7 +267,7 @@ namespace basecross {
 		if (m_ptrPressArea->AreaInPlayerF()) // エリア内にPlayer1がいるとき
 		{
 			int playerFMag = int(m_ptrPlayerF->GetPlayerMagPole());
-			if (int(m_eMagPole) == playerFMag) { // 自分の磁極と範囲内のplayerの磁極が同じなら
+			if (int(m_eMagPole) == playerFMag && playerFMag != STATE_NONE) { // 自分の磁極と範囲内のplayerの磁極が同じなら
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Remove; // 跳ね返し(戻る)
 				SetStopTime(m_SwingStopTime * 1.5f); // 跳ね返した時のみ時間を1.5倍に
@@ -278,7 +278,7 @@ namespace basecross {
 		if (m_ptrPressArea->AreaInPlayerS()) // エリア内にPlayer2がいるとき
 		{
 			int playerSMag = int(m_ptrPlayerS->GetPlayerMagPole());
-			if (int(m_eMagPole) == playerSMag) { // 自分の磁極と範囲内のplayerの磁極が同じなら
+			if (int(m_eMagPole) == playerSMag && playerSMag != STATE_NONE) { // 自分の磁極と範囲内のplayerの磁極が同じなら
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Remove; // 跳ね返し(戻る)
 				SetStopTime(m_SwingStopTime * 1.5f); // 跳ね返した時のみ時間を1.5倍に
@@ -300,10 +300,11 @@ namespace basecross {
 		}
 	}
 
+	// 磁力エリアの位置補正
 	void HammerObject::MagAreaCorrection() {
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
 		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
-		float diff = sinf(m_Rotation.x) * m_PivotLength;
+		float diff = cosf(m_Rotation.x) * m_PivotLength;
 		MagAreaTrans->SetPosition(MagAreaPos.x, diff, MagAreaPos.z);
 	}
 }

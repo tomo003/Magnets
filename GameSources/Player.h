@@ -85,8 +85,7 @@ namespace basecross {
 
 		Vec3 m_RespawnPoint;//リスポーンする位置
 
-		wstring m_magDirLR;
-		wstring m_magDirUD;
+		Vec3 m_magDir;
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
@@ -172,21 +171,21 @@ namespace basecross {
 		// 近い磁石が自分から見て4方向のどこにいるか設定
 		void SetMsgnetsDirection(const Vec3& magPos) {
 			if (m_pos.y < magPos.y) {
-				m_magDirUD = L"UP";
+				m_magDir = UP_VEC;
 			}
 			if (m_pos.y > magPos.y) {
-				m_magDirUD = L"DOWN";
+				m_magDir = DOWN_VEC;
 			}
 			if (m_pos.x < magPos.x) {
-				m_magDirLR = L"RIGHT";
+				m_magDir = RIGHT_VEC;
 			}
 			if (m_pos.x > magPos.x) {
-				m_magDirLR = L"LEFT";
+				m_magDir = LEFT_VEC;
 			}
 		}
 		// ↑のを取得
-		pair<wstring,wstring> GetMsgnetsDirection() {
-			return make_pair(m_magDirLR, m_magDirUD);
+		Vec3 GetMagnetsDirection() {
+			return m_magDir;
 		}
 		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));

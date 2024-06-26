@@ -128,8 +128,8 @@ namespace basecross {
 			m_eMagPole(EState(MagPole)),
 			m_MoveState(HammerMoveState::Stop), // ‰Šú’l‚Í’â~
 			m_lastMoveState(HammerMoveState::Remove), // ‰Šú’l‚Í–ß‚é(’â~ŠÔ‚ğ‚R•b‚É‚µ‚½‚¢‚½‚ß)
-			m_TrembleRightX(m_position.x + 0.5f),
-			m_TrembleLeftX(m_position.x - 0.5f)
+			m_TrembleRightX(m_position.x + 1.0f), // —h‚ê‚é‚Æ‚«‚Ì‰E’[
+			m_TrembleLeftX(m_position.x - 1.0f) // —h‚ê‚é‚Æ‚«‚Ì¶’[
 		{
 		}
 
