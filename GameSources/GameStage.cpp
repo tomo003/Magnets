@@ -186,9 +186,9 @@ namespace basecross {
 			m_key2->SetDrawActive(false);
 			m_key3->SetDrawActive(false);
 		}
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(-600.0f, 350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(0.0f, 350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(600.0f, 350.0f, 0.0f));
 		m_resultScore = m_score;
 		isGoal = true;
 	}
