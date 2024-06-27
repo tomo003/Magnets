@@ -21,6 +21,8 @@ namespace basecross {
 
 		InputHandler<GameStage> m_InputHandler;
 
+		shared_ptr<Scene> m_ptrScene;
+
 		shared_ptr<SoundItem> m_bgm;
 
 		bool isCreateMaagnets = true;

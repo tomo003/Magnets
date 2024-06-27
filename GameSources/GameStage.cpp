@@ -45,10 +45,10 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		try {
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			PtrScene ->SetGameState(GameState::MainGame);
-			PtrScene->SetPauseNum(0);
-			PtrScene->SetResultNum(0);
+			m_ptrScene = App::GetApp()->GetScene<Scene>();
+			m_ptrScene ->SetGameState(GameState::MainGame);
+			m_ptrScene->SetPauseNum(0);
+			m_ptrScene->SetResultNum(0);
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
@@ -59,7 +59,7 @@ namespace basecross {
 
 			auto ptrCamera = dynamic_pointer_cast<DuoCamera>(m_View->GetCamera());
 
-			switch (PtrScene->GetStageNum()) {
+			switch (m_ptrScene->GetStageNum()) {
 			case 1:
 				CreateBackGround(L"BACKGROUND1");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
@@ -125,7 +125,7 @@ namespace basecross {
 				break;
 			}
 			m_GameStageCsv.ReadCsv();
-			PtrScene->ResetScore(PtrScene->GetStageNum());
+			m_ptrScene->ResetScore(m_ptrScene->GetStageNum());
 
 			// 地面のオブジェクトを追加
 			//AddGameObject<Ground>(Vec3(1),Vec3(0));
@@ -162,7 +162,8 @@ namespace basecross {
 	* @details forループで複数の背景を表示させる
 	*/
 	void GameStage::CreateBackGround(const wstring& texkey) {
-		for (int i = 0; i <= 5; i++) {
+		auto stageNum = m_ptrScene->GetStageNum();
+		for (int i = 0; i <= 8; i++) {
 			AddGameObject<BackGroundSprite2>(Vec3(50, 40, 1.0f), Vec3(-50 + (50 * i),0,0), texkey);
 		}
 	}
@@ -796,7 +797,7 @@ namespace basecross {
 				m_pushButton = true;
 				m_CntrolLock = true;
 
-				//PtrScene->SetGameState(GameState::IsSelect);
+				//m_ptrScene->SetGameState(GameState::IsSelect);
 
 				if (PauseNum == 0)
 				{
