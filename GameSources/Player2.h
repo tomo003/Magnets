@@ -32,6 +32,7 @@ namespace basecross {
 		Vec3 m_Scale = Vec3(1.0f);
 		Vec3 m_pos;
 		float m_speed;
+		float m_speedReset;
 		int m_attribute;
 		Vec3 m_Velocity;
 		float m_Acceleration; // 加速度(磁石は近いほど磁力が強いため)
@@ -64,13 +65,14 @@ namespace basecross {
 
 		bool isPlayerContact;
 		bool isRepulsion = false; // 反発してるときtrue
+		bool isAttration = false; // 吸引されてるときtrue
 		bool isEffect = true;
 		bool isBelt = false;
 
 		Vec3 m_RespawnPoint;//リスポーンする位置
 
-		wstring m_magDirLR;
-		wstring m_magDirUD;
+		Vec3 m_magDirUD;
+		Vec3 m_magDirLR;
 
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
@@ -104,6 +106,7 @@ namespace basecross {
 		Player2(const std::shared_ptr<Stage>& stage) :
 			GameObject(stage),
 			m_speed(5.0f),
+			m_speedReset(5.0f),
 			m_attribute(1),
 			jumpCount(2),
 			count(0)
@@ -133,10 +136,10 @@ namespace basecross {
 
 		void AnimationPlayer(eMotion Motion);
 
-		void ApplyAttraction(shared_ptr<GameObject>& Other); // プレイヤーに引力を適用
+		void ApplyAttration(shared_ptr<GameObject>& Other); // プレイヤーに引力を適用
 		void ApplyRepulsion(shared_ptr<GameObject>& Other);  // プレイヤーに斥力を適用
 
-		void PlayerApplyAttraction();
+		void PlayerApplyAttration();
 		void PlayerApplyRepulsion();
 
 		void ApplyForcePlayer();
@@ -152,26 +155,49 @@ namespace basecross {
 
 		// 近い磁石が自分から見て4方向のどこにいるか設定
 		void SetMsgnetsDirection(const Vec3& magPos) {
-			if (m_pos.y < magPos.y) {
-				m_magDirUD = L"UP";
+			if (m_pos.y < magPos.y - 1.0f) {
+				m_magDirUD = UP_VEC;
 			}
-			if (m_pos.y > magPos.y) {
-				m_magDirUD = L"DOWN";
+			if (m_pos.y > magPos.y + 1.0f) {
+				m_magDirUD = DOWN_VEC;
 			}
-			if (m_pos.x < magPos.x) {
-				m_magDirLR = L"RIGHT";
+			if (m_pos.x < magPos.x - 1.0f) {
+				m_magDirLR = RIGHT_VEC;
 			}
-			if (m_pos.x > magPos.x) {
-				m_magDirLR = L"LEFT";
+			if (m_pos.x > magPos.x + 1.0f) {
+				m_magDirLR = LEFT_VEC;
 			}
 		}
-		// ↑のを取得
-		pair<wstring, wstring> GetMsgnetsDirection() {
-			return make_pair(m_magDirLR, m_magDirUD);
+
+		// 角にくっつかないように少し下にずらす
+		void ShiftDown(const Vec3& objPos) {
+			if (m_pos.y < objPos.y - 0.9f &&
+				((m_pos.x < objPos.x - 0.9f) || (m_pos.x > objPos.x + 0.9f))) {
+				m_pos.y -= 0.1f;
+				m_ptrTrans->SetPosition(m_pos);
+			}
 		}
+
 		Vec3 ABSV(const Vec3& v1, const Vec3& v2) {
 			Vec3 VV = Vec3(fabsf(v1.x - v2.x), fabsf(v1.y - v2.y), fabsf(v1.z - v2.z));
 			return VV;
+		}
+
+		/**
+		* @brief スピードをゼロにする関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
+		void ZEROSpeed() {
+			m_speed = 0.0f;
+		}
+		/**
+		* @brief スピードをリセットする関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
+		void RESETSpeed() {
+			m_speed = m_speedReset;
 		}
 
 		/**
@@ -181,6 +207,30 @@ namespace basecross {
 		*/
 		bool IsRepulState() {
 			return isRepulsion;
+		}
+		/**
+		* @brief 反発状態を設定する関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
+		void SetRepulState(bool state) {
+			isRepulsion = state;
+		}
+		/**
+		* @brief 吸引状態かどうかを他クラスに渡すための関数
+		* @param 引数なし
+		* @return bool 吸引状態ならtrue
+		*/
+		bool IsAttrationState() {
+			return isAttration;
+		}
+		/**
+		* @brief 吸引状態を設定する関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
+		void SetAttrationState(bool state) {
+			isAttration = state;
 		}
 
 		/**

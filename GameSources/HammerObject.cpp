@@ -122,7 +122,6 @@ namespace basecross {
 		{
 		case HammerMoveState::Remove:
 			RemoveHammer();
-			MagAreaCorrection();
 			break;
 
 		case HammerMoveState::Stop:
@@ -135,12 +134,12 @@ namespace basecross {
 
 		case HammerMoveState::Swing:
 			SwingHammer();
-			MagAreaCorrection();
 			break;
 
 		default:
 			break;
 		}
+			MagAreaCorrection();
 	}
 
 	// Šª‚«–ß‚µ
@@ -313,7 +312,7 @@ namespace basecross {
 
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
 		Vec3 MagAreaPos = MagAreaTrans->GetWorldPosition();
-		float diff = cosf(m_Rotation.x);//  * m_PivotLength
-		MagAreaTrans->SetPosition(MagAreaPos.x, m_position.y * diff, MagAreaPos.z);
+		float diff = m_Rotation.x / XM_PIDIV2 * m_PivotLength;
+		MagAreaTrans->SetPosition(MagAreaPos.x, m_position.y + diff, MagAreaPos.z);
 	}
 }

@@ -50,7 +50,7 @@ namespace basecross {
 				return;
 			}
 			else {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 		}
 	}
