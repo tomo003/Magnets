@@ -27,6 +27,7 @@ namespace basecross {
 
 		//スプライトWeak_ptrの配列
 		vector<weak_ptr<FlashSprite>> m_SpVec;
+		vector<weak_ptr<FlashSprite>> m_SpVec2;
 		std::shared_ptr<FlashSprite> m_Flash;
 		vector<weak_ptr<FlashSprite>> m_PsVec;
 
@@ -62,6 +63,7 @@ namespace basecross {
 		bool m_CntrolLock;
 		void Menu();
 		void ChangeSelectMenu(int num);
+		void ChangeSelectMenuLast(int num);
 		void ChangeSelectPauseMenu(int num);
 
 
@@ -76,7 +78,7 @@ namespace basecross {
 
 
 		//構築と破棄
-		GameStage() :Stage(),m_CntrolLock(false), m_SpVec(3),m_PsVec(3) {}
+		GameStage() :Stage(),m_CntrolLock(false), m_SpVec(3), m_SpVec2(3),m_PsVec(3) {}
 		virtual ~GameStage() {}
 
 
@@ -88,7 +90,9 @@ namespace basecross {
 		void CreateObjGroup();
 		void PlayBGM(wstring sound);
 		void CreateAnimeSprite();
+		void CreateAnimeSpriteLastStage();
 		void ClearResult();
+		void ClearResultLastStage();
 		void CreateKeyLoad(const int scene, const Vec3 pos);
 
 		/**
