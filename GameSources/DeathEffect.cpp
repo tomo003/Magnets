@@ -63,12 +63,22 @@ namespace basecross {
 
 	void DeathEffect::OnCreate()
 	{
-		auto ownerTrans = m_owner->GetComponent<Transform>();
+		m_ptrPlayerF = dynamic_pointer_cast<Player>(m_owner);
+		m_ptrPlayerS = dynamic_pointer_cast<Player2>(m_owner);
+
+		if (m_ptrPlayerF)
+		{
+			m_ptrOwnerTrans = m_ptrPlayerF->GetComponent<Transform>();
+		}
+		else if (m_ptrPlayerS)
+		{
+			m_ptrOwnerTrans = m_ptrPlayerS->GetComponent<Transform>();
+		}
 
 		for (int i = 0; i < 8;i++)
 		{
-			ptrEffect[i] = GetStage()->AddGameObject<DeathEffectImg>(Vec3(1.0f), ownerTrans->GetWorldPosition());
-			m_startPos = ownerTrans->GetWorldPosition();
+			ptrEffect[i] = GetStage()->AddGameObject<DeathEffectImg>(Vec3(1.0f), m_ptrOwnerTrans->GetWorldPosition());
+			m_startPos = m_ptrOwnerTrans->GetWorldPosition();
 		}
 
 		SetAlphaActive(true);
@@ -99,6 +109,18 @@ namespace basecross {
 					{
 						GetStage()->RemoveGameObject<DeathEffectImg>(ptrEffect[j]);
 					}
+					m_ptrPlayerF = dynamic_pointer_cast<Player>(m_owner);
+					m_ptrPlayerS = dynamic_pointer_cast<Player2>(m_owner);
+
+					if (m_ptrPlayerF)
+					{
+						m_ptrPlayerF->PlayerDeath();
+					}
+					else if (m_ptrPlayerS)
+					{
+						m_ptrPlayerS->PlayerDeath();
+					}
+					GetStage()->RemoveGameObject<DeathEffect>(GetThis<DeathEffect>());
 				}
 			}
 		}

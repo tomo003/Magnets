@@ -64,7 +64,7 @@ namespace basecross {
 
 	//çXêVèàóù
 	void Player::OnUpdate() {
-		if (!isGoal)
+		if (!isStop)
 		{
 			MovePlayer();
 			ApplyForcePlayer();
@@ -182,11 +182,17 @@ namespace basecross {
 		m_attribute = 1;
 	}
 
-	void Player::PlayerDeath() {
+	void Player::PlayerDeathEffect() {
+		isStop = true;
+		m_ptrColl->SetAfterCollision(AfterCollision::None);
 		GetStage()->AddGameObject<DeathEffect>(GetThis<Player>());
+	}
+
+	void Player::PlayerDeath() {
+		isStop = false;
+		m_ptrColl->SetAfterCollision(AfterCollision::Auto);
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
-
 		if (player2RespawnpPoint.x >= m_RespawnPoint.x) {
 			ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
 			ptrPlayer2->RespawnPlayer();
@@ -219,7 +225,7 @@ namespace basecross {
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		auto ptrGoal = GetStage()->GetSharedGameObject<Goal>(L"Goal");
 		ptrGoal->GoalReset();
-		isGoal = false;
+		isStop = false;
 		auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed", false);
 		if (!ptrSquareRed) return;
 		ptrSquareRed->ChangeTexture(L"TENNSENNRED_TX");
@@ -692,7 +698,7 @@ namespace basecross {
 		isGround = false;
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isGoal)
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isStop)
 		{
 			auto ptrSquareRed = GetStage()->GetSharedGameObject<GoalSquareRed>(L"GoalSquareRed");
 			ptrSquareRed->ChangeTexture(L"RED_TX");
@@ -703,7 +709,7 @@ namespace basecross {
 				m_ptrDraw->SetMeshResource(L"PlayerRedSmile_MESH");//èŒäÁ
 			}
 			AnimationPlayer(FRONT);
-			isGoal = true;
+			isStop = true;
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);

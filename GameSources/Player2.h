@@ -77,11 +77,12 @@ namespace basecross {
 		// コンポーネント取得省略用
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<BcPNTBoneModelDraw> m_ptrDraw; // ドローコンポーネント
+		std::shared_ptr<CollisionObb> m_ptrColl; 
 		std::shared_ptr<Gravity> m_gravityComp;
 
 		std::shared_ptr<PlayerBanner> m_playerBanner;
 
-		bool isGoal = false;
+		bool isStop = false;
 		bool isGearFloor = false;
 
 		enum eMotion {
@@ -240,10 +241,11 @@ namespace basecross {
 		* @details この関数内でRespawnPlayerを呼び出す
 		*/
 		void PlayerDeath();
+		void PlayerDeathEffect();
 
 		// ゴール判定
 		bool IsGoal() {
-			return isGoal;
+			return isStop;
 		}
 	};
 

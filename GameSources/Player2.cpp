@@ -8,7 +8,7 @@ namespace basecross {
 		m_ptrTrans->SetScale(Vec3(1.0f));
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
-		auto ptrColl = AddComponent<CollisionObb>();
+		m_ptrColl = AddComponent<CollisionObb>();
 		//ptrColl->SetFixed(true);
 		//ptrColl->SetDrawActive(true);
 		m_gravityComp = AddComponent<Gravity>();
@@ -53,7 +53,7 @@ namespace basecross {
 
 	//çXêVèàóù
 	void Player2::OnUpdate() {
-		if (!isGoal)
+		if (!isStop)
 		{
 			MovePlayer();
 			ApplyForcePlayer();
@@ -169,8 +169,15 @@ namespace basecross {
 		m_attribute = 1;
 	}
 
-	void Player2::PlayerDeath() {
+	void Player2::PlayerDeathEffect() {
+		isStop = true;
+		m_ptrColl->SetAfterCollision(AfterCollision::None);
 		GetStage()->AddGameObject<DeathEffect>(GetThis<Player2>());
+	}
+
+	void Player2::PlayerDeath() {
+		isStop = false;
+		m_ptrColl->SetAfterCollision(AfterCollision::Auto);
 		auto ptrPlayer1 = GetStage()->GetSharedGameObject<Player>(L"Player");
 		Vec3 player1RespawnpPoint = ptrPlayer1->GetRespawnPoint();
 
@@ -206,7 +213,7 @@ namespace basecross {
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 		auto ptrGoal = GetStage()->GetSharedGameObject<Goal>(L"Goal");
 		ptrGoal->GoalReset();
-		isGoal = false;
+		isStop = false;
 		auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue", false);
 		if (!ptrSquareBlue) return;
 		ptrSquareBlue->ChangeTexture(L"TENNSENNBLUE_TX");
@@ -651,7 +658,7 @@ namespace basecross {
 		}
 
 		auto ptrGoal = dynamic_pointer_cast<Goal>(Other);
-		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isGoal)
+		if (ptrGoal && m_pos.x > ptrGoal->GetComponent<Transform>()->GetPosition().x && !isStop)
 		{
 			auto ptrSquareBlue = GetStage()->GetSharedGameObject<GoalSquareBlue>(L"GoalSquareBlue");
 			ptrSquareBlue->ChangeTexture(L"BLUE_TX");
@@ -662,7 +669,7 @@ namespace basecross {
 				m_ptrDraw->SetMeshResource(L"Player2BlueSmile_MESH");//èŒäÁ
 			}
 			AnimationPlayer(FRONT);
-			isGoal = true;
+			isStop = true;
 		}
 
 		auto ptrRespawnPoint = dynamic_pointer_cast<SavePoint>(Other);

@@ -100,7 +100,7 @@ namespace basecross {
 		std::shared_ptr<PlayerBanner> m_playerBanner;
 
 		bool isGearFloor = false;
-		bool isGoal = false;
+		bool isStop = false;
 
 		enum eMotion {
 			RIGHT,
@@ -272,10 +272,12 @@ namespace basecross {
 		* @details ‚±‚ÌŠÖ”“à‚ÅRespawnPlayer‚ğŒÄ‚Ño‚·
 		*/
 		void PlayerDeath();
+		void PlayerDeathEffect();
+
 
 		// ƒS[ƒ‹”»’è
 		bool IsGoal() {
-			return isGoal;
+			return isStop;
 		}
 
 		// GearFloor‚ÉÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ“n‚·ŠÖ”
