@@ -184,13 +184,15 @@ namespace basecross {
 
 	void Player::PlayerDeathEffect() {
 		isStop = true;
-		m_ptrColl->SetAfterCollision(AfterCollision::None);
+		m_ptrDraw->SetDrawActive(false);
+		m_playerBanner->SetDrawActive(false);
 		GetStage()->AddGameObject<DeathEffect>(GetThis<Player>());
 	}
 
 	void Player::PlayerDeath() {
 		isStop = false;
-		m_ptrColl->SetAfterCollision(AfterCollision::Auto);
+		m_ptrDraw->SetDrawActive(true);
+		m_playerBanner->SetDrawActive(true);
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
 		if (player2RespawnpPoint.x >= m_RespawnPoint.x) {
