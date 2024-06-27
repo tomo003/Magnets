@@ -68,6 +68,7 @@ namespace basecross {
 		for (int i = 0; i < 8;i++)
 		{
 			ptrEffect[i] = GetStage()->AddGameObject<DeathEffectImg>(Vec3(1.0f), ownerTrans->GetWorldPosition());
+			m_startPos = ownerTrans->GetWorldPosition();
 		}
 
 		SetAlphaActive(true);
@@ -86,12 +87,13 @@ namespace basecross {
 		{
 			for (int i = 0;i < 8;i++)
 			{
-				auto pos = ptrEffect[i]->GetComponent<Transform>()->GetWorldPosition();
+				auto pos = ptrEffect[i]->GetComponent<Transform>()->GetPosition();
 				m_forward[i] = 45 * i;
 				pos.x += cos(m_forward[i] * XM_PI / 180) * m_speed;
 				pos.y -= sin(m_forward[i] * XM_PI / 180) * m_speed;
-				ptrEffect[i]->GetComponent<Transform>()->SetWorldPosition(pos);
-				if (pos.length() > m_removeDistance)
+				ptrEffect[i]->GetComponent<Transform>()->SetPosition(pos);
+
+				if ((m_startPos - pos).length() > m_removeDistance)
 				{
 					for (int j = 0;j < 8;j++)
 					{
