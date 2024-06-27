@@ -103,7 +103,10 @@ namespace basecross {
 				return;
 			}
 			else {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
+				if (!ptrPlayer->IsAttrationState()) {
+					ptrPlayer->SetAttrationState(true);
+				}
 			}
 		}
 	}
@@ -122,7 +125,10 @@ namespace basecross {
 				return;
 			}
 			else {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
+				if (!ptrPlayer->IsAttrationState()) {
+					ptrPlayer->SetAttrationState(true);
+				}
 			}
 		}
 	}

@@ -92,32 +92,33 @@ namespace basecross {
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
-		if (isCollRing) { // リングとの接触がある時(trueのとき)
-			padLStick.y = pad.fThumbLY; // スティックのY軸も入力する
-		}
-
-		if (padLStick.length() > 0.0f) {
-			m_pos = m_pos + padLStick * delta * m_speed;
-		}
-		if (m_speed > 5.0f) {
-			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
-		}
-		if (m_speed > 5.0f && padLStick.x > 0.0f && !isLeftLimit && !isRightLimit) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-		else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLeftLimit && !isRightLimit) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-
-		if (padLStick.length() > 0.0f) {
-			if (padLStick.x > 0.0f) {
-				AnimationPlayer(RIGHT);
+		if (!isAttration) {
+			if (padLStick.length() > 0.0f) {
+				m_pos = m_pos + padLStick * delta * m_speed;
 			}
-			else if (padLStick.x < 0.0f) {
-				AnimationPlayer(LEFT);
+			if (m_speed > 5.0f) {
+				m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
+			}
+			if (m_speed > 5.0f && padLStick.x > 0.0f && !isLeftLimit && !isRightLimit) {
+				m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
+			}
+			else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLeftLimit && !isRightLimit) {
+				m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
+			}
+
+			if (padLStick.length() > 0.0f) {
+				if (padLStick.x > 0.0f) {
+					AnimationPlayer(RIGHT);
+				}
+				else if (padLStick.x < 0.0f) {
+					AnimationPlayer(LEFT);
+				}
+			}
+			else {
+				AnimationPlayer(FRONT);
 			}
 		}
-		else {
+		if (isAttration && !m_ptrDraw->IsTargetAnimeEnd()) {
 			AnimationPlayer(FRONT);
 		}
 
@@ -142,6 +143,7 @@ namespace basecross {
 			case EState::eN:
 				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 				m_eMagPole = EState::eFalse;
+				SetAttrationState(false);
 				break;
 			}
 		}
@@ -330,7 +332,7 @@ namespace basecross {
 	}
 
 	// プレイやーに引力を適用
-	void Player::ApplyAttraction(shared_ptr<GameObject>& Other) {
+	void Player::ApplyAttration(shared_ptr<GameObject>& Other) {
 		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
 		m_pos = m_ptrTrans->GetWorldPosition();
@@ -340,10 +342,9 @@ namespace basecross {
 
 		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
-
-		isAttration = true;
+		SetAttrationState(true);
 	}
-	void Player::PlayerApplyAttraction() {
+	void Player::PlayerApplyAttration() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetWorldPosition();
@@ -418,8 +419,8 @@ namespace basecross {
 				ptrPlayer->PlayerApplyRepulsion();
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->PlayerApplyAttraction();
-			}// ptrPlayer->ApplyAttraction();
+				ptrPlayer->PlayerApplyAttration();
+			}// ptrPlayer->ApplyAttration();
 		}
 	}
 
@@ -448,6 +449,8 @@ namespace basecross {
 			m_emState = magneticState::emMetal;
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
+			auto MetalPos = ptrMetal->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MetalPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
 			if (isEffect) {
@@ -460,6 +463,8 @@ namespace basecross {
 			m_emState = magneticState::emMetal;
 		}
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
+			auto MagNPos = ptrMagnetN->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MagNPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
 			if (isEffect) {
@@ -472,6 +477,8 @@ namespace basecross {
 			m_emState = magneticState::emMagnet;
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
+			auto MagSPos = ptrMagnetS->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MagSPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			if (isEffect) {
@@ -486,7 +493,6 @@ namespace basecross {
 		if (ptrRing && (m_eMagPole != EState::eFalse)) {
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrRing);
-			isCollRing = true; //　リングについたからtrue
 			if (isEffect) {
 				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
 				isEffect = false;
@@ -520,7 +526,6 @@ namespace basecross {
 			isEffect = true;
 			isInertia = false;
 			isRepulsion = false;
-			isAttration = false;
 		}
 
 		// 着地の判定
@@ -602,46 +607,46 @@ namespace basecross {
 		auto ptrMagnetS = dynamic_pointer_cast<MagnetS>(Other);
 		auto ptrRing = dynamic_pointer_cast<RingObject>(Other);
 		auto ptrGearFloor = dynamic_pointer_cast<GearObjFloor>(Other);
-			if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
+		if (ptrMoveMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMetal && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMagnetN && (m_eMagPole != EState::eS)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrMagnetS && (m_eMagPole != EState::eN)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrRing && (m_eMagPole == EState::eFalse)) {
+			m_gravityComp->SetGravity(m_gravity);
+			m_gravityComp->SetGravityVerocityZero();
+			m_ptrTrans->ClearParent();
+		}
+		if (ptrGearFloor) {
+			auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
+			if (m_eMagPole == EState::eFalse) {
 				m_gravityComp->SetGravity(m_gravity);
 				m_gravityComp->SetGravityVerocityZero();
+			}
+			if (GearFloorPos.y + m_Scale.y / 2 > m_pos.y) {
 				m_ptrTrans->ClearParent();
 			}
-			if (ptrMetal && (m_eMagPole == EState::eFalse)) {
-				m_gravityComp->SetGravity(m_gravity);
-				m_gravityComp->SetGravityVerocityZero();
-				m_ptrTrans->ClearParent();
-			}
-			if (ptrMagnetN && (m_eMagPole != EState::eS)) {
-				m_gravityComp->SetGravity(m_gravity);
-				m_gravityComp->SetGravityVerocityZero();
-				m_ptrTrans->ClearParent();
-			}
-			if (ptrMagnetS && (m_eMagPole != EState::eN)) {
-				m_gravityComp->SetGravity(m_gravity);
-				m_gravityComp->SetGravityVerocityZero();
-				m_ptrTrans->ClearParent();
-			}
-			if (ptrRing && (m_eMagPole == EState::eFalse)) {
-				m_gravityComp->SetGravity(m_gravity);
-				m_gravityComp->SetGravityVerocityZero();
-				m_ptrTrans->ClearParent();
-			}
-			if (ptrGearFloor) {
-				auto GearFloorPos = ptrGearFloor->GetComponent<Transform>()->GetWorldPosition();
-				if (m_eMagPole == EState::eFalse) {
-					m_gravityComp->SetGravity(m_gravity);
-					m_gravityComp->SetGravityVerocityZero();
-				}
-				if (GearFloorPos.y + m_Scale.y / 2 > m_pos.y) {
-					m_ptrTrans->ClearParent();
-				}
-			}
-			m_emState = magneticState::emNone;
+		}
+		m_emState = magneticState::emNone;
 
-			auto ptrPlayer2= dynamic_pointer_cast<Player2>(Other);
-			if (ptrPlayer2){
-				isPlayerContact = true;
+		auto ptrPlayer2= dynamic_pointer_cast<Player2>(Other);
+		if (ptrPlayer2){
+			isPlayerContact = true;
 		}
 	}
 
@@ -661,7 +666,6 @@ namespace basecross {
 			m_gravityComp->SetGravityVerocityZero();
 			m_ptrTrans->ClearParent();
 			m_emState = magneticState::emNone;
-			isAttration = false;
 		}
 		if (ptrGearFloor) {
 			m_gravityComp->SetGravity(m_gravity);

@@ -68,6 +68,13 @@ namespace basecross {
 
 	//プレイヤーの動き
 	void Player2::MovePlayer() {
+		if (isAttration) {
+			ZEROSpeed();
+		}
+		else {
+			RESETSpeed();
+		}
+
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
@@ -76,28 +83,33 @@ namespace basecross {
 		auto pad = device.GetControlerVec()[1];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
-		if (padLStick.length() > 0.0f) {
-			m_pos = m_pos + padLStick * delta * m_speed;
-		}
-		if (m_speed > 5.0f) {
-			m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
-		}
-		if (m_speed > 5.0f && padLStick.x > 0.0f && !isLeftLimit && !isRightLimit) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
-		else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLeftLimit && !isRightLimit) {
-			m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
-		}
+		if (!isAttration) {
+			if (padLStick.length() > 0.0f) {
+				m_pos = m_pos + padLStick * delta * m_speed;
+			}
+			if (m_speed > 5.0f) {
+				m_pos = m_pos + delta * Vec3(m_speed, 0, 0) * (float)m_attribute;
+			}
+			if (m_speed > 5.0f && padLStick.x > 0.0f && !isLeftLimit && !isRightLimit) {
+				m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
+			}
+			else if (m_speed > 5.0f && padLStick.x < 0.0f && !isLeftLimit && !isRightLimit) {
+				m_pos = m_pos + padLStick * delta * Vec3(2.0f, 0, 0);
+			}
 
-		if (padLStick.length() > 0.0f) {
-			if (padLStick.x > 0.0f) {
-				AnimationPlayer(RIGHT);
+			if (padLStick.length() > 0.0f) {
+				if (padLStick.x > 0.0f) {
+					AnimationPlayer(RIGHT);
+				}
+				else if (padLStick.x < 0.0f) {
+					AnimationPlayer(LEFT);
+				}
 			}
-			else if (padLStick.x < 0.0f) {
-				AnimationPlayer(LEFT);
+			else {
+				AnimationPlayer(FRONT);
 			}
 		}
-		else {
+		if (isAttration && !m_ptrDraw->IsTargetAnimeEnd()) {
 			AnimationPlayer(FRONT);
 		}
 
@@ -312,7 +324,7 @@ namespace basecross {
 	}
 
 	// プレイやーに引力を適用
-	void Player2::ApplyAttraction(shared_ptr<GameObject>& Other) {
+	void Player2::ApplyAttration(shared_ptr<GameObject>& Other) {
 		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
 		m_pos = m_ptrTrans->GetWorldPosition();
@@ -323,7 +335,7 @@ namespace basecross {
 		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
 	}
-	void Player2::PlayerApplyAttraction() {
+	void Player2::PlayerApplyAttration() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto objTrans = ptrMagObj->GetComponent<Transform>();
 		Vec3 objPos = objTrans->GetWorldPosition();
@@ -397,8 +409,8 @@ namespace basecross {
 				ptrPlayer->PlayerApplyRepulsion();
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->PlayerApplyAttraction();
-			}// ptrPlayer->ApplyAttraction();
+				ptrPlayer->PlayerApplyAttration();
+			}// ptrPlayer->ApplyAttration();
 		}
 	}
 
@@ -425,6 +437,8 @@ namespace basecross {
 			}
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
+			auto MetalPos = ptrMetal->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MetalPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMetal);
 			if (isEffect) {
@@ -436,6 +450,8 @@ namespace basecross {
 			}
 		}
 		if (ptrMagnetN && (m_eMagPole == EState::eS)) {
+			auto MagNPos = ptrMagnetN->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MagNPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetN);
 			if (isEffect) {
@@ -447,6 +463,8 @@ namespace basecross {
 			}
 		}
 		if (ptrMagnetS && (m_eMagPole == EState::eN)) {
+			auto MagSPos = ptrMagnetS->GetComponent<Transform>()->GetPosition();
+			ShiftDown(MagSPos);
 			m_gravityComp->SetGravityZero();
 			m_ptrTrans->SetParent(ptrMagnetS);
 			if (isEffect) {

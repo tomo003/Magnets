@@ -72,7 +72,6 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
 			}
 
 		}
@@ -94,8 +93,7 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttraction();
+			}// ptrPlayer->ApplyAttration();
 
 		}
 	}
@@ -162,8 +160,8 @@ namespace basecross {
 			//ˆá‚¤‘®«‚¾‚Á‚½‚ç
 			else if (playerMagPole != objMagPole) {
 				//ˆø—Í‚ÌŒÄ‚Ño‚µ
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
+			}// ptrPlayer->ApplyAttration();
 
 		}
 	}
@@ -184,7 +182,7 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 
 		}
@@ -257,8 +255,8 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttraction();
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
+			}// ptrPlayer->ApplyAttration();
 
 		}
 	}
@@ -279,7 +277,7 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-				ptrPlayer->ApplyAttraction(GetThis<GameObject>());
+				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 
 		}
