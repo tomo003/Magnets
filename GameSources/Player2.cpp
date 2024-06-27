@@ -128,6 +128,7 @@ namespace basecross {
 			case EState::eS:
 				m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//–³‹É
 				m_eMagPole = EState::eFalse;
+				SetAttrationState(false);
 				break;
 			}
 
@@ -329,6 +330,7 @@ namespace basecross {
 
 		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
 		m_Velocity += m_force;
+		SetAttrationState(true);
 	}
 	void Player2::PlayerApplyAttration() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player>(L"Player");
