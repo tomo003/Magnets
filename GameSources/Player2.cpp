@@ -68,13 +68,6 @@ namespace basecross {
 
 	//プレイヤーの動き
 	void Player2::MovePlayer() {
-		if (isAttration) {
-			ZEROSpeed();
-		}
-		else {
-			RESETSpeed();
-		}
-
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();// デルタタイムの取得
 		m_pos = m_ptrTrans->GetWorldPosition();//プレイヤー座標の取得
@@ -190,6 +183,8 @@ namespace basecross {
 			ptrPlayer1->RespawnPlayer();
 			RespawnPlayer();
 		}
+		SetAttrationState(false);
+		ptrPlayer1->SetAttrationState(false);
 	}
 
 	//リスポーン地点を設定する

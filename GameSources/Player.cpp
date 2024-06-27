@@ -197,6 +197,8 @@ namespace basecross {
 			ptrPlayer2->RespawnPlayer();
 			RespawnPlayer();
 		}
+		SetAttrationState(false);
+		ptrPlayer2->SetAttrationState(false);
 	}
 
 	//リスポーン地点を設定する
