@@ -36,6 +36,9 @@ namespace basecross {
 		ptrTrans->SetPosition(m_startPos);
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetTextureResource(m_textureKey);
+
+		SetDrawLayer((int)DrawLayer::ForeFront);
+
 	}
 
 	void SelectSprite::OnUpdate() {
@@ -85,6 +88,7 @@ namespace basecross {
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetTextureResource(m_textureKey);
 		SetDrawLayer((int)DrawLayer::ForeFront);
+		
 	}
 
 	void CursorSprite::OnUpdate() {

@@ -42,12 +42,21 @@ namespace basecross {
 		AddGameObject<SelectSprite>(L"STAGESELECT", true, Vec2(370.0f, 150.0f), Vec3(-590.0f, 390.0f, 0.0f));
 
 		//ステージ内の画面のスクショスプライト
-		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(230.0f, 70.0f), Vec3(-650.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(230.0f, 70.0f), Vec3(-100.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE3UI", true, Vec2(230.0f, 70.0f), Vec3(420.0f, 0.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE4UI", true, Vec2(230.0f, 70.0f), Vec3(-650.0f, -350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE5UI", true, Vec2(230.0f, 70.0f), Vec3(-100.0f, -350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"STAGE6UI", true, Vec2(230.0f, 70.0f), Vec3(420.0f, -350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE1UI", true, Vec2(235.0f, 75.0f), Vec3(-650.0f, 40.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE2UI", true, Vec2(230.0f, 65.0f), Vec3(-100.0f, 40.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE3UI", true, Vec2(230.0f, 65.0f), Vec3(420.0f, 40.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE4UI", true, Vec2(230.0f, 65.0f), Vec3(-650.0f, -330.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE5UI", true, Vec2(230.0f, 65.0f), Vec3(-100.0f, -330.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"STAGE6UI", true, Vec2(230.0f, 65.0f), Vec3(420.0f, -330.0f, 0.0f));
+
+		//難易度表示のスプライト
+		AddGameObject<SelectSprite>(L"EASY", true, Vec2(200.0f, 50.0f), Vec3(-650.0f, -15.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"EASY", true, Vec2(200.0f, 50.0f), Vec3(-100.0f, -15.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"EASY", true, Vec2(200.0f, 50.0f), Vec3(420.0f, -15.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NORMAL", true, Vec2(200.0f, 50.0f), Vec3(-650.0f, -385.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NORMAL", true, Vec2(200.0f, 50.0f), Vec3(-100.0f, -385.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"HARD", true, Vec2(200.0f, 50.0f), Vec3(420.0f, -385.0f, 0.0f));
+
 
 
 	}
@@ -134,12 +143,12 @@ namespace basecross {
 
 	void SelectStage::CreateAnimeSprite()
 	{
-		auto PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, 180.0f));
+		auto PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE1", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, 200.0f));
 		PtrSp->SetSelect(true);
 		m_SpVec[0] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE2", true, Vec2(400.0f, 250.0f), Vec2(0.0f, 180.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE2", true, Vec2(400.0f, 250.0f), Vec2(0.0f, 200.0f));
 		m_SpVec[1] = PtrSp;
-		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE3", true, Vec2(400.0f, 250.0f), Vec2(520.0f, 180.0f));
+		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE3", true, Vec2(400.0f, 250.0f), Vec2(520.0f, 200.0f));
 		m_SpVec[2] = PtrSp;
 		PtrSp = AddGameObject<SelectScreenSprite>(L"STAGE4", true, Vec2(400.0f, 250.0f), Vec2(-560.0f, -170.0f));
 		m_SpVec[3] = PtrSp;

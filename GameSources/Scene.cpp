@@ -108,6 +108,11 @@ namespace basecross{
 		LoadTexture(L"STAGE5", L"Stage5.png");
 		LoadTexture(L"STAGE6", L"Stage6.png");
 
+		LoadTexture(L"EASY", L"Easy.png");//難易度表示のスプライト
+		LoadTexture(L"NORMAL", L"Normal.png");
+		LoadTexture(L"HARD", L"Hard.png");
+
+
 		LoadTexture(L"STAGE1UI", L"Stage1UI.png");//ステージセレクトシーンに使う「ステージ1～6」までの文字UI
 		LoadTexture(L"STAGE2UI", L"Stage2UI.png");
 		LoadTexture(L"STAGE3UI", L"Stage3UI.png");

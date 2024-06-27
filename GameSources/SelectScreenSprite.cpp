@@ -24,7 +24,7 @@ namespace basecross {
 	SelectScreenSprite::~SelectScreenSprite() {}
 
 	void SelectScreenSprite::OnCreate() {
-		SetDrawLayer((int)DrawLayer::ForeFront);
+		SetDrawLayer(1);
 		float HelfSize = 0.5f;
 		vector<VertexPositionColorTexture> vertex = {
 			{ VertexPositionColorTexture(Vec3(-HelfSize, HelfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
