@@ -297,10 +297,10 @@ namespace basecross {
 		auto ptrPlayerS = dynamic_pointer_cast<Player2>(Other);
 
 		if (ptrPlayerF) {
-			m_ptrPlayerF->PlayerDeath();
+			m_ptrPlayerF->PlayerDeathEffect();
 		}
 		if (ptrPlayerS) {
-			m_ptrPlayerS->PlayerDeath();
+			m_ptrPlayerS->PlayerDeathEffect();
 		}
 	}
 
