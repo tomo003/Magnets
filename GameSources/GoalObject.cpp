@@ -48,6 +48,8 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
+		SetDrawLayer(2);
+
 		AddTag(L"GoalSquareRed");
 	}
 
@@ -96,6 +98,8 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		SetDrawLayer(2);
 
 		AddTag(L"GoalSquareBlue");
 	}
