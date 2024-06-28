@@ -13,7 +13,7 @@ namespace basecross {
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		m_ptrColl = AddComponent<CollisionObb>();
-		m_ptrColl->SetDrawActive(true);
+		//m_ptrColl->SetDrawActive(true);
 		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
