@@ -38,7 +38,7 @@ namespace basecross{
 		//動的モデル
 		void LoadBoneModel(const wstring& boneModelbmfName, const wstring& boneModelMeshName, const wstring& boneModelMeshTangentName);
 		//ボーンモデル
-		virtual void RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse);
+		virtual void RegisterMultiMesh(const wstring& registerKey, const wstring& fileName, bool boneUse);
 		//サウンド
 		void LoadSound(const wstring& soundName, const wstring& soundDataName);
 
