@@ -280,10 +280,15 @@ namespace basecross {
 			return isStop;
 		}
 
-		// GearFloor‚ÉÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ“n‚·ŠÖ”
+		/**
+		* @brief GearFloor‚ÉÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ“n‚·ŠÖ”
+		* @param ˆø”‚È‚µ
+		* @return bool isGearFloor
+		*/
 		bool IsGearFloor() {
 			return isGearFloor;
 		}
+
 	};
 
 }
