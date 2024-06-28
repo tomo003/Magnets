@@ -92,13 +92,13 @@ namespace basecross {
 		for (int i = 0; i < 7; i++) {
 			switch (i) {
 			case 1:
-				CreateKeyLoad(1, Vec3(-500.0f, 0.0f, 0.0f));
+				CreateKeyLoad(1, Vec3(-500.0f, 20.0f, 0.0f));
 				break;
 			case 2:
-				CreateKeyLoad(2, Vec3(50.0f, 0.0f, 0.0f));
+				CreateKeyLoad(2, Vec3(50.0f, 20.0f, 0.0f));
 				break;
 			case 3:
-				CreateKeyLoad(3, Vec3(580.0f, 0.0f, 0.0f));
+				CreateKeyLoad(3, Vec3(580.0f, 20.0f, 0.0f));
 				break;
 			case 4:
 				CreateKeyLoad(4, Vec3(-500.0f, -350.0f, 0.0f));
@@ -118,7 +118,7 @@ namespace basecross {
 	void SelectStage::CreateKeyRock() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		int StageNum = PtrScene->GetStageNum();
-		m_score = 15;
+		m_score = 0;
 		for (int i = 1; i < 7; i++) {
 			m_score += PtrScene->GetScore(i);
 		}
