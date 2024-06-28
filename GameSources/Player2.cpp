@@ -401,24 +401,26 @@ namespace basecross {
 	}
 
 	void Player2::ApplyForcePlayer() {
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
-		int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
-		int objMagPole = static_cast<int>(m_eMagPole);
+		if (!isPlayerContact) {
+			auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+			Vec3 playerPos = ptrPlayer->GetComponent<Transform>()->GetWorldPosition();
+			int playerMagPole = static_cast<int>(ptrPlayer->GetPlayerMagPole());
+			int objMagPole = static_cast<int>(m_eMagPole);
 
-		auto direction = ABSV(playerPos, m_ptrTrans->GetWorldPosition());
-		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
+			auto direction = ABSV(playerPos, m_ptrTrans->GetWorldPosition());
+			float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
-		if (distance < 3.0f) {
-			if (playerMagPole < 0 || objMagPole < 0) {
-				return;
+			if (distance < 3.0f) {
+				if (playerMagPole < 0 || objMagPole < 0) {
+					return;
+				}
+				else if (playerMagPole == objMagPole) {
+					ptrPlayer->PlayerApplyRepulsion();
+				}
+				else if (playerMagPole != objMagPole) {
+					ptrPlayer->PlayerApplyAttration();
+				}// ptrPlayer->ApplyAttration();
 			}
-			else if (playerMagPole == objMagPole) {
-				ptrPlayer->PlayerApplyRepulsion();
-			}
-			else if (playerMagPole != objMagPole) {
-				ptrPlayer->PlayerApplyAttration();
-			}// ptrPlayer->ApplyAttration();
 		}
 	}
 

@@ -44,16 +44,19 @@ namespace basecross{
 	}
 
 	//ボーンモデルの読み込み複数
-	void Scene::RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
+	void Scene::RegisterMultiMesh(const wstring& registerKey, const wstring& fileName, bool boneUse)
 	{
+		wstring dataDir;
+		App::GetApp()->GetDataDirectory(dataDir);
+
 		shared_ptr<MultiMeshResource> modelMesh;
 		if (boneUse)
 		{
-			modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path, fileName + L".bmf");
+			modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(dataDir + L"Model\\", fileName + L".bmf");
 		}
 		else
 		{
-			modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path, fileName + L".bmf");
+			modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(dataDir + L"Model\\", fileName + L".bmf");
 		}
 		const auto& app = App::GetApp();
 		app->RegisterResource(registerKey, modelMesh);
@@ -72,21 +75,18 @@ namespace basecross{
 	void Scene::CreateResourses() {
 
 		//テクスチャ
-		LoadTexture(L"Player01_TX", L"pcube01.png");
+		LoadTexture(L"Player01_TX", L"pcube01.png"); // Player用テクスチャ
 		LoadTexture(L"Player02_TX", L"pcube02.png");
 		LoadTexture(L"Player03_TX", L"pcube03.png");
-		//LoadTexture(L"TYPEALL_TX", L"MagnetAreaE.png");
-		//LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaC.png");
-		LoadTexture(L"TYPEALL_TX", L"MagnetAreaW.png");
-		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaB.png");
-		LoadTexture(L"TYPEALL_B_TX", L"MagnetAreaE.png");
-		LoadTexture(L"GRAY_TX", L"GrayCircle.png");
-		LoadTexture(L"BPUSH", L"PushB.png");
-		LoadTexture(L"RBPUSH", L"PushRB.png");
-		LoadTexture(L"READY", L"StandBy.png");
-		LoadTexture(L"CLEAR", L"StageClear.png");
+		LoadTexture(L"TYPEALL_TX", L"MagnetAreaW.png"); // 磁力エリア用テクスチャ
+		LoadTexture(L"TYPEALL_N_TX", L"MagnetAreaB.png"); // 磁力エリア用テクスチャ
+		LoadTexture(L"TYPEALL_B_TX", L"MagnetAreaE.png"); // 磁力エリア用テクスチャ
+		LoadTexture(L"BPUSH", L"PushB.png"); // Bボタン用
+		LoadTexture(L"RBPUSH", L"PushRB.png"); // RBボタン用
+		LoadTexture(L"READY", L"StandBy.png"); // STANDBY(文字)
+		LoadTexture(L"CLEAR", L"StageClear.png"); // ステージクリア
 		LoadTexture(L"BACKTOTITLE", L"BackToTitle.png");//タイトルに戻る文字UI
-		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png");
+		LoadTexture(L"CHECKPOINT_TX", L"CheckPoint.png"); // 中間地点
 
 		LoadTexture(L"PAUSE_BACK", L"Pause.png");//ポーズメニューのウィンドウ背景
 		LoadTexture(L"MENU", L"Menu.png");//ポーズメニューで表示されるメニュー文字UI
@@ -125,84 +125,71 @@ namespace basecross{
 		LoadTexture(L"BACKTOSTAGESELECT", L"BackToStageSelect.png");//ステージセレクトシーンに戻る文字UI
 		LoadTexture(L"NEXTSTAGE", L"NextStage.png");//次のステージへ文字UI
 
-		LoadTexture(L"FADE_WHITE", L"Fade_White.png");
-		LoadTexture(L"FADE_BLACK", L"Fade_Black.png");
+		LoadTexture(L"FADE_WHITE", L"Fade_White.png"); // フェード用
+		LoadTexture(L"FADE_BLACK", L"Fade_Black.png"); // フェード用
 		LoadTexture(L"SFADE", L"SFade.png");//シーン切り替えでつかうシャッターみたいに閉じる用のスプライト（S極、N極）
 		LoadTexture(L"NFADE", L"NFade.png");
 
-		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png");
-		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png");
-		LoadTexture(L"BROCK_TX", L"Tile_Normal.png");
-		LoadTexture(L"CONCRETE2_TX", L"Ground2.png");
-		LoadTexture(L"CONCRETE3_TX", L"Ground3.png");
-		LoadTexture(L"GROUND_TX", L"Ground.png");
-		LoadTexture(L"METAL_TX", L"Tile_Metal.png");
-		LoadTexture(L"START_TX", L"Tile_Start.png");
-		LoadTexture(L"SAVEPOINT_TX", L"Tile_SavePoint.png");
-		LoadTexture(L"GOAL_TX", L"Tile_Goal.png");
-		LoadTexture(L"MOVEFLOOR_TX", L"MoveFloor.png");
+		LoadTexture(L"MGNETN_TX", L"Tile_MGN.png"); // N極ブロック
+		LoadTexture(L"MGNETS_TX", L"Tile_MGS.png"); // S極ブロック
+		LoadTexture(L"GROUND_TX", L"Ground.png"); // 床オブジェクト
+		LoadTexture(L"CONCRETE2_TX", L"Ground2.png"); // 床オブジェクト(2x2)
+		LoadTexture(L"CONCRETE3_TX", L"Ground3.png"); // 床オブジェクト(3x3)
+		LoadTexture(L"METAL_TX", L"Tile_Metal.png"); // 金属オブジェクト
+		LoadTexture(L"MOVEFLOOR_TX", L"MoveFloor.png"); // 移動床用
 
-		LoadTexture(L"TENNSENNRED_TX", L"tennsennRed.png");
-		LoadTexture(L"RED_TX", L"Red.png");
-		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png");
-		LoadTexture(L"BLUE_TX", L"Blue.png");
-		LoadTexture(L"PURPLE_TX", L"Purple.png");
-		LoadTexture(L"GREEN_TX", L"Green.png");
-		LoadTexture(L"TENNSENNTRIANGLERED_TX", L"tennsennTriangleR.png");
-		LoadTexture(L"TRIANGLERED_TX", L"TriangleR.png");
-		LoadTexture(L"TENNSENNTRIANGLEBLUE_TX", L"tennsennTriangleB.png");
-		LoadTexture(L"TRIANGLEBLUE_TX", L"TriangleB.png");
+		LoadTexture(L"TENNSENNRED_TX", L"tennsennRed.png"); // ゴール通過チェック用(Player1用点線)
+		LoadTexture(L"RED_TX", L"Red.png"); // ゴール通過チェック用(Player1用)
+		LoadTexture(L"TENNSENNBLUE_TX", L"tennsennBlue.png"); // ゴール通過チェック用(Player2用点線)
+		LoadTexture(L"BLUE_TX", L"Blue.png"); // ゴール通過チェック用(Player2用)
+		LoadTexture(L"PURPLE_TX", L"Purple.png"); // 中間地点の輪っか用
+		LoadTexture(L"GREEN_TX", L"Green.png"); // 中間地点の輪っか用
+		LoadTexture(L"TENNSENNTRIANGLERED_TX", L"tennsennTriangleR.png"); // 中間地点通過チェック用(Player1用点線)
+		LoadTexture(L"TRIANGLERED_TX", L"TriangleR.png"); // 中間地点通過チェック用(Player1用)
+		LoadTexture(L"TENNSENNTRIANGLEBLUE_TX", L"tennsennTriangleB.png"); // 中間地点通過チェック用(Player2用点線)
+		LoadTexture(L"TRIANGLEBLUE_TX", L"TriangleB.png"); // 中間地点通過チェック用(Player2用)
 
-		LoadTexture(L"GUIDER_TX", L"GuideRight.png");
-		LoadTexture(L"GUIDEL_TX", L"GuideLeft.png");
-
-		LoadTexture(L"1P", L"1P.png");
-		LoadTexture(L"2P", L"2P.png");
-		LoadTexture(L"KEY", L"key.png");
-		LoadTexture(L"NOKEY", L"NoKey.png");
-		LoadTexture(L"ROCK", L"rock.png");
-		LoadTexture(L"KEY7", L"key7.png");
-		LoadTexture(L"KEY10", L"key10.png");
-		LoadTexture(L"KEY13", L"key13.png");
+		LoadTexture(L"1P", L"1P.png"); // バナー(Player1用)
+		LoadTexture(L"2P", L"2P.png"); // バナー(Player2用)
+		LoadTexture(L"KEY", L"key.png"); // 鍵
+		LoadTexture(L"NOKEY", L"NoKey.png"); // 鍵(空欄)
+		LoadTexture(L"ROCK", L"rock.png"); // 施錠
+		LoadTexture(L"KEY7", L"key7.png"); // 鍵7個必要
+		LoadTexture(L"KEY10", L"key10.png"); // 鍵10個必要
+		LoadTexture(L"KEY13", L"key13.png"); // 鍵13個必要
 
 		LoadTexture(L"DEATHEFFECT", L"DeathEffect.png");
 
 		//ガイドの画像
-		LoadTexture(L"GUIDEREDUP_TX", L"GuideRedUp.png");
-		LoadTexture(L"GUIDEREDDOWM_TX", L"GuideRedDown.png");
-		LoadTexture(L"GUIDEREDCENTER_TX", L"GuideRedCenter.png");
-		LoadTexture(L"GUIDEBLUEUP_TX", L"GuideBlueUp.png");
-		LoadTexture(L"GUIDEBLUEDOWM_TX", L"GuideBlueDown.png");
-		LoadTexture(L"GUIDEBLUECENTER_TX", L"GuideBlueCenter.png");
+		LoadTexture(L"GUIDEREDUP_TX", L"GuideRedUp.png"); // 上向き(Player1用)
+		LoadTexture(L"GUIDEREDDOWM_TX", L"GuideRedDown.png"); // 下向き(Player1用)
+		LoadTexture(L"GUIDEREDCENTER_TX", L"GuideRedCenter.png"); // 横向き(Player1用)
+		LoadTexture(L"GUIDEBLUEUP_TX", L"GuideBlueUp.png"); // 上向き(Player2用)
+		LoadTexture(L"GUIDEBLUEDOWM_TX", L"GuideBlueDown.png"); // 下向き(Player2用)
+		LoadTexture(L"GUIDEBLUECENTER_TX", L"GuideBlueCenter.png"); // 横向き(Player2用)
 
-		LoadStaticModelMesh(L"01", L"Player01_MESH");
-		LoadStaticModelMesh(L"02", L"Player02_MESH");
-		LoadStaticModelMesh(L"03", L"Player03_MESH");
-
+		// 鍵オブジェクト
 		LoadBoneModel(L"Key", L"Key_MESH",L"Key_MESH_TAN");
 
 		//Player1
-		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN");//無極
-		LoadBoneModel(L"Brue", L"PlayerBlue_MESH", L"PlayerBlue_MESH_TAN");//S極
-		LoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN");//N極
-		LoadBoneModel(L"Redanger", L"PlayerRedanger_MESH", L"PlayerRedanger_MESH_TAN");//N極
-		LoadBoneModel(L"blacksmile", L"PlayerBrackSmile_MESH", L"PlayerBrackSmile_MESH_TAN");//無極
-		LoadBoneModel(L"Redsmile", L"PlayerRedSmile_MESH", L"PlayerRedSmile_MESH_TAN");//N極
+		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN"); //無極
+		LoadBoneModel(L"Red", L"PlayerRed_MESH", L"PlayerRed_MESH_TAN"); //N極
+		LoadBoneModel(L"Redanger", L"PlayerRedanger_MESH", L"PlayerRedanger_MESH_TAN"); //N極(怒り顔)
+		LoadBoneModel(L"blacksmile", L"PlayerBrackSmile_MESH", L"PlayerBrackSmile_MESH_TAN"); //無極(にっこり)
+		LoadBoneModel(L"Redsmile", L"PlayerRedSmile_MESH", L"PlayerRedSmile_MESH_TAN"); //N極(にっこり)
 
 		//Player2
-		LoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN");
-		LoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN");
-		LoadBoneModel(L"Blueanger", L"Player2Blueanger_MESH", L"Player2Blueanger_MESH_TAN");
-		LoadBoneModel(L"Red", L"Player2Red_MESH", L"Player2Red_MESH_TAN");
-		LoadBoneModel(L"blacksmile", L"Player2BrackSmile_MESH", L"Player2BrackSmile_MESH_TAN");
-		LoadBoneModel(L"Greensmile", L"Player2BlueSmile_MESH", L"Player2BlueSmile_MESH_TAN");
+		LoadBoneModel(L"Brack", L"Player2Brack_MESH", L"Player2Brack_MESH_TAN"); //無極
+		LoadBoneModel(L"Brue", L"Player2Blue_MESH", L"Player2Blue_MESH_TAN"); //S極
+		LoadBoneModel(L"Blueanger", L"Player2Blueanger_MESH", L"Player2Blueanger_MESH_TAN");// S極(怒り顔)
+		LoadBoneModel(L"blacksmile", L"Player2BrackSmile_MESH", L"Player2BrackSmile_MESH_TAN");// 無極(にっこり)
+		LoadBoneModel(L"Greensmile", L"Player2BlueSmile_MESH", L"Player2BlueSmile_MESH_TAN"); // S極(にっこり)
 
 		//ベルトコンベア
-		wstring dataDir = App::GetApp()->GetDataDirWString();
-		auto multiModelMesh = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"m_Convayor.bmf");
-		App::GetApp()->RegisterResource(L"CONVEYOR", multiModelMesh);
-		auto multiModelMesh2 = MultiMeshResource::CreateBoneModelMultiMesh(dataDir, L"s_Convayor.bmf");
-		App::GetApp()->RegisterResource(L"SIDE_CONVEYOR", multiModelMesh2);
+		LoadTexture(L"GUIDER_TX", L"GuideRight.png"); // ベルトコンベアの右向き矢印
+		LoadTexture(L"GUIDEL_TX", L"GuideLeft.png"); // ベルトコンベアの左向き矢印
+		RegisterMultiMesh(L"CONVEYOR", L"m_Convayor", true); // ベルトコンベア
+		RegisterMultiMesh(L"SIDE_CONVEYOR", L"s_Convayor", true); // ベルトコンベア(端)
 
 		// 輪っか
 		LoadStaticModelMesh(L"metalring04", L"RingObject_MESH");
@@ -211,7 +198,7 @@ namespace basecross{
 		// 壊れる壁
 		LoadBoneModel(L"BreakWall", L"BreakWall_MESH", L"BreakWall_MESH_TAN");
 		LoadTexture(L"BREAK_TX", L"BreakWallTex.png");
-		// ハンマー(赤＆青)
+		// ハンマー(赤&青&黒)
 		LoadBoneModel(L"Hammer Red", L"Hammer_Red_MESH", L"Hammer_Red_MESHTAN");
 		LoadBoneModel(L"Hammer Green", L"Hammer_Blue_MESH", L"Hammer_Blue_MESHTAN");
 		LoadBoneModel(L"Hammer Black", L"Hammer_Black_MESH", L"Hammer_Black_MESHTAN");
@@ -223,7 +210,7 @@ namespace basecross{
 		//BGM
 		LoadSound(L"TITLE_BGM",L"Title.wav");//タイトルシーン
 		LoadSound(L"STANDBY_BGM",L"StandBy.wav");//準備完了シーン
-		LoadSound(L"GAMESTAGE1_BGM",L"GameStage1.wav");//ステージ1~6
+		LoadSound(L"GAMESTAGE1_BGM", L"GameStage1.wav");//ステージ1~6
 		LoadSound(L"GAMESTAGE2_BGM", L"GameStage2.wav");
 		LoadSound(L"GAMESTAGE3_BGM", L"GameStage3.wav");
 		LoadSound(L"GAMESTAGE4_BGM", L"GameStage4.wav");
@@ -236,9 +223,9 @@ namespace basecross{
 		LoadSound(L"BUTTON_SE", L"Decition.wav");//ボタン押したときの決定音
 		LoadSound(L"STOP_SE", L"Gachan.wav");//スタート地点に運ばれてきて停止したときの音
 		LoadSound(L"KADOU_SE", L"Kadouonn.wav");//スタート地点に運ばれてきたときの音
-		LoadSound(L"SAVE_SE", L"Save.wav");
-		LoadSound(L"GOAL_SE", L"Goal.wav");
-		LoadSound(L"GET_SE", L"Get.wav");
+		LoadSound(L"SAVE_SE", L"Save.wav"); // 中間地点通過時のSE
+		LoadSound(L"GOAL_SE", L"Goal.wav"); // ゴール通過時のSE
+		LoadSound(L"GET_SE", L"Get.wav"); // 鍵取得時のSE
 		LoadSound(L"SHUTTER_SE", L"Shutter.wav");//シャッター閉まるときの音
 		LoadSound(L"SHUTTER2_SE", L"Shutter2.wav");//シャッター開く時の音
 		LoadSound(L"HAMMER_SE", L"hammer.wav");//ハンマーが振り落とされる時の音
@@ -302,7 +289,6 @@ namespace basecross{
 			m_scene = 3;
 		}
 		if (event->m_MsgStr == L"ToMagTestStage") {
-			//最初のアクティブステージの設定
 			ResetActiveStage<PlayerMagTestStage>();
 			m_scene = 10;
 		}

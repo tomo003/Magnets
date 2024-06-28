@@ -70,7 +70,7 @@ namespace basecross {
 		}
 		if (!leavePlayer2)
 		{
-			ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBlue_MESH");
+			ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blue_MESH");
 			ptrPlayer2->SetPlayerMagPole(3);
 		}
 		//プレイヤーが離れていなくてスタートポジションにだとりついていなかったら
