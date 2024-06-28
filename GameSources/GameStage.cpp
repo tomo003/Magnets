@@ -187,14 +187,14 @@ namespace basecross {
 			m_key2->SetDrawActive(false);
 			m_key3->SetDrawActive(false);
 		}
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(-600.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(0.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(600.0f, 350.0f, 0.0f));
+		m_key1 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(-600.0f, 350.0f, 0.0f));
+		m_key2 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(0.0f, 350.0f, 0.0f));
+		m_key3 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(195.0f, 195.0f), Vec3(600.0f, 350.0f, 0.0f));
 		m_resultScore = m_score;
 		isGoal = true;
 	}
 
-	//最後のステージクリア時に使用するUI（ステージセレクトに戻る、次のステージへ、タイトルに戻る）
+	//最後のステージクリア時に使用するUI（ステージセレクトに戻る、タイトルに戻る）
 	void GameStage::CreateAnimeSpriteLastStage() {
 		auto PtrSp = AddGameObject<FlashSprite>(
 			Vec3(-650.0f, -50.0f, 0.0f), Vec2(670.0f, 500.0f), L"BACKTOSTAGESELECT", false);//ステージセレクトへ
@@ -209,9 +209,9 @@ namespace basecross {
 			m_key2->SetDrawActive(false);
 			m_key3->SetDrawActive(false);
 		}
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
-		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+		m_key1 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(190.0f, 190.0f), Vec3(-600.0f, 350.0f, 0.0f));
+		m_key2 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(190.0f, 190.0f), Vec3(0.0f, 350.0f, 0.0f));
+		m_key3 = AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(190.0f, 190.0f), Vec3(600.0f, 350.0f, 0.0f));
 		m_resultScore = m_score;
 		isGoal = true;
 	}
@@ -590,7 +590,8 @@ namespace basecross {
 			if (m_resultScore >= 1) {
 				if (!isScore1) {
 					if (m_time <= 90.0f) {
-						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
+						m_key1->SetDrawActive(false);
+						m_key1 = AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore1 = true;
@@ -600,7 +601,8 @@ namespace basecross {
 			if (m_resultScore >= 2) {
 				if (m_time <= 50.0f) {
 					if (!isScore2) {
-						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
+						m_key2->SetDrawActive(false);
+						m_key2 = AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						AddGameObject<EffectPlayer>(Vec3(pos.x , pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						isScore2 = true;
@@ -610,7 +612,8 @@ namespace basecross {
 			if (m_resultScore >= 3) {
 				if (m_time <= 10.0f) {
 					if (!isScore3) {
-						AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+						m_key3->SetDrawActive(false);
+						m_key3 = AddGameObject<SelectSprite>(L"KEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
 						XAPtr->Start(L"GET_SE", 0, 10.0f);
 						AddGameObject<EffectPlayer>(Vec3(pos.x + 5.0f, pos.y -2.0f, 0.0f), Vec3(0.5f), L"GameClear");
 						AddGameObject<EffectPlayer>(Vec3(pos.x - 5.0f, pos.y - 2.0f, 0.0f), Vec3(0.5f), L"GameClear");

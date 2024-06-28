@@ -144,7 +144,7 @@ namespace basecross {
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 		}
-		if (m_Totaltime >= 1.2f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER||m_Totaltime >= 1.2f && firstPad.wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
+		if (m_Totaltime >= 1.2f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!player2Ready) {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 				m_ptrPlayer2->SetPlayerMagPole(2);
