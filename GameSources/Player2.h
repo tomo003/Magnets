@@ -247,6 +247,16 @@ namespace basecross {
 		bool IsGoal() {
 			return isStop;
 		}
+
+		/**
+		* @brief GearFloor‚ÉÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ“n‚·ŠÖ”
+		* @param ˆø”‚È‚µ
+		* @return bool isGearFloor
+		*/
+		bool IsGearFloor() {
+			return isGearFloor;
+		}
+
 	};
 
 }

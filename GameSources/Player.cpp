@@ -745,7 +745,6 @@ namespace basecross {
 		}
 	}
 
-
 	void Player::OnUpdate2() {
 		//wstring posStr(L"POS: ");
 		//posStr += Util::FloatToWStr(m_pos.y);
