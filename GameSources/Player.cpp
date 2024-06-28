@@ -13,7 +13,7 @@ namespace basecross {
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 		m_ptrTrans->SetPosition(0.0f, 0.0f, 0.0f);
 		m_ptrColl = AddComponent<CollisionObb>();
-		//m_ptrColl->SetDrawActive(true);
+		m_ptrColl->SetDrawActive(true);
 		m_gravityComp = AddComponent<Gravity>();
 
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
@@ -343,16 +343,18 @@ namespace basecross {
 
 	// プレイやーに引力を適用
 	void Player::ApplyAttration(shared_ptr<GameObject>& Other) {
-		auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
+		if (!isPlayerContact) {
+			auto objPos = Other->GetComponent<Transform>()->GetWorldPosition();
 
-		m_pos = m_ptrTrans->GetWorldPosition();
+			m_pos = m_ptrTrans->GetWorldPosition();
 
-		m_direction = objPos - m_pos;
-		m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
+			m_direction = objPos - m_pos;
+			m_distanceTemp = m_direction.length();//sqrtf(m_direction.x * m_direction.x + m_direction.y * m_direction.y);
 
-		m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
-		m_Velocity += m_force;
-		SetAttrationState(true);
+			m_force = (m_direction / m_distanceTemp) * ATTRACTION_CONSTANT * m_playerMass / (m_distanceTemp * m_distanceTemp);
+			m_Velocity += m_force;
+			SetAttrationState(true);
+		}
 	}
 	void Player::PlayerApplyAttration() {
 		auto ptrMagObj = GetStage()->GetSharedGameObject<Player2>(L"Player2");
@@ -539,7 +541,7 @@ namespace basecross {
 		}
 		if (ptrGround) {
 			isGround = true;
-			isEffect = true;
+			//isEffect = true;
 			isInertia = false;
 			isRepulsion = false;
 		}
