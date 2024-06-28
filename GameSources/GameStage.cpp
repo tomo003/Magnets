@@ -45,10 +45,10 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		try {
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
-			PtrScene ->SetGameState(GameState::MainGame);
-			PtrScene->SetPauseNum(0);
-			PtrScene->SetResultNum(0);
+			m_ptrScene = App::GetApp()->GetScene<Scene>();
+			m_ptrScene ->SetGameState(GameState::MainGame);
+			m_ptrScene->SetPauseNum(0);
+			m_ptrScene->SetResultNum(0);
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateObjGroup();
@@ -59,7 +59,7 @@ namespace basecross {
 
 			auto ptrCamera = dynamic_pointer_cast<DuoCamera>(m_View->GetCamera());
 
-			switch (PtrScene->GetStageNum()) {
+			switch (m_ptrScene->GetStageNum()) {
 			case 1:
 				CreateBackGround(L"BACKGROUND1");
 				m_GameStageCsv.SetFileName(DataDir + L"Stage1.csv");
@@ -125,7 +125,7 @@ namespace basecross {
 				break;
 			}
 			m_GameStageCsv.ReadCsv();
-			PtrScene->ResetScore(PtrScene->GetStageNum());
+			m_ptrScene->ResetScore(m_ptrScene->GetStageNum());
 
 			// 地面のオブジェクトを追加
 			//AddGameObject<Ground>(Vec3(1),Vec3(0));
@@ -162,7 +162,8 @@ namespace basecross {
 	* @details forループで複数の背景を表示させる
 	*/
 	void GameStage::CreateBackGround(const wstring& texkey) {
-		for (int i = 0; i <= 5; i++) {
+		auto stageNum = m_ptrScene->GetStageNum();
+		for (int i = 0; i <= 8; i++) {
 			AddGameObject<BackGroundSprite2>(Vec3(50, 40, 1.0f), Vec3(-50 + (50 * i),0,0), texkey);
 		}
 	}
@@ -192,6 +193,28 @@ namespace basecross {
 		m_resultScore = m_score;
 		isGoal = true;
 	}
+
+	//最後のステージクリア時に使用するUI（ステージセレクトに戻る、次のステージへ、タイトルに戻る）
+	void GameStage::CreateAnimeSpriteLastStage() {
+		auto PtrSp = AddGameObject<FlashSprite>(
+			Vec3(-650.0f, -50.0f, 0.0f), Vec2(670.0f, 500.0f), L"BACKTOSTAGESELECT", false);//ステージセレクトへ
+		PtrSp->SetSelect(true);
+		m_SpVec2[0] = PtrSp;
+
+		PtrSp = AddGameObject<FlashSprite>(
+			Vec3(20.0f, -65.0f, 0.0f), Vec2(690.0f, 500.0f), L"BACKTOTITLE", false);//タイトルに戻る
+		m_SpVec2[2] = PtrSp;
+		if (m_key1 != NULL) {
+			m_key1->SetDrawActive(false);
+			m_key2->SetDrawActive(false);
+			m_key3->SetDrawActive(false);
+		}
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(-600.0f, 350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(0.0f, 350.0f, 0.0f));
+		AddGameObject<SelectSprite>(L"NOKEY", true, Vec2(200.0f, 200.0f), Vec3(600.0f, 350.0f, 0.0f));
+		m_resultScore = m_score;
+		isGoal = true;
+	}
 	//クリア時の次のステージへとかの処理
 	//コントローラー左スティックのの操作を取得して選択肢に応じたシーン移行を行う
 	void GameStage::ClearResult() {
@@ -200,6 +223,7 @@ namespace basecross {
 		{
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int ResultNum = PtrScene->GetResultNum();
+			int StageNum = PtrScene->GetStageNum();
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 			if (CntlVec[0].bConnected) {
 				if (!m_CntrolLock) {
@@ -233,6 +257,54 @@ namespace basecross {
 		}
 	}
 
+	void GameStage::ClearResultLastStage() {
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		if (PtrScene->GetGameState() == GameState::GameClear)
+		{
+			auto PtrScene = App::GetApp()->GetScene<Scene>();
+			int ResultNum = PtrScene->GetResultNum();
+			int StageNum = PtrScene->GetStageNum();
+			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+			if (CntlVec[0].bConnected) {
+				if (!m_CntrolLock) {
+					if (CntlVec[0].fThumbLX >= 0.8) {
+						ResultNum++;
+						if (ResultNum > 2)
+						{
+							ResultNum = 0;
+						}
+						if (ResultNum == 1)
+						{
+							ResultNum = 2;
+						}
+						m_CntrolLock = true;
+						m_Lock = true;
+						PtrScene->SetResultNum(ResultNum);
+						ChangeSelectMenuLast(ResultNum);
+					}
+					else if (CntlVec[0].fThumbLX <= -0.8) {
+						ResultNum--;
+						if (ResultNum < 0) {
+							ResultNum = 2;
+						}
+						if (ResultNum == 1)
+						{
+							ResultNum = 0;
+						}
+						m_CntrolLock = true;
+						PtrScene->SetResultNum(ResultNum);
+						ChangeSelectMenuLast(ResultNum);
+					}
+				}
+				else {
+					if (CntlVec[0].fThumbLX == 0.0f && !m_pushButton) {
+						m_CntrolLock = false;
+					}
+				}
+			}
+		}
+	}
+
 	void GameStage::ChangeSelectMenu(int num) {
 		for (int i = 0; i < 3; i++) {
 			shared_ptr<FlashSprite> shptr = m_SpVec[i].lock();
@@ -241,6 +313,20 @@ namespace basecross {
 					shptr->SetSelect(true);
 				}
 				else { 
+					shptr->SetSelect(false);
+				}
+			}
+		}
+	}
+
+	void GameStage::ChangeSelectMenuLast(int num) {
+		for (int i = 0; i < 3; i++) {
+			shared_ptr<FlashSprite> shptr = m_SpVec2[i].lock();
+			if (shptr) {
+				if (i == num) {
+					shptr->SetSelect(true);
+				}
+				else {
 					shptr->SetSelect(false);
 				}
 			}
@@ -461,14 +547,28 @@ namespace basecross {
 	{
 		m_InputHandler.PushHandler(GetThis<GameStage>());
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
+		int stageNum = PtrScene->GetStageNum();
 		if (PtrScene->GetGameState() == GameState::GameClear)
 		{
-			if (m_Clear <= false)
+			if (stageNum != 6)
 			{
-				m_Clear = true;
-				CreateAnimeSprite();
+				if (m_Clear <= false)
+				{
+					m_Clear = true;
+					CreateAnimeSprite();
+				}
+				ClearResult();
 			}
-			ClearResult();
+			else
+			{
+				if (m_Clear <= false)
+				{
+					m_Clear = true;
+					CreateAnimeSpriteLastStage();
+				}
+				ClearResultLastStage();
+			}
+			
 		}
 		m_score = PtrScene->GetScore(PtrScene->GetStageNum());
 		if (m_score > m_previousScore) {
@@ -617,16 +717,16 @@ namespace basecross {
 	{
 		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
 		auto ptrPlayer2 = GetSharedGameObject<Player2>(L"Player2");
+		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		if (!m_pushButton)
 		{
 			m_pushButton = true;
 			if (ptrPlayer->IsGoal() && ptrPlayer2->IsGoal()) {
-				auto PtrScene = App::GetApp()->GetScene<Scene>();
 				if (PtrScene->GetGameState() == GameState::GameClear)
-					AddGameObject<FadeOut>(L"FADE_WHITE");
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 				{
+					AddGameObject<FadeOut>(L"FADE_WHITE");
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 
 					int ResultNum = PtrScene->GetResultNum();
 					m_Lock = true;
@@ -686,11 +786,8 @@ namespace basecross {
 
 						PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 					}
-
 				}
 			}
-
-			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			if (PtrScene->GetGameState() == GameState::Pause)
 			{
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
@@ -700,7 +797,7 @@ namespace basecross {
 				m_pushButton = true;
 				m_CntrolLock = true;
 
-				//PtrScene->SetGameState(GameState::IsSelect);
+				//m_ptrScene->SetGameState(GameState::IsSelect);
 
 				if (PauseNum == 0)
 				{

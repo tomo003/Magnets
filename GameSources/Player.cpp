@@ -446,17 +446,23 @@ namespace basecross {
 		auto ptrGround = dynamic_pointer_cast<Block>(Other);
 		auto ptrMoveFloor = dynamic_pointer_cast<MoveFloor>(Other);
 		//auto magDir = GetMsgnetsDirection().second;
-		if (ptrMoveMetal && (m_eMagPole != EState::eFalse)) {
-			m_gravityComp->SetGravityZero();
-			m_ptrTrans->SetParent(ptrMoveMetal);
-			if (isEffect) {
-				GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
-				isEffect = false;
-				m_objPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"UNION_SE", 0, 2.0f);
+		if (ptrMoveMetal) {
+			auto MoveMetalPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
+			if (MoveMetalPos.y < m_pos.y) {
+				m_ptrTrans->SetParent(ptrMoveMetal);
 			}
-			m_emState = magneticState::emMetal;
+			if (m_eMagPole != EState::eFalse) {
+				m_gravityComp->SetGravityZero();
+				m_ptrTrans->SetParent(ptrMoveMetal);
+				if (isEffect) {
+					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(1.0f), L"impact");
+					isEffect = false;
+					m_objPos = ptrMoveMetal->GetComponent<Transform>()->GetPosition();
+					auto XAPtr = App::GetApp()->GetXAudio2Manager();
+					XAPtr->Start(L"UNION_SE", 0, 2.0f);
+				}
+				m_emState = magneticState::emMetal;
+			}
 		}
 		if (ptrMetal && (m_eMagPole != EState::eFalse)) {
 			auto MetalPos = ptrMetal->GetComponent<Transform>()->GetPosition();
