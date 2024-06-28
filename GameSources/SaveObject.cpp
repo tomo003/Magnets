@@ -46,6 +46,8 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
+		SetDrawLayer(2);
+
 		SetDrawLayer(5);
 	}
 
@@ -111,6 +113,8 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		SetDrawLayer(2);
 
 		SetDrawLayer(5);
 	}

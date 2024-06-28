@@ -72,7 +72,7 @@ namespace basecross {
 
 			// y座標が-10以下になると死亡(リスポーン)
 			if (m_pos.y < -10.0f) {
-				PlayerDeath();
+				PlayerDeathEffect();
 			}
 
 			// コリジョン判定範囲をプレイヤーの座標から求めて設定

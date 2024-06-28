@@ -45,6 +45,8 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
+
+		SetDrawLayer(2);
 	}
 
 	void DeathEffectImg::OnUpdate()
