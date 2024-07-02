@@ -35,6 +35,10 @@ namespace basecross {
 		bool player2PositionFixed = false;
 		bool stage = false;
 		bool moveSEPlay = false;
+
+		const WORD BUTTON_START = XINPUT_GAMEPAD_START;//スタートボタン
+		const WORD BUTTON_BACK = XINPUT_GAMEPAD_BACK;//バックボタン
+
 		//ビューの作成
 		void CreateViewLight();
 	public:

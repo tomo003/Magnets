@@ -27,6 +27,9 @@ namespace basecross {
 		void CreateAnimeSprite();
 		void PlayBGM();//BGMの作成
 
+		const WORD BUTTON_START = XINPUT_GAMEPAD_START;//スタートボタン
+		const WORD BUTTON_BACK = XINPUT_GAMEPAD_BACK;//バックボタン
+
 	public:
 		SelectStage() :
 			Stage(), m_SpVec(6)

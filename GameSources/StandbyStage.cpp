@@ -202,6 +202,12 @@ namespace basecross {
 				}
 			}
 		}
+
+		//Start・Backボタン同時押しでタイトルに戻る
+		if (firstPad.wButtons & BUTTON_START && firstPad.wButtons & BUTTON_BACK ||
+			secondPad.wButtons & BUTTON_START && secondPad.wButtons & BUTTON_BACK) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+		}
 	}
 
 }

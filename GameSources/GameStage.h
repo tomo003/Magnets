@@ -76,6 +76,9 @@ namespace basecross {
 		shared_ptr<GameObject> m_ptrPlayer1;
 		shared_ptr<GameObject> m_ptrPlayer2;
 
+		const WORD BUTTON_START = XINPUT_GAMEPAD_START;//スタートボタン
+		const WORD BUTTON_BACK = XINPUT_GAMEPAD_BACK;//バックボタン
+
 	public:
 
 

@@ -193,12 +193,12 @@ namespace basecross {
 	void SelectStage::OnUpdate() {
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();
-		auto& pad = device.GetControlerVec()[0];
-		auto& pad2 = device.GetControlerVec()[1];
+		auto& firstPad = device.GetControlerVec()[0];
+		auto& secondPad = device.GetControlerVec()[1];
 		auto ptrCursor = GetSharedGameObject<CursorSprite>(L"Cursor");
 
 
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
+		if (firstPad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int StageNum = PtrScene->GetStageNum();
 			//m_score = 0;
@@ -256,9 +256,9 @@ namespace basecross {
 
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		int StageNum = PtrScene->GetStageNum();
-		if (pad.bConnected) {
+		if (firstPad.bConnected) {
 			if (!m_CntrolLock && !m_Lock) {
-				if (pad.fThumbLX >= 0.8f) {
+				if (firstPad.fThumbLX >= 0.8f) {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum++;
@@ -270,7 +270,7 @@ namespace basecross {
 					ChangeSelect(StageNum);
 
 				}
-				else if (pad.fThumbLX <= -0.8f) {
+				else if (firstPad.fThumbLX <= -0.8f) {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum--;
@@ -281,7 +281,7 @@ namespace basecross {
 					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
-				else if (pad.fThumbLY >= 0.8f) {
+				else if (firstPad.fThumbLY >= 0.8f) {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum -= 3;
@@ -292,7 +292,7 @@ namespace basecross {
 					PtrScene->SetStageNum(StageNum);
 					ChangeSelect(StageNum);
 				}
-				else if (pad.fThumbLY <= -0.8f) {
+				else if (firstPad.fThumbLY <= -0.8f) {
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 					StageNum += 3;
@@ -305,13 +305,19 @@ namespace basecross {
 				}
 			}
 			else {
-				if (pad.fThumbLX == 0.0f && !m_Lock) {
+				if (firstPad.fThumbLX == 0.0f && !m_Lock) {
 					m_CntrolLock = false;
 				}
 			}
 		}
 		shared_ptr<SelectScreenSprite> shptr = m_SpVec[StageNum - 1].lock();
 		ptrCursor->GetComponent<Transform>()->SetPosition(shptr->GetComponent<Transform>()->GetPosition());
+
+		//Start・Backボタン同時押しでタイトルに戻る
+		if (firstPad.wButtons & BUTTON_START && firstPad.wButtons & BUTTON_BACK ||
+			secondPad.wButtons & BUTTON_START && secondPad.wButtons & BUTTON_BACK) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+		}
 	}
 }
 //end basecross
