@@ -6,6 +6,7 @@
 #define COL_PURPLE Col4(0.56f, 0.42f, 0.78f, true)
 
 namespace basecross {
+	// 往復する金属オブジェクト
 	void MoveMetalObject::OnCreate()
 	{
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
@@ -20,9 +21,10 @@ namespace basecross {
 		m_ptrTrans->SetPosition(m_position);
 		m_ptrTrans->SetScale(2.0f, 0.75f, 0.75f);
 
+		// 磁力エリアを追加
 		m_ptrArea = GetStage()->AddGameObject<MagnetArea>(m_position, m_MagAreaRadius);
 		auto m_AreaTransComp = m_ptrArea->GetComponent<Transform>();
-		m_AreaTransComp->SetParent(GetThis<MoveMetalObject>());
+		m_AreaTransComp->SetParent(GetThis<MoveMetalObject>()); // 親子関係を付ける
 	}
 
 	void MoveMetalObject::OnUpdate() {
@@ -32,6 +34,7 @@ namespace basecross {
 		// デルタタイム(前フレームからの経過時間)を取得する
 		float delta = app->GetElapsedTime();
 
+		// 開始地点と終了地点をセット
 		const Vec3 start = m_points[m_currentPointIndex % m_points.size()];
 		const Vec3 end = m_points[(m_currentPointIndex + 1) % m_points.size()];
 		Vec3 pos = Utility::Lerp(start, end, m_ratio); // 自作した線形補間関数
@@ -45,10 +48,9 @@ namespace basecross {
 		//Vec3 pos = m_transform->GetPosition(); // 現在の座標を取得する
 		m_ptrTrans->SetPosition(pos); // 新しい座標で更新する
 
+		// プレイヤーに磁力を適用する処理を呼び出し
 		ApplyForcePlayer();
 		ApplyForceSecondPlayer();
-		//m_ptrArea->UpdateArea(m_position);
-
 	}
 
 	// プレイヤーに磁力による力を適用
@@ -97,6 +99,7 @@ namespace basecross {
 		}
 	}
 
+	//-------移動床用のスイッチ------------------------------------------------------
 	void MoveFloorButton::OnCreate() {
 		m_DrawComp = AddComponent<PNTStaticDraw>();
 		m_DrawComp->SetMeshResource(L"DEFAULT_CYLINDER");
