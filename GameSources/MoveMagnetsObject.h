@@ -12,10 +12,11 @@
 
 namespace basecross {
 
-	// 往復床
+	// 往復する金属オブジェクト
 	class MoveMetalObject : public GameObject
 	{
 	public:
+		// 自身の磁極のステート
 		enum class EState {
 			eFalse = -1, // 無
 			eN = 1, // Ｎ極
@@ -36,13 +37,11 @@ namespace basecross {
 		float m_ratio = 0.0f; // 0 ～ 1の係数(0 - 100%)
 
 		Vec3 m_position;
-		float m_speed;
+		float m_speed; // 移動スピード
 		Vec3 m_moveDir;// 移動方向
 		float m_moveVol;// 移動量
 
-		const array<Vec3, 2> m_points;
-
-		// 巡回ポイント
+		const array<Vec3, 2> m_points;// 巡回ポイント
 		int m_currentPointIndex; // 現在の移動ライン番号
 
 	public:
@@ -62,14 +61,27 @@ namespace basecross {
 
 		void OnCreate();
 		void OnUpdate();
-		//void OnDestroy()override;
 
+		/** @brief 磁力の状態をint型で渡す
+		*   @param 引数なし
+		*   @return int m_eMagPole 
+		*   磁力状態をint型にキャストして渡す
+		*/
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
 		}
+		/** @brief オブジェクトの重さを渡す
+		*   @param 引数なし
+		*   @return float m_ObjMass
+		*   オブジェクトに設定した重さを渡す
+		*/
 		float GetMass() {
 			return m_ObjMass;
 		}
+		/** @brief 磁力エリアの半径を渡す
+		*   @param 引数なし
+		*   @return float m_MagAreaRadius
+		*/
 		float GetAreaRadius() {
 			return m_MagAreaRadius;
 		}
@@ -83,7 +95,6 @@ namespace basecross {
 		// プレイヤーに磁力による力を適用
 		void ApplyForcePlayer();
 		void ApplyForceSecondPlayer();
-		//void EfkStop();
 	};
 
 	//動く床用のボタン
