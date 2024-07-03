@@ -1,6 +1,6 @@
 /*!
 @file MyCamera.h
-@brief カメラ
+@brief ゲームステージのカメラ
 */
 
 #pragma once

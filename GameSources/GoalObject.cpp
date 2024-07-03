@@ -8,7 +8,9 @@
 
 namespace basecross {
 
-	//ゴールの上の四角赤仮設置
+	//--------------------------------------------------------------------------------------
+	//ゴールオブジェクト上の赤い板ポリ
+	//--------------------------------------------------------------------------------------
 	GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -59,7 +61,9 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//ゴールの上の四角青仮設置
+	//--------------------------------------------------------------------------------------
+	//ゴールオブジェクト上の青い板ポリ
+	//--------------------------------------------------------------------------------------
 	GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -110,7 +114,9 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//ステージのゴールオブジェクト
+	//--------------------------------------------------------------------------------------
+	//ゴールオブジェクト
+	//--------------------------------------------------------------------------------------
 	Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -150,6 +156,7 @@ namespace basecross {
 
 		AddTag(L"Goal");
 
+		//ゴールオブジェクトの上の板ポリの追加
 		m_ptrSquareRed = GetStage()->AddGameObject<GoalSquareRed>(Vec3(1.0f), Vec3(m_Position.x - 1, m_Position.y + 7, 0));
 		GetStage()->SetSharedGameObject(L"GoalSquareRed", m_ptrSquareRed);
 		m_ptrSquareBlue = GetStage()->AddGameObject<GoalSquareBlue>(Vec3(1.0f), Vec3(m_Position.x + 1, m_Position.y + 7, 0));
@@ -180,7 +187,6 @@ namespace basecross {
 			XAPtr->Start(L"GOAL_SE", 0, 3.5f);
 
 			GetStage()->AddGameObject<Sprites>()->CreateSprite(Vec3(-400.0f, 250.0f, 0.0f), Vec2(800, 130), L"CLEAR");
-			//GetStage()->AddGameObject<ButtonSprite>(Vec3(-400.0f, -50.0f, 0.0f), L"BACKTOTITLE");
 			isDisplaySprite = true;
 
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
@@ -188,18 +194,8 @@ namespace basecross {
 		}
 
 		//カメラのゴール後にズーム演出
-		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		//ptrCamera->ZoomCamera();
-
 		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		ptrDuoCamera->ZoomCamera();
-
-		//Ｂボタンを押したらタイトルへ
-		/*if (pad.wPressedButtons & XINPUT_GAMEPAD_B || pad2.wPressedButtons & XINPUT_GAMEPAD_B) {
-			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
-		}*/
 	}
 
 	void Goal::GoalReset()
@@ -214,6 +210,7 @@ namespace basecross {
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
+		//プレイヤー１が右側に通り抜けたら
 		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			if (!isCollPlayer2)
 			{
@@ -221,6 +218,7 @@ namespace basecross {
 			}
 			isCollPlayer = true;
 		}
+		//プレイヤー２が右側に通り抜けたら
 		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			if (!isCollPlayer)
 			{

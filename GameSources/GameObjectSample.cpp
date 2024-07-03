@@ -1,6 +1,6 @@
 /*!
 @file GameObjectSample.cpp
-@brief CSVファイル読み込み確認用仮オブジェクト
+@brief ゲームステージのオブジェクト
 */
 
 #include "stdafx.h"
@@ -8,7 +8,9 @@
 
 namespace basecross {
 
-	//ステージの通常ブロックの仮設置
+	//--------------------------------------------------------------------------------------
+	//地面オブジェクト
+	//--------------------------------------------------------------------------------------
 	Block::Block(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position,
@@ -37,10 +39,9 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 	}
 
-	void Block::OnUpdate() {
-	}
-
-	//テクスチャが変更できる四角いオブジェクト
+	//--------------------------------------------------------------------------------------
+	//テクスチャ変更が可能な四角いオブジェクト
+	//--------------------------------------------------------------------------------------
 	ChangeTextureBlock::ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position,
@@ -69,7 +70,9 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 	}
 
-	//ステージのスタートオブジェクトの仮設置
+	//--------------------------------------------------------------------------------------
+	//スタートオブジェクト
+	//--------------------------------------------------------------------------------------
 	Start::Start(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position

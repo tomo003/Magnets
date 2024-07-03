@@ -1,6 +1,6 @@
 /*!
 @file MyCamera.cpp
-@brief カメラ
+@brief ゲームステージのカメラ
 */
 
 #include "stdafx.h"

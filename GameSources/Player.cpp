@@ -236,7 +236,7 @@ namespace basecross {
 		for (auto v : groupVector)
 		{
 			auto ptrSavePoint = dynamic_pointer_cast<SavePoint>(v.lock());
-			ptrSavePoint->ResetTexture();
+			ptrSavePoint->Reset();
 		}
 	}
 

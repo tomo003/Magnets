@@ -1,6 +1,6 @@
 /*!
-@file GameStage.cpp
-@brief 登場時にくっついてくる磁石
+@file StartMoveObject.h
+@brief ゲームステージ開始時プレイヤーを運んでくるオブジェクト
 */
 
 #include "stdafx.h"
@@ -9,7 +9,7 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//	登場時にくっついてくる磁石
+	//	ゲームステージ開始時プレイヤーを運んでくるオブジェクト
 	//--------------------------------------------------------------------------------------
 	class StartMoveObject : public GameObject{
 		Vec3 m_Scale;
@@ -21,6 +21,9 @@ namespace basecross {
 		std::shared_ptr<ChangeTextureBlock> m_ptrMagObjS;
 		std::shared_ptr<ChangeTextureBlock> m_ptrMagObjN;
 
+		std::shared_ptr<Player> m_ptrPlayer;
+		std::shared_ptr<Player2> m_ptrPlayer2;
+
 		//プレイヤーが離れているか
 		bool leavePlayer = false;
 		bool leavePlayer2 = false;
@@ -29,12 +32,15 @@ namespace basecross {
 		bool StopSEPlay = false;
 
 public:
+	//構築と破棄
 	StartMoveObject(const std::shared_ptr<Stage>&StagePtr,
 		const Vec3 & Scale,
 		const Vec3 & Position
 	);
 	virtual ~StartMoveObject();
+	//初期化
 	virtual void OnCreate() override;
+
 	virtual void OnUpdate() override;
 	};
 
