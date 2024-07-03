@@ -70,7 +70,7 @@ namespace basecross {
 
 
 		bool m_Clear;
-		bool m_pushButton;
+		bool m_pushButton = false;
 		bool m_Lock = false;
 
 		shared_ptr<GameObject> m_ptrPlayer1;

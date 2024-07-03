@@ -732,10 +732,10 @@ namespace basecross {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
 		if (!m_pushButton)
 		{
-			m_pushButton = true;
 			if (ptrPlayer->IsGoal() && ptrPlayer2->IsGoal()) {
 				if (PtrScene->GetGameState() == GameState::GameClear)
 				{
+					m_pushButton = true;
 					AddGameObject<FadeOut>(L"FADE_WHITE");
 					auto XAPtr = App::GetApp()->GetXAudio2Manager();
 					XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
@@ -802,6 +802,7 @@ namespace basecross {
 			}
 			if (PtrScene->GetGameState() == GameState::Pause)
 			{
+				m_pushButton = true;
 				auto XAPtr = App::GetApp()->GetXAudio2Manager();
 				XAPtr->Start(L"BUTTON_SE", 0, 2.0f);
 				AddGameObject<FadeOut>(L"FADE_WHITE");
