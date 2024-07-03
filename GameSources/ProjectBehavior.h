@@ -24,6 +24,27 @@ namespace basecross {
 			}
 		}
 	};
+
+	// ムービーステージでのコントローラ操作
+	template<typename T>
+	struct InputHandler2 {
+		void PushHandle(const shared_ptr<T>& Obj) {
+			//コントローラの取得
+			auto cntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
+			if (cntlVec[0].bConnected) {
+				//Aボタン
+				if (cntlVec[0].wPressedButtons) {
+					Obj->OnPushAny();
+				}
+				//スタート、セレクト同時押し
+				//if (cntlVec[0].wPressedButtons & XINPUT_GAMEPAD_START && cntlVec[0].wPressedButtons & XINPUT_GAMEPAD_BACK)
+				//{
+				//	Obj->OnReset();
+				//}
+
+			}
+		}
+	};
 }
 
 //end basecross

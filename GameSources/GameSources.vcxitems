@@ -37,6 +37,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HammerObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MagnetArea.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Metal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MovieStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PauseSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerBanner.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RingObject.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HammerObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MagnetArea.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Metal.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MovieStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PauseSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerBanner.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RingObject.cpp" />

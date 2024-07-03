@@ -4,7 +4,7 @@
 */
 
 #include "stdafx.h"
-#include "Project.h"
+#include "Sprites.h"
 
 namespace basecross {
 	class FadeOut : public Sprites {

@@ -237,9 +237,7 @@ namespace basecross{
 			CreateResourses();
 
 			//クリアする色を設定
-			Col4 Col;
-			Col.set(6.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
-			SetClearColor(Col);
+			SetClearColor(Col4(1.0f));
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
@@ -287,6 +285,10 @@ namespace basecross{
 			audioPtr->Stop(m_bgm);
 			ResetActiveStage<SelectStage>();
 			m_scene = 3;
+		}
+		else if (event->m_MsgStr == L"ToMovieStage") {
+			ResetActiveStage<TitleMovieStage>();
+			m_scene = 15;
 		}
 		if (event->m_MsgStr == L"ToMagTestStage") {
 			ResetActiveStage<PlayerMagTestStage>();

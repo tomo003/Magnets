@@ -47,6 +47,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DeathEffect.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MovieStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BackGroundSprite.h" />
@@ -96,5 +97,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DeathEffect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MovieStage.h" />
   </ItemGroup>
 </Project>

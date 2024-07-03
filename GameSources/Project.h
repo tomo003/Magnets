@@ -55,3 +55,4 @@
 #include "ShutterSprite.h"
 #include "MyCamera.h"
 #include "DeathEffect.h"
+#include "MovieStage.h"
