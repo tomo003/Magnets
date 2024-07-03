@@ -8,6 +8,7 @@
 
 namespace basecross {
 	void TitleStage::CreateViewLight() {
+
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<Camera>();
@@ -42,14 +43,18 @@ namespace basecross {
 		//シャッタースプライトN（赤）極の生成
 		m_nFade = AddGameObject<ShutterSprite>(Vec3(-1610, (float)App::GetApp()->GetGameHeight() / 2, 0.0f), L"NFADE");
 		//PlayBGM();
+
+		m_ptrSprite = AddGameObject<Sprites>();
+		Vec2 Size = Vec2(App::GetApp()->GetGameWidth(), App::GetApp()->GetGameHeight());
+		m_ptrSprite->CreateSprite(Vec3(-Size.x / 2, Size.y / 2, 0.0f), Size, L"FADE_WHITE");
+		m_diffuseColor = Col4(1.0f, 1.0f, 1.0f, 0.0f);
+		m_ptrSpriteDraw = m_ptrSprite->GetComponent<PCTSpriteDraw>();
+		m_ptrSpriteDraw->SetDiffuse(m_diffuseColor);
+		
 	}
 
-	//void TitleStage::OnDestroy(){
-	//	//BGMのストップ
-	//	auto XAPtr = App::GetApp()->GetXAudio2Manager();
-	//	XAPtr->Stop(m_bgm);
-	//}
-
+	void TitleStage::OnDestroy(){
+	}
 
 	void TitleStage::OnUpdate() {
 		auto& app = App::GetApp();
@@ -58,7 +63,24 @@ namespace basecross {
 		auto& pad2 = device.GetControlerVec()[1];
 		const Vec3& mLPos = m_nFade->GetPosition();
 		const Vec3& mRPos = m_sFade->GetPosition();
-		auto delta = App::GetApp()->GetElapsedTime();
+		auto delta = app->GetElapsedTime();
+
+		m_CurrentTime += delta; // 経過時間をカウント
+		 // 経過時間がムービーに遷移するまでの時間以上だったら
+		if (m_CurrentTime >= m_ToMovieTime && !isFadeOut)
+		{
+			isFadeOut = true; // フェードアウトをtrue
+		}
+		if (isFadeOut) // フェードアウトがtrueなら
+		{
+			m_diffuseColor.w += delta / m_FadeTime; // 透明度をフェードにかける時間(1秒)で1.0になるように加算
+			m_ptrSpriteDraw->SetDiffuse(m_diffuseColor); // 色をセット
+			if (m_diffuseColor.w >= 1.0f) // 透明度が1.0以上になったら
+			{
+				// ムービーステージに遷移
+				PostEvent(0.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToMovieStage");
+			}
+		}
 
 		//タイトルシーンでBボタン入力
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {

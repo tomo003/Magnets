@@ -149,5 +149,11 @@ namespace basecross {
 		{
 			m_isSeekSizeState = (SeekSizeState)state;
 		}
+
+		// “§–¾F‚ðŽæ“¾‚·‚éŠÖ”
+		float GetAlphaNum() const
+		{
+			return m_draw->GetDiffuse().w;
+		}
 	};
 }
