@@ -1,6 +1,6 @@
 /*!
 @file MyCamera.h
-@brief カメラ
+@brief ゲームステージのカメラ
 */
 
 #pragma once
@@ -8,7 +8,9 @@
 
 namespace basecross {
 
-	//１人プレイ用カメラ
+	//--------------------------------------------------------------------------------------
+	//１人プレイ用のゲームステージプレイ時のカメラ
+	//--------------------------------------------------------------------------------------
 	class MyCamera :public Camera {
 
 	private:
@@ -42,7 +44,9 @@ namespace basecross {
 		void ZoomCamera();
 	};
 
-	//２人プレイ用カメラ
+	//--------------------------------------------------------------------------------------
+	//２人プレイ用のゲームステージプレイ時のカメラ
+	//--------------------------------------------------------------------------------------
 	class DuoCamera :public Camera {
 
 	private:
@@ -74,39 +78,72 @@ namespace basecross {
 		//デストラクタ
 		virtual ~DuoCamera(){};
 
-		//目標オブジェクトを得る(プレイヤー１)
+		/**
+		* @brief 目標オブジェクトを得る
+		*/
 		shared_ptr<GameObject> GetPlayerObj() const;
 
-		//目標オブジェクトを得る(プレイヤー２)
+		/**
+		* @brief 目標オブジェクトを得る
+		*/
 		shared_ptr<GameObject> GetSecondPlayerObj() const;
 
-		//目標オブジェクトを得る(スタートオブジェクト)
+		/**
+		* @brief 目標オブジェクトを得る
+		*/
 		shared_ptr<GameObject> GetStartObj() const;
 
-		//目標オブジェクトを設定する(プレイヤー１)
+		/**
+		* @brief 目標オブジェクトを設定する
+		* @param (obj) 設定したいオブジェクト
+		*/
 		virtual void SetPlayerObj(const shared_ptr<GameObject>& Obj);
 
-		//目標オブジェクトを設定する(プレイヤー２)
+		/**
+		* @brief 目標オブジェクトを設定する
+		* @param (obj) 設定したいオブジェクト
+		*/
 		virtual void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
 
-		//目標オブジェクトを設定する(スタートオブジェクト)
+		/**
+		* @brief 目標オブジェクトを設定する
+		* @param (obj) 設定したいオブジェクト
+		*/
 		virtual void SetStartObj(const shared_ptr<GameObject>& Obj);
 
-		//カメらの高さを設定する
+		/**
+		* @brief カメラの高さを設定する
+		* @param (Height) カメラの高さ
+		*/
 		virtual void SetCameraHeight(const float Height);
 
+		/**
+		* @brief Atを設定する
+		* @param (At) 設定したいAt
+		*/
 		virtual void SetAt(const bsm::Vec3& At)override;
 
+		/**
+		* @brief Eyeを設定する
+		* @param (Eye) 設定したいEye
+		*/
 		virtual void SetEye(const bsm::Vec3& Eye)override;
 
 		virtual void OnUpdate()override;
 
+		/**
+		* @brief ゲームプレイ中の通常のカメラ
+		*/
 		virtual void MoveCamera();
 
-		//ステージ開始時のカメラ
+		/**
+		* @brief ステージ開始時のカメラ
+		*/
 		virtual void StartCamera();
 
-		//ゴール字の演出カメラ
+		/**
+		* @brief ゴール時のカメラ
+		*/
 		virtual void ZoomCamera();
 	};
 

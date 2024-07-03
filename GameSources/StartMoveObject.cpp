@@ -1,6 +1,6 @@
 /*!
 @file StartMoveObject.cpp
-@brief 
+@brief ゲームステージ開始時プレイヤーを運んでくるオブジェクト
 */
 
 #include "stdafx.h"
@@ -8,7 +8,9 @@
 
 namespace basecross {
 
-	//ステージの通常ブロックの仮設置
+	//--------------------------------------------------------------------------------------
+	//	ゲームステージ開始時プレイヤーを運んでくるオブジェクト
+	//--------------------------------------------------------------------------------------
 	StartMoveObject::StartMoveObject(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -32,12 +34,14 @@ namespace basecross {
 		auto ptrMagenetPosS = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();
 		auto ptrMagenetPosN = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();
 
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-		ptrPlayer->GetComponent<Transform>()->SetPosition(ptrMagenetPosS.x, ptrMagenetPosS.y - 1, ptrMagenetPosS.z);
+		//プレイヤーオブジェクトの取得
+		m_ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		m_ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
+		//プレイヤーをマグネットの下に移動
+		m_ptrPlayer->GetComponent<Transform>()->SetPosition(ptrMagenetPosS.x, ptrMagenetPosS.y - 1, ptrMagenetPosS.z);
+		m_ptrPlayer2->GetComponent<Transform>()->SetPosition(ptrMagenetPosN.x, ptrMagenetPosN.y - 1, ptrMagenetPosN.z);
 
-		ptrPlayer2->GetComponent<Transform>()->SetPosition(ptrMagenetPosN.x, ptrMagenetPosN.y - 1, ptrMagenetPosN.z);
-
+		//カメラをスタートカメラに設定しておく
 		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		ptrDuoCamera->StartCamera();
 	}
@@ -53,9 +57,6 @@ namespace basecross {
 		auto firstPad = device.GetControlerVec()[0];
 		auto secondPad = device.GetControlerVec()[1];
 
-		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
-		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
-
 		auto ptrMagenetPosS = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();
 		auto ptrMagenetPosN = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();
 
@@ -65,13 +66,13 @@ namespace basecross {
 		//プレイヤーがくっついていたら
 		if (!leavePlayer)
 		{
-			ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
-			ptrPlayer->SetPlayerMagPole(3);
+			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
+			m_ptrPlayer->SetPlayerMagPole(STATE_NONE);
 		}
 		if (!leavePlayer2)
 		{
-			ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blue_MESH");
-			ptrPlayer2->SetPlayerMagPole(3);
+			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blue_MESH");
+			m_ptrPlayer2->SetPlayerMagPole(STATE_NONE);
 		}
 		//プレイヤーが離れていなくてスタートポジションにだとりついていなかったら
 		if (((ptrMagenetPosN.x + ptrMagenetPosS.x)/2) < ptrStartPos.x && !leavePlayer && !leavePlayer2)
@@ -83,13 +84,13 @@ namespace basecross {
 			}
 
 			//プレイヤーの重力を0に変更
-			ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
-			ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
+			m_ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
+			m_ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
 			//スタートポジションまで移動させる
 			m_ptrMagObjN->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x + speed, ptrMagenetPosN.y, ptrMagenetPosN.z));
 			m_ptrMagObjS->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x + speed, ptrMagenetPosS.y, ptrMagenetPosS.z));
-			ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x + speed, ptrMagenetPosN.y - 1, ptrMagenetPosN.z));
-			ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x + speed, ptrMagenetPosS.y - 1, ptrMagenetPosS.z));
+			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x + speed, ptrMagenetPosN.y - 1, ptrMagenetPosN.z));
+			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x + speed, ptrMagenetPosS.y - 1, ptrMagenetPosS.z));
 		}
 		//磁石がスタートポジションにたどり着いたら
 		else if (((ptrMagenetPosN.x + ptrMagenetPosS.x) / 2) >= ptrStartPos.x )
@@ -103,29 +104,29 @@ namespace basecross {
 			}
 			if (!leavePlayer)
 			{
-				ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
-				ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x, ptrMagenetPosS.y - 1, ptrMagenetPosS.z));
+				m_ptrPlayer->GetComponent<Gravity>()->SetGravityVerocityZero();
+				m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosS.x, ptrMagenetPosS.y - 1, ptrMagenetPosS.z));
 			}
 			if (!leavePlayer2)
 			{
-				ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
-				ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x, ptrMagenetPosN.y - 1, ptrMagenetPosN.z));
+				m_ptrPlayer2->GetComponent<Gravity>()->SetGravityVerocityZero();
+				m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(ptrMagenetPosN.x, ptrMagenetPosN.y - 1, ptrMagenetPosN.z));
 			}
 
 			//磁力を変更したら(RBボタンを押したら)
 			if (firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 				if (!leavePlayer) {
 					leavePlayer = true;
-					ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
-					ptrPlayer->SetPlayerMagPole(3);
+					m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
+					m_ptrPlayer->SetPlayerMagPole(STATE_NONE);
 				}
 			}
 
 			if (secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 				if (!leavePlayer2) {
 					leavePlayer2 = true;
-					ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
-					ptrPlayer2->SetPlayerMagPole(3);
+					m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
+					m_ptrPlayer2->SetPlayerMagPole(STATE_NONE);
 				}
 			}
 

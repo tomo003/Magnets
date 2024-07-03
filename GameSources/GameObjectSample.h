@@ -1,6 +1,6 @@
 /*!
 @file GameObjectSample.h
-@brief CSVファイル読み込み確認用仮オブジェクト
+@brief ゲームステージのオブジェクト
 */
 
 #pragma once
@@ -9,47 +9,58 @@
 
 namespace basecross {
 
+	//--------------------------------------------------------------------------------------
 	//地面オブジェクト
+	//--------------------------------------------------------------------------------------
 	class Block : public GameObject{
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		wstring m_Texture;
 	public:
+		//構築と破棄
 		Block(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const wstring& Texture
 		);
 		virtual ~Block();
+		//初期化
 		virtual void OnCreate() override;
-		virtual void OnUpdate() override;
 	};
 
-	//テクスチャが変更できる四角いオブジェクト
+	//--------------------------------------------------------------------------------------
+	//テクスチャ変更が可能な四角いオブジェクト
+	//--------------------------------------------------------------------------------------
 	class ChangeTextureBlock : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		wstring m_Texture;
 	public:
+		//構築と破棄
 		ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const wstring& Texture
 		);
 		virtual ~ChangeTextureBlock();
+		//初期化
 		virtual void OnCreate() override;
 	};
 
+	//--------------------------------------------------------------------------------------
 	//スタートオブジェクト
+	//--------------------------------------------------------------------------------------
 	class Start : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
+		//構築と破棄
 		Start(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~Start();
+		//初期化
 		virtual void OnCreate() override;
 	};
 }
