@@ -67,12 +67,12 @@ namespace basecross {
 		if (!leavePlayer)
 		{
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRed_MESH");
-			m_ptrPlayer->SetPlayerMagPole(3);
+			m_ptrPlayer->SetPlayerMagPole(STATE_NONE);
 		}
 		if (!leavePlayer2)
 		{
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blue_MESH");
-			m_ptrPlayer2->SetPlayerMagPole(3);
+			m_ptrPlayer2->SetPlayerMagPole(STATE_NONE);
 		}
 		//プレイヤーが離れていなくてスタートポジションにだとりついていなかったら
 		if (((ptrMagenetPosN.x + ptrMagenetPosS.x)/2) < ptrStartPos.x && !leavePlayer && !leavePlayer2)
@@ -118,7 +118,7 @@ namespace basecross {
 				if (!leavePlayer) {
 					leavePlayer = true;
 					m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
-					m_ptrPlayer->SetPlayerMagPole(3);
+					m_ptrPlayer->SetPlayerMagPole(STATE_NONE);
 				}
 			}
 
@@ -126,7 +126,7 @@ namespace basecross {
 				if (!leavePlayer2) {
 					leavePlayer2 = true;
 					m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");
-					m_ptrPlayer2->SetPlayerMagPole(3);
+					m_ptrPlayer2->SetPlayerMagPole(STATE_NONE);
 				}
 			}
 

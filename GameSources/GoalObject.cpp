@@ -51,10 +51,9 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		SetDrawLayer(2);
-
-		AddTag(L"GoalSquareRed");
 	}
 
+	//指定したテクスチャへの変更
 	void GoalSquareRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -104,10 +103,9 @@ namespace basecross {
 		SetAlphaActive(true);
 
 		SetDrawLayer(2);
-
-		AddTag(L"GoalSquareBlue");
 	}
 
+	//指定したテクスチャへの変更
 	void GoalSquareBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -152,10 +150,6 @@ namespace basecross {
 		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / (float)3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
-		SetAlphaActive(true);
-
-		AddTag(L"Goal");
-
 		//ゴールオブジェクトの上の板ポリの追加
 		m_ptrSquareRed = GetStage()->AddGameObject<GoalSquareRed>(Vec3(1.0f), Vec3(m_Position.x - 1, m_Position.y + 7, 0));
 		GetStage()->SetSharedGameObject(L"GoalSquareRed", m_ptrSquareRed);
@@ -173,6 +167,7 @@ namespace basecross {
 		}
 	}
 
+	//ゴール後の処理
 	void Goal::PlayerGoal()
 	{
 		auto& app = App::GetApp();
@@ -198,6 +193,7 @@ namespace basecross {
 		ptrDuoCamera->ZoomCamera();
 	}
 
+	// ゴール状態のリセット
 	void Goal::GoalReset()
 	{
 		isCollPlayer = false;

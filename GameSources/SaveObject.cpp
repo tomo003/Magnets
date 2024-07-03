@@ -35,6 +35,7 @@ namespace basecross {
 		// 頂点インデックス
 		m_indices = {
 			0, 1, 2,
+			2, 1, 3,
 		};
 
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -47,8 +48,6 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
-
-		SetDrawLayer(2);
 
 		SetDrawLayer(5);
 	}
@@ -107,6 +106,7 @@ namespace basecross {
 		// 頂点インデックス
 		m_indices = {
 			0, 1, 2,
+			2, 1, 3,
 		};
 
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -119,8 +119,6 @@ namespace basecross {
 		transComp->SetScale(m_Scale);
 
 		SetAlphaActive(true);
-
-		SetDrawLayer(2);
 
 		SetDrawLayer(5);
 	}
@@ -192,8 +190,9 @@ namespace basecross {
 		transComp->SetPosition(m_Position.x, m_Position.y, m_Position.z - 1.0f);
 		transComp->SetScale(m_Scale);
 
-		SetDrawLayer(5);
 		SetAlphaActive(true);
+
+		SetDrawLayer(5);
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -241,8 +240,6 @@ namespace basecross {
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
 		//セーブオブジェクトの上の文字の追加
 		GetStage()->AddGameObject<SavePointTexture>(Vec3(3.0f, 0.75f, 1.0f), Vec3(transComp->GetPosition().x, transComp->GetPosition().y + 6.5f, transComp->GetPosition().z));
-
-		AddTag(L"SavePoint");
 	}
 
 	void SavePoint::OnUpdate()
@@ -263,7 +260,7 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position);
 	}
 
-	// セーブ前の状態に戻す
+	// セーブ状態のリセット
 	void SavePoint::Reset()
 	{
 		if (!isCollPlayer || !isCollPlayer2)

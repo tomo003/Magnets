@@ -26,7 +26,10 @@ namespace basecross {
 		virtual ~GoalSquareRed();
 		//初期化
 		virtual void OnCreate() override;
-
+		/**
+		* @brief テクスチャを変更する関数
+		* @param (Texture) 適応したいテクスチャ名
+		*/
 		void ChangeTexture(wstring Texture);
 	};
 
@@ -48,7 +51,10 @@ namespace basecross {
 		virtual ~GoalSquareBlue();
 		//初期化
 		virtual void OnCreate() override;
-
+		/**
+		* @brief テクスチャを変更する関数
+		* @param (Texture) 適応したいテクスチャ名
+		*/
 		void ChangeTexture(wstring Texture);
 	};
 
@@ -76,7 +82,13 @@ namespace basecross {
 		virtual void OnCreate() override;
 
 		virtual void OnUpdate() override;
+		/**
+		* @brief プレイヤーのゴール後の処理を行う関数
+		*/
 		void PlayerGoal();
+		/**
+		* @brief プレイヤーのゴール前にリセットする関数
+		*/
 		void GoalReset();
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
