@@ -380,17 +380,17 @@ namespace basecross {
 					SMagObjGroup->IntoGroup(ptrMag);
 					break;
 
-				case 3: //金属
+				case 3: //金属オブジェクト
 					ptrMetal = AddGameObject<Metal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
 					MetalObjGroup->IntoGroup(ptrMetal);
 					break;
 
-				case 4: //金属動くやつ
+				case 4: //左右に動く金属のオブジェクト
 					// position, Dir, Vol
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0), RIGHT_VEC, 3.5f);
 					break;
 
-				case 5: //金属動くやつ
+				case 5: //上下に動く金属のオブジェクト
 					// position, Dir, Vol
 					ptrMoveMetal = AddGameObject<MoveMetalObject>(Vec3(posX, -posY + m_CSVHeight, 0), UP_VEC, 3.5f);
 					break;
@@ -456,7 +456,7 @@ namespace basecross {
 					AddGameObject<CoinObject>(Vec3(posX, -posY + m_CSVHeight, 0));
 					break;
 
-				case 19:
+				case 19: //磁力のないハンマー
 					AddGameObject<HammerObject>(Vec3(posX, -posY + m_CSVHeight, 0),STATE_NONE);
 					break;
 

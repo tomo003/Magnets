@@ -1,26 +1,14 @@
 /*!
 @file SaveObject.cpp
 @brief セーブオブジェクト
+@autor 吉田鈴
+@detail セーブオブジェクトやその周辺のオブジェクトの実装
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の赤い板ポリ
-	//--------------------------------------------------------------------------------------
-	SaveTriangleRed::SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SaveTriangleRed::~SaveTriangleRed() {}
 
 	void SaveTriangleRed::OnCreate()
 	{
@@ -52,7 +40,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//板ポリを回転させる
 	void SaveTriangleRed::Rotate()
 	{
 		// アプリケーションオブジェクトを取得する
@@ -64,6 +51,7 @@ namespace basecross {
 		float end = XM_2PI;
 		float rot = Utility::Lerp(start, end, m_ratio); // スタートの角度から終わりの角度まで線形補間関数
 		m_ratio += m_rotateSpeed * delta / abs(end - start);
+		// 線形補間の割合が1以下だったら
 		if (m_ratio >= 1.0f)
 		{
 			m_ratio = 0.0f;
@@ -72,26 +60,11 @@ namespace basecross {
 		transComp->SetRotation(Vec3(0.0f, rot,0.0f));
 	}
 
-	//テクスチャを変更する(変更するテクスチャの名前)
 	void SaveTriangleRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
 	}
-
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の青い板ポリ
-	//--------------------------------------------------------------------------------------
-	SaveTriangleBlue::SaveTriangleBlue(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SaveTriangleBlue::~SaveTriangleBlue() {}
 
 	void SaveTriangleBlue::OnCreate()
 	{
@@ -123,7 +96,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//板ポリを回転させる
 	void SaveTriangleBlue::Rotate()
 	{
 		// アプリケーションオブジェクトを取得する
@@ -135,6 +107,7 @@ namespace basecross {
 		float end = XM_2PI;
 		float rot = Utility::Lerp(start, end, m_ratio); // スタートの角度から終わりの角度まで線形補間関数
 		m_ratio += m_rotateSpeed * delta / abs(end - start); 
+		// 線形補間の割合が1以下だったら
 		if (m_ratio >= 1.0f)
 		{
 			m_ratio = 0.0f;
@@ -143,26 +116,11 @@ namespace basecross {
 		transComp->SetRotation(Vec3(0.0f, rot, 0.0f));
 	}
 
-	//テクスチャを変更する(変更するテクスチャの名前)
 	void SaveTriangleBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
 	}
-
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の文字の板ポリ
-	//--------------------------------------------------------------------------------------
-	SavePointTexture::SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SavePointTexture::~SavePointTexture() {}
 
 	void SavePointTexture::OnCreate()
 	{
@@ -195,20 +153,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//セーブポイント
-	//--------------------------------------------------------------------------------------
-	SavePoint::SavePoint(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SavePoint::~SavePoint() {}
-
 	void SavePoint::OnCreate()
 	{
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
@@ -233,25 +177,25 @@ namespace basecross {
 		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 5, m_Scale.z / (float)3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
-		//セーブオブジェクトの上の板ポリの追加
+		// セーブオブジェクトの上の板ポリの追加
 		m_ptrTriangleRed = GetStage()->AddGameObject<SaveTriangleRed>
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
 		m_ptrTriangleBlue = GetStage()->AddGameObject<SaveTriangleBlue>
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
-		//セーブオブジェクトの上の文字の追加
+		// セーブオブジェクトの上の文字の追加
 		GetStage()->AddGameObject<SavePointTexture>(Vec3(3.0f, 0.75f, 1.0f), Vec3(transComp->GetPosition().x, transComp->GetPosition().y + 6.5f, transComp->GetPosition().z));
 	}
 
 	void SavePoint::OnUpdate()
 	{
-		//両方のプレイヤーに触れたら
+		// 両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
-			//テクスチャの変更
+			// テクスチャの変更
 			auto transComp = GetComponent<Transform>();
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"PURPLE_TX");
-			//上の板ポリを回す
+			// 上の板ポリを回す
 			m_ptrTriangleRed->Rotate();
 			m_ptrTriangleBlue->Rotate();
 		}
@@ -260,9 +204,9 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position);
 	}
 
-	// セーブ状態のリセット
 	void SavePoint::Reset()
 	{
+		// プレイヤーのどちらかでも通過していなかったら
 		if (!isCollPlayer || !isCollPlayer2)
 		{
 			auto drawComp = AddComponent<PNTStaticDraw>();
@@ -281,7 +225,7 @@ namespace basecross {
 		auto ptrPos = GetComponent<Transform>()->GetPosition();
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 
-		//プレイヤー１が右側に通り抜けたら
+		// プレイヤー１が右側に通り抜けたら
 		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			isCollPlayer = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
@@ -289,7 +233,7 @@ namespace basecross {
 			m_ptrTriangleRed->ChangeTexture(L"TRIANGLERED_TX");
 			XAPtr->Start(L"SAVE_SE", 0, 3.0f);
 		}
-		//プレイヤー２が右側に通り抜けたら
+		// プレイヤー２が右側に通り抜けたら
 		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();

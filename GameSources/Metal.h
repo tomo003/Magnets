@@ -1,6 +1,8 @@
 /*!
 @file Metal.h
 @brief 金属オブジェクト
+@autor 
+@detail ステージの配置されている金属オブジェクトの実体
 */
 
 #pragma once
@@ -8,7 +10,9 @@
 #include "MagnetArea.h"
 
 namespace basecross {
-	//金属のオブジェクト
+	//--------------------------------------------------------------------------------------
+	// 金属オブジェクト
+	//--------------------------------------------------------------------------------------
 	class Metal : public GameObject {
 	public:
 		enum class EState {
@@ -32,11 +36,16 @@ namespace basecross {
 		Vec3 m_Position;
 
 	public:
-		Metal(const std::shared_ptr<Stage>& StagePtr,
+		Metal::Metal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~Metal();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		Metal::~Metal() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
 		//void OnDestroy()override;

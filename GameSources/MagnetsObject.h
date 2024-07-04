@@ -61,7 +61,9 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 	};
 
-	//N極のオブジェクト
+	//--------------------------------------------------------------------------------------
+	// N極の磁石オブジェクト
+	//--------------------------------------------------------------------------------------
 	class MagnetN : public GameObject {
 	public:
 		enum class EState {
@@ -78,7 +80,6 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
-		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
@@ -87,21 +88,22 @@ namespace basecross {
 		std::shared_ptr<EffectPlayer> m_efk;
 		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
-		MagnetN(const std::shared_ptr<Stage>& StagePtr,
+		MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~MagnetN();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		MagnetN::~MagnetN() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate()override;
-		//void OnDestroy()override;
 
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
-		}
-		float GetMass() {
-			return m_ObjMass;
 		}
 		float GetAreaRadius() {
 			return m_MagAreaRadius;
@@ -115,10 +117,11 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 
 		void MoveMagnetArea(const Vec3 pos);
-		//void EfkStop();
 	};
 
-	//S極のオブジェクト
+	//--------------------------------------------------------------------------------------
+	// S極の磁石オブジェクト
+	//--------------------------------------------------------------------------------------
 	class MagnetS : public GameObject {
 	public:
 		enum class EState {
@@ -135,7 +138,6 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
-		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
@@ -144,20 +146,22 @@ namespace basecross {
 		std::shared_ptr<EffectPlayer> m_efk;
 		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
-		MagnetS(const std::shared_ptr<Stage>& StagePtr,
+		MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~MagnetS();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		MagnetS::~MagnetS() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
 		//void OnDestroy()override;
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
-		}
-		float GetMass() {
-			return m_ObjMass;
 		}
 		float GetAreaRadius() {
 			return m_MagAreaRadius;
@@ -171,7 +175,6 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 
 		void MoveMagnetArea(const Vec3 pos);
-		//void EfkStop();
 	};
 }
 //end basecross

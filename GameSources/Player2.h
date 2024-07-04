@@ -122,13 +122,42 @@ namespace basecross {
 		void JumpCountReset() {
 			jumpCount = 2;
 		}
+
+		/**
+		* @brief リスポーン位置を設定する関数
+		* @param 引数(Other)更新したいリスポーン位置の基準となるオブジェクト
+		* @return 戻り値なし
+		*/
 		void SetRespawnPoint(shared_ptr<GameObject>& Other);
+
+		/**
+		* @brief リスポーン位置を設定する関数
+		* @param 引数(Other)更新したいリスポーン位置の基準となる座標
+		* @return 戻り値なし
+		*/
 		void SetRespawnPoint(Vec3 RepawnPoint);
+
+		/**
+		* @brief リスポーン位置を取得する関数
+		* @param 引数なし
+		* @return 戻り値プレイヤーのリスポーン位置(m_RespawnPoint)
+		*/
 		Vec3 GetRespawnPoint()const {
 			return m_RespawnPoint;
 		}
+
+		/**
+		* @brief プレイヤーがリスポーンする関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
 		void RespawnPlayer();
 
+		/**
+		* @brief プレイヤーが離れすぎないように構想制限する関数
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
 		void PlayerLimit();
 
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;

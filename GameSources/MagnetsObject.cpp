@@ -93,22 +93,9 @@ namespace basecross {
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
 			else if (playerMagPole != objMagPole) {
-			}// ptrPlayer->ApplyAttration();
-
+			}
 		}
 	}
-
-	//ステージのN極マグネットプロックの仮設置
-	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	MagnetN::~MagnetN() {}
 
 	void MagnetN::OnCreate()
 	{
@@ -146,22 +133,22 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
-		//プレイヤーが一定の距離に入ったら
+		// プレイヤーが一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
-			//属性がない同士だったら
+			// 属性がない同士だったら
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
-			//同じ属性だったら
+			// 同じ属性だったら
 			else if (playerMagPole == objMagPole) {
-				//斥力の呼び出し
+				// 斥力の呼び出し
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
-			//違う属性だったら
+			// 違う属性だったら
 			else if (playerMagPole != objMagPole) {
-				//引力の呼び出し
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttration();
+			}
 
 		}
 	}
@@ -174,14 +161,19 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		// プレイヤー2が一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
+			// 同じ属性だったら
 			else if (playerMagPole == objMagPole) {
+				// 斥力の呼び出し
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
+			// 違う属性だったら
 			else if (playerMagPole != objMagPole) {
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 
@@ -191,26 +183,6 @@ namespace basecross {
 	void MagnetN::MoveMagnetArea(const Vec3 pos) {
 		m_ptrArea->AddComponent<Transform>()->SetPosition(pos);
 	}
-
-	//void MagnetN::EfkStop() {
-	//	m_efk->StopEffect();
-	//}
-	//void MagnetN::OnDestroy() {
-	//	EfkStop();
-	//}
-
-
-	//ステージのS極マグネットプロックの仮設置
-	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	MagnetS::~MagnetS() {}
 
 	void MagnetS::OnCreate()
 	{
@@ -247,16 +219,21 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		// プレイヤーが一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
+			// 同じ属性だったら
 			else if (playerMagPole == objMagPole) {
+				// 斥力の呼び出し
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
+			// 違う属性だったら
 			else if (playerMagPole != objMagPole) {
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
-			}// ptrPlayer->ApplyAttration();
+			}
 
 		}
 	}
@@ -269,14 +246,19 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		// プレイヤーが一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
 			if (playerMagPole < 0 || objMagPole < 0) {
 				return;
 			}
+			// 同じ属性だったら
 			else if (playerMagPole == objMagPole) {
+				// 斥力の呼び出し
 				ptrPlayer->ApplyRepulsion(GetThis<GameObject>());
 			}
+			// 違う属性だったら
 			else if (playerMagPole != objMagPole) {
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 

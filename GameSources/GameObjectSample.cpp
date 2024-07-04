@@ -1,6 +1,8 @@
 /*!
 @file GameObjectSample.cpp
 @brief ゲームステージのオブジェクト
+@autor 吉田鈴
+@detail ステージ上にCSVで作成されるオブジェクト実装
 */
 
 #include "stdafx.h"
@@ -9,21 +11,8 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//地面オブジェクト
+	// 地面オブジェクト
 	//--------------------------------------------------------------------------------------
-	Block::Block(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position,
-		const wstring& Texture
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position),
-		m_Texture(Texture)
-	{
-	}
-	Block::~Block(){}
-
 	void Block::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
@@ -40,21 +29,8 @@ namespace basecross {
 	}
 
 	//--------------------------------------------------------------------------------------
-	//テクスチャ変更が可能な四角いオブジェクト
+	// テクスチャ変更が可能な四角いオブジェクト
 	//--------------------------------------------------------------------------------------
-	ChangeTextureBlock::ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position,
-		const wstring& Texture
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position),
-		m_Texture(Texture)
-	{
-	}
-	ChangeTextureBlock::~ChangeTextureBlock() {}
-
 	void ChangeTextureBlock::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
@@ -71,19 +47,8 @@ namespace basecross {
 	}
 
 	//--------------------------------------------------------------------------------------
-	//スタートオブジェクト
+	// スタートオブジェクト
 	//--------------------------------------------------------------------------------------
-	Start::Start(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	Start::~Start() {}
-
 	void Start::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
@@ -96,7 +61,7 @@ namespace basecross {
 
 		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
-			//カメラにスタートオブジェクト設定
+			// カメラにスタートオブジェクト設定
 			ptrCamera->SetStartObj(GetThis<GameObject>());
 		}
 	}
