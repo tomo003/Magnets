@@ -1,6 +1,8 @@
 /*!
 @file SaveObject.h
 @brief セーブオブジェクト
+@autor 吉田鈴
+@detail セーブオブジェクトやその周辺のオブジェクトの実体
 */
 
 #pragma once
@@ -18,7 +20,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 
-		float m_ratio = 0.0;
+		float m_ratio = 0.0;        // 線形補間の割合
 		float m_rotateSpeed = 3.0f; // 板ポリの回転する速さ
 	public:
 		//構築と破棄
@@ -55,7 +57,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 
-		float m_ratio = 0.0;
+		float m_ratio = 0.0;        // 線形補間の割合
 		float m_rotateSpeed = 3.0f; // 板ポリの回転する速さ
 	public:
 		//構築と破棄
@@ -109,11 +111,11 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
-		std::shared_ptr<SaveTriangleRed> m_ptrTriangleRed;
-		std::shared_ptr<SaveTriangleBlue> m_ptrTriangleBlue;
+		std::shared_ptr<SaveTriangleRed> m_ptrTriangleRed;   // SaveTriangleRed
+		std::shared_ptr<SaveTriangleBlue> m_ptrTriangleBlue; // SaveTriangleBlue
 
-		bool isCollPlayer = false;
-		bool isCollPlayer2 = false;
+		bool isCollPlayer = false;  // プレイヤーが通り過ぎたかの判定
+		bool isCollPlayer2 = false; // プレイヤー２が通り過ぎたかの判定
 	public:
 		//構築と破棄
 		SavePoint(const std::shared_ptr<Stage>& StagePtr,

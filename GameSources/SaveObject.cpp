@@ -1,6 +1,8 @@
 /*!
 @file SaveObject.cpp
 @brief セーブオブジェクト
+@autor 吉田鈴
+@detail セーブオブジェクトやその周辺のオブジェクトの実装
 */
 
 #include "stdafx.h"
@@ -8,9 +10,6 @@
 
 namespace basecross {
 
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の赤い板ポリ
-	//--------------------------------------------------------------------------------------
 	SaveTriangleRed::SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -63,6 +62,7 @@ namespace basecross {
 		float end = XM_2PI;
 		float rot = Utility::Lerp(start, end, m_ratio); // スタートの角度から終わりの角度まで線形補間関数
 		m_ratio += m_rotateSpeed * delta / abs(end - start);
+		// 線形補間の割合が1以下だったら
 		if (m_ratio >= 1.0f)
 		{
 			m_ratio = 0.0f;
@@ -77,9 +77,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の青い板ポリ
-	//--------------------------------------------------------------------------------------
 	SaveTriangleBlue::SaveTriangleBlue(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -132,6 +129,7 @@ namespace basecross {
 		float end = XM_2PI;
 		float rot = Utility::Lerp(start, end, m_ratio); // スタートの角度から終わりの角度まで線形補間関数
 		m_ratio += m_rotateSpeed * delta / abs(end - start); 
+		// 線形補間の割合が1以下だったら
 		if (m_ratio >= 1.0f)
 		{
 			m_ratio = 0.0f;
@@ -146,9 +144,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の文字の板ポリ
-	//--------------------------------------------------------------------------------------
 	SavePointTexture::SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -191,9 +186,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//セーブポイント
-	//--------------------------------------------------------------------------------------
 	SavePoint::SavePoint(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -258,6 +250,7 @@ namespace basecross {
 
 	void SavePoint::Reset()
 	{
+		// プレイヤーのどちらかでも通過していなかったら
 		if (!isCollPlayer || !isCollPlayer2)
 		{
 			auto drawComp = AddComponent<PNTStaticDraw>();

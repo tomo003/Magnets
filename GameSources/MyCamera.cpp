@@ -1,6 +1,8 @@
 /*!
 @file MyCamera.cpp
 @brief ゲームステージのカメラ
+@autor 吉田鈴
+@detail ゲームステージ上でのプレイヤー追従カメラ、ズーム演出カメラなど実装
 */
 
 #include "stdafx.h"
@@ -128,9 +130,9 @@ namespace basecross {
 			m_startY = m_Height;
 			isZoomCamera = true;
 		}
-		m_EyeZ = Utility::Lerp(m_startEyeZ, m_zoomEyeZ, m_ratio);
-		m_Height = Utility::Lerp(m_startY, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
-		// Lerpの移動割合が1以下だったら
+		m_EyeZ = Utility::Lerp(m_startEyeZ, m_zoomEyeZ, m_ratio); // スタートのZからZoom後のZまで線形補間関数
+		m_Height = Utility::Lerp(m_startY, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio); // スタートの高さから終わりの高さまで線形補間関数
+		// 線形補間の割合が1以下だったら
 		if (m_ratio < 1)
 		{
 			m_ratio += 0.01;

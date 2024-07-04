@@ -50,7 +50,7 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		SetDrawLayer(2);
+		SetDrawLayer(5);
 	}
 
 	void GoalSquareRed::ChangeTexture(wstring Texture)
@@ -101,7 +101,7 @@ namespace basecross {
 
 		SetAlphaActive(true);
 
-		SetDrawLayer(2);
+		SetDrawLayer(5);
 	}
 
 	void GoalSquareBlue::ChangeTexture(wstring Texture)

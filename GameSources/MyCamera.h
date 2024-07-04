@@ -2,7 +2,7 @@
 @file MyCamera.h
 @brief ゲームステージのカメラ
 @autor 吉田鈴
-@detail 
+@detail ゲームステージ上でのプレイヤー追従カメラ、ズーム演出カメラなど実体
 */
 
 #pragma once
@@ -26,7 +26,7 @@ namespace basecross {
 		float m_EyeZ = -20.0f;     // カメラのEyeのZ座標
 		float m_zoomEyeZ = -10.0f; // カメラZoom時の最も近ずいた位置
 		float m_Height = 0.0f;     // カメラの高さ
-		float m_ratio = 0.0f;      // 移動の割合
+		float m_ratio = 0.0f;      // 線形補間の割合
 		float m_startEyeZ = 0.0f;  // Zoomが始まるカメラの位置
 		float m_startY = 0.0f;     // Zoomが始まるカメラの高さ
 
