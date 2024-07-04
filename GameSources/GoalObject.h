@@ -21,11 +21,16 @@ namespace basecross {
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
 		//構築と破棄
-		GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
+		GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~GoalSquareRed();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		GoalSquareRed::~GoalSquareRed() {}
 		//初期化
 		virtual void OnCreate() override;
 		/**
@@ -47,11 +52,16 @@ namespace basecross {
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
 		//構築と破棄
-		GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
+		GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~GoalSquareBlue();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		GoalSquareBlue::~GoalSquareBlue() {}
 		//初期化
 		virtual void OnCreate() override;
 		/**
@@ -77,11 +87,16 @@ namespace basecross {
 		bool isDisplaySprite = false; // スプライトが表示されているかの判定
 	public:
 		//構築と破棄
-		Goal(const std::shared_ptr<Stage>& StagePtr,
+		Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~Goal();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		Goal::~Goal() {}
 		//初期化
 		virtual void OnCreate() override;
 

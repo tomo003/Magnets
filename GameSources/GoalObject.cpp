@@ -10,17 +10,6 @@
 
 namespace basecross {
 
-	GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	GoalSquareRed::~GoalSquareRed() {}
-
 	void GoalSquareRed::OnCreate()
 	{
 		// 頂点データ
@@ -58,17 +47,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	GoalSquareBlue::~GoalSquareBlue() {}
-
 	void GoalSquareBlue::OnCreate()
 	{
 		// 頂点データ
@@ -105,17 +83,6 @@ namespace basecross {
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
 	}
-
-	Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	Goal::~Goal() {}
 
 	void Goal::OnCreate()
 	{

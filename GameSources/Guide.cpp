@@ -8,19 +8,6 @@
 
 namespace basecross {
 	//ゴールの上の四角赤仮設置
-	Guide::Guide(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position,
-		const int& Number
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position),
-		m_Number(Number)
-	{
-	}
-	Guide::~Guide() {}
-
 	void Guide::OnCreate()
 	{
 		// 頂点データ

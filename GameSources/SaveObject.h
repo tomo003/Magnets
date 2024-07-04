@@ -24,11 +24,16 @@ namespace basecross {
 		float m_rotateSpeed = 3.0f; // 板ポリの回転する速さ
 	public:
 		// 構築と破棄
-		SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
+		SaveTriangleRed::SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~SaveTriangleRed();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		SaveTriangleRed::~SaveTriangleRed() {}
 		// 初期化
 		virtual void OnCreate() override;
 
@@ -61,11 +66,16 @@ namespace basecross {
 		float m_rotateSpeed = 3.0f; // 板ポリの回転する速さ
 	public:
 		//構築と破棄
-		SaveTriangleBlue(const std::shared_ptr<Stage>& StagePtr,
+		SaveTriangleBlue::SaveTriangleBlue(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~SaveTriangleBlue();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		SaveTriangleBlue::~SaveTriangleBlue() {}
 		// 初期化
 		virtual void OnCreate() override;
 
@@ -95,11 +105,16 @@ namespace basecross {
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
 		// 構築と破棄
-		SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
+		SavePointTexture::SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~SavePointTexture();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		SavePointTexture::~SavePointTexture() {}
 		// 初期化
 		virtual void OnCreate() override;
 	};
@@ -118,11 +133,16 @@ namespace basecross {
 		bool isCollPlayer2 = false; // プレイヤー２が通り過ぎたかの判定
 	public:
 		// 構築と破棄
-		SavePoint(const std::shared_ptr<Stage>& StagePtr,
+		SavePoint::SavePoint(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~SavePoint();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		SavePoint::~SavePoint() {}
 		// 初期化
 		virtual void OnCreate() override;
 

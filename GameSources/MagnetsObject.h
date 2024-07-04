@@ -87,14 +87,18 @@ namespace basecross {
 		std::shared_ptr<EffectPlayer> m_efk;
 		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
-		MagnetN(const std::shared_ptr<Stage>& StagePtr,
+		MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~MagnetN();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		MagnetN::~MagnetN() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate()override;
-		//void OnDestroy()override;
 
 
 		int GetState() {
@@ -115,7 +119,6 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 
 		void MoveMagnetArea(const Vec3 pos);
-		//void EfkStop();
 	};
 
 	//S極のオブジェクト
@@ -144,11 +147,16 @@ namespace basecross {
 		std::shared_ptr<EffectPlayer> m_efk;
 		std::shared_ptr<MagnetArea> m_ptrArea;
 	public:
-		MagnetS(const std::shared_ptr<Stage>& StagePtr,
+		MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~MagnetS();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		MagnetS::~MagnetS() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate();
 		//void OnDestroy()override;
@@ -171,7 +179,6 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 
 		void MoveMagnetArea(const Vec3 pos);
-		//void EfkStop();
 	};
 }
 //end basecross

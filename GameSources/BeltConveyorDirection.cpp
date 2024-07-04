@@ -1,27 +1,14 @@
 /*!
-@file BeltConveyor.cpp
-@brief ベルトコンベアー
+@file BeltConveyorDirection.h
+@brief ベルトコンベアの回転方向を表す矢印
+@autor 吉田鈴
+@detail ベルトコンベアの回転方向を表す矢印板ポリの実装
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-
-	//--------------------------------------------------------------------------------------
-	//	右方向の矢印
-	//--------------------------------------------------------------------------------------
-		//ゴールの上の四角青仮設置
-	RightGuide::RightGuide(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	RightGuide::~RightGuide() {}
 
 	void RightGuide::OnCreate()
 	{
@@ -48,21 +35,6 @@ namespace basecross {
 		transComp->SetPosition(m_Position);
 		transComp->SetScale(m_Scale);
 	}
-
-	//--------------------------------------------------------------------------------------
-	//	左方向の矢印
-	//--------------------------------------------------------------------------------------
-		//ゴールの上の四角青仮設置
-	LeftGuide::LeftGuide(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	LeftGuide::~LeftGuide() {}
 
 	void LeftGuide::OnCreate()
 	{

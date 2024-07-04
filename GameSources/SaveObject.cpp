@@ -10,17 +10,6 @@
 
 namespace basecross {
 
-	SaveTriangleRed::SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SaveTriangleRed::~SaveTriangleRed() {}
-
 	void SaveTriangleRed::OnCreate()
 	{
 		// 頂点データ
@@ -76,17 +65,6 @@ namespace basecross {
 		auto drawComp = AddComponent<PTStaticDraw>();
 		drawComp->SetTextureResource(Texture);
 	}
-
-	SaveTriangleBlue::SaveTriangleBlue(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SaveTriangleBlue::~SaveTriangleBlue() {}
 
 	void SaveTriangleBlue::OnCreate()
 	{
@@ -144,17 +122,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	SavePointTexture::SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SavePointTexture::~SavePointTexture() {}
-
 	void SavePointTexture::OnCreate()
 	{
 		// 頂点データ
@@ -185,17 +152,6 @@ namespace basecross {
 
 		SetDrawLayer(5);
 	}
-
-	SavePoint::SavePoint(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	SavePoint::~SavePoint() {}
 
 	void SavePoint::OnCreate()
 	{

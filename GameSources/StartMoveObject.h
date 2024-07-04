@@ -33,11 +33,16 @@ namespace basecross {
 
 public:
 	// ç\ízÇ∆îjä¸
-	StartMoveObject(const std::shared_ptr<Stage>&StagePtr,
-		const Vec3 & Scale,
-		const Vec3 & Position
-	);
-	virtual ~StartMoveObject();
+	StartMoveObject::StartMoveObject(const std::shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Position
+	) :
+		GameObject(StagePtr),
+		m_Scale(Scale),
+		m_Position(Position)
+	{
+	}
+	StartMoveObject::~StartMoveObject() {}
 	// èâä˙âª
 	virtual void OnCreate() override;
 

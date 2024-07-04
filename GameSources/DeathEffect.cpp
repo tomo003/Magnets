@@ -1,22 +1,14 @@
 /*!
 @file DeathEffect.cpp
 @brief 死亡時のエフェクト
+@autor 吉田鈴
+@detail プレイヤーの死亡時に出る飛び散るエフェクトの実装
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-	DeathEffectImg::DeathEffectImg(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	DeathEffectImg::~DeathEffectImg() {}
 
 	void DeathEffectImg::OnCreate()
 	{
@@ -95,6 +87,7 @@ namespace basecross {
 		float delta = app->GetElapsedTime();
 
 		m_time -= delta;
+		// 一定時間たつまでループ
 		if (m_time > 0)
 		{
 			for (int i = 0;i < 8;i++)
@@ -105,6 +98,7 @@ namespace basecross {
 				pos.y -= sin(m_forward[i] * XM_PI / 180) * m_speed;
 				ptrEffect[i]->GetComponent<Transform>()->SetPosition(pos);
 
+				// 開始時のポジションからm_removeDistanceより離れたら
 				if ((m_startPos - pos).length() > m_removeDistance)
 				{
 					for (int j = 0;j < 8;j++)
@@ -114,10 +108,12 @@ namespace basecross {
 					m_ptrPlayerF = dynamic_pointer_cast<Player>(m_owner);
 					m_ptrPlayerS = dynamic_pointer_cast<Player2>(m_owner);
 
+					// この関数を呼んだのがプレイヤー１だったら
 					if (m_ptrPlayerF)
 					{
 						m_ptrPlayerF->PlayerDeath();
 					}
+					// この関数を呼んだのがのがプレイヤー２だったら
 					else if (m_ptrPlayerS)
 					{
 						m_ptrPlayerS->PlayerDeath();

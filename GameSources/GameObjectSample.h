@@ -18,12 +18,18 @@ namespace basecross {
 		wstring m_Texture;
 	public:
 		//\’z‚Æ”jŠü
-		Block(const std::shared_ptr<Stage>& StagePtr,
+		Block::Block(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const wstring& Texture
-		);
-		virtual ~Block();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position),
+			m_Texture(Texture)
+		{
+		}
+		Block::~Block() {}
 		//‰Šú‰»
 		virtual void OnCreate() override;
 	};
@@ -37,12 +43,18 @@ namespace basecross {
 		wstring m_Texture;
 	public:
 		//\’z‚Æ”jŠü
-		ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
+		ChangeTextureBlock::ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const wstring& Texture
-		);
-		virtual ~ChangeTextureBlock();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position),
+			m_Texture(Texture)
+		{
+		}
+		ChangeTextureBlock::~ChangeTextureBlock() {}
 		//‰Šú‰»
 		virtual void OnCreate() override;
 	};
@@ -55,11 +67,16 @@ namespace basecross {
 		Vec3 m_Position;
 	public:
 		//\’z‚Æ”jŠü
-		Start(const std::shared_ptr<Stage>& StagePtr,
+		Start::Start(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
-		);
-		virtual ~Start();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position)
+		{
+		}
+		Start::~Start() {}
 		//‰Šú‰»
 		virtual void OnCreate() override;
 	};

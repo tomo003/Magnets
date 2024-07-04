@@ -99,17 +99,6 @@ namespace basecross {
 	}
 
 	//ステージのN極マグネットプロックの仮設置
-	MagnetN::MagnetN(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	MagnetN::~MagnetN() {}
-
 	void MagnetN::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();
@@ -192,26 +181,7 @@ namespace basecross {
 		m_ptrArea->AddComponent<Transform>()->SetPosition(pos);
 	}
 
-	//void MagnetN::EfkStop() {
-	//	m_efk->StopEffect();
-	//}
-	//void MagnetN::OnDestroy() {
-	//	EfkStop();
-	//}
-
-
 	//ステージのS極マグネットプロックの仮設置
-	MagnetS::MagnetS(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	MagnetS::~MagnetS() {}
-
 	void MagnetS::OnCreate()
 	{
 		auto drawComp = AddComponent<PNTStaticDraw>();

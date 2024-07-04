@@ -16,12 +16,18 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
-		Guide(const std::shared_ptr<Stage>& StagePtr,
+		Guide::Guide(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const int& Number
-		);
-		virtual ~Guide();
+		) :
+			GameObject(StagePtr),
+			m_Scale(Scale),
+			m_Position(Position),
+			m_Number(Number)
+		{
+		}
+		Guide::~Guide() {}
 		virtual void OnCreate() override;
 	};
 }
