@@ -52,7 +52,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//板ポリを回転させる
 	void SaveTriangleRed::Rotate()
 	{
 		// アプリケーションオブジェクトを取得する
@@ -72,7 +71,6 @@ namespace basecross {
 		transComp->SetRotation(Vec3(0.0f, rot,0.0f));
 	}
 
-	//テクスチャを変更する(変更するテクスチャの名前)
 	void SaveTriangleRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -123,7 +121,6 @@ namespace basecross {
 		SetDrawLayer(5);
 	}
 
-	//板ポリを回転させる
 	void SaveTriangleBlue::Rotate()
 	{
 		// アプリケーションオブジェクトを取得する
@@ -143,7 +140,6 @@ namespace basecross {
 		transComp->SetRotation(Vec3(0.0f, rot, 0.0f));
 	}
 
-	//テクスチャを変更する(変更するテクスチャの名前)
 	void SaveTriangleBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -260,7 +256,6 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position);
 	}
 
-	// セーブ状態のリセット
 	void SavePoint::Reset()
 	{
 		if (!isCollPlayer || !isCollPlayer2)

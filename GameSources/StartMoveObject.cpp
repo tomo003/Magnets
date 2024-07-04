@@ -129,7 +129,6 @@ namespace basecross {
 					m_ptrPlayer2->SetPlayerMagPole(STATE_NONE);
 				}
 			}
-
 		}
 
 		//ƒvƒŒƒCƒ„[‚ªŽ¥Î‚©‚ç—£‚ê‚½‚ç
@@ -155,8 +154,5 @@ namespace basecross {
 				m_ptrMagObjS->OnDestroy();
 			}
 		}
-		else {
-		}
-
 	}
 }

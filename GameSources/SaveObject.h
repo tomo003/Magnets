@@ -31,13 +31,16 @@ namespace basecross {
 		virtual void OnCreate() override;
 
 		/**
-		* @brief 回転する関数
+		* @brief オブジェクトを回転させる関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void Rotate();
 
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
+		* @return 戻り値なし
 		*/
 		void ChangeTexture(wstring Texture);
 	};
@@ -65,13 +68,16 @@ namespace basecross {
 		virtual void OnCreate() override;
 
 		/**
-		* @brief 回転する関数
+		* @brief オブジェクトを回転させる関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void Rotate();
 
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
+		* @return 戻り値なし
 		*/
 		void ChangeTexture(wstring Texture);
 	};
@@ -122,6 +128,8 @@ namespace basecross {
 
 		/**
 		* @brief プレイヤーのセーブ前にリセットする関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void Reset();
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;

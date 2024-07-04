@@ -53,7 +53,6 @@ namespace basecross {
 		SetDrawLayer(2);
 	}
 
-	//指定したテクスチャへの変更
 	void GoalSquareRed::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -105,7 +104,6 @@ namespace basecross {
 		SetDrawLayer(2);
 	}
 
-	//指定したテクスチャへの変更
 	void GoalSquareBlue::ChangeTexture(wstring Texture)
 	{
 		auto drawComp = AddComponent<PTStaticDraw>();
@@ -167,7 +165,6 @@ namespace basecross {
 		}
 	}
 
-	//ゴール後の処理
 	void Goal::PlayerGoal()
 	{
 		auto& app = App::GetApp();
@@ -193,7 +190,6 @@ namespace basecross {
 		ptrDuoCamera->ZoomCamera();
 	}
 
-	// ゴール状態のリセット
 	void Goal::GoalReset()
 	{
 		isCollPlayer = false;
