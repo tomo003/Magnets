@@ -55,14 +55,14 @@ namespace basecross {
 
 		float m_speed; // 移動の速さ
 		float m_forward[8] = {0.0f}; // 移動方向を表す単位ベクトル
-		Vec3 m_startPos;
+		Vec3 m_startPos; // 生成されたポジション
 
 		// プレイヤーへのポインタ
 		std::shared_ptr<GameObject> m_owner;
 		std::shared_ptr<Transform> m_ptrOwnerTrans;
 
 		float m_time = 2.0f;
-		float m_removeDistance = 6.0f;//エフェクトを削除する距離
+		float m_removeDistance = 6.0f; // エフェクトを削除する距離
 	public:
 		// 構築と破棄
 		DeathEffect(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
@@ -77,7 +77,6 @@ namespace basecross {
 
 		void OnUpdate() override;
 	};
-
 }
 //end basecross
 

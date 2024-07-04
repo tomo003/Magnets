@@ -60,15 +60,18 @@ namespace basecross {
 		m_ptrPlayerF = dynamic_pointer_cast<Player>(m_owner);
 		m_ptrPlayerS = dynamic_pointer_cast<Player2>(m_owner);
 
+		// この関数を呼んだのがプレイヤー１だったら
 		if (m_ptrPlayerF)
 		{
 			m_ptrOwnerTrans = m_ptrPlayerF->GetComponent<Transform>();
 		}
+		// この関数を呼んだのがプレイヤー２だったら
 		else if (m_ptrPlayerS)
 		{
 			m_ptrOwnerTrans = m_ptrPlayerS->GetComponent<Transform>();
 		}
 
+		// DeathEffectImgの生成
 		for (int i = 0; i < 8;i++)
 		{
 			ptrEffect[i] = GetStage()->AddGameObject<DeathEffectImg>(Vec3(1.0f), m_ptrOwnerTrans->GetWorldPosition());
