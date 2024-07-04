@@ -656,14 +656,15 @@ namespace basecross {
 	//オプションボタンを押すとポーズして操作する機能
 	void GameStage::Menu() {
 		auto PtrScene = App::GetApp()->GetScene<Scene>();
-		if (PtrScene->GetGameState() == GameState::Pause)
+		auto ptrPlayer = GetSharedGameObject<Player>(L"Player");
+		auto ptrPlayer2 = GetSharedGameObject<Player2>(L"Player2");
+		if (!ptrPlayer->IsGoal() && !ptrPlayer2->IsGoal() && PtrScene->GetGameState() == GameState::Pause)
 		{
 			auto PtrScene = App::GetApp()->GetScene<Scene>();
 			int	 PauseNum = PtrScene->GetPauseNum();
 			auto CntlVec = App::GetApp()->GetInputDevice().GetControlerVec();
 
 			if (CntlVec[0].bConnected) {
-				PtrScene->ResetScore(PtrScene->GetStageNum());
 				if (!m_CntrolLock) {
 					if (CntlVec[0].fThumbLY >= 0.8) {
 						PauseNum--;
@@ -814,10 +815,12 @@ namespace basecross {
 
 				if (PauseNum == 0)
 				{
+					PtrScene->ResetScore(PtrScene->GetStageNum());
 					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 				}
 				if (PauseNum == 1)
 				{
+					PtrScene->ResetScore(PtrScene->GetStageNum());
 					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 
 				}
