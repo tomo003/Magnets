@@ -1,6 +1,8 @@
 /*!
 @file MyCamera.h
 @brief ゲームステージのカメラ
+@autor 吉田鈴
+@detail 
 */
 
 #pragma once
@@ -9,66 +11,26 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//１人プレイ用のゲームステージプレイ時のカメラ
-	//--------------------------------------------------------------------------------------
-	class MyCamera :public Camera {
-
-	private:
-		weak_ptr<GameObject> m_TargetObj;
-		weak_ptr<GameObject> m_GoalObj;
-
-		float m_EyeZ = -20.0f;
-		float m_zoomEyeZ = -10.0f;
-		float m_Height = 0.0f;
-		float m_ratio = 0.0f;
-	public:
-		//コンストラクタ
-		MyCamera(){};
-
-		//デストラクタ
-		virtual ~MyCamera(){};
-
-		//目標オブジェクトを得る
-		shared_ptr<GameObject> GetPlayerObj() const;
-
-		//目標オブジェクトを設定する
-		void SetPlayerObj(const shared_ptr<GameObject>& Obj);
-
-		//カメラの視点を設定する
-		virtual void SetAt(const bsm::Vec3& At)override;
-
-		virtual void SetEye(const bsm::Vec3& Eye)override;
-
-		virtual void OnUpdate()override;
-
-		void ZoomCamera();
-	};
-
-	//--------------------------------------------------------------------------------------
 	//２人プレイ用のゲームステージプレイ時のカメラ
 	//--------------------------------------------------------------------------------------
 	class DuoCamera :public Camera {
 
 	private:
-		//カメラを引く最小値
-		float m_minEyeZ;
-		//カメラを引く最大値
-		float m_maxEyeZ;
+		float m_minEyeZ; // カメラを引く最小値
+		float m_maxEyeZ; // カメラを引く最大値
 
-		weak_ptr<GameObject> m_TargetObj;
-		weak_ptr<GameObject> m_SecondTargetObj;
-		weak_ptr<GameObject> m_StartObj;
-		weak_ptr<GameObject> m_GoalObj;
+		weak_ptr<GameObject> m_TargetObj;       // ステージで追従するオブジェクト1
+		weak_ptr<GameObject> m_SecondTargetObj; // ステージで追従するオブジェクト2
+		weak_ptr<GameObject> m_StartObj;        // スタートオブジェクト
 
-		float m_EyeZ = -20.0f;
-		float m_zoomEyeZ = -10.0f;
-		float m_Height = 0.0f; 
-		float m_PulusHeight = 3.0f;// 高さ上げる
-		float m_ratio = 0.0f;
-		float m_startEye = 0.0f;
-		float m_startHeight = 0.0f;
+		float m_EyeZ = -20.0f;     // カメラのEyeのZ座標
+		float m_zoomEyeZ = -10.0f; // カメラZoom時の最も近ずいた位置
+		float m_Height = 0.0f;     // カメラの高さ
+		float m_ratio = 0.0f;      // 移動の割合
+		float m_startEyeZ = 0.0f;  // Zoomが始まるカメラの位置
+		float m_startY = 0.0f;     // Zoomが始まるカメラの高さ
 
-		bool isZoomCamera = false;
+		bool isZoomCamera = false; // カメラのZoomが始まっているか
 	public:
 		DuoCamera() :
 			m_minEyeZ(-22),
@@ -78,76 +40,92 @@ namespace basecross {
 		//デストラクタ
 		virtual ~DuoCamera(){};
 
+		virtual void OnUpdate()override;
+
 		/**
 		* @brief 目標オブジェクトを得る
+		* @param 引数なし
+		* @return 戻り値 Playerオブジェクト
 		*/
 		shared_ptr<GameObject> GetPlayerObj() const;
 
 		/**
 		* @brief 目標オブジェクトを得る
+		* @param 引数なし
+		* @return 戻り値 Player2オブジェクト
 		*/
 		shared_ptr<GameObject> GetSecondPlayerObj() const;
 
 		/**
 		* @brief 目標オブジェクトを得る
+		* @param 引数なし
+		* @return 戻り値 Startオブジェクト
 		*/
 		shared_ptr<GameObject> GetStartObj() const;
 
 		/**
 		* @brief 目標オブジェクトを設定する
-		* @param (obj) 設定したいオブジェクト
+		* @param (obj) m_TargetObjに設定したいオブジェクト
+		* @return 戻り値なし
 		*/
-		virtual void SetPlayerObj(const shared_ptr<GameObject>& Obj);
+		void SetPlayerObj(const shared_ptr<GameObject>& Obj);
 
 		/**
 		* @brief 目標オブジェクトを設定する
-		* @param (obj) 設定したいオブジェクト
+		* @param (obj) m_SecondTargetObjに設定したいオブジェクト
+		* @return 戻り値なし
 		*/
-		virtual void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
+		void SetSecondPlayerObj(const shared_ptr<GameObject>& Obj);
 
 		/**
 		* @brief 目標オブジェクトを設定する
-		* @param (obj) 設定したいオブジェクト
+		* @param (obj) m_StartObjに設定したいオブジェクト
+		* @return 戻り値なし
 		*/
-		virtual void SetStartObj(const shared_ptr<GameObject>& Obj);
+		void SetStartObj(const shared_ptr<GameObject>& Obj);
 
 		/**
 		* @brief カメラの高さを設定する
 		* @param (Height) カメラの高さ
+		* @return 戻り値なし
 		*/
-		virtual void SetCameraHeight(const float Height);
+		void SetCameraHeight(const float Height);
 
 		/**
 		* @brief Atを設定する
 		* @param (At) 設定したいAt
+		* @return 戻り値なし
 		*/
 		virtual void SetAt(const bsm::Vec3& At)override;
 
 		/**
 		* @brief Eyeを設定する
 		* @param (Eye) 設定したいEye
+		* @return 戻り値なし
 		*/
 		virtual void SetEye(const bsm::Vec3& Eye)override;
 
-		virtual void OnUpdate()override;
-
 		/**
 		* @brief ゲームプレイ中の通常のカメラ
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
-		virtual void MoveCamera();
+		void MoveCamera();
 
 		/**
 		* @brief ステージ開始時のカメラ
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
-		virtual void StartCamera();
+		void StartCamera();
 
 		/**
 		* @brief ゴール時のカメラ
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
-		virtual void ZoomCamera();
+		void ZoomCamera();
 	};
-
-
 }
 //end basecross
 

@@ -9,61 +9,6 @@
 
 namespace basecross {
 
-	//--------------------------------------------------------------------------------------
-	//１人プレイ用のゲームステージプレイ時のカメラ
-	//--------------------------------------------------------------------------------------
-	shared_ptr<GameObject> MyCamera::GetPlayerObj() const {
-		if (!m_TargetObj.expired()) {
-			return m_TargetObj.lock();
-		}
-		return nullptr;
-	}
-
-	void MyCamera::SetPlayerObj(const shared_ptr<GameObject>& Obj) {
-		m_TargetObj = Obj;
-	}
-
-	void MyCamera::SetAt(const bsm::Vec3& At) {
-		Camera::SetAt(At);
-	}
-
-	void MyCamera::SetEye(const bsm::Vec3& Eye) {
-		Camera::SetEye(Eye);
-	}
-
-	void MyCamera::OnUpdate() {
-		auto ptrTarget = GetPlayerObj();
-		Vec3 newAt = GetAt();
-		newAt = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x, m_Height, 0.0f);
-		Vec3 newEye = GetEye();
-		newEye = Vec3(ptrTarget->GetComponent<Transform>()->GetWorldPosition().x,m_Height , m_EyeZ);
-
-		SetAt(newAt);
-		SetEye(newEye);
-		Camera::OnUpdate();
-	}
-
-	void MyCamera::ZoomCamera() {
-		auto& app = App::GetApp();
-		//デルタタイム(毎フレームからの経過時間)を取得する
-		float delta = app->GetElapsedTime();
-
-		auto ptrTarget = GetPlayerObj();
-
-		Vec3 newAt = GetAt();
-		Vec3 newEye = GetEye();
-		const float start = -20.0f;
-		m_EyeZ = Utility::Lerp(start, m_zoomEyeZ, m_ratio);
-		m_Height =Utility::Lerp(0.0f, ptrTarget->GetComponent<Transform>()->GetPosition().y + 1, m_ratio);
-		if (m_ratio < 1)
-		{
-			m_ratio += 0.01;
-		}
-	}
-
-	//--------------------------------------------------------------------------------------
-	//２人プレイ用のゲームステージプレイ時のカメラ
-	//--------------------------------------------------------------------------------------
 	shared_ptr<GameObject> DuoCamera::GetPlayerObj() const {
 		if (!m_TargetObj.expired()) {
 			return m_TargetObj.lock();
@@ -123,10 +68,12 @@ namespace basecross {
 		auto targetBetween = abs(targetPos.x - secondTargetPos.x)*0.3;
 		auto maxBetween =  abs(m_minEyeZ- m_maxEyeZ);//カメラが引く最大値
 		float eyeZ = GetEye().z;
+		// カメラがズームを初めていなく、プレイヤー同士の距離がカメラを引く最大値より小さかったら
 		if (!isZoomCamera && targetBetween < maxBetween)
 		{
 			m_EyeZ = m_minEyeZ - targetBetween;
 		}
+		// プレイヤー同士の距離がカメラを引く最大値より大きかったら
 		else if (targetBetween > maxBetween)
 		{
 			m_EyeZ = m_maxEyeZ;
@@ -174,14 +121,16 @@ namespace basecross {
 
 		Vec3 newAt = GetAt();
 		Vec3 newEye = GetEye();
+		// ズームが始まっていなかったら
 		if (!isZoomCamera)
 		{
-			m_startEye = m_minEyeZ - targetBetween;
-			m_startHeight = m_Height;
+			m_startEyeZ = m_minEyeZ - targetBetween;
+			m_startY = m_Height;
 			isZoomCamera = true;
 		}
-		m_EyeZ = Utility::Lerp(m_startEye, m_zoomEyeZ, m_ratio);
-		m_Height = Utility::Lerp(m_startHeight, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
+		m_EyeZ = Utility::Lerp(m_startEyeZ, m_zoomEyeZ, m_ratio);
+		m_Height = Utility::Lerp(m_startY, ((targetPos.y + secondTargetPos.y) / 2 ) +1, m_ratio);
+		// Lerpの移動割合が1以下だったら
 		if (m_ratio < 1)
 		{
 			m_ratio += 0.01;
