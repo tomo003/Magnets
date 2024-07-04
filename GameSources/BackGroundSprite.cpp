@@ -1,6 +1,8 @@
 /* !
-@file TitleSprite.h
-@brief ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ì”wŒi‚ÌŽÀ‘•
+@file BackGroundSprite.h
+@brief ”wŒi‚ÌŽÀ‘•
+@author ²“¡—I
+@detail@ƒ^ƒCƒgƒ‹‚âƒQ[ƒ€ƒXƒe[ƒW‚Å‚Ì”wŒi‚ðŽÀ‘•
 */
 
 #pragma once
@@ -8,6 +10,9 @@
 #include "Project.h"
 
 namespace basecross {
+	//--------------------------------------------------------------------------------------
+	//‰æ‘œƒ‹[ƒv‚Ì”wŒi
+	//--------------------------------------------------------------------------------------
 	void BackGroundSprite::OnCreate(){
 		m_mesh = MeshResource::CreateCube(10.0f, true);
 
@@ -42,6 +47,9 @@ namespace basecross {
 		m_mesh->UpdateVirtexBuffer<VertexPositionNormalTexture>(vertices);
 	}
 
+	//--------------------------------------------------------------------------------------
+	//‰æ‘œ‚²‚Æ‚Ì”wŒi
+	//--------------------------------------------------------------------------------------
 	void BackGroundSprite2::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_CUBE");

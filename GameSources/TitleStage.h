@@ -1,6 +1,7 @@
 /*!
 @file TiteleStage.h
-@brief タイトル画面
+@brief タイトルステージの実装
+@author 佐藤悠
 */
 
 #pragma once

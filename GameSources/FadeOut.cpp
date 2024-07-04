@@ -1,6 +1,7 @@
 /* !
 @file FadeOut.cpp
 @brief フェードアウトの実装
+@author 佐藤悠
 */
 
 #pragma once
@@ -17,7 +18,6 @@ namespace basecross {
 	}
 	// デストラクタ
 	FadeOut::~FadeOut() {}
-	// ここまで
 
 	// 初期化
 	void FadeOut::OnCreate()

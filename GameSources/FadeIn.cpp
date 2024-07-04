@@ -1,6 +1,7 @@
 /* !
 @file FadeIn.cpp
 @brief フェードインの実装
+@author 佐藤悠
 */
 
 #pragma once
@@ -17,7 +18,6 @@ namespace basecross {
 	}
 	// デストラクタ
 	FadeIn::~FadeIn() {}
-	// ここまで
 
 	// 初期化
 	void FadeIn::OnCreate()

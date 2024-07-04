@@ -1,3 +1,10 @@
+/*!
+@file PlayerBanner.cpp
+@brief プレイヤーのバナーの実装
+@author 佐藤悠
+@detail　プレイヤーの上のバナーを実装
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 

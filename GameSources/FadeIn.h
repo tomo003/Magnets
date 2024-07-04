@@ -1,6 +1,7 @@
 /*!
 @file FadeIn.h
-@brief フェードインの定義
+@brief フェードインの実装
+@author 佐藤悠
 */
 
 #pragma once

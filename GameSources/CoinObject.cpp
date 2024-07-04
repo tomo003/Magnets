@@ -1,6 +1,8 @@
 /*!
 @file CoinObject.cpp
-@brief ƒRƒCƒ“
+@brief ÀÑ‚Ì’Ç‰Á
+@author ²“¡—I
+@detail@Œ®‚ÌÀÑ‚ğÀ‘•
 */
 
 #include "stdafx.h"
@@ -46,6 +48,7 @@ namespace basecross {
 		}
 	}
 
+	//Œ®‚Ìæ“¾ˆ—
 	void CoinObject::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);

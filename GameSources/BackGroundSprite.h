@@ -1,6 +1,8 @@
 /* !
 @file BackGroundSprite.h
-@brief ゲームステージの背景
+@brief 背景の実装
+@author 佐藤悠
+@detail　タイトルやゲームステージでの背景を実装
 */
 
 #pragma once
@@ -8,10 +10,16 @@
 #include "Sprites.h"
 
 namespace basecross {
+	//--------------------------------------------------------------------------------------
+	//画像ループの背景
+	//--------------------------------------------------------------------------------------
+	/*
+	* @param tex	使用テクスチャ
+	*/
 	class BackGroundSprite : public GameObject {
 		shared_ptr<MeshResource> m_mesh;
 		const Vec2 m_DefaultSize; // 初期サイズ
-		wstring m_tex;
+		wstring m_tex; //使用テクスチャ
 	public:
 		// コンストラクタ
 		BackGroundSprite(const shared_ptr<Stage>& stage,const wstring tex) :
@@ -24,7 +32,9 @@ namespace basecross {
 		void OnCreate() override; 
 	};
 
+	//--------------------------------------------------------------------------------------
 	//画像ごとの背景
+	//--------------------------------------------------------------------------------------
 	/*
 	* @param scale		表示サイズ
 	* @param position	表示位置
@@ -32,9 +42,9 @@ namespace basecross {
 	*/
 	class BackGroundSprite2 : public GameObject {
 		
-		Vec3 m_scale;
-		Vec3 m_position;
-		wstring m_texkey;
+		Vec3 m_scale;	 //表示サイズ
+		Vec3 m_position; //表示位置
+		wstring m_texkey;//使用テクスチャ
 
 	public:
 		BackGroundSprite2(const shared_ptr<Stage>& stage,

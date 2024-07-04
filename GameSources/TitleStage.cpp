@@ -1,6 +1,7 @@
 /*!
-@file title.cpp
-@brief タイトル画面
+@file TitleStage.cpp
+@brief タイトルステージの実装
+@author 佐藤悠
 */
 
 #include "stdafx.h"

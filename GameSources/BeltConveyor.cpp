@@ -1,17 +1,17 @@
 /*!
 @file BeltConveyor.cpp
-@brief ベルトコンベアー
+@brief ベルトコンベアーの実装
+@author 佐藤悠
+@detail　ベルトコンベアの中央部の実装
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-
 	//--------------------------------------------------------------------------------------
 	//	左方向のベルトコンベア
 	//--------------------------------------------------------------------------------------
-
 	BeltConveyorLeft::BeltConveyorLeft(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -78,7 +78,6 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	右方向のベルトコンベア
 	//--------------------------------------------------------------------------------------
-
 	BeltConveyorRight::BeltConveyorRight(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position

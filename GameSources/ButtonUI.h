@@ -1,3 +1,10 @@
+/* !
+@file ButtonUI.h
+@brief ボタンの実装
+@author 佐藤悠
+@detail　UIで使うボタンの実装
+*/
+
 #include "stdafx.h"
 #include "Sprites.h"
 

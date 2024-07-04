@@ -1,21 +1,26 @@
 /*!
 @file StandbyStage.h
-@brief ゲームステージ
+@brief スタンバイステージ
+@author 佐藤悠
+@detail　待機画面の実装
 */
 
 #pragma once
 #include "stdafx.h"
 #include "ShutterSprite.h"
-namespace basecross {
 
+namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
 	class StandbyStage : public Stage {
+		//時間
 		float m_time = 2.0f;
 		float m_Totaltime = 0.0f;
+		//フェード
 		shared_ptr<ShutterSprite> m_sFade;
 		shared_ptr<ShutterSprite> m_nFade;
+		//音楽
 		shared_ptr<SoundItem> m_bgm;
 		shared_ptr<SoundItem> m_kadouonn;
 		//プレイヤー

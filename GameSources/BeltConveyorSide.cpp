@@ -1,6 +1,8 @@
 ﻿/*!
 @file BeltConveyorSide.cpp
 @brief ベルトコンベアーの端
+@author 佐藤悠
+@detail　ベルトコンベアの両端の実装
 */
 
 #include "stdafx.h"
@@ -72,8 +74,8 @@ namespace basecross {
 			//SetUpdateActive(false);
 			//SetDrawActive(false);
 		}
-
 	}
+
 	//--------------------------------------------------------------
 	//右方向のベルトコンベア
 	//---------------------------------------------------------------

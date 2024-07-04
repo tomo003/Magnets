@@ -1,6 +1,8 @@
 /* !
-@file ButtonUI.h
-@brief タイトルシーンのスタートボタンの実装
+@file ButtonUI.cpp
+@brief ボタンの実装
+@author 佐藤悠
+@detail　UIで使うボタンの実装
 */
 
 #pragma once

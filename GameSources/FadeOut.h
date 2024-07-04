@@ -1,6 +1,7 @@
 /*!
 @file FadeOut.cpp
-@brief フェードアウトの定義
+@brief フェードアウトの実装
+@author 佐藤悠
 */
 
 #include "stdafx.h"

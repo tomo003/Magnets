@@ -1,6 +1,7 @@
 /* !
 @file TitleSprite.h
 @brief タイトルシーンの背景
+@author 佐藤悠
 */
 
 #pragma once
