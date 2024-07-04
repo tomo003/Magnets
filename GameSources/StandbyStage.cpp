@@ -1,6 +1,8 @@
 /*!
-@file GameStage.cpp
-@brief ゲームステージ実体
+@file StandbyStage.cpp
+@brief スタンバイステージ
+@author 佐藤悠
+@detail　待機画面の実装
 */
 
 #include "stdafx.h"
@@ -41,7 +43,7 @@ namespace basecross {
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"SHUTTER2_SE", 0, 5.0f);//シャッターが開く音
 
-			//AddGameObject<BackGroundSprite>();
+			//背景の作成
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(0, 0, 0), L"BACKGROUND1");
 
 			for (int j = 0;j < 2;j++)
@@ -65,8 +67,7 @@ namespace basecross {
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 
-			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
-
+			//ボタンの生成
 			m_ptrBbuttonSprite = AddGameObject<ButtonSprite>(Vec3(-750.0f, 50.0f, 0.0f),L"RBPUSH");
 			m_ptrBbuttonSprite2 = AddGameObject<ButtonSprite>(Vec3(-50.0f, 50.0f, 0.0f), L"RBPUSH");
 
@@ -74,6 +75,7 @@ namespace basecross {
 			m_ptrMagObjS = AddGameObject<MagnetS>(Vec3(1.0f), Vec3(-4.0f, 4.8f, 0.0f));
 			m_ptrMagObjN = AddGameObject<MagnetN>(Vec3(1.0f),Vec3(4.0f, 4.8f, 0.0f));
 
+			const auto& magnetsGroup = CreateSharedObjectGroup(L"MagnetsObjects");
 			magnetsGroup->IntoGroup(m_ptrMagObjN);
 			magnetsGroup->IntoGroup(m_ptrMagObjS);
 
@@ -114,11 +116,12 @@ namespace basecross {
 		auto secondPad = device.GetControlerVec()[1];
 		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();//|| KeyState.m_bPressedKeyTbl[VK_SPACE]
 		//プレイヤー１
-		if (!playerReady) {
+		if (!playerReady) {//座標固定
 			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-4.0f, 2.0f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer->SetPlayerMagPole(3);
 		}
+		//RBボタンが押されたら
 		if (m_Totaltime >= 1.2f && firstPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!playerReady) {
 				m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");;
@@ -134,16 +137,17 @@ namespace basecross {
 			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			playerPositionFixed = true;
 		}
-		if (playerReady && playerPositionFixed) {
+		if (playerReady && playerPositionFixed) {//座標固定
 			m_ptrPlayer->GetComponent<Transform>()->SetPosition(Vec3(-4.0f, 3.8f, 0.0f));
 			m_ptrPlayer->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerRedanger_MESH");
 		}
 		//プレイヤー２
-		if (!player2Ready) {
+		if (!player2Ready) {//座標固定
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(4.0f, 2.0f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"PlayerBrack_MESH");;
 			m_ptrPlayer2->SetPlayerMagPole(3);
 		}
+		//RBボタンが押されたら
 		if (m_Totaltime >= 1.2f && secondPad.wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			if (!player2Ready) {
 				m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
@@ -159,7 +163,7 @@ namespace basecross {
 			App::GetApp()->GetXAudio2Manager()->Start(L"UNION_SE", 0, 1.0f);
 			player2PositionFixed = true;
 		}
-		if (player2Ready && player2PositionFixed) {
+		if (player2Ready && player2PositionFixed) {//座標固定
 			m_ptrPlayer2->GetComponent<Transform>()->SetPosition(Vec3(4.0f, 3.8f, 0.0f));
 			m_ptrPlayer2->GetComponent<BcPNTBoneModelDraw>()->SetMeshResource(L"Player2Blueanger_MESH");;
 		}
@@ -171,7 +175,7 @@ namespace basecross {
 			float speed = delta * 6.5f;
 			m_time -= delta;
 
-			if (m_time < 0.0f) {
+			if (m_time < 0.0f) {//時間経過後プレイヤーを移動させる
 				if (!moveSEPlay)
 				{
 					m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);

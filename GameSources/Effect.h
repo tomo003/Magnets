@@ -1,6 +1,7 @@
 /*!
 @file EfkInterface.h
-@brief Effekseerエフェクトのインターフェイス
+@brief Effekseerエフェクトのインターフェイスの実装
+@author 佐藤悠
 */
 
 #pragma once
@@ -192,9 +193,25 @@ namespace basecross {
 		void OnUpdate() override;
 		void OnDraw()override;
 
+		//エフェクトの停止
 		void StopEffect();
+		//エフェクトの移動（方向）
+		/*!
+		@param	Location	方向
+		@return	なし
+		*/
 		void AddLocation(const bsm::Vec3& Location);
+		//エフェクトの移動（座標）
+		/*!
+		@param	Location	座標
+		@return	なし
+		*/
 		void SetLocation(const bsm::Vec3& Location);
+		//エフェクトの回転
+		/*!
+		@param	Rotation	回転方向
+		@return	なし
+		*/
 		void AddRotation(const bsm::Vec3& Rotation);
 	};
 

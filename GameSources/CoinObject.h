@@ -1,6 +1,8 @@
 /*!
 @file CoinObject.h
-@brief ƒRƒCƒ“
+@brief ÀÑ‚Ì’Ç‰Á
+@author ²“¡—I
+@detail@Œ®‚ÌÀÑ‚ğÀ‘•
 */
 
 #pragma once

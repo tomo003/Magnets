@@ -1,6 +1,7 @@
 /*!
 @file EfkInterface.cpp
-@brief Effekseerエフェクトのインターフェイス実体
+@brief Effekseerエフェクトのインターフェイス実装
+@author 佐藤悠
 */
 
 #include "stdafx.h"
@@ -160,6 +161,9 @@ namespace basecross {
 		m_Renderer->SetProjectionMatrix(p);
 	}
 
+	//--------------------------------------------------------------------------------------
+	///	エフェクトのプレイヤー
+	//--------------------------------------------------------------------------------------
 	void EffectPlayer::OnCreate() {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);

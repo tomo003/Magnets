@@ -1,6 +1,8 @@
 /*!
 @file PlayerBanner.h
-@brief プレイヤーのバナー
+@brief プレイヤーのバナーの実装
+@author 佐藤悠
+@detail　プレイヤーの上のバナーを実装
 */
 
 #pragma once
@@ -16,7 +18,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 
-		Vec3 m_playerPos = Vec3(0);
+		Vec3 m_playerPos = Vec3(0);// プレイヤーの座標
 
 		wstring m_texKey; // テクスチャ
 

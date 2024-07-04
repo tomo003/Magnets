@@ -1,6 +1,8 @@
 /*!
 @file Sprites.h
-@brief スプライトの親クラスの実装
+@brief 画像処理の基本クラスの実装
+@author 佐藤悠
+@detail　スプライトの親クラスの実装
 */
 
 #pragma once

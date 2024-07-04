@@ -1,6 +1,8 @@
 /*!
 @file Sprites.cpp
 @brief 画像処理の基本クラスの実装
+@author 佐藤悠
+@detail　スプライトの親クラスの実装
 */
 
 #include "stdafx.h"
@@ -46,7 +48,6 @@ namespace basecross {
 			0, 1, 2,
 			2, 1, 3
 		};
-		// ここまで //
 
 		// 見た目の設定
 		m_draw = AddComponent<PCTSpriteDraw>(m_vertices, m_indices);
