@@ -68,7 +68,7 @@ namespace basecross {
 		auto ptrSecondTarget = GetSecondPlayerObj();
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto targetBetween = abs(targetPos.x - secondTargetPos.x)*0.3;
-		auto maxBetween =  abs(m_minEyeZ- m_maxEyeZ);//カメラが引く最大値
+		auto maxBetween =  abs(m_minEyeZ- m_maxEyeZ);// カメラが引く最大値
 		float eyeZ = GetEye().z;
 		// カメラがズームを初めていなく、プレイヤー同士の距離がカメラを引く最大値より小さかったら
 		if (!isZoomCamera && targetBetween < maxBetween)

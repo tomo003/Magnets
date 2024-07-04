@@ -221,25 +221,25 @@ namespace basecross {
 		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 5, m_Scale.z / (float)3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
-		//セーブオブジェクトの上の板ポリの追加
+		// セーブオブジェクトの上の板ポリの追加
 		m_ptrTriangleRed = GetStage()->AddGameObject<SaveTriangleRed>
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
 		m_ptrTriangleBlue = GetStage()->AddGameObject<SaveTriangleBlue>
 			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
-		//セーブオブジェクトの上の文字の追加
+		// セーブオブジェクトの上の文字の追加
 		GetStage()->AddGameObject<SavePointTexture>(Vec3(3.0f, 0.75f, 1.0f), Vec3(transComp->GetPosition().x, transComp->GetPosition().y + 6.5f, transComp->GetPosition().z));
 	}
 
 	void SavePoint::OnUpdate()
 	{
-		//両方のプレイヤーに触れたら
+		// 両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
-			//テクスチャの変更
+			// テクスチャの変更
 			auto transComp = GetComponent<Transform>();
 			auto drawComp = AddComponent<PNTStaticDraw>();
 			drawComp->SetTextureResource(L"PURPLE_TX");
-			//上の板ポリを回す
+			// 上の板ポリを回す
 			m_ptrTriangleRed->Rotate();
 			m_ptrTriangleBlue->Rotate();
 		}
@@ -269,7 +269,7 @@ namespace basecross {
 		auto ptrPos = GetComponent<Transform>()->GetPosition();
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 
-		//プレイヤー１が右側に通り抜けたら
+		// プレイヤー１が右側に通り抜けたら
 		if (ptrPlayer && ptrPos.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			isCollPlayer = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();
@@ -277,7 +277,7 @@ namespace basecross {
 			m_ptrTriangleRed->ChangeTexture(L"TRIANGLERED_TX");
 			XAPtr->Start(L"SAVE_SE", 0, 3.0f);
 		}
-		//プレイヤー２が右側に通り抜けたら
+		// プレイヤー２が右側に通り抜けたら
 		if (ptrPlayer2 && ptrPos.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			isCollPlayer2 = true;
 			auto drawComp = AddComponent<PNTStaticDraw>();

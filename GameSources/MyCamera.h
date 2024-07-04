@@ -11,7 +11,7 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//２人プレイ用のゲームステージプレイ時のカメラ
+	// ２人プレイ用のゲームステージプレイ時のカメラ
 	//--------------------------------------------------------------------------------------
 	class DuoCamera :public Camera {
 
@@ -32,12 +32,11 @@ namespace basecross {
 
 		bool isZoomCamera = false; // カメラのZoomが始まっているか
 	public:
+		// 構築と破棄
 		DuoCamera() :
 			m_minEyeZ(-22),
 			m_maxEyeZ(-27)
 		{}
-
-		//デストラクタ
 		virtual ~DuoCamera(){};
 
 		virtual void OnUpdate()override;

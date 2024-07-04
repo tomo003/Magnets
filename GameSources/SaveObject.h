@@ -11,7 +11,7 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の赤い板ポリ
+	// セーブオブジェクト上の赤い板ポリ
 	//--------------------------------------------------------------------------------------
 	class SaveTriangleRed :public GameObject {
 		Vec3 m_Scale;
@@ -23,13 +23,13 @@ namespace basecross {
 		float m_ratio = 0.0;        // 線形補間の割合
 		float m_rotateSpeed = 3.0f; // 板ポリの回転する速さ
 	public:
-		//構築と破棄
+		// 構築と破棄
 		SaveTriangleRed(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~SaveTriangleRed();
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 
 		/**
@@ -48,7 +48,7 @@ namespace basecross {
 	};
 
 	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の青い板ポリ
+	// セーブオブジェクト上の青い板ポリ
 	//--------------------------------------------------------------------------------------
 	class SaveTriangleBlue :public GameObject {
 		Vec3 m_Scale;
@@ -66,7 +66,7 @@ namespace basecross {
 			const Vec3& Position
 		);
 		virtual ~SaveTriangleBlue();
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 
 		/**
@@ -85,7 +85,7 @@ namespace basecross {
 	};
 
 	//--------------------------------------------------------------------------------------
-	//セーブオブジェクト上の文字の板ポリ
+	// セーブオブジェクト上の文字の板ポリ
 	//--------------------------------------------------------------------------------------
 	class SavePointTexture :public GameObject {
 		Vec3 m_Scale;
@@ -94,18 +94,18 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
-		//構築と破棄
+		// 構築と破棄
 		SavePointTexture(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~SavePointTexture();
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 	};
 
 	//--------------------------------------------------------------------------------------
-	//セーブポイント
+	// セーブポイント
 	//--------------------------------------------------------------------------------------
 	class SavePoint : public GameObject {
 		Vec3 m_Scale;
@@ -117,13 +117,13 @@ namespace basecross {
 		bool isCollPlayer = false;  // プレイヤーが通り過ぎたかの判定
 		bool isCollPlayer2 = false; // プレイヤー２が通り過ぎたかの判定
 	public:
-		//構築と破棄
+		// 構築と破棄
 		SavePoint(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
 		);
 		virtual ~SavePoint();
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 
 		virtual void OnUpdate() override;

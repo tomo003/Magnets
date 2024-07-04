@@ -172,10 +172,10 @@ namespace basecross {
 			m_time -= delta;
 
 			if (m_time < 0.0f) {
-				if (!moveSEPlay)
+				if (!OperationSEPlay)
 				{
-					m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
-					moveSEPlay = true;
+					m_kadouonn = XAPtr->Start(L"OPERATION_SE", 0, 1.0f);
+					OperationSEPlay = true;
 				}
 				Vec3 magNPos = m_ptrMagObjN->GetComponent<Transform>()->GetPosition();
 				Vec3 magSPos = m_ptrMagObjS->GetComponent<Transform>()->GetPosition();

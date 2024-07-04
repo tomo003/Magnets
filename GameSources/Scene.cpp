@@ -222,7 +222,7 @@ namespace basecross{
 		LoadSound(L"UNION_SE", L"Union.wav");//磁石でくっついたとき
 		LoadSound(L"BUTTON_SE", L"Decition.wav");//ボタン押したときの決定音
 		LoadSound(L"STOP_SE", L"Gachan.wav");//スタート地点に運ばれてきて停止したときの音
-		LoadSound(L"KADOU_SE", L"Kadouonn.wav");//スタート地点に運ばれてきたときの音
+		LoadSound(L"OPERATION_SE", L"Kadouonn.wav");//スタート地点に運ばれてきたときの音
 		LoadSound(L"SAVE_SE", L"Save.wav"); // 中間地点通過時のSE
 		LoadSound(L"GOAL_SE", L"Goal.wav"); // ゴール通過時のSE
 		LoadSound(L"GET_SE", L"Get.wav"); // 鍵取得時のSE
