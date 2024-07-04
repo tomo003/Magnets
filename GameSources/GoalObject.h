@@ -1,6 +1,8 @@
 /*!
 @file GoalObject.h
 @brief ゴールオブジェクト
+@autor 吉田鈴
+@detail ゴールオブジェクトやその周辺のオブジェクトの実体
 */
 
 #pragma once
@@ -29,6 +31,7 @@ namespace basecross {
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
+		* @return 戻り値なし
 		*/
 		void ChangeTexture(wstring Texture);
 	};
@@ -54,6 +57,7 @@ namespace basecross {
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
+		* @return 戻り値なし
 		*/
 		void ChangeTexture(wstring Texture);
 	};
@@ -65,12 +69,12 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 
-		std::shared_ptr<GoalSquareRed> m_ptrSquareRed;
-		std::shared_ptr<GoalSquareBlue> m_ptrSquareBlue;
+		std::shared_ptr<GoalSquareRed> m_ptrSquareRed;   // GoalSquareRed
+		std::shared_ptr<GoalSquareBlue> m_ptrSquareBlue; // GoalSquareBlue
 
-		bool isCollPlayer = false;
-		bool isCollPlayer2 = false;
-		bool isDisplaySprite = false;
+		bool isCollPlayer = false;    // プレイヤーが通り過ぎたかの判定
+		bool isCollPlayer2 = false;   // プレイヤー2が通り過ぎたかの判定
+		bool isDisplaySprite = false; // スプライトが表示されているかの判定
 	public:
 		//構築と破棄
 		Goal(const std::shared_ptr<Stage>& StagePtr,
@@ -82,14 +86,21 @@ namespace basecross {
 		virtual void OnCreate() override;
 
 		virtual void OnUpdate() override;
+
 		/**
 		* @brief プレイヤーのゴール後の処理を行う関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void PlayerGoal();
+
 		/**
 		* @brief プレイヤーのゴール前にリセットする関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void GoalReset();
+
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
 

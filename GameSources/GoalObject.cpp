@@ -1,6 +1,8 @@
 /*!
 @file GoalObject.cpp
 @brief ゴールオブジェクト
+@autor 吉田鈴
+@detail ゴールオブジェクトやその周辺のオブジェクトの実体
 */
 
 #include "stdafx.h"
@@ -8,9 +10,6 @@
 
 namespace basecross {
 
-	//--------------------------------------------------------------------------------------
-	//ゴールオブジェクト上の赤い板ポリ
-	//--------------------------------------------------------------------------------------
 	GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -59,9 +58,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//ゴールオブジェクト上の青い板ポリ
-	//--------------------------------------------------------------------------------------
 	GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -110,9 +106,6 @@ namespace basecross {
 		drawComp->SetTextureResource(Texture);
 	}
 
-	//--------------------------------------------------------------------------------------
-	//ゴールオブジェクト
-	//--------------------------------------------------------------------------------------
 	Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Position
@@ -172,7 +165,7 @@ namespace basecross {
 		auto& pad = device.GetControlerVec()[0];
 		auto& pad2 = device.GetControlerVec()[1];
 
-		//スプライトの表示
+		//スプライトが表示されていなかったら
 		if (!isDisplaySprite)
 		{
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
@@ -202,7 +195,7 @@ namespace basecross {
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
-		//プレイヤー１が右側に通り抜けたら
+		//プレイヤー１がオブジェクトの右側に通り抜けたら
 		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			if (!isCollPlayer2)
 			{
@@ -210,7 +203,7 @@ namespace basecross {
 			}
 			isCollPlayer = true;
 		}
-		//プレイヤー２が右側に通り抜けたら
+		//プレイヤー２がオブジェクトの右側に通り抜けたら
 		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			if (!isCollPlayer)
 			{
