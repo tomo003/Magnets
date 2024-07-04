@@ -1,6 +1,8 @@
 /*!
 @file GameObjectSample.h
 @brief ゲームステージのオブジェクト
+@autor 吉田鈴
+@detail ステージ上にCSVで作成されるオブジェクト実体
 */
 
 #pragma once
@@ -10,14 +12,14 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//地面オブジェクト
+	// 地面オブジェクト
 	//--------------------------------------------------------------------------------------
 	class Block : public GameObject{
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		wstring m_Texture;
 	public:
-		//構築と破棄
+		// 構築と破棄
 		Block::Block(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
@@ -30,19 +32,19 @@ namespace basecross {
 		{
 		}
 		Block::~Block() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 	};
 
 	//--------------------------------------------------------------------------------------
-	//テクスチャ変更が可能な四角いオブジェクト
+	// テクスチャ変更が可能な四角いオブジェクト
 	//--------------------------------------------------------------------------------------
 	class ChangeTextureBlock : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		wstring m_Texture;
 	public:
-		//構築と破棄
+		// 構築と破棄
 		ChangeTextureBlock::ChangeTextureBlock(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
@@ -55,18 +57,18 @@ namespace basecross {
 		{
 		}
 		ChangeTextureBlock::~ChangeTextureBlock() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 	};
 
 	//--------------------------------------------------------------------------------------
-	//スタートオブジェクト
+	// スタートオブジェクト
 	//--------------------------------------------------------------------------------------
 	class Start : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 	public:
-		//構築と破棄
+		// 構築と破棄
 		Start::Start(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
@@ -77,7 +79,7 @@ namespace basecross {
 		{
 		}
 		Start::~Start() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 	};
 }

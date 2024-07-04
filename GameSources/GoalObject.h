@@ -11,7 +11,7 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//ゴールオブジェクト上の赤い板ポリ
+	// ゴールオブジェクト上の赤い板ポリ
 	//--------------------------------------------------------------------------------------
 	class GoalSquareRed : public GameObject {
 		Vec3 m_Scale;
@@ -20,7 +20,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
-		//構築と破棄
+		// 構築と破棄
 		GoalSquareRed::GoalSquareRed(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
@@ -31,8 +31,9 @@ namespace basecross {
 		{
 		}
 		GoalSquareRed::~GoalSquareRed() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
+
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
@@ -42,7 +43,7 @@ namespace basecross {
 	};
 
 	//--------------------------------------------------------------------------------------
-	//ゴールオブジェクト上の青い板ポリ
+	// ゴールオブジェクト上の青い板ポリ
 	//--------------------------------------------------------------------------------------
 	class GoalSquareBlue : public GameObject {
 		Vec3 m_Scale;
@@ -51,7 +52,7 @@ namespace basecross {
 		std::vector<VertexPositionTexture> m_vertices; // 頂点データ
 		std::vector<uint16_t> m_indices; // 頂点インデックス(頂点の並び順・組み合わせ)
 	public:
-		//構築と破棄
+		// 構築と破棄
 		GoalSquareBlue::GoalSquareBlue(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
@@ -62,8 +63,9 @@ namespace basecross {
 		{
 		}
 		GoalSquareBlue::~GoalSquareBlue() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
+
 		/**
 		* @brief テクスチャを変更する関数
 		* @param (Texture) 適応したいテクスチャ名
@@ -86,7 +88,7 @@ namespace basecross {
 		bool isCollPlayer2 = false;   // プレイヤー2が通り過ぎたかの判定
 		bool isDisplaySprite = false; // スプライトが表示されているかの判定
 	public:
-		//構築と破棄
+		// 構築と破棄
 		Goal::Goal(const std::shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,
 			const Vec3& Position
@@ -97,7 +99,7 @@ namespace basecross {
 		{
 		}
 		Goal::~Goal() {}
-		//初期化
+		// 初期化
 		virtual void OnCreate() override;
 
 		virtual void OnUpdate() override;

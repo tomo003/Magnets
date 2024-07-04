@@ -1,23 +1,14 @@
 /*!
 @file Metal.cpp
 @brief 金属オブジェクト
+@autor 
+@detail ゴールオブジェクトやその周辺のオブジェクトの実体
 */
 
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
-	//ステージの鉄ブロックの仮設置
-	Metal::Metal(const std::shared_ptr<Stage>& StagePtr,
-		const Vec3& Scale,
-		const Vec3& Position
-	) :
-		GameObject(StagePtr),
-		m_Scale(Scale),
-		m_Position(Position)
-	{
-	}
-	Metal::~Metal() {}
 
 	void Metal::OnCreate()
 	{
@@ -54,11 +45,14 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		// プレイヤー１が一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
+			// プレイヤー１が磁力のない状態だったら
 			if (playerMagPole == -1) {
 				return;
 			}
 			else {
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 		}
@@ -72,11 +66,14 @@ namespace basecross {
 		auto direction = ABSV(playerPos, m_Position);
 		float distance = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
+		// プレイヤー２が一定の距離に入ったら
 		if (distance < m_MagAreaRadius) {
+			// プレイヤー２が磁力のない状態だったら
 			if (playerMagPole == -1) {
 				return;
 			}
 			else {
+				// 引力の呼び出し
 				ptrPlayer->ApplyAttration(GetThis<GameObject>());
 			}
 		}

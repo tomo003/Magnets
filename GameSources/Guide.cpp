@@ -1,6 +1,8 @@
 /*!
-@file GoalObject.cpp
-@brief ゴールオブジェクト
+@file Guide.cpp
+@brief 道案内の板ポリ
+@autor 吉田鈴
+@detail ゲームステージで道を示す板ポリの実装
 */
 
 #include "stdafx.h"

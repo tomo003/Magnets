@@ -108,7 +108,7 @@ namespace basecross {
 		transComp->SetScale(m_Scale.x + 2, m_Scale.y + 7.5, m_Scale.z / (float)3);
 		transComp->SetRotation(0.0f, XM_PIDIV2, 0.0f);
 
-		//ゴールオブジェクトの上の板ポリの追加
+		// ゴールオブジェクトの上の板ポリの追加
 		m_ptrSquareRed = GetStage()->AddGameObject<GoalSquareRed>(Vec3(1.0f), Vec3(m_Position.x - 1, m_Position.y + 7, 0));
 		GetStage()->SetSharedGameObject(L"GoalSquareRed", m_ptrSquareRed);
 		m_ptrSquareBlue = GetStage()->AddGameObject<GoalSquareBlue>(Vec3(1.0f), Vec3(m_Position.x + 1, m_Position.y + 7, 0));
@@ -118,7 +118,7 @@ namespace basecross {
 
 	void Goal::OnUpdate()
 	{
-		//両方のプレイヤーに触れたら
+		// 両方のプレイヤーに触れたら
 		if (isCollPlayer && isCollPlayer2)
 		{
 			PlayerGoal();
@@ -132,7 +132,7 @@ namespace basecross {
 		auto& pad = device.GetControlerVec()[0];
 		auto& pad2 = device.GetControlerVec()[1];
 
-		//スプライトが表示されていなかったら
+		// スプライトが表示されていなかったら
 		if (!isDisplaySprite)
 		{
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
@@ -145,7 +145,7 @@ namespace basecross {
 			PtrScene->SetGameState(GameState::GameClear);
 		}
 
-		//カメラのゴール後にズーム演出
+		// カメラのゴール後にズーム演出
 		auto ptrDuoCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		ptrDuoCamera->ZoomCamera();
 	}
@@ -162,7 +162,7 @@ namespace basecross {
 		auto ptrPlayer = dynamic_pointer_cast<Player>(Other);
 		auto ptrPlayer2 = dynamic_pointer_cast<Player2>(Other);
 
-		//プレイヤー１がオブジェクトの右側に通り抜けたら
+		// プレイヤー１がオブジェクトの右側に通り抜けたら
 		if (ptrPlayer && m_Position.x < ptrPlayer->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer) {
 			if (!isCollPlayer2)
 			{
@@ -170,7 +170,7 @@ namespace basecross {
 			}
 			isCollPlayer = true;
 		}
-		//プレイヤー２がオブジェクトの右側に通り抜けたら
+		// プレイヤー２がオブジェクトの右側に通り抜けたら
 		if (ptrPlayer2 && m_Position.x < ptrPlayer2->GetComponent<Transform>()->GetWorldPosition().x && !isCollPlayer2) {
 			if (!isCollPlayer)
 			{

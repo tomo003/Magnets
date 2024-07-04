@@ -195,11 +195,13 @@ namespace basecross {
 		m_playerBanner->SetDrawActive(true);
 		auto ptrPlayer2 = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		Vec3 player2RespawnpPoint = ptrPlayer2->GetRespawnPoint();
+		// プレイヤー２の保持するリスポーン地点ががプレイヤーのリスポーン地点より右にあったら
 		if (player2RespawnpPoint.x >= m_RespawnPoint.x) {
 			ptrPlayer2->SetRespawnPoint(m_RespawnPoint);
 			ptrPlayer2->RespawnPlayer();
 			RespawnPlayer();
 		}
+		// プレイヤー２の保持するリスポーン地点ががプレイヤーのリスポーン地点より左にあったら
 		else if (player2RespawnpPoint.x < m_RespawnPoint.x) {
 			SetRespawnPoint(player2RespawnpPoint);
 			ptrPlayer2->RespawnPlayer();
@@ -209,7 +211,6 @@ namespace basecross {
 		ptrPlayer2->SetAttrationState(false);
 	}
 
-	//リスポーン地点を設定する
 	void Player::SetRespawnPoint(shared_ptr<GameObject>& Other) {
 		auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 		m_RespawnPoint = otherPos;
@@ -219,7 +220,6 @@ namespace basecross {
 		m_RespawnPoint = RespawnPoint;
 	}
 
-	//リスポーンする
 	void Player::RespawnPlayer() {
 		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 		m_eMagPole = EState::eFalse;
@@ -240,10 +240,9 @@ namespace basecross {
 		}
 	}
 
-	//プレイヤーが離れすぎないようにする制限
 	void Player::PlayerLimit() {
 		auto& app = App::GetApp();
-		auto device = app->GetInputDevice();//コントローラー座標の取得
+		auto device = app->GetInputDevice();// コントローラー座標の取得
 		auto pad = device.GetControlerVec()[0];
 		Vec3 padLStick(pad.fThumbLX, 0.0f, 0.0f);
 
@@ -253,16 +252,17 @@ namespace basecross {
 
 		auto direction = abs(m_pos.x - player2Pos.x);
 
-		//プレイヤーが右に一定距離離れた時
+		// プレイヤーが右に一定距離離れた時
 		if (direction > m_limit && m_pos.x > player2Pos.x && padLStick.x >= 0)
 		{
 			m_speed = 0;
 			isRightLimit = true;
 		}
-		//左に入力があったら
+		// 左に入力があったら
 		else if ((padLStick.x < 0 && m_pos.x > player2Pos.x) || direction < m_limit)
 		{
 			isRightLimit = false;
+			// ベルトコンベアと接触していなかったら
 			if (!isBelt)
 			{
 				m_speed = 5;
@@ -272,16 +272,17 @@ namespace basecross {
 				m_speed = 6;
 			}
 		}
-		//プレイヤーが左に一定距離離れた時
+		// プレイヤーが左に一定距離離れた時
 		if (direction > m_limit && m_pos.x < player2Pos.x && padLStick.x <= 0)
 		{
 			m_speed = 0;
 			isLeftLimit = true;
 		}
-		//右に入力があったら
+		// 右に入力があったら
 		else if ((padLStick.x > 0 && m_pos.x < player2Pos.x) || direction < m_limit)
 		{
 			isLeftLimit = false;
+			// ベルトコンベアと接触していなかったら
 			if (!isBelt)
 			{
 				m_speed = 5;
@@ -291,8 +292,6 @@ namespace basecross {
 				m_speed = 6;
 			}
 		}
-
-		//m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	void Player::SetPlayerMagPole(int i) {

@@ -61,7 +61,9 @@ namespace basecross {
 		void ApplyForceSecondPlayer();
 	};
 
-	//N極のオブジェクト
+	//--------------------------------------------------------------------------------------
+	// N極の磁石オブジェクト
+	//--------------------------------------------------------------------------------------
 	class MagnetN : public GameObject {
 	public:
 		enum class EState {
@@ -78,7 +80,6 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
-		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
@@ -104,9 +105,6 @@ namespace basecross {
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
 		}
-		float GetMass() {
-			return m_ObjMass;
-		}
 		float GetAreaRadius() {
 			return m_MagAreaRadius;
 		}
@@ -121,7 +119,9 @@ namespace basecross {
 		void MoveMagnetArea(const Vec3 pos);
 	};
 
-	//S極のオブジェクト
+	//--------------------------------------------------------------------------------------
+	// S極の磁石オブジェクト
+	//--------------------------------------------------------------------------------------
 	class MagnetS : public GameObject {
 	public:
 		enum class EState {
@@ -138,7 +138,6 @@ namespace basecross {
 		std::shared_ptr<Transform> m_ptrTrans; // トランスフォームコンポーネント
 		std::shared_ptr<PNTStaticDraw> m_ptrDraw; // ドローコンポーネント
 
-		float m_ObjMass = 1.0f;
 		float m_MagAreaRadius = 4.0f;
 
 		Vec3 m_Scale;
@@ -163,9 +162,6 @@ namespace basecross {
 
 		int GetState() {
 			return static_cast<int>(m_eMagPole);
-		}
-		float GetMass() {
-			return m_ObjMass;
 		}
 		float GetAreaRadius() {
 			return m_MagAreaRadius;

@@ -1,7 +1,7 @@
 /*!
 @file BeltConveyorDirection.h
 @brief ベルトコンベアの回転方向を表す矢印
-@autor 吉田鈴
+@autor 
 @detail ベルトコンベアの回転方向を表す矢印板ポリの実装
 */
 

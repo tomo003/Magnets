@@ -182,12 +182,13 @@ namespace basecross {
 		m_playerBanner->SetDrawActive(true);
 		auto ptrPlayer1 = GetStage()->GetSharedGameObject<Player>(L"Player");
 		Vec3 player1RespawnpPoint = ptrPlayer1->GetRespawnPoint();
-
+		// プレイヤーの保持するリスポーン地点ががプレイヤー２のリスポーン地点より右にあったら
 		if (player1RespawnpPoint.x >= m_RespawnPoint.x) {
 			ptrPlayer1->SetRespawnPoint(m_RespawnPoint);
 			ptrPlayer1->RespawnPlayer();
 			RespawnPlayer();
 		}
+		// プレイヤーの保持するリスポーン地点ががプレイヤー２のリスポーン地点より左にあったら
 		else if (player1RespawnpPoint.x < m_RespawnPoint.x) {
 			SetRespawnPoint(player1RespawnpPoint);
 			ptrPlayer1->RespawnPlayer();
@@ -197,7 +198,6 @@ namespace basecross {
 		ptrPlayer1->SetAttrationState(false);
 	}
 
-	//リスポーン地点を設定する
 	void Player2::SetRespawnPoint(shared_ptr<GameObject>& Other) {
 		auto otherPos = Other->GetComponent<Transform>()->GetPosition();
 		m_RespawnPoint = otherPos;
@@ -207,7 +207,6 @@ namespace basecross {
 		m_RespawnPoint = RespawnPoint;
 	}
 
-	//リスポーンする
 	void Player2::RespawnPlayer() {
 		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
 		m_eMagPole = EState::eFalse;
@@ -228,7 +227,6 @@ namespace basecross {
 		}
 	}
 
-	//プレイヤーが離れすぎないようにする制限
 	void Player2::PlayerLimit() {
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice();//コントローラー座標の取得
@@ -241,16 +239,17 @@ namespace basecross {
 
 		auto direction = abs(m_pos.x - playerPos.x);
 
-		//プレイヤーが右に一定距離離れた時
+		// プレイヤーが右に一定距離離れた時
 		if (direction > m_limit && m_pos.x > playerPos.x && padLStick.x >= 0)
 		{
 			m_speed = 0;
 			isRightLimit = true;
 		}
-		//左に入力があったら
+		// 左に入力があったら
 		else if ((padLStick.x < 0 && m_pos.x > playerPos.x) || direction < m_limit)
 		{
 			isRightLimit = false;
+			// ベルトコンベアと接触していなかったら
 			if (!isBelt)
 			{
 				m_speed = 5;
@@ -260,16 +259,17 @@ namespace basecross {
 				m_speed = 6;
 			}
 		}
-		//プレイヤーが左に一定距離離れた時
+		// プレイヤーが左に一定距離離れた時
 		if (direction > m_limit && m_pos.x < playerPos.x && padLStick.x <= 0)
 		{
 			m_speed = 0;
 			isLeftLimit = true;
 		}
-		//右に入力があったら
+		// 右に入力があったら
 		else if ((padLStick.x > 0 && m_pos.x < playerPos.x) || direction < m_limit)
 		{
 			isLeftLimit = false;
+			// ベルトコンベアと接触していなかったら
 			if (!isBelt)
 			{
 				m_speed = 5;
@@ -279,7 +279,6 @@ namespace basecross {
 				m_speed = 6;
 			}
 		}
-		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
 	}
 
 	void Player2::PlayerBannerPosition(Vec3 position) {
