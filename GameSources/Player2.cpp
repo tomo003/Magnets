@@ -376,7 +376,7 @@ namespace basecross {
 			if (scene != 1) {
 				if (isJump) {
 					GetStage()->AddGameObject<EffectPlayer>(m_pos, Vec3(0.3f), L"jump");
-					App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 2.0f);
+					App::GetApp()->GetXAudio2Manager()->Start(L"JUMP_SE", 0, 0.5f);
 					isJump = false;
 				}
 				if (length(objPos - m_pos) > 3.0f - 0.1f) {

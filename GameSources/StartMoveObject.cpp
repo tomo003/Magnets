@@ -136,7 +136,7 @@ namespace basecross {
 			// ‰Ò“­‰¹‚ª—¬‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
 			if (!OperationSEPlay)
 			{
-				m_operationSound = XAPtr->Start(L"KADOU_SE", 0, 1.0f);
+				m_operationSound = XAPtr->Start(L"OPERATION_SE", 0, 1.0f);
 				OperationSEPlay = true;
 			}
 

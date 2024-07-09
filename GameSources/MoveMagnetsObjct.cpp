@@ -220,7 +220,7 @@ namespace basecross {
 			m_position -= m_MoveDir * m_speed * delta;
 			if (!MoveSEPlay)
 			{
-				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 2.0f);
+				m_kadouonn = XAPtr->Start(L"OPERATION_SE", 0, 2.0f);
 				MoveSEPlay = true;
 			}
 			break;
@@ -232,7 +232,7 @@ namespace basecross {
 			m_position += m_MoveDir * m_speed * delta;
 			if (!MoveSEPlay)
 			{
-				m_kadouonn = XAPtr->Start(L"KADOU_SE", 0, 2.0f);
+				m_kadouonn = XAPtr->Start(L"OPERATION_SE", 0, 2.0f);
 				MoveSEPlay = true;
 			}
 			break;
