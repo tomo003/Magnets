@@ -1,7 +1,7 @@
 /*!
 @file MyCamera.cpp
 @brief ゲームステージのカメラ
-@autor 吉田鈴
+@autor 吉田鈴 
 @detail ゲームステージ上でのプレイヤー追従カメラ、ズーム演出カメラなど実装
 */
 
@@ -67,16 +67,17 @@ namespace basecross {
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
-		auto targetBetween = abs(targetPos.x - secondTargetPos.x)*0.3;
+		auto targetBetween = abs(targetPos.x - secondTargetPos.x);
+		auto pullDistance = targetBetween * m_distance;
 		auto maxBetween =  abs(m_minEyeZ- m_maxEyeZ);// カメラが引く最大値
 		float eyeZ = GetEye().z;
-		// カメラがズームを初めていなく、プレイヤー同士の距離がカメラを引く最大値より小さかったら
-		if (!isZoomCamera && targetBetween < maxBetween)
+		// カメラがズーム状態ではなく、カメラを引く距離がカメラを引く最大値より小さかったら
+		if (!isZoomCamera && pullDistance < maxBetween)
 		{
-			m_EyeZ = m_minEyeZ - targetBetween;
+			m_EyeZ = m_minEyeZ - pullDistance;
 		}
-		// プレイヤー同士の距離がカメラを引く最大値より大きかったら
-		else if (targetBetween > maxBetween)
+		// カメラを引く距離がカメラを引く最大値より大きかったら
+		else if (pullDistance > maxBetween)
 		{
 			m_EyeZ = m_maxEyeZ;
 		}
