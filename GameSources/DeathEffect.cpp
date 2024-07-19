@@ -72,7 +72,7 @@ namespace basecross {
 		}
 
 		// DeathEffectImgの生成
-		for (int i = 0; i < 8;i++)
+		for (int i = 0; i < size(m_forward);i++)
 		{
 			ptrEffect[i] = GetStage()->AddGameObject<DeathEffectImg>(Vec3(1.0f), m_ptrOwnerTrans->GetWorldPosition());
 			m_startPos = m_ptrOwnerTrans->GetWorldPosition();
@@ -93,18 +93,18 @@ namespace basecross {
 		// 一定時間たつまでループ
 		if (m_time > 0)
 		{
-			for (int i = 0;i < 8;i++)
+			for (int i = 0;i < size(m_forward);i++)
 			{
 				auto pos = ptrEffect[i]->GetComponent<Transform>()->GetPosition();
-				m_forward[i] = 45 * i;
-				pos.x += cos(m_forward[i] * XM_PI / 180) * m_speed;
-				pos.y -= sin(m_forward[i] * XM_PI / 180) * m_speed;
+				m_forward[i] = m_interval * i;
+				pos.x += cos(XMConvertToRadians(m_forward[i])) * m_speed;
+				pos.y -= sin(XMConvertToRadians(m_forward[i])) * m_speed;
 				ptrEffect[i]->GetComponent<Transform>()->SetPosition(pos);
 
 				// 開始時のポジションからm_removeDistanceより離れたら
 				if ((m_startPos - pos).length() > m_removeDistance)
 				{
-					for (int j = 0;j < 8;j++)
+					for (int j = 0;j < size(m_forward);j++)
 					{
 						GetStage()->RemoveGameObject<DeathEffectImg>(ptrEffect[j]);
 					}

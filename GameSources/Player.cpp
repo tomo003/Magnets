@@ -37,11 +37,6 @@ namespace basecross {
 		m_ptrDraw->AddAnimation(L"BACK", 90, 30, true, 30);
 		//m_ptrDraw->ChangeCurrentAnimation(L"LEFT");
 
-		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		//if (ptrCamera) {
-		//	//カメラが追いかけるターゲット(プレイヤー)の設定
-		//	ptrCamera->SetPlayerObj(GetThis<GameObject>());
-		//}
 		auto ptrCamera = dynamic_pointer_cast<DuoCamera>(OnGetDrawCamera());
 		if (ptrCamera) {
 			//カメラが追いかけるターゲット(プレイヤー)の設定
@@ -221,10 +216,14 @@ namespace basecross {
 	}
 
 	void Player::RespawnPlayer() {
-		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");//無極
+		float height = 2.0f; // リスポーンオブジェクトを基準にリスポーンする高さをどれくらい上げるか
+		//無極にする
+		m_ptrDraw->SetMeshResource(L"PlayerBrack_MESH");
 		m_eMagPole = EState::eFalse;
-		m_pos = Vec3(m_RespawnPoint.x + 2, m_RespawnPoint.y, 0.0f);
+		//リスポーンする
+		m_pos = Vec3(m_RespawnPoint.x + height, m_RespawnPoint.y, 0.0f);
 		m_ptrTrans->SetWorldPosition(Vec3(m_pos));
+		//ゴール状態をしていない状態に戻す
 		auto ptrGoal = GetStage()->GetSharedGameObject<Goal>(L"Goal");
 		ptrGoal->GoalReset();
 		isStop = false;

@@ -16,8 +16,8 @@ namespace basecross {
 	class DuoCamera :public Camera {
 
 	private:
-		float m_minEyeZ; // カメラを引く最小値
-		float m_maxEyeZ; // カメラを引く最大値
+		float m_minEyeZ = -22; // カメラを引く最小値
+		float m_maxEyeZ = -27; // カメラを引く最大値
 
 		weak_ptr<GameObject> m_TargetObj;       // ステージで追従するオブジェクト1
 		weak_ptr<GameObject> m_SecondTargetObj; // ステージで追従するオブジェクト2
@@ -29,14 +29,12 @@ namespace basecross {
 		float m_ratio = 0.0f;      // 線形補間の割合
 		float m_startEyeZ = 0.0f;  // Zoomが始まるカメラの位置
 		float m_startY = 0.0f;     // Zoomが始まるカメラの高さ
+		float m_distance = 0.3;    // プレイヤーの距離とカメラが引く値の調整用
 
 		bool isZoomCamera = false; // カメラのZoomが始まっているか
 	public:
 		// 構築と破棄
-		DuoCamera() :
-			m_minEyeZ(-22),
-			m_maxEyeZ(-27)
-		{}
+		DuoCamera(){}
 		virtual ~DuoCamera(){};
 
 		virtual void OnUpdate()override;
