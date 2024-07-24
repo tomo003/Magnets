@@ -1,6 +1,6 @@
 /*!
 * @file MagnetsArea.h
-* @brief 磁気エリア
+* @brief 磁気エリアの定義
 * @author 穴澤委也
 * @details 磁気エリア用の板ポリ
 */

@@ -163,7 +163,7 @@ namespace basecross {
 	*/
 	void GameStage::CreateBackGround(const wstring& texkey) {
 		auto stageNum = m_ptrScene->GetStageNum();
-		for (int i = 0; i <= 8; i++) {
+		for (int i = 0; i < 9; i++) {
 			AddGameObject<BackGroundSprite2>(Vec3(50, 40, 1.0f), Vec3(-50 + (50 * i),0,0), texkey);
 		}
 	}

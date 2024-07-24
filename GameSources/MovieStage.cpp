@@ -7,7 +7,9 @@
 #include "Project.h"
 
 namespace basecross {
+	//--------------------------------------------------------------------------------------
 	//	ムービーステージ
+	//--------------------------------------------------------------------------------------
 	void TitleMovieStage::CreateViewLight() {
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
@@ -21,13 +23,13 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	// 生成
 	void TitleMovieStage::OnCreate() {
 		MovieStage::OnCreate();
 		wstring dataDir;
 		//メディアディレクトリを取得
 		App::GetApp()->GetDataDirectory(dataDir);
 		dataDir += L"Movie\\";
-		//wstring strMovie = dataDir + L"END2.mp4";
 		wstring strMovie = dataDir + L"MagnetsMOVIE.mp4";
 		SetMovieFileName(strMovie);
 		//再生
@@ -41,6 +43,7 @@ namespace basecross {
 		m_ptrSpriteDraw->SetDiffuse(m_diffuseColor);
 	}
 
+	// 更新
 	void TitleMovieStage::OnUpdate() {
 		auto delta = App::GetApp()->GetElapsedTime();
 
@@ -59,7 +62,7 @@ namespace basecross {
 		}
 	}
 
-	//ボタン
+	//ボタン(どこでも)
 	void TitleMovieStage::OnPushAny() {
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
 		//決定音
