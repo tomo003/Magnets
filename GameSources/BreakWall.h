@@ -19,6 +19,7 @@ namespace basecross {
 		Vec3 m_position;
 		Vec3 m_posDiff = Vec3(0.0f, 2.5f, 0.0f);
 		Vec3 m_Rotation;
+		Vec3 m_scale = Vec3(1.0f, 6.0f, 1.0f);
 
 		bool isBreak = false;
 	public:
@@ -35,6 +36,11 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() override;
 
+		/** @brief 接触判定が起こった時に呼び出される関数
+		*   @fn void OnCollisionEnter(shared_ptr<GameObject>& Other)
+		*   @param Other 接触判定を起こしているオブジェクト
+		*   @return 戻り値なし
+		*/
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 
 		// abs関数(絶対値を求める)をVec3で使えるように

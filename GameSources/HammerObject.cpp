@@ -1,22 +1,33 @@
+/*!
+* @file HammerObject.cpp
+* @brief ハンマーオブジェクト類の実装
+* @author 穴澤委也
+* @details	ハンマーオブジェクトの実装
+*			ハンマーの前方エリアの判定
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 
-#define PIDIV3 (XM_PIDIV4 * 1.5f) // π/2とπ/4の間
+#define PIDIV3 (XM_PI / 3) // π/3
 
 namespace basecross {
+	// ---------------------ハンマーオブジェクトのエリア-------------------------------
+	// 生成
 	void HammerPressArea::OnCreate()
 	{
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetScale(2.0f, 0.5f, 0.25f);
 		m_TransComp->SetPosition(m_position.x, m_position.y - 0.25f, m_position.z-0.375f);
 		
-		m_ptrPlayerF = GetStage()->GetSharedGameObject<Player>(L"Player");
-		m_PlayerFScaleHelf = m_ptrPlayerF->GetComponent<Transform>()->GetScale() / 2;
+		m_ptrPlayerN = GetStage()->GetSharedGameObject<Player>(L"Player");
+		m_PlayerNScaleHelf = m_ptrPlayerN->GetComponent<Transform>()->GetScale() / 2;
 		m_ptrPlayerS = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 		m_PlayerSScaleHelf = m_ptrPlayerS->GetComponent<Transform>()->GetScale() / 2;
 
 		m_DrawComp = AddComponent<PNTStaticDraw>();
 		m_DrawComp->SetMeshResource(L"DEFAULT_CUBE");
+		// 設定された磁力によってエリアの色を変更
 		if(m_eMagPole == EState::eN)
 		{
 			m_DrawComp->SetTextureResource(L"REDAREA_TX");
@@ -25,22 +36,22 @@ namespace basecross {
 		{
 			m_DrawComp->SetTextureResource(L"BULEAREA_TX");
 		}
-		if (m_eMagPole == EState::eFalse)
+		if ((m_eMagPole == EState::eFalse) || (m_eMagPole == EState::eMetal))
 		{
 			m_DrawComp->SetTextureResource(L"WHITEAREA_TX");
 		}
-		SetAlphaActive(true);
+		SetAlphaActive(true); // 透明処理
 	}
 
 	/** @brief Playerが範囲内にいるかを判定する関数(Player1用)
 	*   @param 引数なし
 	*   @return bool Playerが範囲内にいたらtrue
 	*/
-	bool HammerPressArea::AreaInPlayerF() {
-		m_PlayerFPos = m_ptrPlayerF->GetComponent<Transform>()->GetWorldPosition();
+	bool HammerPressArea::AreaInPlayerN() {
+		m_PlayerNPos = m_ptrPlayerN->GetComponent<Transform>()->GetWorldPosition();
 		
-		if (m_PlayerFPos.x <= m_AreaRightLimit && // プレイヤーがハンマーエリアの右より内側
-			m_PlayerFPos.x >= m_AreaLeftLimit) // プレイヤーがハンマーエリアの左より内側
+		if (m_PlayerNPos.x <= m_AreaRightLimit && // プレイヤーがハンマーエリアの右より内側
+			m_PlayerNPos.x >= m_AreaLeftLimit) // プレイヤーがハンマーエリアの左より内側
 		{
 			return true; // 内側なのでtrue
 		}
@@ -62,9 +73,12 @@ namespace basecross {
 		return false;
 
 	}
+	// ----------------------------------------------------------------------------
 
-
-	void HammerObject::OnCreate() {
+	// -------------------------ハンマーオブジェクト-------------------------------
+	// 生成
+	void HammerObject::OnCreate() 
+	{
 		m_TransComp = GetComponent<Transform>();
 		m_TransComp->SetScale(m_Scale);
 		m_position = m_CreatePos + m_posDiff;
@@ -86,52 +100,62 @@ namespace basecross {
 		);
 
 		m_DrawComp = AddComponent<PNTBoneModelDraw>();
+		// 設定された磁力によってモデルを切り替え
 		switch (m_eMagPole)
 		{
-		case EState::eFalse:
+		case EState::eFalse: // 無極 → 黒
 			m_DrawComp->SetMeshResource(L"Hammer_Black_MESH");
 			break;
-		case EState::eN:
+		case EState::eN: // Ｎ極 → 赤
 			m_DrawComp->SetMeshResource(L"Hammer_Red_MESH");
 			break;
-		case EState::eS:
+		case EState::eS: // Ｓ極 → 青
 			m_DrawComp->SetMeshResource(L"Hammer_Blue_MESH");
 			break;
-		case EState::eMetal:
+		case EState::eMetal: // 金属 → 黒
 			m_DrawComp->SetMeshResource(L"Hammer_Black_MESH");
 			break;
 		default:
 			break;
 		}
-		m_DrawComp->SetMeshToTransformMatrix(spanMat);
+		m_DrawComp->SetMeshToTransformMatrix(spanMat); // モデル差分の適用
 
+		// 磁力がN極かS極だったら磁力エリアを生成
 		m_ptrPressArea = GetStage()->AddGameObject<HammerPressArea>(m_CreatePos, m_eMagPole);
-		if (m_eMagPole != EState::eFalse) {
+		if ((m_eMagPole == EState::eN) || (m_eMagPole == EState::eS)) {
 			m_MagArea = GetStage()->AddGameObject<MagnetArea>(Vec3(m_position.x, m_position.y, m_position.z + m_Scale.z / 2), m_MagAreaRadius);
 		}
 
+		// Playerのポインタ取得
 		m_ptrPlayerF = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_ptrPlayerS = GetStage()->GetSharedGameObject<Player2>(L"Player2");
 
+		// 効果音用オーディオマネージャーのポインタ取得
 		m_ptrAudio = App::GetApp()->GetXAudio2Manager();
 	}
 
-	void HammerObject::OnUpdate() {
+	// 更新
+	void HammerObject::OnUpdate() 
+	{
 		// ハンマーの動作切り替え
 		switch (m_MoveState)
 		{
-		case HammerMoveState::Remove:
-			RemoveHammer();
+		// 戻る動作
+		case HammerMoveState::TurnBack:
+			TurnBackHammer();
 			break;
 
+		// 停止動作
 		case HammerMoveState::Stop:
 			StopHammer(m_lastMoveState);
 			break;
 
+		// 予備動作
 		case HammerMoveState::Antic:
 			AnticHammer();
 			break;
 
+		// 振り下ろす動作
 		case HammerMoveState::Swing:
 			SwingHammer();
 			break;
@@ -139,11 +163,14 @@ namespace basecross {
 		default:
 			break;
 		}
-			MagAreaCorrection();
+
+		// 振り下ろし中に磁力エリアを補正する
+		MagAreaCorrection();
 	}
 
 	// 巻き戻し
-	void HammerObject::RemoveHammer() {
+	void HammerObject::TurnBackHammer() 
+	{
 		auto& app = App::GetApp();
 		auto delta = app->GetElapsedTime();	// 時間の取得
 		
@@ -159,7 +186,8 @@ namespace basecross {
 	}
 
 	// 停止
-	void HammerObject::StopHammer(const HammerMoveState& lastState) {
+	void HammerObject::StopHammer(const HammerMoveState& lastState) 
+	{
 		auto& app = App::GetApp();
 		auto delta = app->GetElapsedTime();	// 時間の取得
 		m_CurrentTime += delta;
@@ -170,6 +198,7 @@ namespace basecross {
 			isSEActive = true;
 		}
 
+
 		// 経過時間が設定した時間を越えたら
 		if (m_CurrentTime >= m_StopTime)
 		{
@@ -178,8 +207,8 @@ namespace basecross {
 			// 一個前の動作によって切り替え
 			switch (m_lastMoveState)
 			{
-			// Remove(戻りなら)
-			case HammerMoveState::Remove:
+			// TurnBack(戻りなら)
+			case HammerMoveState::TurnBack:
 				m_lastMoveState = m_MoveState;
 				m_MoveState = HammerMoveState::Antic;// 予備動作へ
 				break;
@@ -195,7 +224,7 @@ namespace basecross {
 			// Swing(振り下ろしなら)
 			case HammerMoveState::Swing:
 				m_lastMoveState = m_MoveState;
-				m_MoveState = HammerMoveState::Remove; // 戻るへ
+				m_MoveState = HammerMoveState::TurnBack; // 戻るへ
 				break;
 
 			default:
@@ -207,7 +236,8 @@ namespace basecross {
 	}
 
 	// 予備動作
-	void HammerObject::AnticHammer() {
+	void HammerObject::AnticHammer() 
+	{
 		auto& app = App::GetApp();
 		auto delta = app->GetElapsedTime();	// 時間の取得
 
@@ -233,7 +263,8 @@ namespace basecross {
 		}
 	}
 	// 予備動作の振動
-	void HammerObject::AnticTremble(const float& time) {
+	void HammerObject::AnticTremble(const float& time) 
+	{
 
 		// X座標が振れ幅の右端か左端なら
 		if (m_position.x >= m_TrembleRightX || m_position.x <= m_TrembleLeftX) 
@@ -245,7 +276,8 @@ namespace basecross {
 	}
 
 	// 振り下ろし
-	void HammerObject::SwingHammer() {
+	void HammerObject::SwingHammer() 
+	{
 		auto& app = App::GetApp();
 		auto delta = app->GetElapsedTime();	// 時間の取得
 
@@ -265,13 +297,14 @@ namespace basecross {
 		}
 	}
 	// 振り下ろしの時にPlayerがいたら
-	void HammerObject::SwingingPlayerCheck(){
-		if (m_ptrPressArea->AreaInPlayerF()) // エリア内にPlayer1がいるとき
+	void HammerObject::SwingingPlayerCheck()
+	{
+		if (m_ptrPressArea->AreaInPlayerN()) // エリア内にPlayer1がいるとき
 		{
 			int playerFMag = int(m_ptrPlayerF->GetPlayerMagPole());
 			if (int(m_eMagPole) == playerFMag && playerFMag != STATE_NONE) { // 自分の磁極と範囲内のplayerの磁極が同じなら
 				m_lastMoveState = m_MoveState;
-				m_MoveState = HammerMoveState::Remove; // 跳ね返し(戻る)
+				m_MoveState = HammerMoveState::TurnBack; // 跳ね返し(戻る)
 				SetStopTime(m_SwingStopTime * 1.5f); // 跳ね返した時のみ時間を1.5倍に
 				ChangeFixed(true);
 				return;
@@ -283,7 +316,7 @@ namespace basecross {
 			int playerSMag = int(m_ptrPlayerS->GetPlayerMagPole());
 			if (int(m_eMagPole) == playerSMag && playerSMag != STATE_NONE) { // 自分の磁極と範囲内のplayerの磁極が同じなら
 				m_lastMoveState = m_MoveState;
-				m_MoveState = HammerMoveState::Remove; // 跳ね返し(戻る)
+				m_MoveState = HammerMoveState::TurnBack; // 跳ね返し(戻る)
 				SetStopTime(m_SwingStopTime * 1.5f); // 跳ね返した時のみ時間を1.5倍に
 				ChangeFixed(true);
 				return;
@@ -292,22 +325,23 @@ namespace basecross {
 	}
 
 	// 振り下ろしたときにPlayerがいた時の接触判定
-	void HammerObject::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		auto ptrPlayerF = dynamic_pointer_cast<Player>(Other); // オブジェクト取得
+	void HammerObject::OnCollisionEnter(shared_ptr<GameObject>& Other) 
+	{
+		auto ptrPlayerN = dynamic_pointer_cast<Player>(Other); // オブジェクト取得
 		auto ptrPlayerS = dynamic_pointer_cast<Player2>(Other);
 
-		if (ptrPlayerF) {
+		if (ptrPlayerN) { // 接触対象がPlayer1のとき
 			m_ptrPlayerF->PlayerDeathEffect();
 		}
-		if (ptrPlayerS) {
+		if (ptrPlayerS) { // 接触対象がPlayer2のとき
 			m_ptrPlayerS->PlayerDeathEffect();
 		}
 	}
 
 	// 磁力エリアの位置補正
-	void HammerObject::MagAreaCorrection() {
-
-		// 磁極が無ければこれ以降は無視
+	void HammerObject::MagAreaCorrection() 
+	{
+		// 磁力エリアが無ければこれ以降は無視
 		if (!m_MagArea) return;
 
 		auto MagAreaTrans = m_MagArea->GetComponent<Transform>();
@@ -315,4 +349,6 @@ namespace basecross {
 		float diff = m_Rotation.x / XM_PIDIV2 * m_PivotLength;
 		MagAreaTrans->SetPosition(MagAreaPos.x, m_position.y + diff, MagAreaPos.z);
 	}
+	// ----------------------------------------------------------------------------
+
 }

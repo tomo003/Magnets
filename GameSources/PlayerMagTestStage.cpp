@@ -1,6 +1,6 @@
 /*!
-@file GameStage.cpp
-@brief ゲームステージ実体
+@file PlayerMagTestStage.cpp
+@brief プレイヤーの機能やオブジェクトのテストステージ
 */
 
 #include "stdafx.h"
@@ -102,7 +102,7 @@ namespace basecross {
 	* @details forループで複数の背景を表示させる
 	*/
 	void PlayerMagTestStage::CreateBackGround(const wstring& texkey) {
-		for (int i = 0; i <= 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			AddGameObject<BackGroundSprite2>(Vec3(40, 30, 1.0f), Vec3(-50 + (40 * i), 0, 0), texkey);
 		}
 	}

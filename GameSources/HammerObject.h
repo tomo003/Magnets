@@ -1,8 +1,8 @@
 /*!
 * @file HammerObject.h
-* @brief ハンマーオブジェクト
+* @brief ハンマーオブジェクト類の定義
 * @author 穴澤委也
-* @details	ハンマーオブジェクト
+* @details	ハンマーオブジェクトの定義
 *			ハンマーの前方エリアの判定
 */
 
@@ -36,9 +36,9 @@ namespace basecross {
 		float m_AreaLeftLimit; // エリアの左端
 
 		// プレイヤーのポインタ
-		shared_ptr<Player> m_ptrPlayerF; // Player1
-		Vec3 m_PlayerFPos; // Player1の座標
-		Vec3 m_PlayerFScaleHelf; // Player1のサイズの半分
+		shared_ptr<Player> m_ptrPlayerN; // Player1
+		Vec3 m_PlayerNPos; // Player1の座標
+		Vec3 m_PlayerNScaleHelf; // Player1のサイズの半分
 		shared_ptr<Player2> m_ptrPlayerS; // Player2
 		Vec3 m_PlayerSPos; // Player2の座標
 		Vec3 m_PlayerSScaleHelf; // Player2のサイズの半分
@@ -58,7 +58,21 @@ namespace basecross {
 
 		void OnCreate() override;
 
-		bool AreaInPlayerF();
+		/**
+		* @fn bool AreaInPlayerN()
+		* @brief プレイヤーがハンマーのエリア内にいるか判定する関数
+		* @param 引数なし
+		* @return bool エリア内にプレイヤーがいたらtrue
+		* @details プレイヤー１用
+		*/
+		bool AreaInPlayerN();
+		/**
+		* @fn bool AreaInPlayerS()
+		* @brief プレイヤーがハンマーのエリア内にいるか判定する関数
+		* @param 引数なし
+		* @return bool エリア内にプレイヤーがいたらtrue
+		* @details プレイヤー2用
+		*/
 		bool AreaInPlayerS();
 	};
 
@@ -67,7 +81,7 @@ namespace basecross {
 	{
 		// 動作関係のステート
 		enum class HammerMoveState {
-			Remove = -1, // 戻る
+			TurnBack = -1, // 戻る
 			Stop = 0, // 停止
 			Antic = 1, // 予備動作(震える)
 			Swing = 2, // 振り下ろし
@@ -127,7 +141,7 @@ namespace basecross {
 			m_CreatePos(position),
 			m_eMagPole(EState(MagPole)),
 			m_MoveState(HammerMoveState::Stop), // 初期値は停止
-			m_lastMoveState(HammerMoveState::Remove), // 初期値は戻る(停止時間を３秒にしたいため)
+			m_lastMoveState(HammerMoveState::TurnBack), // 初期値は戻る(停止時間を３秒にしたいため)
 			m_TrembleRightX(m_position.x + 1.0f), // 揺れるときの右端
 			m_TrembleLeftX(m_position.x - 1.0f) // 揺れるときの左端
 		{
@@ -136,8 +150,21 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() override;
 
+
+		/** @brief 接触判定が起こった時に呼び出される関数
+		*   @fn void OnCollisionEnter(shared_ptr<GameObject>& Other)
+		*   @param Other 接触判定を起こしているオブジェクト
+		*   @return 戻り値なし
+		*/
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 
+		/**
+		* @fn void ChangeFixed(bool fix)
+		* @brief ハンマーの剛体を切り替える関数
+		* @param fix 剛体を有効にしたいならtrue
+		* @return 戻り値なし
+		* @details ハンマーが剛体のままだとプレイヤーとの接触判定が取れないが、剛体じゃないと位置がバグるので解決策
+		*/
 		void ChangeFixed(bool fix) {
 			m_CollComp->SetFixed(fix);
 			if (fix) {
@@ -148,70 +175,97 @@ namespace basecross {
 			}
 		}
 
-		/** @brief ハンマーのステートを渡す
-		*   @param 引数なし
-		*   @return 戻り値 m_MoveState　ハンマーの動作ステート
+		/**
+		* @fn HammerMoveState GetHammerMoveState()
+		* @brief ハンマーのステートを渡す
+		* @param 引数なし
+		* @return HammerMoveState m_MoveState ハンマーの動作ステート
 		*/
 		HammerMoveState GetHammerMoveState() {
 			return m_MoveState;
 		}
-		/** @brief ハンマーのステートをセット
-		*   @param 引数 hms ハンマーの動作ステート
+
+		/** 
+		* @fn void SetHammerMoveState(const HammerMoveState& hms)
+		* @brief ハンマーのステートをセット
+		* @param hms ハンマーの動作ステート
+		* @return 戻り値なし
 		*/
 		void SetHammerMoveState(const HammerMoveState& hms) {
 			m_MoveState = hms;
 		}
 
-		/** @brief 停止時間をセット
-		*   @param 引数 time 秒
+		/**
+		* @fn void SetStopTime(const float time)
+		* @brief 停止時間をセット
+		* @param time 秒
+		* @return 戻り値なし
 		*/
 		void SetStopTime(const float time) {
 			m_StopTime = time;
 		}
 
-		// @brief 現在の経過時間カウントをリセット
+		/**
+		* @fn void ResetCurrentTime()
+		* @brief 現在の経過時間カウントをリセット
+		* @param 引数なし
+		* @return 戻り値なし
+		*/
 		void ResetCurrentTime() {
 			m_CurrentTime = 0.0f;
 		}
 
-		/** @brief ハンマーの戻る動作
-		*   @param 引数なし
-		*   @return 戻り値なし
+		/**
+		* @fn void TurnBackHammer()
+		* @brief ハンマーの戻る動作
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
-		void RemoveHammer();
+		void TurnBackHammer();
 
-		/** @brief ハンマーの停止動作
-		*   @param 引数　lastState 一個前のステート
-		*				　次のステートを設定するために使用
-		*   @return 戻り値なし
+		/**
+		* @fn void StopHammer(const HammerMoveState& lastState)
+		* @brief ハンマーの停止動作
+		* @param 引数　lastState 一個前のステート 次のステートを設定するために使用
+		* @return 戻り値なし
 		*/
 		void StopHammer(const HammerMoveState& lastState);
 
-		/** @brief ハンマーの予備動作
-		*   @param 引数なし
-		*   @return 戻り値なし
+		/** 
+		* @fn void AnticHammer()
+		* @brief ハンマーの予備動作
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void AnticHammer();
-		/** @brief 予備動作用の振動
-		*   @param time 時間
-		*   @return 戻り値なし
+		/** 
+		* @fn void AnticTremble(const float& time)
+		* @brief 予備動作用の振動
+		* @param time 時間
+		* @return 戻り値なし
 		*/
 		void AnticTremble(const float& time);
 
-		/** @brief ハンマーの振り下ろす動作
-		*   @param 引数なし
-		*   @return 戻り値なし
+		/** 
+		* @fn void SwingHammer()
+		* @brief ハンマーの振り下ろす動作
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void SwingHammer();
-		/** @brief 振り下ろし中にプレイヤーがいた時の処理
-		*   @param 引数なし
-		*   @return 戻り値なし
+		/**
+		* @fn void SwingingPlayerCheck()
+		* @brief 振り下ろし中にプレイヤーがいた時の処理
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void SwingingPlayerCheck();
 
-		/** @brief 振り下ろし中に磁力エリアオブジェクトを補正する関数
-		*   @param 引数なし
-		*   @return 戻り値なし
+		/** 
+		* @fn void MagAreaCorrection()
+		* @brief 振り下ろし中に磁力エリアを補正する関数
+		* @param 引数なし
+		* @return 戻り値なし
 		*/
 		void MagAreaCorrection();
 	};

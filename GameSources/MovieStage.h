@@ -9,7 +9,7 @@
 
 namespace basecross {
 	//--------------------------------------------------------------------------------------
-	//	ムービーステージクラス
+	//	ムービーステージ
 	//--------------------------------------------------------------------------------------
 	class TitleMovieStage : public MovieStage {
 		//入力ハンドラー
@@ -34,9 +34,8 @@ namespace basecross {
 		void CreateViewLight();
 		void OnCreate()override;
 		void OnUpdate() override;
-		//ボタン
+		//ボタン(どこでも)
 		void OnPushAny();
-		//void OnReset();
 	};
 
 

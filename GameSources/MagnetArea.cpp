@@ -1,7 +1,14 @@
+/*!
+* @file MagnetsArea.h
+* @brief 磁気エリアの実装
+* @author 穴澤委也
+* @details 磁気エリア用の板ポリ
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 
-#define COL_RED   Col4(1.0f, 0.0f, 0.0f, 0.5)
+#define COL_RED   Col4(1.0f, 0.0f, 0.0f, 0.5) // 
 #define COL_BLUE  Col4(0.0f, 0.0f, 1.0f, 0.5)
 
 namespace basecross {

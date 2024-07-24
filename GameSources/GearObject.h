@@ -8,9 +8,7 @@
 #include "stdafx.h"
 
 namespace basecross {
-	//--------------------------------------------------------------------------------------
-	//	class GearObjFloor : public Metal;
-	//--------------------------------------------------------------------------------------
+	//----------------歯車オブジェクトの床-------------------------------------------
 	class GearObjFloor : public GameObject
 	{
 	public:
@@ -31,10 +29,10 @@ namespace basecross {
 		float m_ObjMass = 1.0f; // オブジェクトの重さ(引力で使用)
 		float m_MagAreaRadius = 3.0f; // 磁力を適用する範囲
 
-		Vec3 m_position;
-		float m_posDiff = 4.5f;
-		Vec3 m_Rotation = Vec3(0.0f);
-		Vec3 m_Scale = Vec3(3.5f, 1.0f, 1.0f);
+		Vec3 m_position; // 位置
+		Vec3 m_posDiff = Vec3(0.0f, 4.5f, 0.0f); // 生成時の位置から正規の位置までの差分
+		Vec3 m_Rotation = Vec3(0.0f); // 回転はゼロ
+		Vec3 m_Scale = Vec3(3.5f, 1.0f, 1.0f); // サイズ
 
 		float m_RotSpeed; // 回転スピード
 		int m_RotDir; // 回転方向
@@ -56,15 +54,8 @@ namespace basecross {
 		void OnCreate() override;
 		void OnUpdate() override;
 
-		/*!
-		@brief 衝突した瞬間に呼び出される関数
-		@param コリジョンペア(コリジョン情報)
-		*/
-		//void OnCollisionEnter(const CollisionPair& Pair) override;
-		//void OnCollisionExcute(const CollisionPair& Pair) override;
-		//void OnCollisionExit(const CollisionPair& Pair) override;
-
 		/**
+		* @fn void RotToCenter()
 		* @brief 中心をもとに回転する関数
 		* @param 引数なし
 		* @return 戻り値なし
@@ -72,6 +63,7 @@ namespace basecross {
 		void RotToCenter();
 
 		/**
+		* @fn void RotToCenter()
 		* @brief 磁力状態を渡す関数
 		* @param　引数なし
 		* @return int enumをint型にして渡す
@@ -81,7 +73,8 @@ namespace basecross {
 		}
 
 		/**
-		* @brief オブジェクトの重さを渡す関数）
+		* @fn float GetMass()
+		* @brief オブジェクトの重さを渡す関数
 		* @param 引数なし
 		* @return float オブジェクトの重さ
 		*/
@@ -90,7 +83,8 @@ namespace basecross {
 		}
 
 		/**
-		* @brief 磁気エリアの範囲を渡す関数）
+		* @fn float GetAreaRadius()
+		* @brief 磁気エリアの範囲を渡す関数
 		* @param 引数なし
 		* @return float 磁気エリアの半径
 		*/
@@ -99,6 +93,7 @@ namespace basecross {
 		}
 
 		/**
+		* @fn void ApplyForcePlayer()
 		* @brief プレイヤーに磁力を適用する関数
 		* @param 引数なし
 		* @return 戻り値なし
@@ -106,6 +101,7 @@ namespace basecross {
 		void ApplyForcePlayer();
 
 		/**
+		* @fn void ApplyForceSecondPlayer()
 		* @brief プレイヤーに磁力を適用する関数
 		* @param 引数なし
 		* @return 戻り値なし
@@ -118,10 +114,9 @@ namespace basecross {
 			return VV;
 		}
 	};
+	//--------------------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------------------
-	//	class GearObject : public GameObject;
-	//--------------------------------------------------------------------------------------
+	//----------------歯車オブジェクト------------------------------------------------------
 	class GearObject : public GameObject
 	{
 	public:
@@ -137,8 +132,10 @@ namespace basecross {
 		shared_ptr<GearObjFloor> m_ptrGearFloorF;
 		shared_ptr<GearObjFloor> m_ptrGearFloorS;
 
-		int m_eFloorStateF;
+		int m_eFloorStateF; 
 		int m_eFloorStateS;
+
+		float m_floorDiffY = 4.0f;
 
 		// コンポーネント取得省略用
 		shared_ptr<Transform> m_TransComp; // トランスフォームコンポーネント
@@ -147,6 +144,7 @@ namespace basecross {
 		Vec3 m_position;
 		Vec3 m_posDiff = Vec3(0.0f, 0.0f, 1.2f); // ちょっとだけ奥に配置
 		Vec3 m_Rotation = Vec3(0.0f);
+		Vec3 m_Scale = Vec3(7.0f);
 
 		float m_RotSpeed; // 一秒で50度回す
 		int m_RotDir; // 回転方向(1 = 左回転、-1 = 右回転)
@@ -171,4 +169,5 @@ namespace basecross {
 		void OnUpdate() override;
 
 	};
+	//--------------------------------------------------------------------------------------
 }

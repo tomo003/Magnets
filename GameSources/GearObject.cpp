@@ -1,7 +1,17 @@
+/*!
+* @file GearObject.cpp
+* @brief 歯車オブジェクトの実装
+* @author 穴澤委也
+* @details	歯車オブジェクトの実装
+*			歯車に付属している床オブジェクトの実装
+*/
+
 #include "stdafx.h"
 #include "Project.h"
 
 namespace basecross {
+	// -------------------------歯車に付属する床オブジェクト-----------------------
+	// 生成
 	void GearObject::OnCreate()
 	{
 		Mat4x4 spanMat; // モデルとトランスフォームの間の差分行列
@@ -19,13 +29,13 @@ namespace basecross {
 		m_TransComp = GetComponent<Transform>();
 		m_position += m_posDiff;
 		m_TransComp->SetPosition(m_position);
-		m_TransComp->SetScale(Vec3(7.0f));
+		m_TransComp->SetScale(m_Scale);
 		m_TransComp->SetRotation(m_Rotation);
 
 		// 床を追加して親子付け
-		m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + 4.0f, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateF);
+		m_ptrGearFloorF = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y + m_floorDiffY, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateF);
 		m_ptrGearFloorF->GetComponent<Transform>()->SetParent(GetThis<GearObject>());
-		m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - 4.0f, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateS);
+		m_ptrGearFloorS = GetStage()->AddGameObject<GearObjFloor>(Vec3(m_position.x, m_position.y - m_floorDiffY, 0.0f), m_RotSpeed, m_RotDir, m_eFloorStateS);
 		m_ptrGearFloorS->GetComponent<Transform>()->SetParent(GetThis<GearObject>());
 
 	}
@@ -36,11 +46,15 @@ namespace basecross {
 		m_Rotation.z += Utility::DegToRad(m_RotSpeed) * delta * m_RotDir;
 		m_TransComp->SetRotation(m_Rotation);
 	}
+	// ----------------------------------------------------------------------------
 
-
+	// -------------------------歯車に付属する床オブジェクト-----------------------
+	// 生成
 	void GearObjFloor::OnCreate() {
 		m_ptrDraw = AddComponent<PNTStaticDraw>();
 		m_ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		// 磁力の状態に応じてテクスチャ切り替え
+		// 歯車の床は磁力が無いので金属or無極
 		switch (m_eMagPole)
 		{
 		case EState::eFalse:
@@ -85,7 +99,7 @@ namespace basecross {
 		m_Rotation.z -= Utility::DegToRad(m_RotSpeed) * delta * m_RotDir;
 		if (m_Rotation.z <= -XM_2PI) {
 			m_Rotation.z += XM_2PI;
-		}
+		}//whileに
 		m_ptrTrans->SetRotation(m_Rotation);
 	}
 
@@ -132,4 +146,5 @@ namespace basecross {
 			}
 		}
 	}
+	// ----------------------------------------------------------------------------
 }

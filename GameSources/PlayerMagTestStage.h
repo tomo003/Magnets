@@ -1,6 +1,6 @@
 /*!
 @file PlayerMagTestStage.h
-@brief オブジェクト仮置き用テストステージ
+@brief プレイヤーの機能やオブジェクトのテストステージ
 */
 
 #pragma once
