@@ -807,12 +807,12 @@ namespace basecross {
 
 				if (PauseNum == 0)
 				{
-					PtrScene->ResetScore(PtrScene->GetStageNum());
+					m_ptrScene->ResetScore(m_ptrScene->GetStageNum());
 					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToSelectStage");
 				}
 				if (PauseNum == 1)
 				{
-					PtrScene->ResetScore(PtrScene->GetStageNum());
+					m_ptrScene->ResetScore(m_ptrScene->GetStageNum());
 					PostEvent(2.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
 
 				}
