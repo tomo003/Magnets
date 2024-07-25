@@ -53,7 +53,7 @@ namespace basecross {
 
 		std::shared_ptr<DeathEffectImg> ptrEffect[8]; // 配列の要素数は呼び出したいエフェクトの数を入れる
 
-		int m_interval; // エフェクトの飛び散る間隔
+		float m_interval; // エフェクトの飛び散る間隔
 		float m_speed; // 移動の速さ
 		float m_forward[8] = {0.0f}; // 移動方向を表す単位ベクトル、配列の要素数は呼び出したいエフェクトの数を入れる
 		Vec3 m_startPos; // 生成されたポジション
@@ -68,7 +68,7 @@ namespace basecross {
 		// 構築と破棄
 		DeathEffect(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
 			GameObject(stage),
-			m_interval(360/size(ptrEffect)),
+			m_interval(360/float(size(ptrEffect))),
 			m_speed(0.1f),
 			m_owner(owner)
 		{

@@ -402,7 +402,7 @@ namespace basecross {
 					break;
 
 				case 8://動く床発動用ボタン
-					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHeight - 0.47, 0));
+					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, float( - posY + m_CSVHeight - 0.47), 0));
 					SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
 					break;
 
@@ -458,7 +458,7 @@ namespace basecross {
 					break;
 
 				case 20: //2*2の地面オブジェクト
-					ptrGround = AddGameObject<Block>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
+					ptrGround = AddGameObject<Block>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5,float( - posY + m_CSVHeight - 0.5), 0), L"CONCRETE2_TX");
 					break;
 
 				case 21: //3*3の地面王ジェクト
