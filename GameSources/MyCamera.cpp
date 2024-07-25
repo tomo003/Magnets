@@ -120,7 +120,8 @@ namespace basecross {
 		auto targetPos = ptrTarget->GetComponent<Transform>()->GetWorldPosition();
 		auto ptrSecondTarget = GetSecondPlayerObj();
 		auto secondTargetPos = ptrSecondTarget->GetComponent<Transform>()->GetWorldPosition();
-		auto targetBetween = abs(targetPos.x - secondTargetPos.x) * 0.3;
+		auto targetBetween = abs(targetPos.x - secondTargetPos.x);
+		auto pullDistance = targetBetween * m_distance;
 
 		Vec3 newAt = GetAt();
 		Vec3 newEye = GetEye();

@@ -51,7 +51,7 @@ namespace basecross {
 
 		auto transComp = GetComponent<Transform>();
 		m_sec += delta * m_moveSpeed;
-		auto scl = Vec3(pow(sin(m_sec + sin(m_sec + sin(m_sec * 2))), 2));
+		auto scl = Vec3(pow(sin(m_sec + sin(m_sec + sin(m_sec * 2.0f))), 2.0f));
 		transComp->SetScale(scl);
 	}
 
