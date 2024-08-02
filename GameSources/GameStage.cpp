@@ -402,28 +402,28 @@ namespace basecross {
 					break;
 
 				case 8://動く床発動用ボタン
-					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, -posY + m_CSVHeight - 0.47, 0));
+					ptrMoveFloorButton = AddGameObject <MoveFloorButton>(Vec3(posX, float( - posY + m_CSVHeight - 0.47f), 0));
 					SetSharedGameObject(L"MoveFloorButton", ptrMoveFloorButton);
 					break;
 
 				case 9://ベルトコンベア右回り端
 					AddGameObject<BeltConveyorSideRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5));
+					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5f));
 					break;
 
 				case 10://ベルトコンベア右回り真ん中
 					AddGameObject<BeltConveyorRight>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
-					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5));
+					AddGameObject<RightGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5f));
 					break;
 
 				case 11://ベルトコンベア左回り端
 					AddGameObject<BeltConveyorSideLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5));
+					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5f));
 					break;
 
 				case 12://ベルトコンベア左回り真ん中
 					AddGameObject<BeltConveyorLeft>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0));
-					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5));
+					AddGameObject<LeftGuide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, -0.5f));
 					break;
 
 				case 13: //スタート
@@ -432,12 +432,12 @@ namespace basecross {
 					break;
 
 				case 14: //セーブポイント
-					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
+					ptrSavePoint = AddGameObject<SavePoint>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1.0f, 0));
 					SavePointGroup->IntoGroup(ptrSavePoint);
 					break;
 
 				case 15: //ゴール
-					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1, 0));
+					ptrGround = AddGameObject<Goal>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight + 1.0f, 0));
 					SetSharedGameObject(L"Goal", ptrGround);
 					break;
 
@@ -458,19 +458,19 @@ namespace basecross {
 					break;
 
 				case 20: //2*2の地面オブジェクト
-					ptrGround = AddGameObject<Block>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5, -posY + m_CSVHeight-0.5, 0),L"CONCRETE2_TX");
+					ptrGround = AddGameObject<Block>(Vec3(2.0f,2.0f,1.0f) / size, Vec3(posX+0.5f, - posY + m_CSVHeight - 0.5f, 0), L"CONCRETE2_TX");
 					break;
 
 				case 21: //3*3の地面王ジェクト
-					ptrGround = AddGameObject<Block>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1, -posY + m_CSVHeight-1, 0),L"CONCRETE3_TX");
+					ptrGround = AddGameObject<Block>(Vec3(3.0f,3.0f,1.0f) / size, Vec3(posX+1.0f, -posY + m_CSVHeight-1.0f, 0),L"CONCRETE3_TX");
 					break;
 
 				case 22: //1Pが上に行くガイド
-					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight,0.5), 1);
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight,0.5f), 1);
 					break;
 
 				case 23: //1Pが下に行くガイド
-					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5), 2);
+					AddGameObject<Guide>(Vec3(1.0f) / size, Vec3(posX, -posY + m_CSVHeight, 0.5f), 2);
 					break;
 
 				case 24: //1Pが真っすぐに行くガイド

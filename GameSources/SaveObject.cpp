@@ -179,9 +179,9 @@ namespace basecross {
 
 		// セーブオブジェクトの上の板ポリの追加
 		m_ptrTriangleRed = GetStage()->AddGameObject<SaveTriangleRed>
-			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
+			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5f, transComp->GetPosition().z));
 		m_ptrTriangleBlue = GetStage()->AddGameObject<SaveTriangleBlue>
-			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5, transComp->GetPosition().z));
+			(Vec3(1.0f), Vec3(transComp->GetPosition().x , transComp->GetPosition().y + 4.5f, transComp->GetPosition().z));
 		// セーブオブジェクトの上の文字の追加
 		GetStage()->AddGameObject<SavePointTexture>(Vec3(3.0f, 0.75f, 1.0f), Vec3(transComp->GetPosition().x, transComp->GetPosition().y + 6.5f, transComp->GetPosition().z));
 	}
