@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "Project.h"
 
-namespace basecross{
+namespace basecross {
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
@@ -20,12 +20,12 @@ namespace basecross{
 	}
 
 	// 静的モデルの読み込み
-	void Scene::LoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName){
+	void Scene::LoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName) {
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
 
 		App::GetApp()->RegisterResource(
-			staticModelMeshName,MeshResource::CreateStaticModelMesh(dataDir+ L"Model//",  staticModelbmfName + L".bmf")
+			staticModelMeshName, MeshResource::CreateStaticModelMesh(dataDir + L"Model//", staticModelbmfName + L".bmf")
 		);
 	}
 
@@ -63,7 +63,7 @@ namespace basecross{
 	}
 
 	// サウンドの読み込み
-	void Scene::LoadSound(const wstring& soundName, const wstring& soundDataName){
+	void Scene::LoadSound(const wstring& soundName, const wstring& soundDataName) {
 		wstring dataDir;
 		App::GetApp()->GetDataDirectory(dataDir);
 		wstring strMusic = dataDir + L"Sound\\" + soundDataName;
@@ -169,7 +169,7 @@ namespace basecross{
 		LoadTexture(L"GUIDEBLUECENTER_TX", L"GuideBlueCenter.png"); // 横向き(Player2用)
 
 		// 鍵オブジェクト
-		LoadBoneModel(L"Key", L"Key_MESH",L"Key_MESH_TAN");
+		LoadBoneModel(L"Key", L"Key_MESH", L"Key_MESH_TAN");
 
 		//Player1
 		LoadBoneModel(L"Brack", L"PlayerBrack_MESH", L"PlayerBrack_MESH_TAN"); //無極
@@ -208,8 +208,8 @@ namespace basecross{
 		LoadTexture(L"WHITEAREA_TX", L"HummerArea_White.png");
 
 		//BGM
-		LoadSound(L"TITLE_BGM",L"Title.wav");//タイトルシーン
-		LoadSound(L"STANDBY_BGM",L"StandBy.wav");//準備完了シーン
+		LoadSound(L"TITLE_BGM", L"Title.wav");//タイトルシーン
+		LoadSound(L"STANDBY_BGM", L"StandBy.wav");//準備完了シーン
 		LoadSound(L"GAMESTAGE1_BGM", L"GameStage1.wav");//ステージ1~6
 		LoadSound(L"GAMESTAGE2_BGM", L"GameStage2.wav");
 		LoadSound(L"GAMESTAGE3_BGM", L"GameStage3.wav");
@@ -232,7 +232,7 @@ namespace basecross{
 
 	}
 
-	void Scene::OnCreate(){
+	void Scene::OnCreate() {
 		try {
 			CreateResourses();
 
@@ -259,35 +259,38 @@ namespace basecross{
 	}
 
 	void Scene::OnEvent(const shared_ptr<Event>& event) {
-		const auto& audioPtr = App::GetApp()->GetXAudio2Manager();
 		auto& app = App::GetApp();
+		const auto& audioPtr = app->GetXAudio2Manager();
 
 		if (event->m_MsgStr == L"ToGameStage") {
 			audioPtr->Stop(m_bgm);
+			m_bgm.reset();
 			//最初のアクティブステージの設定
 			ResetActiveStage<GameStage>();
 			m_scene = 2;
 		}
-		else if (event->m_MsgStr == L"ToTitleStage") {
-			audioPtr->Stop(m_bgm);
+		if (event->m_MsgStr == L"ToTitleStage") {
 			for (int i = 1; i < 7; i++) {
 				ResetScore(i);
 			}
 
-			m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 0.5f);
+			if (!m_bgm) {
+				m_bgm = audioPtr->Start(L"TITLE_BGM", XAUDIO2_LOOP_INFINITE, 0.5f);
+			}
+
 			ResetActiveStage<TitleStage>();
 			m_scene = 0;
 		}
-		else if (event->m_MsgStr == L"ToStandbyStage") {
+		if (event->m_MsgStr == L"ToStandbyStage") {
 			ResetActiveStage<StandbyStage>();
 			m_scene = 1;
 		}
-		else if (event->m_MsgStr == L"ToSelectStage") {
+		if (event->m_MsgStr == L"ToSelectStage") {
 			audioPtr->Stop(m_bgm);
 			ResetActiveStage<SelectStage>();
 			m_scene = 3;
 		}
-		else if (event->m_MsgStr == L"ToMovieStage") {
+		if (event->m_MsgStr == L"ToMovieStage") {
 			ResetActiveStage<TitleMovieStage>();
 			m_scene = 15;
 		}
